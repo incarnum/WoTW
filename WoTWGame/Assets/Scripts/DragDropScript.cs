@@ -64,7 +64,8 @@ public class DragDropScript : MonoBehaviour {
 				player.GetComponent<InventoryScript> ().corrFangNum += 1;
 			}
 			player.GetComponent<InventoryScript> ().UpdateNumbers ();
-			Destroy (gameObject);
+			DestroyImmediate (gameObject);
+			GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().PredictSpell ();
 		}
 	}
 
@@ -83,9 +84,9 @@ public class DragDropScript : MonoBehaviour {
 		held = false;
 		transform.position = new Vector3 (targetDrop.transform.position.x, targetDrop.transform.position.y, -1);
 		targetDrop.GetComponent<IngredientHolderScript> ().holding = gameObject;
-		//GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().CheckNodes ();
 		player.GetComponent<PlaceMasterScript> ().targetDrop = null;
-		Debug.Log ("Placed");
+		GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().PredictSpell ();
+		//Debug.Log ("Placed");
 	}
 
 	void ReturnIng() {
@@ -109,6 +110,7 @@ public class DragDropScript : MonoBehaviour {
 			}
 			player.GetComponent<InventoryScript> ().UpdateNumbers ();
 			Destroy (gameObject);
+			GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().PredictSpell ();
 		//}
 	}
 }

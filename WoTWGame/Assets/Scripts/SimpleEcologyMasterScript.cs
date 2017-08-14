@@ -9,9 +9,19 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public float shrubPop;
 	public float deerPop;
 	public float wolfPop;
+	public float shrubBiomass;
+	public float deerBiomass;
+	public float wolfBiomass;
 	public float corruptedShrubPop;
 	public float corruptedDeerPop;
 	public float corruptedWolfPop;
+	public float corruptedShrubBiomass;
+	public float corruptedDeerBiomass;
+	public float corruptedWolfBiomass;
+
+	public float shrubSize;
+	public float deerSize;
+	public float wolfSize;
 
 	public bool shrubRising;
 	public bool deerRising;
@@ -85,6 +95,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		corruptedShrubArrows = GameObject.Find ("corruptedShrubArrows").GetComponent<Animator> ();
 		corruptedDeerArrows = GameObject.Find ("corruptedDeerArrows").GetComponent<Animator> ();
 		corruptedWolfArrows = GameObject.Find ("corruptedWolfArrows").GetComponent<Animator> ();
+		shrubSize = 1;
+		deerSize = 1;
+		wolfSize = 1;
 	}
 	
 	// Update is called once per frame
@@ -122,44 +135,44 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	}
 
 	public void UpdateBars() {
-		shrubBar.SetFillSizeValue (shrubPop / 100f);
-		deerBar.SetFillSizeValue (deerPop / 100f);
-		wolfBar.SetFillSizeValue (wolfPop / 100f);
-		corruptedShrubBar.SetFillSizeValue (corruptedShrubPop / 100f);
-		corruptedDeerBar.SetFillSizeValue (corruptedDeerPop / 100f);
-		corruptedWolfBar.SetFillSizeValue (corruptedWolfPop / 100f);
+		shrubBar.SetFillSizeValue (shrubBiomass / 100f);
+		deerBar.SetFillSizeValue (deerBiomass / 100f);
+		wolfBar.SetFillSizeValue (wolfBiomass / 100f);
+		corruptedShrubBar.SetFillSizeValue (corruptedShrubBiomass / 100f);
+		corruptedDeerBar.SetFillSizeValue (corruptedDeerBiomass / 100f);
+		corruptedWolfBar.SetFillSizeValue (corruptedWolfBiomass / 100f);
 	}
 
 	void SimpleEcologize() {
-		if (shrubPop > (deerPop + overShootValue)) {
+		if (shrubBiomass > (deerBiomass + overShootValue)) {
 			deerRising = true;
 			deerArrowsShrub.SetTrigger (deerUp1.ToString());
 		}
-		if (shrubPop < (deerPop - overShootValue)) {
+		if (shrubBiomass < (deerBiomass - overShootValue)) {
 			deerRising = false;
 			deerArrowsShrub.SetTrigger (deerDown1.ToString());
 		}
-		if (shrubPop < deerPop) {
+		if (shrubBiomass < deerBiomass) {
 			shrubRising = false;
 			shrubArrowsDeer.SetTrigger (shrubDown.ToString());
-		} else if (shrubPop > deerPop) {
+		} else if (shrubBiomass > deerBiomass) {
 			shrubRising = true;
 			shrubArrowsDeer.SetTrigger (shrubUp.ToString());
 		}
 
 
-		if (deerPop > (wolfPop + overShootValue)) {
+		if (deerBiomass > (wolfBiomass + overShootValue)) {
 			wolfRising = true;
 			wolfArrowsDeer.SetTrigger (wolfUp.ToString());
 		}
-		if (deerPop < (wolfPop - overShootValue)) {
+		if (deerBiomass < (wolfBiomass - overShootValue)) {
 			wolfRising = false;
 			wolfArrowsDeer.SetTrigger (wolfDown.ToString());
 		}
-		if (deerPop < wolfPop) {
+		if (deerBiomass < wolfBiomass) {
 			deerRising2 = false;
 			deerArrowsWolf.SetTrigger (deerDown2.ToString());
-		} else if (deerPop > wolfPop) {
+		} else if (deerBiomass > wolfBiomass) {
 			deerRising2 = true;
 			deerArrowsWolf.SetTrigger (deerUp2.ToString());
 		}
@@ -195,10 +208,15 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptedDeerPop += (2 + deerUp2 * .2f) * overallSpeed * Time.deltaTime;
 		} else {
 			deerPop -= (1 + deerDown2 * .2f) * overallSpeed * Time.deltaTime * 2;
-			corruptedDeerPop -= (1 + deerDown2 * 2f) * overallSpeed * Time.deltaTime * 2;
+			corruptedDeerPop -= (1 + deerDown2 * .2f) * overallSpeed * Time.deltaTime * 2;
 		}
 
-
+		shrubBiomass = shrubPop * shrubSize;
+		deerBiomass = deerPop * deerSize;
+		wolfBiomass = wolfPop * wolfSize;
+		corruptedShrubBiomass = corruptedShrubPop * shrubSize;
+		corruptedDeerBiomass = corruptedDeerPop * deerSize;
+		corruptedWolfBiomass = corruptedWolfPop * wolfSize;
 
 //		if (Mathf.Abs (shrubPop - deerPop) < 15) {
 //			shrubOvershoot += .5f * Time.deltaTime * overallSpeed;

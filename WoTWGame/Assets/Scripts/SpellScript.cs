@@ -55,66 +55,59 @@ public class SpellScript : MonoBehaviour {
 	public void Cast() {
 		
 		if (effect == 0) {
-			//changes efficiency. growth rate for shrubs, forage(shrubs- deer+) for deer, hunter(deer- wolf+) for wolves
+			//changes size, keeping biomass the same but changing raw population
 			if (target == 0) {
-				eco.shrubUp += strength;
+				eco.shrubSize += strength * .2f;
 			} else if (target == 1) {
-				eco.shrubDown += strength;
-				eco.deerUp1 += strength;
+				eco.deerSize += strength * .2f;
 			} else if (target == 2) {
-				eco.deerDown2 += strength;
-				eco.wolfUp += strength;
+				eco.wolfSize += strength * .2f;
 			} else if (target == 3) {
-				//eco.shrubPop += strength * 10;
-				//eco.corruptedShrubPop += strength * 10 * (eco.corruptedShrubPop / eco.shrubPop);
+				eco.shrubSize += strength * .2f;
 			} else if (target == 4) {
-				//eco.deerPop += strength * 10;
-				//eco.corruptedDeerPop += strength * 10 * (eco.corruptedDeerPop / eco.deerPop);
+				eco.deerSize += strength * .2f;
 			} else if (target == 5) {
-				//eco.wolfPop += strength * 10;
-				//eco.corruptedWolfPop += strength * 10 * (eco.corruptedWolfPop / eco.wolfPop);
+				eco.wolfSize += strength * .2f;
 			}
 		}
 
 		if (effect == 1) {
-			//changes increase rate
+			//hasten/slow, change increase; and decrease of food
 			if (target == 0) {
 				eco.shrubUp += strength;
 			} else if (target == 1) {
 				eco.deerUp1 += strength;
-				eco.deerUp2 += strength;
+				eco.shrubDown += strength;
 			} else if (target == 2) {
 				eco.wolfUp += strength;
+				eco.deerDown2 += strength;
 			} else if (target == 3) {
-				//eco.shrubPop += strength * 10;
-				//eco.corruptedShrubPop += strength * 10 * (eco.corruptedShrubPop / eco.shrubPop);
+				eco.shrubUp += strength;
 			} else if (target == 4) {
-				//eco.deerPop += strength * 10;
-				//eco.corruptedDeerPop += strength * 10 * (eco.corruptedDeerPop / eco.deerPop);
+				eco.deerUp1 += strength;
+				eco.shrubDown += strength;
 			} else if (target == 5) {
-				//eco.wolfPop += strength * 10;
-				//eco.corruptedWolfPop += strength * 10 * (eco.corruptedWolfPop / eco.wolfPop);
+				eco.wolfUp += strength;
+				eco.deerDown2 += strength;
 			}
 		}
 
 		if (effect == 2) {
-			//changes decrease rate
+			//toughen/weaken, change decrease rates
 			if (target == 0) {
-				eco.shrubDown += strength;
+				eco.shrubDown -= strength;
 			} else if (target == 1) {
-				eco.deerDown1 += strength;
-				eco.deerDown2 += strength;
+				eco.deerDown1 -= strength;
+				eco.deerDown2 -= strength;
 			} else if (target == 2) {
-				eco.wolfDown += strength;
+				eco.wolfDown -= strength;
 			} else if (target == 3) {
-				//eco.shrubPop += strength * 10;
-				//eco.corruptedShrubPop += strength * 10 * (eco.corruptedShrubPop / eco.shrubPop);
+				eco.shrubDown -= strength;
 			} else if (target == 4) {
-				//eco.deerPop += strength * 10;
-				//eco.corruptedDeerPop += strength * 10 * (eco.corruptedDeerPop / eco.deerPop);
+				eco.deerDown1 -= strength;
+				eco.deerDown2 -= strength;
 			} else if (target == 5) {
-				//eco.wolfPop += strength * 10;
-				//eco.corruptedWolfPop += strength * 10 * (eco.corruptedWolfPop / eco.wolfPop);
+				eco.wolfDown -= strength;
 			}
 				
 
