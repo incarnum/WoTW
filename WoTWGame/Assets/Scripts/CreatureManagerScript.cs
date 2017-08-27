@@ -7,21 +7,26 @@ public class CreatureManagerScript : MonoBehaviour {
 	//private Transform playerTrans;
 	public List<GameObject> shrubCreatureList;
 	public List<GameObject> berryList;
+	public List<GameObject> shrubBallList;
 	public GameObject shrubPrefab;
 	public GameObject berryPrefab;
 	public float shrubNum;
 
 	public List<GameObject> deerCreatureList;
 	public List<GameObject> antlerList;
+	public List<GameObject> deerBallList;
 	public GameObject deerPrefab;
 	public GameObject antlerPrefab;
 	public float deerNum;
 
 	public List<GameObject> wolfCreatureList;
 	public List<GameObject> fangList;
+	public List<GameObject> wolfBallList;
 	public GameObject wolfPrefab;
 	public GameObject fangPrefab;
 	public float wolfNum;
+
+	public GameObject ballPrefab;
 
 	public List<GameObject> corruptedShrubCreatureList;
 	public List<GameObject> corruptedBerryList;
@@ -189,72 +194,88 @@ public class CreatureManagerScript : MonoBehaviour {
 		GameObject newShrub = Instantiate (shrubPrefab) as GameObject;
 		shrubCreatureList.Add (newShrub);
 		newShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newShrub.transform.position -= (newShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+
+		//GameObject newBall = Instantiate (ballPrefab) as GameObject;
+		//shrubBallList.Add (newBall);
+		//newBall.transform.position = GameObject.Find ("Shrub Bar Top").transform.position;
 	}
 
 	public void CreateCorruptedShrub() {
 		GameObject newCorruptedShrub = Instantiate (corruptedShrubPrefab) as GameObject;
 		corruptedShrubCreatureList.Add (newCorruptedShrub);
 		newCorruptedShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newCorruptedShrub.transform.position -= (newCorruptedShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 	}
 
 	public void CreateBerry() {
 		GameObject newBerry = Instantiate (berryPrefab) as GameObject;
 		berryList.Add (newBerry);
 		newBerry.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newBerry.transform.position -= (newBerry.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedBerry() {
 		GameObject newCorruptedBerry = Instantiate (corruptedBerryPrefab) as GameObject;
 		corruptedBerryList.Add (newCorruptedBerry);
 		newCorruptedBerry.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newCorruptedBerry.transform.position -= (newCorruptedBerry.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 	}
 
 	public void CreateDeer() {
 		GameObject newDeer = Instantiate (deerPrefab) as GameObject;
 		deerCreatureList.Add (newDeer);
 		newDeer.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newDeer.transform.position -= (newDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedDeer() {
 		GameObject newCorruptedDeer = Instantiate (corruptedDeerPrefab) as GameObject;
 		corruptedDeerCreatureList.Add (newCorruptedDeer);
 		newCorruptedDeer.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newCorruptedDeer.transform.position -= (newCorruptedDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 	}
 
 	public void CreateAntler() {
 		GameObject newAntler = Instantiate (antlerPrefab) as GameObject;
 		antlerList.Add (newAntler);
 		newAntler.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newAntler.transform.position -= (newAntler.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedAntler() {
 		GameObject newAntler = Instantiate (corruptedAntlerPrefab) as GameObject;
 		corruptedAntlerList.Add (newAntler);
 		newAntler.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newAntler.transform.position -= (newAntler.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 	}
 
 	public void CreateWolf() {
 		GameObject newWolf = Instantiate (wolfPrefab) as GameObject;
 		wolfCreatureList.Add (newWolf);
 		newWolf.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedWolf() {
 		GameObject newWolf = Instantiate (corruptedWolfPrefab) as GameObject;
 		corruptedWolfCreatureList.Add (newWolf);
 		newWolf.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 	}
 
 	public void CreateFang() {
 		GameObject newFang = Instantiate (fangPrefab) as GameObject;
 		fangList.Add (newFang);
 		newFang.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newFang.transform.position -= (newFang.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedFang() {
 		GameObject newFang = Instantiate (corruptedFangPrefab) as GameObject;
 		corruptedFangList.Add (newFang);
 		newFang.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+		newFang.transform.position -= (newFang.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 	}
 		
 }
