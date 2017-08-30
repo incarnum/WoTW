@@ -20,9 +20,12 @@ public class CorruptionNodeScript : MonoBehaviour {
 	public bool activelySliding;
 	public GameObject creator;
 
+	private GameObject player;
+
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find ("Player");
 		GameObject.Find ("CreatureManager").GetComponent <CreatureManagerScript> ().corruptionNodeList.Add (gameObject);
 		if (canSpread) {
 			nextSpreadTime = Time.time + spreadInterval;
@@ -33,7 +36,7 @@ public class CorruptionNodeScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (canSpread) {
+		if (canSpread && player.GetComponent<PlayerControllerScript>().paused == false) {
 			if (nextSpreadTime <= Time.time) {
 				Spread ();
 				nextSpreadTime = Time.time + spreadInterval;

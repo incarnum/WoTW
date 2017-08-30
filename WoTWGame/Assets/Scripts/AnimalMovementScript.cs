@@ -66,7 +66,9 @@ public class AnimalMovementScript : MonoBehaviour {
 			actionStart = Time.time;
 
 		}
-		Move (h, v, s);
+		if (player.GetComponent<PlayerControllerScript> ().paused == false) {
+			Move (h, v, s);
+		}
 	}
 
 

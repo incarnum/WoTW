@@ -98,6 +98,26 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		shrubSize = 1;
 		deerSize = 1;
 		wolfSize = 1;
+		if (corruptedShrubPop > 0) {
+			CMan.shrubNum = (shrubPop - corruptedShrubPop) / 5;
+		} else {CMan.shrubNum = shrubPop / 5;
+		}
+
+		if (corruptedDeerPop > 0) {
+			CMan.deerNum = (deerPop - corruptedDeerPop) / 5;
+		} else {CMan.deerNum = deerPop / 5;
+		}
+
+		if (corruptedWolfPop > 0) {
+			CMan.wolfNum = (wolfPop - corruptedWolfPop) / 5;
+		} else {CMan.wolfNum = wolfPop / 5;
+		}
+
+		CMan.corruptedShrubNum = corruptedShrubPop / 5;
+		CMan.corruptedDeerNum = corruptedDeerPop / 5;
+		CMan.corruptedWolfNum = corruptedWolfPop / 5;
+		CMan.AdjustCreatures ();
+		CMan.AdjustPickips ();
 	}
 	
 	// Update is called once per frame
