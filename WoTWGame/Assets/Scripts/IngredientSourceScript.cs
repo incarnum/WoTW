@@ -21,10 +21,12 @@ public class IngredientSourceScript : MonoBehaviour {
 
 	void OnMouseEnter() {
 		ingInfo.GetComponent<Animator> ().SetTrigger (ingType.ToString ());
+		GameObject.Find ("DefaultText").GetComponent<SpriteRenderer> ().enabled = false;
 	}
 
 	void OnMouseExit() {
 		ingInfo.GetComponent<Animator> ().SetTrigger ("none");
+		GameObject.Find ("DefaultText").GetComponent<SpriteRenderer> ().enabled = true;
 	}
 
 	void OnMouseDown() {
