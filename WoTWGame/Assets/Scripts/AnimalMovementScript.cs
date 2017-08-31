@@ -25,6 +25,7 @@ public class AnimalMovementScript : MonoBehaviour {
 	public int concentrationFactor;
 	public Animator anim;
 	bool facingLeft;
+	public int idle;
 
 	void Start () {
 		selfRigidbody = GetComponent<Rigidbody2D> ();
@@ -41,8 +42,13 @@ public class AnimalMovementScript : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (Time.time > actionStart + actionLength) {
-				h = Random.Range (-1f, 1f);
-				v = Random.Range (-1f, 1f);
+			actionStart = Time.time;
+			idle = Random.Range (0, 10);
+			if (idle <= 4) {
+				anim.SetBool ("Idle", false);
+				h = Random.Range (-1, 1);
+				v = Random.Range (-1, 1);
+				s = speed2;
 				if (h >= 0) {
 					h = 1;
 					transform.localScale = new Vector3 (1f, 1f, 1f);
@@ -53,21 +59,24 @@ public class AnimalMovementScript : MonoBehaviour {
 				if (v >= 0) {
 					v = .7f;
 					anim.SetTrigger ("Away");
-				} else {
+				} else if (v < 0) {
 					v = -.7f;
 					anim.SetTrigger ("Toward");
 				}
-				s = Random.Range (0f, speed2);
-				if (canMove) {
-					
-				}
-				
-			
-			actionStart = Time.time;
+
+			}
+			if (idle > 4) {
+				s = 0;
+				anim.SetBool ("Idle", true);
+				Debug.Log (idle);
+			}
+
+
 
 		}
+
 		if (player.GetComponent<PlayerControllerScript> ().paused == false) {
-			Move (h, v, s);
+				Move (h, v, s);
 		}
 	}
 
