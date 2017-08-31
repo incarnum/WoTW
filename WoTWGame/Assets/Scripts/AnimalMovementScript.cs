@@ -51,10 +51,10 @@ public class AnimalMovementScript : MonoBehaviour {
 				s = speed2;
 				if (h >= 0) {
 					h = 1;
-					transform.localScale = new Vector3 (1f, 1f, 1f);
+					transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 				} else if (h < 0) {
 					h = -1;
-					transform.localScale = new Vector3 (-1f, 1f, 1f);
+					transform.localScale = new Vector3 (-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 				}
 				if (v >= 0) {
 					v = .7f;

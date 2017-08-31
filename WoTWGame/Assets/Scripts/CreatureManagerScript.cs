@@ -5,6 +5,7 @@ using System.Linq;
 
 public class CreatureManagerScript : MonoBehaviour {
 	//private Transform playerTrans;
+	private SimpleEcologyMasterScript eco;
 	public List<GameObject> shrubCreatureList;
 	public List<GameObject> berryList;
 	public List<GameObject> shrubBallList;
@@ -53,6 +54,7 @@ public class CreatureManagerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
 		upperLeftBound = GetComponentsInChildren<Transform> ()[1];
 		lowerRightBound = GetComponentsInChildren<Transform> ()[2];
 		AdjustCreatures ();
@@ -195,6 +197,7 @@ public class CreatureManagerScript : MonoBehaviour {
 		shrubCreatureList.Add (newShrub);
 		newShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 		newShrub.transform.position -= (newShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+		newShrub.transform.localScale = new Vector3 (eco.shrubSize, eco.shrubSize);
 
 		//GameObject newBall = Instantiate (ballPrefab) as GameObject;
 		//shrubBallList.Add (newBall);
@@ -206,6 +209,7 @@ public class CreatureManagerScript : MonoBehaviour {
 		corruptedShrubCreatureList.Add (newCorruptedShrub);
 		newCorruptedShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 		newCorruptedShrub.transform.position -= (newCorruptedShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+		newCorruptedShrub.transform.localScale = new Vector3 (eco.shrubSize, eco.shrubSize);
 	}
 
 	public void CreateBerry() {
@@ -227,6 +231,8 @@ public class CreatureManagerScript : MonoBehaviour {
 		deerCreatureList.Add (newDeer);
 		newDeer.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 		newDeer.transform.position -= (newDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
+		newDeer.transform.localScale = new Vector3 (eco.deerSize, eco.deerSize);
+		newDeer.GetComponent<AnimalMovementScript> ().speed2 = eco.deerSpeed;
 	}
 
 	public void CreateCorruptedDeer() {
@@ -234,6 +240,8 @@ public class CreatureManagerScript : MonoBehaviour {
 		corruptedDeerCreatureList.Add (newCorruptedDeer);
 		newCorruptedDeer.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 		newCorruptedDeer.transform.position -= (newCorruptedDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
+		newCorruptedDeer.transform.localScale = new Vector3 (eco.deerSize, eco.deerSize);
+		newCorruptedDeer.GetComponent<AnimalMovementScript> ().speed2 = eco.deerSpeed;
 	}
 
 	public void CreateAntler() {
@@ -255,6 +263,8 @@ public class CreatureManagerScript : MonoBehaviour {
 		wolfCreatureList.Add (newWolf);
 		newWolf.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 		newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
+		newWolf.transform.localScale = new Vector3 (eco.wolfSize, eco.wolfSize);
+		newWolf.GetComponent<AnimalMovementScript> ().speed2 = eco.wolfSpeed;
 	}
 
 	public void CreateCorruptedWolf() {
@@ -262,6 +272,8 @@ public class CreatureManagerScript : MonoBehaviour {
 		corruptedWolfCreatureList.Add (newWolf);
 		newWolf.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 		newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
+		newWolf.transform.localScale = new Vector3 (eco.wolfSize, eco.wolfSize);
+		newWolf.GetComponent<AnimalMovementScript> ().speed2 = eco.wolfSpeed;
 	}
 
 	public void CreateFang() {

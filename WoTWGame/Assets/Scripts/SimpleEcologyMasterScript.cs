@@ -18,6 +18,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public float corruptedShrubBiomass;
 	public float corruptedDeerBiomass;
 	public float corruptedWolfBiomass;
+	public float deerSpeed;
+	public float wolfSpeed;
 
 	public float shrubSize;
 	public float deerSize;

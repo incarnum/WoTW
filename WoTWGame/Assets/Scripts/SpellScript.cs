@@ -8,6 +8,7 @@ public class SpellScript : MonoBehaviour {
 	public int effect;
 	public float strength;
 	public bool instaCast;
+	private CreatureManagerScript cm;
 
 	private GameObject spellCore;
 
@@ -15,6 +16,7 @@ public class SpellScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
+		cm = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ();
 		spellCore = GameObject.Find ("Core");
 		if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().noChargeMode) {
 			instaCast = true;
@@ -58,16 +60,52 @@ public class SpellScript : MonoBehaviour {
 			//changes size, keeping biomass the same but changing raw population
 			if (target == 0) {
 				eco.shrubSize += strength * .2f;
+				foreach (GameObject garfield in cm.shrubCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
+				}
+				foreach (GameObject garfield in cm.corruptedShrubCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
+				}
 			} else if (target == 1) {
 				eco.deerSize += strength * .2f;
+				foreach (GameObject garfield in cm.deerCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+				}
+				foreach (GameObject garfield in cm.corruptedDeerCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+				}
 			} else if (target == 2) {
 				eco.wolfSize += strength * .2f;
+				foreach (GameObject garfield in cm.wolfCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
+				}
+				foreach (GameObject garfield in cm.corruptedWolfCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
+				}
 			} else if (target == 3) {
 				eco.shrubSize += strength * .2f;
+				foreach (GameObject garfield in cm.shrubCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
+				}
+				foreach (GameObject garfield in cm.corruptedShrubCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
+				}
 			} else if (target == 4) {
 				eco.deerSize += strength * .2f;
+				foreach (GameObject garfield in cm.deerCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+				}
+				foreach (GameObject garfield in cm.corruptedDeerCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+				}
 			} else if (target == 5) {
 				eco.wolfSize += strength * .2f;
+				foreach (GameObject garfield in cm.wolfCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
+				}
+				foreach (GameObject garfield in cm.corruptedWolfCreatureList) {
+					garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
+				}
 			}
 		}
 
@@ -78,17 +116,45 @@ public class SpellScript : MonoBehaviour {
 			} else if (target == 1) {
 				eco.deerUp1 += strength;
 				eco.shrubDown += strength;
+				eco.deerSpeed += strength * .6f;
+				foreach (GameObject garfield in cm.deerCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+				}
+				foreach (GameObject garfield in cm.corruptedDeerCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+				}
 			} else if (target == 2) {
 				eco.wolfUp += strength;
 				eco.deerDown2 += strength;
+				eco.wolfSpeed += strength * .6f;
+				foreach (GameObject garfield in cm.wolfCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+				}
+				foreach (GameObject garfield in cm.corruptedWolfCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+				}
 			} else if (target == 3) {
 				eco.shrubUp += strength;
 			} else if (target == 4) {
 				eco.deerUp1 += strength;
 				eco.shrubDown += strength;
+				eco.deerSpeed += strength * .6f;
+				foreach (GameObject garfield in cm.deerCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+				}
+				foreach (GameObject garfield in cm.corruptedDeerCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+				}
 			} else if (target == 5) {
 				eco.wolfUp += strength;
 				eco.deerDown2 += strength;
+				eco.wolfSpeed += strength * .6f;
+				foreach (GameObject garfield in cm.wolfCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+				}
+				foreach (GameObject garfield in cm.corruptedWolfCreatureList) {
+					garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+				}
 			}
 		}
 
