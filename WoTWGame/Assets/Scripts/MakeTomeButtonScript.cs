@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MakeTomeButtonScript : MonoBehaviour {
+    public bool tutMode;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +17,16 @@ public class MakeTomeButtonScript : MonoBehaviour {
 	}
 
 	void OnMouseDown () {
-		GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().CreateSpell();
+        string result = "";
+        if (tutMode)
+        {
+           result = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().spellPreviewString;
+
+        }
+        if (tutMode != true || result == "Enlarge Deer")
+        {
+            GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().CreateSpell();
+        }
+        
 	}
 }
