@@ -14,10 +14,28 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.E) && touching) {
-			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
-			Camera.main.transform.position = new Vector3 (spellMenu.transform.position.x, spellMenu.transform.position.y, Camera.main.transform.position.z);
-			//Time.timeScale = .1f;
-			inMenu = true;
+            if (!inMenu)
+            {
+                if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().paused == false)
+                {
+                    GameObject.Find("Player").GetComponent<PlayerControllerScript>().Pause();
+                }
+                
+			    Camera.main.transform.position = new Vector3 (spellMenu.transform.position.x, spellMenu.transform.position.y, Camera.main.transform.position.z);
+			    //Time.timeScale = .1f;
+			    inMenu = true;
+            }
+            else
+            {
+                if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().paused == true)
+                {
+                    GameObject.Find("Player").GetComponent<PlayerControllerScript>().Pause();
+                }
+                Camera.main.transform.position = new Vector3(GameObject.Find("Player").transform.position.x, GameObject.Find("Player").transform.position.y, Camera.main.transform.position.z);
+                //Time.timeScale = 1;
+                inMenu = false;
+            }
+			
 		}
 
 		if (Input.GetKeyDown (KeyCode.Escape) && inMenu) {
@@ -26,6 +44,11 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 			//Time.timeScale = 1;
 			inMenu = false;
 		}
+
+        if(Input.GetKeyDown (KeyCode.Q) && inMenu)
+        {
+            inMenu = false;
+        }
 	}
 
 	void OnTriggerEnter2D (Collider2D coll) {
