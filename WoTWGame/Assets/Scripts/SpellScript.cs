@@ -1,14 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SpellScript : MonoBehaviour {
+public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler {
 
 	public int target;
 	public int effect;
 	public float strength;
 	public bool instaCast;
 	private CreatureManagerScript cm;
+
+	public Transform parentToReturnTo = null;
 
 	private GameObject spellCore;
 
@@ -196,9 +199,39 @@ public class SpellScript : MonoBehaviour {
 				}
 			}
 		}
-
-		GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().uncastTomes.Remove (gameObject);
+			
+		GameObject.Find ("CastSpellRing").GetComponent<Animator> ().SetTrigger ("Cast2");
+		//GameObject.Find ("CraftMenuCastFlash").GetComponent<Animator> ().SetTrigger ("cast");
 	}
+
+	public void OnPointerClick(PointerEventData eventData){
+		Cast ();
+		parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
+		Destroy (gameObject);
+	}
+
+	public void OnBeginDrag(PointerEventData eventData){
+		Debug.Log ("StartDrag");
+		GetComponent<CanvasGroup> ().blocksRaycasts = false;
+		transform.SetParent (transform.parent.parent);
+	}
+
+	public void OnEndDrag(PointerEventData eventData){
+		Debug.Log ("EndDrag");
+		GetComponent<CanvasGroup> ().blocksRaycasts = true;
+		transform.SetParent (parentToReturnTo);
+		GetComponent<RectTransform> ().localPosition = Vector2.zero;
+	}
+
+	public void OnDrag(PointerEventData eventData){
+		transform.position = eventData.position;
+	}
+
+//	public void OnDrop(PointerEventData eventData){
+//		if (GameObject.Find ("Player").GetComponent<PlaceMasterScript> ().spellbookTargetDrop != null) {
+//			transform.position = GameObject.Find ("Player").GetComponent<PlaceMasterScript> ().spellbookTargetDrop.transform.position;
+//		}
+//	}
 }
 
 

@@ -68,7 +68,6 @@ public class AnimalMovementScript : MonoBehaviour {
 			if (idle > 4) {
 				s = 0;
 				anim.SetBool ("Idle", true);
-				Debug.Log (idle);
 			}
 
 

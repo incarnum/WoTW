@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpellMenuScript : MonoBehaviour {
 
@@ -48,17 +49,18 @@ public class SpellMenuScript : MonoBehaviour {
 		}
 		newSpell.GetComponent<SpellScript> ().effect = node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
 
-		newSpell.GetComponentsInChildren<TextMesh> () [0].text = spellPreviewString;
-		newSpell.transform.position = new Vector3 (GameObject.Find ("TomeSpot").transform.position.x, GameObject.Find ("TomeSpot").transform.position.y - uncastTomes.Count, GameObject.Find ("TomeSpot").transform.position.z);
+		newSpell.GetComponentsInChildren<Text> () [0].text = spellPreviewString;
+		//newSpell.transform.position = new Vector3 (GameObject.Find ("TomeSpot").transform.position.x, GameObject.Find ("TomeSpot").transform.position.y - uncastTomes.Count, GameObject.Find ("TomeSpot").transform.position.z);
+		PlaceSpell(newSpell);
 		uncastTomes.Add (newSpell);
 
 		Destroy (node1.GetComponent<IngredientHolderScript> ().holding);
 		Destroy (node2.GetComponent<IngredientHolderScript> ().holding);
 		Destroy (node3.GetComponent<IngredientHolderScript> ().holding);
 
-		GameObject spelltip = Instantiate (whereSpellTome) as GameObject;
-		spelltip.transform.position = warningSpot.position;
-		Destroy (spelltip, 7.0f);
+		//GameObject spelltip = Instantiate (whereSpellTome) as GameObject;
+		//spelltip.transform.position = warningSpot.position;
+		//Destroy (spelltip, 7.0f);
 	}
 
 	public void PredictSpell() {
@@ -112,6 +114,40 @@ public class SpellMenuScript : MonoBehaviour {
 		}
 
 		spellPreviewTextbox.text = spellPreviewString;
+	}
+
+	private void PlaceSpell(GameObject spellbook) {
+		if (GameObject.Find ("ABSlot1").GetComponent<SpellbookHolderScript> ().holding == null) {
+			spellbook.transform.SetParent(GameObject.Find("ABSlot1").transform);
+			spellbook.GetComponent<RectTransform> ().localPosition = Vector2.zero;
+			spellbook.GetComponent<SpellScript> ().parentToReturnTo = GameObject.Find ("ABSlot1").transform;
+			GameObject.Find ("ABSlot1").GetComponent<SpellbookHolderScript> ().holding = spellbook;
+		} else if (GameObject.Find ("ABSlot2").GetComponent<SpellbookHolderScript> ().holding == null) {
+			spellbook.transform.SetParent(GameObject.Find("ABSlot2").transform);
+			spellbook.GetComponent<RectTransform> ().localPosition = Vector2.zero;
+			spellbook.GetComponent<SpellScript> ().parentToReturnTo = GameObject.Find ("ABSlot2").transform;
+			GameObject.Find ("ABSlot2").GetComponent<SpellbookHolderScript> ().holding = spellbook;
+		} else if (GameObject.Find ("ABSlot3").GetComponent<SpellbookHolderScript> ().holding == null) {
+			spellbook.transform.SetParent(GameObject.Find("ABSlot3").transform);
+			spellbook.GetComponent<RectTransform> ().localPosition = Vector2.zero;
+			spellbook.GetComponent<SpellScript> ().parentToReturnTo = GameObject.Find ("ABSlot3").transform;
+			GameObject.Find ("ABSlot3").GetComponent<SpellbookHolderScript> ().holding = spellbook;
+		} else if (GameObject.Find ("ABSlot4").GetComponent<SpellbookHolderScript> ().holding == null) {
+			spellbook.transform.SetParent(GameObject.Find("ABSlot4").transform);
+			spellbook.GetComponent<RectTransform> ().localPosition = Vector2.zero;
+			spellbook.GetComponent<SpellScript> ().parentToReturnTo = GameObject.Find ("ABSlot4").transform;
+			GameObject.Find ("ABSlot4").GetComponent<SpellbookHolderScript> ().holding = spellbook;
+		} else if (GameObject.Find ("ABSlot5").GetComponent<SpellbookHolderScript> ().holding == null) {
+			spellbook.transform.SetParent(GameObject.Find("ABSlot5").transform);
+			spellbook.GetComponent<RectTransform> ().localPosition = Vector2.zero;
+			spellbook.GetComponent<SpellScript> ().parentToReturnTo = GameObject.Find ("ABSlot5").transform;
+			GameObject.Find ("ABSlot5").GetComponent<SpellbookHolderScript> ().holding = spellbook;
+		} else if (GameObject.Find ("ABSlot6").GetComponent<SpellbookHolderScript> ().holding == null) {
+			spellbook.transform.SetParent(GameObject.Find("ABSlot6").transform);
+			spellbook.GetComponent<RectTransform> ().localPosition = Vector2.zero;
+			spellbook.GetComponent<SpellScript> ().parentToReturnTo = GameObject.Find ("ABSlot6").transform;
+			GameObject.Find ("ABSlot6").GetComponent<SpellbookHolderScript> ().holding = spellbook;
+		}
 	}
 
 	public void CheckNodes() {

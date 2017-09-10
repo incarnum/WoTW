@@ -6,9 +6,10 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 	private bool touching;
 	private bool inMenu;
 	public GameObject spellMenu;
+	private GameObject actionBar;
 	// Use this for initialization
 	void Start () {
-		
+		actionBar = GameObject.Find ("ActionBar");
 	}
 	
 	// Update is called once per frame
@@ -24,6 +25,7 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 			    Camera.main.transform.position = new Vector3 (spellMenu.transform.position.x, spellMenu.transform.position.y, Camera.main.transform.position.z);
 			    //Time.timeScale = .1f;
 			    inMenu = true;
+				actionBar.SetActive (true);
             }
             else
             {

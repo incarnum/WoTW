@@ -16,6 +16,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	private GameObject mapIcon;
 	public GameObject corrIconPrefab;
 	public List<GameObject> corrIconList;
+	private GameObject actionBar;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -24,6 +25,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		mapUpperLeft = GameObject.Find ("MapUpperLeft").transform.position;
 		mapLowerRight = GameObject.Find ("MapLowerRight").transform.position;
 		mapIcon = GameObject.Find ("PlayerIcon");
+		actionBar = GameObject.Find ("ActionBar");
 	}
 
 	void Update () {
@@ -93,6 +95,7 @@ public class PlayerControllerScript : MonoBehaviour {
 				Vector2 corrIconPos = corr.transform.position - worldUpperLeft;
 				corrIcon.transform.position = new Vector2 (mapUpperLeft.x + (corrIconPos.x * (widM / wid)), mapUpperLeft.y + (corrIconPos.y * (higM / hig)));
 			}
+			actionBar.SetActive (false);
 
 
 		} else if (paused) {
@@ -113,6 +116,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			corrIconList.Clear();
 
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
+			actionBar.SetActive (true);
 		}
 	}
 }
