@@ -20,13 +20,13 @@ public class IngredientSourceScript : MonoBehaviour {
 	}
 
 	void OnMouseEnter() {
-		ingInfo.GetComponent<Animator> ().SetTrigger (ingType.ToString ());
-		GameObject.Find ("DefaultText").GetComponent<SpriteRenderer> ().enabled = false;
+        ingInfo.GetComponent<MeshRenderer>().enabled = true;
+		GameObject.Find ("GeneralText").GetComponent<MeshRenderer> ().enabled = false;
 	}
 
 	void OnMouseExit() {
-		ingInfo.GetComponent<Animator> ().SetTrigger ("none");
-		GameObject.Find ("DefaultText").GetComponent<SpriteRenderer> ().enabled = true;
+        ingInfo.GetComponent<MeshRenderer>().enabled = false;
+		GameObject.Find ("GeneralText").GetComponent<MeshRenderer> ().enabled = true;
 	}
 
 	void OnMouseDown() {
