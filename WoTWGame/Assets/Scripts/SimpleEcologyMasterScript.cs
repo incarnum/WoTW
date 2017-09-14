@@ -67,6 +67,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	private barScript corruptedShrubBar;
 	private barScript corruptedDeerBar;
 	private barScript corruptedWolfBar;
+	public UIBarScript shrubBarUI;
+	public UIBarScript deerBarUI;
+	public UIBarScript wolfBarUI;
+	public UIBarScript corruptedShrubBarUI;
+	public UIBarScript corruptedDeerBarUI;
+	public UIBarScript corruptedWolfBarUI;
 	private Animator shrubArrowsDeer;
 	private Animator deerArrowsShrub;
 	private Animator deerArrowsWolf;
@@ -74,6 +80,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	private Animator corruptedShrubArrows;
 	private Animator corruptedDeerArrows;
 	private Animator corruptedWolfArrows;
+	public Animator corruptedShrubArrowsUI;
+	public Animator corruptedDeerArrowsUI;
+	public Animator corruptedWolfArrowsUI;
 
 	public GameObject gameOver1;
 	public GameObject gameOver2;
@@ -163,6 +172,15 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		corruptedShrubBar.SetFillSizeValue (corruptedShrubBiomass / 100f);
 		corruptedDeerBar.SetFillSizeValue (corruptedDeerBiomass / 100f);
 		corruptedWolfBar.SetFillSizeValue (corruptedWolfBiomass / 100f);
+
+		if (shrubBarUI.gameObject.activeSelf) {
+			shrubBarUI.SetFillSizeValue (shrubBiomass / 100f);
+			deerBarUI.SetFillSizeValue (deerBiomass / 100f);
+			wolfBarUI.SetFillSizeValue (wolfBiomass / 100f);
+			corruptedShrubBarUI.SetFillSizeValue (corruptedShrubBiomass / 100f);
+			corruptedDeerBarUI.SetFillSizeValue (corruptedDeerBiomass / 100f);
+			corruptedWolfBarUI.SetFillSizeValue (corruptedWolfBiomass / 100f);
+		}
 	}
 
 	void SimpleEcologize() {
@@ -268,6 +286,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		if (corruptedShrubPop <= 0) {
 			corruptingShrubs = false;
 			corruptedShrubArrows.SetTrigger ("0");
+			corruptedShrubArrowsUI.SetTrigger ("0");
 		}
 		if (corruptedDeerPop <= 0) {
 			corruptingDeer = false;
@@ -282,14 +301,19 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptedShrubPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedShrubArrows.SetTrigger ("1");
+				corruptedShrubArrowsUI.SetTrigger ("1");
 			} else if (corruptionRate >= 1 && corruptionRate < 2) {
 				corruptedShrubArrows.SetTrigger ("2");
+				corruptedShrubArrowsUI.SetTrigger ("2");
 			} else if (corruptionRate >= 2 && corruptionRate < 3) {
 				corruptedShrubArrows.SetTrigger ("3");
+				corruptedShrubArrowsUI.SetTrigger ("3");
 			} else if (corruptionRate >= 3 && corruptionRate < 4) {
 				corruptedShrubArrows.SetTrigger ("4");
+				corruptedShrubArrowsUI.SetTrigger ("4");
 			} else if (corruptionRate >= 4 && corruptionRate < 5) {
 				corruptedShrubArrows.SetTrigger ("5");
+				corruptedShrubArrowsUI.SetTrigger ("5");
 			}
 		}
 		if (corruptingDeer == true) {
