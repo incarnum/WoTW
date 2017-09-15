@@ -98,7 +98,9 @@ public class PlayerControllerScript : MonoBehaviour {
 				corrIcon.transform.position = new Vector2 (mapUpperLeft.x + (corrIconPos.x * (widM / wid)), mapUpperLeft.y + (corrIconPos.y * (higM / hig)));
 			}
 			actionBar.SetActive (false);
-			multiMenu.SetActive (false);
+			if (multiMenu != null) {
+				multiMenu.SetActive (false);
+			}
 
 
 		} else if (paused) {
@@ -120,7 +122,9 @@ public class PlayerControllerScript : MonoBehaviour {
 
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
 			actionBar.SetActive (true);
-			multiMenu.SetActive (true);
+			if (multiMenu != null) {
+				multiMenu.SetActive (true);
+			}
 		}
 	}
 }

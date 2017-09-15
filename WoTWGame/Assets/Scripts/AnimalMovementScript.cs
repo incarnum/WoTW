@@ -41,7 +41,7 @@ public class AnimalMovementScript : MonoBehaviour {
 	}
 
 	void FixedUpdate () {
-		if (Time.time > actionStart + actionLength) {
+		if (Time.time > actionStart + actionLength && canMove == true) {
 			actionStart = Time.time;
 			idle = Random.Range (0, 10);
 			if (idle <= 4) {
@@ -74,7 +74,7 @@ public class AnimalMovementScript : MonoBehaviour {
 
 		}
 
-		if (player.GetComponent<PlayerControllerScript> ().paused == false) {
+		if (player.GetComponent<PlayerControllerScript> ().paused == false && canMove == true) {
 				Move (h, v, s);
 		}
 	}
