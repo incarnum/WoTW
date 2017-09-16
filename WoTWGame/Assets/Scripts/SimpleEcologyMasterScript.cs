@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleEcologyMasterScript : MonoBehaviour {
 
 	public bool paused;
+	public bool megaPaused;
 
 	public float shrubPop;
 	public float deerPop;
@@ -109,31 +110,37 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		shrubSize = 1;
 		deerSize = 1;
 		wolfSize = 1;
-		if (corruptedShrubPop > 0) {
-			CMan.shrubNum = (shrubPop - corruptedShrubPop) / 5;
-		} else {CMan.shrubNum = shrubPop / 5;
-		}
 
-		if (corruptedDeerPop > 0) {
-			CMan.deerNum = (deerPop - corruptedDeerPop) / 5;
-		} else {CMan.deerNum = deerPop / 5;
-		}
+		if (!megaPaused) {
+			if (corruptedShrubPop > 0) {
+				CMan.shrubNum = (shrubPop - corruptedShrubPop) / 5;
+			} else {
+				CMan.shrubNum = shrubPop / 5;
+			}
 
-		if (corruptedWolfPop > 0) {
-			CMan.wolfNum = (wolfPop - corruptedWolfPop) / 5;
-		} else {CMan.wolfNum = wolfPop / 5;
-		}
+			if (corruptedDeerPop > 0) {
+				CMan.deerNum = (deerPop - corruptedDeerPop) / 5;
+			} else {
+				CMan.deerNum = deerPop / 5;
+			}
 
-		CMan.corruptedShrubNum = corruptedShrubPop / 5;
-		CMan.corruptedDeerNum = corruptedDeerPop / 5;
-		CMan.corruptedWolfNum = corruptedWolfPop / 5;
-		CMan.AdjustCreatures ();
-		CMan.AdjustPickips ();
+			if (corruptedWolfPop > 0) {
+				CMan.wolfNum = (wolfPop - corruptedWolfPop) / 5;
+			} else {
+				CMan.wolfNum = wolfPop / 5;
+			}
+
+			CMan.corruptedShrubNum = corruptedShrubPop / 5;
+			CMan.corruptedDeerNum = corruptedDeerPop / 5;
+			CMan.corruptedWolfNum = corruptedWolfPop / 5;
+			CMan.AdjustCreatures ();
+			CMan.AdjustPickips ();
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!paused) {
+		if (!paused && !megaPaused) {
 			CheckForFailure ();
 			SimpleEcologize ();
 			Corrupt ();
@@ -285,8 +292,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 
 		if (corruptedShrubPop <= 0) {
 			corruptingShrubs = false;
-			corruptedShrubArrows.SetTrigger ("0");
-			corruptedShrubArrowsUI.SetTrigger ("0");
+//			corruptedShrubArrows.SetTrigger ("0");
+//			corruptedShrubArrowsUI.SetTrigger ("0");
 		}
 		if (corruptedDeerPop <= 0) {
 			corruptingDeer = false;
@@ -301,19 +308,19 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptedShrubPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedShrubArrows.SetTrigger ("1");
-				corruptedShrubArrowsUI.SetTrigger ("1");
+//				corruptedShrubArrowsUI.SetTrigger ("1");
 			} else if (corruptionRate >= 1 && corruptionRate < 2) {
 				corruptedShrubArrows.SetTrigger ("2");
-				corruptedShrubArrowsUI.SetTrigger ("2");
+//				corruptedShrubArrowsUI.SetTrigger ("2");
 			} else if (corruptionRate >= 2 && corruptionRate < 3) {
 				corruptedShrubArrows.SetTrigger ("3");
-				corruptedShrubArrowsUI.SetTrigger ("3");
+//				corruptedShrubArrowsUI.SetTrigger ("3");
 			} else if (corruptionRate >= 3 && corruptionRate < 4) {
 				corruptedShrubArrows.SetTrigger ("4");
-				corruptedShrubArrowsUI.SetTrigger ("4");
+//				corruptedShrubArrowsUI.SetTrigger ("4");
 			} else if (corruptionRate >= 4 && corruptionRate < 5) {
 				corruptedShrubArrows.SetTrigger ("5");
-				corruptedShrubArrowsUI.SetTrigger ("5");
+//				corruptedShrubArrowsUI.SetTrigger ("5");
 			}
 		}
 		if (corruptingDeer == true) {

@@ -198,6 +198,8 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 					Destroy (gunch);
 				}
 			}
+		} if (effect == 6) {
+			GameObject.Find ("CorruptedAltar").GetComponent<SpellcraftingAltarScript> ().Cleanse ();
 		}
 			
 		GameObject.Find ("CastSpellRing").GetComponent<Animator> ().SetTrigger ("Cast2");

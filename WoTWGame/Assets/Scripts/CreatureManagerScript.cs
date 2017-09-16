@@ -5,6 +5,8 @@ using System.Linq;
 
 public class CreatureManagerScript : MonoBehaviour {
 	//private Transform playerTrans;
+	public bool initializeAtStart;
+
 	private SimpleEcologyMasterScript eco;
 	public List<GameObject> shrubCreatureList;
 	public List<GameObject> berryList;
@@ -57,17 +59,22 @@ public class CreatureManagerScript : MonoBehaviour {
 		eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
 		upperLeftBound = GetComponentsInChildren<Transform> ()[1];
 		lowerRightBound = GetComponentsInChildren<Transform> ()[2];
+		if (initializeAtStart == true) {
+			Initialize ();
+		}
+	}
+
+	void Initialize () {
 		AdjustCreatures ();
 		AdjustPickips ();
-//		playerTrans = GameObject.Find ("Player").transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.C)) {
-			AdjustCreatures();
-			AdjustPickips ();
-		}
+//		if (Input.GetKeyDown (KeyCode.C)) {
+//			AdjustCreatures();
+//			AdjustPickips ();
+//		}
 	}
 
 	public void AdjustCreatures() {
