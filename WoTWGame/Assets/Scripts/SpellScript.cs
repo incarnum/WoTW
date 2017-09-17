@@ -9,6 +9,8 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public int effect;
 	public float strength;
 	public bool instaCast;
+    public float maxSize = 1.2f;
+    public float minSize = 0.8f;
 	private CreatureManagerScript cm;
 
 	public Transform parentToReturnTo = null;
@@ -60,24 +62,35 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public void Cast() {
 		
 		if (effect == 0) {
-			//changes size, keeping biomass the same but changing raw population
-			if (target == 0) {
-				eco.shrubSize += strength * .2f;
-				foreach (GameObject garfield in cm.shrubCreatureList) {
-					garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
-				}
-				foreach (GameObject garfield in cm.corruptedShrubCreatureList) {
-					garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
-				}
-			} else if (target == 1) {
-				eco.deerSize += strength * .2f;
-				foreach (GameObject garfield in cm.deerCreatureList) {
-					garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
-				}
-				foreach (GameObject garfield in cm.corruptedDeerCreatureList) {
-					garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
-				}
-			} else if (target == 2) {
+            //changes size, keeping biomass the same but changing raw population
+            if (target == 0) {
+                eco.shrubSize += strength * .2f;
+                foreach (GameObject garfield in cm.shrubCreatureList) {
+                    garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
+                }
+                foreach (GameObject garfield in cm.corruptedShrubCreatureList) {
+                    garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
+                }
+            } else if (target == 1) {
+                if (eco.deerSize < maxSize && eco.deerSize > minSize)
+                {
+                    eco.deerSize += strength * .2f;
+                    foreach (GameObject garfield in cm.deerCreatureList)
+                    {
+                        garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+                    }
+                    foreach (GameObject garfield in cm.corruptedDeerCreatureList)
+                    {
+                        garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+                    }
+                    Debug.Log(eco.deerSize);
+                }
+                else if (eco.deerSize == maxSize || eco.deerSize == minSize)
+                {
+                    Debug.Log("Check-a-ro!");
+                }
+
+            } else if (target == 2) {
 				eco.wolfSize += strength * .2f;
 				foreach (GameObject garfield in cm.wolfCreatureList) {
 					garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
