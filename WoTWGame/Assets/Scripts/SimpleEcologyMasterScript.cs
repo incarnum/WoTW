@@ -91,6 +91,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public GameObject gameOver4;
 	public GameObject gameOver5;
 	public GameObject gameOver6;
+    public GameObject mainMenuButton;
+    public GameObject menuCamera;
 	// Use this for initialization
 	void Start () {
 		CMan = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript>();
@@ -362,29 +364,35 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		if (shrubPop <= 0) {
 			Time.timeScale = 0;
 			gameOver1.SetActive (true);
-			gameOver1.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+            mainMenuButton.SetActive(true);
+			menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
 		} else if (deerPop <= 0) {
 			Time.timeScale = 0;
 			gameOver2.SetActive (true);
-			gameOver2.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+            mainMenuButton.SetActive(true);
+            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
 		} else if (wolfPop <= 0) {
 			Time.timeScale = 0;
 			gameOver3.SetActive (true);
-			gameOver3.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+            mainMenuButton.SetActive(true);
+            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
 		}
 
 		if (shrubPop <= corruptedShrubPop) {
 			Time.timeScale = 0;
 			gameOver4.SetActive (true);
-			gameOver4.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+            mainMenuButton.SetActive(true);
+            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
 		} else if (deerPop <= corruptedDeerPop) {
 			Time.timeScale = 0;
 			gameOver5.SetActive (true);
-			gameOver5.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+            mainMenuButton.SetActive(true);
+            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
 		} else if (wolfPop <= corruptedWolfPop) {
 			Time.timeScale = 0;
 			gameOver6.SetActive (true);
-			gameOver6.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+            mainMenuButton.SetActive(true);
+            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
 		}
 	}
 }
