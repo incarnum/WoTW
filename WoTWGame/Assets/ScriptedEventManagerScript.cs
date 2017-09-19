@@ -15,10 +15,10 @@ public class ScriptedEventManagerScript : MonoBehaviour {
 	public float delayToEvent5;
 	// Use this for initialization
 	void Start () {
-		nextEventTime = delayToEvent1;
+		nextEventTime = delayToEvent1 + Time.time;
 		playerAnim = GameObject.Find ("Player").GetComponent<Animator> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		if (nextEventTime < Time.time) {
@@ -79,7 +79,7 @@ public class ScriptedEventManagerScript : MonoBehaviour {
 
 	void CreateAtPreordainedPosition3(GameObject pref) {
 		GameObject newCreature = Instantiate (pref) as GameObject;
-		newCreature.transform.position = playerAnim.transform.position;
+		newCreature.transform.position = GameObject.Find ("Player").transform.position;
 		newCreature.transform.position += new Vector3 (0, 9);
 		newCreature.transform.name = "CorruptedAltar";
 		//newCreature.GetComponentsInChildren<AssignedAnimalMovementScript> () [0].target = GameObject.Find ("SDeer1").transform.position;

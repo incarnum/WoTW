@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerScript : MonoBehaviour {
 	public float speed;
@@ -39,6 +40,16 @@ public class PlayerControllerScript : MonoBehaviour {
 			speed += 2;
 		} else if (Input.GetKeyDown (KeyCode.LeftBracket)) {
 			speed -= 2;
+		}
+
+		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.R)) {
+			SceneManager.LoadScene ("MainMenu");
+		}
+		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Alpha1)) {
+			SceneManager.LoadScene ("Forest");
+		}
+		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Q)) {
+			Application.Quit();
 		}
 	}
 
