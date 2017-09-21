@@ -8,6 +8,7 @@ public class AnimalMovementScript : MonoBehaviour {
 	Rigidbody2D selfRigidbody;
 	public int action;
 	public int creatureType;
+	public bool corrupted;
 	// 0 = not moving
 	// 1 = wandering
 	// 2 = fleeing
@@ -26,6 +27,9 @@ public class AnimalMovementScript : MonoBehaviour {
 	public Animator anim;
 	bool facingLeft;
 	public int idle;
+	public bool fadeOut;
+	public GameObject munchIcon;
+	public bool markedForDeath;
 
 	void Start () {
 		selfRigidbody = GetComponent<Rigidbody2D> ();
@@ -37,7 +41,9 @@ public class AnimalMovementScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
+		if (fadeOut) {
+			GetComponent<SpriteRenderer> ().color = new Color (GetComponent<SpriteRenderer> ().color.r, GetComponent<SpriteRenderer> ().color.g, GetComponent<SpriteRenderer> ().color.b, GetComponent<SpriteRenderer> ().color.a - 1 * Time.deltaTime);
+		}
 	}
 
 	void FixedUpdate () {
@@ -86,6 +92,75 @@ public class AnimalMovementScript : MonoBehaviour {
 		selfRigidbody.MovePosition ((Vector2)gameObject.transform.position + movement);
 //		Debug.Log ();
 
+	}
+
+	void OnCollisionEnter2D(Collision2D col){
+		if (col.gameObject.GetComponent<AnimalMovementScript> () != null) {
+			if (creatureType == 2 && col.gameObject.GetComponent<AnimalMovementScript> ().creatureType == 1) {
+				Debug.Log ("wolf hit deer");
+				if (fadeOut == false) {
+					GameObject munch = Instantiate (munchIcon) as GameObject;
+					munch.transform.position = col.gameObject.transform.position;
+					Destroy (munch, 1.0f);
+					col.gameObject.GetComponent<AnimalMovementScript> ().PauseMovementForTime (5);
+				}
+				if (col.gameObject.GetComponent<AnimalMovementScript> ().corrupted == false) {
+					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().deerCreatureList.Remove (col.gameObject);
+				} else {
+					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().corruptedDeerCreatureList.Remove (col.gameObject);
+				}
+				if (col.gameObject.transform.position.y - transform.position.y > 0) {
+					anim.SetTrigger ("Away");
+				} else {
+					anim.SetTrigger ("Toward");
+				}
+				if (col.gameObject.transform.position.x - transform.position.x > 0) {
+					transform.localScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+				} else {
+					transform.localScale = new Vector3 (-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+				}
+
+				Destroy (col.gameObject, 1.0f);
+				col.gameObject.GetComponent<AnimalMovementScript> ().fadeOut = true;
+				PauseMovementForTime (2.0f);
+			}
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		if (creatureType == 1 && col.gameObject.GetComponent<BushScript> () != null) {
+			if (col.gameObject.GetComponent<BushScript> ().fadeOut == false) {
+				GameObject munch = Instantiate (munchIcon) as GameObject;
+				Destroy (munch, 1.0f);
+				munch.transform.position = col.gameObject.transform.position;
+			}
+			if (col.gameObject.GetComponent<BushScript> ().isCorrupted == false) {
+				GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().shrubCreatureList.Remove (col.gameObject);
+			} else {
+				GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().corruptedShrubCreatureList.Remove (col.gameObject);
+			}
+			Destroy (col.gameObject, 1.0f);
+			col.gameObject.GetComponent<BushScript> ().fadeOut = true;
+			PauseMovementForTime (2.0f);
+
+			if (col.gameObject.transform.position.y - transform.position.y > 0) {
+				anim.SetTrigger ("Away");
+			} else {
+				anim.SetTrigger ("Toward");
+			}
+			if (col.gameObject.transform.position.x - transform.position.x > 0) {
+				transform.localScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			} else {
+				transform.localScale = new Vector3 (-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			}
+		}
+	}
+
+	void PauseMovementForTime (float tim) {
+		h = 0;
+		v = 0;
+		anim.SetBool ("Idle", true);
+		actionStart = Time.time + tim;
 	}
 		
 }

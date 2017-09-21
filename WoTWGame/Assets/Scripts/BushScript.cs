@@ -9,6 +9,7 @@ public class BushScript : MonoBehaviour {
 	public float nextReBerry;
 	public float reBerryDelay;
 	public bool isCorrupted;
+	public bool fadeOut;
 	// Use this for initialization
 	void Start () {
 		
@@ -19,6 +20,9 @@ public class BushScript : MonoBehaviour {
 		if (Time.time > nextReBerry) {
 			ReBerry ();
 			nextReBerry = Mathf.Infinity;
+		}
+		if (fadeOut) {
+			GetComponent<SpriteRenderer> ().color = new Color (GetComponent<SpriteRenderer> ().color.r, GetComponent<SpriteRenderer> ().color.g, GetComponent<SpriteRenderer> ().color.b, GetComponent<SpriteRenderer> ().color.a - 1 * Time.deltaTime);
 		}
 	}
 

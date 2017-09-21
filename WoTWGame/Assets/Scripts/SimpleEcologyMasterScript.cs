@@ -26,6 +26,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public float deerSize;
 	public float wolfSize;
 
+	public float ecoToWorldDivision;
+
 	public bool shrubRising;
 	public bool deerRising;
 	public bool wolfRising;
@@ -115,26 +117,26 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 
 		if (!megaPaused) {
 			if (corruptedShrubPop > 0) {
-				CMan.shrubNum = (shrubPop - corruptedShrubPop) / 5;
+				CMan.shrubNum = (shrubPop - corruptedShrubPop) / ecoToWorldDivision;
 			} else {
-				CMan.shrubNum = shrubPop / 5;
+				CMan.shrubNum = shrubPop / ecoToWorldDivision;
 			}
 
 			if (corruptedDeerPop > 0) {
-				CMan.deerNum = (deerPop - corruptedDeerPop) / 5;
+				CMan.deerNum = (deerPop - corruptedDeerPop) / ecoToWorldDivision;
 			} else {
-				CMan.deerNum = deerPop / 5;
+				CMan.deerNum = deerPop / ecoToWorldDivision;
 			}
 
 			if (corruptedWolfPop > 0) {
-				CMan.wolfNum = (wolfPop - corruptedWolfPop) / 5;
+				CMan.wolfNum = (wolfPop - corruptedWolfPop) / ecoToWorldDivision;
 			} else {
-				CMan.wolfNum = wolfPop / 5;
+				CMan.wolfNum = wolfPop / ecoToWorldDivision;
 			}
 
-			CMan.corruptedShrubNum = corruptedShrubPop / 5;
-			CMan.corruptedDeerNum = corruptedDeerPop / 5;
-			CMan.corruptedWolfNum = corruptedWolfPop / 5;
+			CMan.corruptedShrubNum = corruptedShrubPop / ecoToWorldDivision;
+			CMan.corruptedDeerNum = corruptedDeerPop / ecoToWorldDivision;
+			CMan.corruptedWolfNum = corruptedWolfPop / ecoToWorldDivision;
 			CMan.AdjustCreatures ();
 			CMan.AdjustPickips ();
 		}
@@ -151,23 +153,23 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 				lastAdjustment = Time.time;
 
 				if (corruptedShrubPop > 0) {
-					CMan.shrubNum = (shrubPop - corruptedShrubPop) / 5;
-				} else {CMan.shrubNum = shrubPop / 5;
+					CMan.shrubNum = (shrubPop - corruptedShrubPop) / ecoToWorldDivision;
+				} else {CMan.shrubNum = shrubPop / ecoToWorldDivision;
 				}
 
 				if (corruptedDeerPop > 0) {
-					CMan.deerNum = (deerPop - corruptedDeerPop) / 5;
-				} else {CMan.deerNum = deerPop / 5;
+					CMan.deerNum = (deerPop - corruptedDeerPop) / ecoToWorldDivision;
+				} else {CMan.deerNum = deerPop / ecoToWorldDivision;
 				}
 
 				if (corruptedWolfPop > 0) {
-					CMan.wolfNum = (wolfPop - corruptedWolfPop) / 5;
-				} else {CMan.wolfNum = wolfPop / 5;
+					CMan.wolfNum = (wolfPop - corruptedWolfPop) / ecoToWorldDivision;
+				} else {CMan.wolfNum = wolfPop / ecoToWorldDivision;
 				}
 
-				CMan.corruptedShrubNum = corruptedShrubPop / 5;
-				CMan.corruptedDeerNum = corruptedDeerPop / 5;
-				CMan.corruptedWolfNum = corruptedWolfPop / 5;
+				CMan.corruptedShrubNum = corruptedShrubPop / ecoToWorldDivision;
+				CMan.corruptedDeerNum = corruptedDeerPop / ecoToWorldDivision;
+				CMan.corruptedWolfNum = corruptedWolfPop / ecoToWorldDivision;
 				CMan.AdjustCreatures ();
 				CMan.AdjustPickips ();
 			}
