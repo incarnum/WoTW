@@ -43,9 +43,9 @@ public class SpellMenuScript : MonoBehaviour {
 		GameObject newSpell = Instantiate (spellPrefab) as GameObject;
 		newSpell.GetComponent<SpellScript> ().target = node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
 		if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 0) {
-			newSpell.GetComponent<SpellScript> ().strength = 1f;
+			newSpell.GetComponent<SpellScript> ().strength = 2f;
 		} else if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 2) {
-			newSpell.GetComponent<SpellScript> ().strength = -1f;
+			newSpell.GetComponent<SpellScript> ().strength = -2f;
 		}
 		newSpell.GetComponent<SpellScript> ().effect = node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
 

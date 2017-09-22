@@ -87,6 +87,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public Animator corruptedDeerArrowsUI;
 	public Animator corruptedWolfArrowsUI;
 
+	private float rateOfShrubChange;
+	private float rateOfDeerChange;
+	private float rateOfWolfChange;
+
 	public GameObject gameOver1;
 	public GameObject gameOver2;
 	public GameObject gameOver3;
@@ -228,38 +232,39 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			deerArrowsWolf.SetTrigger (deerUp2.ToString());
 		}
 
+		rateOfDeerChange = 0;
 
 
 		if (shrubRising == true) {
 			shrubPop += (2 + shrubUp * .2f) * overallSpeed * Time.deltaTime;
-			corruptedShrubPop += (2 + shrubUp * .2f) * overallSpeed * Time.deltaTime * (corruptedShrubPop / shrubPop);
+			//corruptedShrubPop += (2 + shrubUp * .2f) * overallSpeed * Time.deltaTime * (corruptedShrubPop / shrubPop);
 		} else {
 			shrubPop -= (2 + shrubDown * .2f) * overallSpeed * Time.deltaTime;
 			corruptedShrubPop -= (2 + shrubDown * .2f) * overallSpeed * Time.deltaTime;
 		}
 
 		if (deerRising == true) {
-			deerPop += (2 + deerUp1 * .2f) * overallSpeed * Time.deltaTime;
-			corruptedDeerPop += (2 + deerUp1 * .2f) * overallSpeed * Time.deltaTime * (corruptedDeerPop / deerPop);
+			rateOfDeerChange += (2 + deerUp1 * .2f) * overallSpeed * Time.deltaTime;
 		} else {
-			deerPop -= (3 + deerDown1 * .2f) * overallSpeed * Time.deltaTime;
-			corruptedDeerPop -= (3 + deerDown1 * .2f) * overallSpeed * Time.deltaTime;
+			rateOfDeerChange -= (3 + deerDown1 * .2f) * overallSpeed * Time.deltaTime;
 		}
 
 		if (wolfRising == true) {
 			wolfPop += (2 + wolfUp * .2f) * overallSpeed * Time.deltaTime;
-			corruptedWolfPop += (1.9f + wolfUp * .2f) * overallSpeed * Time.deltaTime * (corruptedWolfPop / wolfPop);
+			//corruptedWolfPop += (1.9f + wolfUp * .2f) * overallSpeed * Time.deltaTime * (corruptedWolfPop / wolfPop);
 		} else {
 			wolfPop -= (3 + wolfDown * .2f) * overallSpeed * Time.deltaTime;
 			corruptedWolfPop -= (3 + wolfDown * .2f) * overallSpeed * Time.deltaTime;
 		}
 
 		if (deerRising2 == true) {
-			deerPop += (2 + deerUp2 * .2f) * overallSpeed * Time.deltaTime;
-			corruptedDeerPop += (2 + deerUp2 * .2f) * overallSpeed * Time.deltaTime;
+			rateOfDeerChange += (2 + deerUp2 * .2f) * overallSpeed * Time.deltaTime;
 		} else {
-			deerPop -= (1 + deerDown2 * .2f) * overallSpeed * Time.deltaTime * 2;
-			corruptedDeerPop -= (1 + deerDown2 * .2f) * overallSpeed * Time.deltaTime * 2;
+			rateOfDeerChange -= (1 + deerDown2 * .2f) * overallSpeed * Time.deltaTime * 2;
+		}
+		deerPop += rateOfDeerChange;
+		if (rateOfDeerChange < 0) {
+			corruptedDeerPop += rateOfDeerChange * (corruptedDeerPop / deerPop);
 		}
 
 		shrubBiomass = shrubPop * shrubSize;
@@ -308,7 +313,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptedWolfArrows.SetTrigger ("0");
 		}
 
-		if (corruptingShrubs == true) {
+		if (corruptingShrubs == true && shrubRising == true) {
 			corruptedShrubPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedShrubArrows.SetTrigger ("1");
@@ -328,6 +333,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			}
 		}
 		if (corruptingDeer == true) {
+			if (rateOfDeerChange >= 0f)
 			corruptedDeerPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedDeerArrows.SetTrigger ("1");
@@ -341,7 +347,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 				corruptedDeerArrows.SetTrigger ("5");
 			}
 		}
-		if (corruptingWolves == true) {
+		if (corruptingWolves == true && wolfRising == true) {
 			corruptedWolfPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedWolfArrows.SetTrigger ("1");
