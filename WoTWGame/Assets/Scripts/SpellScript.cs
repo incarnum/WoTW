@@ -90,7 +90,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 //                    Debug.Log("Check-a-ro!");
 //                }
 			} else if (target == 2 || target == 5) {
-				eco.wolfSize += strength * .1f;
+				eco.wolfSize += strength * .05f;
 				foreach (GameObject garfield in cm.wolfCreatureList) {
 					garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
 				}

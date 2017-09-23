@@ -24,17 +24,17 @@ public class corruptionManagerScript : MonoBehaviour {
 		int rando = Random.Range (0, 3);
 		if (rando == 0) {
 			ecoManager.corruptingShrubs = true;
-			if (ecoManager.corruptedShrubPop < 10) {
+			if (ecoManager.corruptedShrubPop < 10 && ecoManager.shrubPop > 20) {
 				ecoManager.corruptedShrubPop = 10f;
 			}
 		} else if (rando == 1) {
 			ecoManager.corruptingDeer = true;
-			if (ecoManager.corruptedDeerPop < 10) {
+			if (ecoManager.corruptedDeerPop < 10 && ecoManager.deerPop > 20) {
 				ecoManager.corruptedDeerPop = 10f;
 			}
 		} else if (rando == 2) {
 			ecoManager.corruptingWolves = true;
-			if (ecoManager.corruptedWolfPop < 10) {
+			if (ecoManager.corruptedWolfPop < 10 && ecoManager.wolfPop > 20) {
 				ecoManager.corruptedWolfPop = 10f;
 			}
 		}

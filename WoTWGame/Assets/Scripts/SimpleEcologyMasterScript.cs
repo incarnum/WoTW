@@ -264,7 +264,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		}
 		deerPop += rateOfDeerChange;
 		if (rateOfDeerChange < 0) {
-			corruptedDeerPop += rateOfDeerChange * (corruptedDeerPop / deerPop);
+			corruptedDeerPop += rateOfDeerChange;
 		}
 
 		shrubBiomass = shrubPop * shrubSize;

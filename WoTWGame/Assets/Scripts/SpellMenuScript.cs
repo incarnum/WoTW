@@ -24,6 +24,7 @@ public class SpellMenuScript : MonoBehaviour {
 
 	public string spellPreviewString;
 
+	public float spellStrengthMod;
 
 	//make nodescript with held, every time one gets filled, call a function here that changes the effect type if all were empty, deny fills of wrong type by having nodes check against node type
 	//in nodescript: if effecttype is null, or equals that being dropped
@@ -43,9 +44,9 @@ public class SpellMenuScript : MonoBehaviour {
 		GameObject newSpell = Instantiate (spellPrefab) as GameObject;
 		newSpell.GetComponent<SpellScript> ().target = node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
 		if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 0) {
-			newSpell.GetComponent<SpellScript> ().strength = 2f;
+			newSpell.GetComponent<SpellScript> ().strength = spellStrengthMod;
 		} else if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 2) {
-			newSpell.GetComponent<SpellScript> ().strength = -2f;
+			newSpell.GetComponent<SpellScript> ().strength = -spellStrengthMod;
 		}
 		newSpell.GetComponent<SpellScript> ().effect = node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
 

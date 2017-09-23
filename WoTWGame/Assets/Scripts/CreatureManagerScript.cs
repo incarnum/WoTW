@@ -119,27 +119,27 @@ public class CreatureManagerScript : MonoBehaviour {
 			CreateWolf ();
 		}
 		//corruptedshrubs
-		while (corruptedShrubCreatureList.Count > corruptedShrubNum + 1f && corruptedShrubNum > 0) {
+		while (corruptedShrubCreatureList.Count > corruptedShrubNum / 2f + 1f && corruptedShrubNum > 0) {
 			Destroy (corruptedShrubCreatureList [0]);
 			corruptedShrubCreatureList.RemoveAt (0);
 		}
-		while (corruptedShrubCreatureList.Count < corruptedShrubNum) {
+		while (corruptedShrubCreatureList.Count < corruptedShrubNum / 2f) {
 			CreateCorruptedShrub ();
 		}
 		//corrupteddeer
-		while (corruptedDeerCreatureList.Count > corruptedDeerNum + 1f && corruptedDeerNum > 0) {
+		while (corruptedDeerCreatureList.Count > corruptedDeerNum / 2f + 1f && corruptedDeerNum > 0) {
 			Destroy (corruptedDeerCreatureList [0]);
 			corruptedDeerCreatureList.RemoveAt (0);
 		}
-		while (corruptedDeerCreatureList.Count < corruptedDeerNum) {
+		while (corruptedDeerCreatureList.Count < corruptedDeerNum / 2f) {
 			CreateCorruptedDeer ();
 		}
 		//corruptedwolves
-		while (corruptedWolfCreatureList.Count > corruptedWolfNum +1f && corruptedWolfNum > 0) {
+		while (corruptedWolfCreatureList.Count > corruptedWolfNum / 2f + 1f && corruptedWolfNum > 0) {
 			Destroy (corruptedWolfCreatureList [0]);
 			corruptedWolfCreatureList.RemoveAt (0);
 		}
-		while (corruptedWolfCreatureList.Count < corruptedWolfNum) {
+		while (corruptedWolfCreatureList.Count < corruptedWolfNum / 2f) {
 			CreateCorruptedWolf ();
 		}
 	
@@ -178,21 +178,21 @@ public class CreatureManagerScript : MonoBehaviour {
 			}
 		}
 
-		while (corruptedAntlerList.Count > corruptedDeerNum + 1f && corruptedDeerNum > 0) {
+		while (corruptedAntlerList.Count > corruptedDeerNum / 2f + 1f && corruptedDeerNum > 0) {
 			Destroy (corruptedAntlerList [0]);
 			corruptedAntlerList.RemoveAt (0);
 		}
-		if (corruptedAntlerList.Count < corruptedDeerNum) {
+		if (corruptedAntlerList.Count < corruptedDeerNum / 2f) {
 			while (corruptedAntlerList.Count < corruptedDeerNum) {
 				CreateCorruptedAntler ();
 			}
 		}
 
-		while (corruptedFangList.Count > corruptedWolfNum + 1f && corruptedWolfNum > 0) {
+		while (corruptedFangList.Count > corruptedWolfNum / 2f + 1f && corruptedWolfNum > 0) {
 			Destroy (corruptedFangList [0]);
 			corruptedFangList.RemoveAt (0);
 		}
-		if (corruptedFangList.Count < corruptedWolfNum) {
+		if (corruptedFangList.Count < corruptedWolfNum / 2f) {
 			while (corruptedFangList.Count < corruptedWolfNum) {
 				CreateCorruptedFang ();
 			}
