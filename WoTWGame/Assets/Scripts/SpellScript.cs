@@ -12,6 +12,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public float maxSize = 1.2f;
     public float minSize = 0.8f;
 	private CreatureManagerScript cm;
+	public bool indestructible;
 
 	public Transform parentToReturnTo = null;
 
@@ -56,6 +57,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		} else {
 			Charge ();
 		}
+		if (!indestructible)
 		Destroy (gameObject);
 	}
 
@@ -197,6 +199,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public void OnPointerClick(PointerEventData eventData){
 		Cast ();
 		parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
+		if (!indestructible)
 		Destroy (gameObject);
 	}
 
