@@ -19,6 +19,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	public List<GameObject> corrIconList;
 	private GameObject actionBar;
 	private GameObject multiMenu;
+	private GameObject buttonHolder;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -29,6 +30,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		mapIcon = GameObject.Find ("PlayerIcon");
 		actionBar = GameObject.Find ("ActionBar");
 		multiMenu = GameObject.Find ("MultiMenu");
+		buttonHolder = GameObject.Find ("ButtonHolder");
 	}
 
 	void Update () {
@@ -113,6 +115,11 @@ public class PlayerControllerScript : MonoBehaviour {
 				multiMenu.SetActive (false);
 			}
 
+			if (buttonHolder != null) {
+				buttonHolder.SetActive (false);
+			}
+
+
 
 		} else if (paused) {
 			Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 100f);
@@ -135,6 +142,9 @@ public class PlayerControllerScript : MonoBehaviour {
 			actionBar.SetActive (true);
 			if (multiMenu != null) {
 				multiMenu.SetActive (true);
+			}
+			if (buttonHolder != null) {
+				buttonHolder.SetActive (true);
 			}
 		}
 	}

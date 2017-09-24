@@ -20,4 +20,10 @@ public class MainMenuButtonScript : MonoBehaviour {
 		Time.timeScale = 1.0f;
 		SceneManager.LoadScene ("MainMenu");
 	}
+
+	public void ClickFuntion() {
+		Debug.Log ("gotoMain");
+		Time.timeScale = 1.0f;
+		SceneManager.LoadScene ("MainMenu");
+	}
 }

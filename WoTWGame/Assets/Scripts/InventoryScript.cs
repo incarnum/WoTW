@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class InventoryScript : MonoBehaviour {
@@ -66,13 +67,13 @@ public class InventoryScript : MonoBehaviour {
 	}
 
 	public void UpdateNumbers () {
-		berryText.GetComponent<TextMesh> ().text = berryNum.ToString ();
-		antlerText.GetComponent<TextMesh> ().text = antlerNum.ToString ();
-		fangText.GetComponent<TextMesh> ().text = fangNum.ToString ();
+		berryText.GetComponent<Text> ().text = berryNum.ToString ();
+		antlerText.GetComponent<Text> ().text = antlerNum.ToString ();
+		fangText.GetComponent<Text> ().text = fangNum.ToString ();
 //		mouseSkullText.GetComponent<TextMesh> ().text = mouseSkullNum.ToString ();
-		corrBerryText.GetComponent<TextMesh> ().text = corrBerryNum.ToString ();
-		corrAntlerText.GetComponent<TextMesh> ().text = corrAntlerNum.ToString ();
-		corrFangText.GetComponent<TextMesh> ().text = corrFangNum.ToString ();
+		corrBerryText.GetComponent<Text> ().text = corrBerryNum.ToString ();
+		corrAntlerText.GetComponent<Text> ().text = corrAntlerNum.ToString ();
+		corrFangText.GetComponent<Text> ().text = corrFangNum.ToString ();
 
 		berryText2.GetComponent<TextMesh> ().text = berryNum.ToString ();
 		antlerText2.GetComponent<TextMesh> ().text = antlerNum.ToString ();
