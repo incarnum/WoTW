@@ -9,8 +9,8 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public int effect;
 	public float strength;
 	public bool instaCast;
-    public float maxSize = 1.2f;
-    public float minSize = 0.8f;
+     float maxSize = 1.4f;
+     float minSize = 0.6f;
 	private CreatureManagerScript cm;
 	public bool indestructible;
 
@@ -74,7 +74,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
                 }
 			} else if (target == 1 || target == 4) {
-//                if (eco.deerSize < maxSize && eco.deerSize > minSize)
+                if (eco.deerSize < maxSize && eco.deerSize > minSize)
                 {
                     eco.deerSize += strength * .1f;
                     foreach (GameObject garfield in cm.deerCreatureList)
@@ -87,10 +87,24 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                     }
                     Debug.Log(eco.deerSize);
                 }
-//               else if (eco.deerSize == maxSize || eco.deerSize == minSize)
-//                {
-//                    Debug.Log("Check-a-ro!");
-//                }
+               else if (eco.deerSize == maxSize || eco.deerSize == minSize)
+                {
+                    Debug.Log("Could be " + (eco.deerSize += strength * .1f));
+                    if((eco.deerSize += strength * .1f) < maxSize && (eco.deerSize += strength * .1f) > minSize)
+                    {
+                        //Debug.Log("Check!");
+                        eco.deerSize += strength * .1f;
+                        foreach (GameObject garfield in cm.deerCreatureList)
+                        {
+                            garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+                        }
+                        foreach (GameObject garfield in cm.corruptedDeerCreatureList)
+                        {
+                            garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
+                        }
+                        Debug.Log(eco.deerSize);
+                    }
+                }
 			} else if (target == 2 || target == 5) {
 				eco.wolfSize += strength * .05f;
 				foreach (GameObject garfield in cm.wolfCreatureList) {
