@@ -26,7 +26,19 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public float deerSize;
 	public float wolfSize;
 
-	public float ecoToWorldDivision;
+    //Mods: 0 = default, 1 = positve effect, -1 = negitive effect, should always start on 0
+    public float startShrubSize;
+    public float startDeerSize;
+    public float startWolfSize;
+    public float startDeerSpeed;
+    public float startWolfSpeed;
+    public int shrubSizeMod = 0;
+    public int deerSizeMod = 0;
+    public int wolfSizeMod = 0;
+    public int deerSpeedMod = 0;
+    public int wolfSpeedMod = 0;
+
+    public float ecoToWorldDivision;
 
 	public bool shrubRising;
 	public bool deerRising;
@@ -119,6 +131,14 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		deerSize = 1;
 		wolfSize = 1;
 
+        startShrubSize = shrubSize;
+        startDeerSize = deerSize;
+        startWolfSize = wolfSize;
+        startDeerSpeed = deerSpeed;
+        startWolfSpeed = wolfSpeed;
+
+        
+
 		if (!megaPaused) {
 			if (corruptedShrubPop > 0) {
 				CMan.shrubNum = (shrubPop - corruptedShrubPop) / ecoToWorldDivision;
@@ -178,7 +198,53 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 				CMan.AdjustPickips ();
 			}
 		}
-	}
+
+        // Mod updates
+        if (shrubSize > startShrubSize)
+        {
+            shrubSizeMod = 1;
+        }
+        else if (shrubSize < startShrubSize)
+        {
+            shrubSizeMod = -1;
+        }
+
+        if (deerSize > startDeerSize)
+        {
+            deerSizeMod = 1;
+        }
+        else if (deerSize < startDeerSize)
+        {
+            deerSizeMod = -1;
+        }
+
+        if (wolfSize > startWolfSize)
+        {
+            wolfSizeMod = 1;
+        }
+        else if (wolfSize < startWolfSize)
+        {
+            wolfSizeMod = -1;
+        }
+
+        if (deerSpeed > startDeerSpeed)
+        {
+            deerSpeedMod = 1;
+        }
+        else if (deerSpeed < startDeerSpeed)
+        {
+           deerSpeedMod = -1;
+        }
+
+        if (wolfSpeed > startWolfSpeed)
+        {
+            wolfSpeedMod = 1;
+        }
+        else if (deerSpeed < startDeerSpeed)
+        {
+            wolfSpeedMod = -1;
+        }
+    }
 
 	public void UpdateBars() {
 		shrubBar.SetFillSizeValue (shrubBiomass / 100f);
