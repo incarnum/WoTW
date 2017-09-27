@@ -9,8 +9,8 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public int effect;
 	public float strength;
 	public bool instaCast;
-     float maxSize = 1.4f;
-     float minSize = 0.6f;
+     float maxSize = 1.8f;
+     float minSize = 0.4f;
 	private CreatureManagerScript cm;
 	public bool indestructible;
 
@@ -96,7 +96,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 }
                 else
                 {
-                    float sizeCheck = (eco.shrubSize) + strength * 0.1f;
+                    float sizeCheck = (eco.shrubSize) + strength * 0.05f;
                     if (sizeCheck >= minSize && sizeCheck <= maxSize)
                     {
                         eco.shrubSize = sizeCheck;
@@ -126,7 +126,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 }
                 else
                 {
-                    float sizeCheck = (eco.deerSize) + strength * 0.1f;
+                    float sizeCheck = (eco.deerSize) + strength * 0.05f;
                     if (sizeCheck >= minSize && sizeCheck <= maxSize)
                     {
                         eco.deerSize = sizeCheck;
@@ -141,7 +141,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         Debug.Log(eco.deerSize);
                     }
                 }
-                
+               
 			} else if (target == 2 || target == 5) {
                 if (strength == 0)
                 {
@@ -157,7 +157,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 }
                 else
                 {
-                    float sizeCheck = (eco.wolfSize) + strength * 0.1f;
+                    float sizeCheck = (eco.wolfSize) + strength * 0.05f;
                     if (sizeCheck >= minSize && sizeCheck <= maxSize)
                     {
                         eco.wolfSize = sizeCheck;
