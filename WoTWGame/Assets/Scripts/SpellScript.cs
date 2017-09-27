@@ -35,7 +35,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(eco.deerSize);
+//        Debug.Log(eco.deerSize);
 	}
 
 	void Charge() {
@@ -316,10 +316,11 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	}
 
 	public void OnPointerClick(PointerEventData eventData){
+		if (!indestructible)
+			Destroy (gameObject);
 		Cast ();
 		parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
-		if (!indestructible)
-		Destroy (gameObject);
+
 	}
 
 	public void OnBeginDrag(PointerEventData eventData){

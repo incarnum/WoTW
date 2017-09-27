@@ -24,8 +24,7 @@ public class DragDropScript : MonoBehaviour {
 
 		if (Input.GetMouseButtonUp (0)) {
 			if (player.GetComponent<PlaceMasterScript> ().targetDrop != null && held == true) {
-				if (player.GetComponent<PlaceMasterScript> ().targetDrop.GetComponent<IngredientHolderScript> ().accepting == 6
-				    || player.GetComponent<PlaceMasterScript> ().targetDrop.GetComponent<IngredientHolderScript> ().accepting == objectType) {
+				if (player.GetComponent<PlaceMasterScript> ().targetDrop.GetComponent<IngredientHolderScript>().holding == null) {
 					Place ();
 				} else {
 					ReturnIng ();
@@ -77,6 +76,7 @@ public class DragDropScript : MonoBehaviour {
 	}
 
 	void Place() {
+		
 		if (targetDrop != null) {
 			targetDrop.GetComponent<IngredientHolderScript> ().holding = null;
 		}
@@ -87,6 +87,7 @@ public class DragDropScript : MonoBehaviour {
 		player.GetComponent<PlaceMasterScript> ().targetDrop = null;
 		GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ().PredictSpell ();
 		//Debug.Log ("Placed");
+
 	}
 
 	void ReturnIng() {
