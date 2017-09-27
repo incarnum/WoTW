@@ -37,6 +37,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
     public int wolfSizeMod = 0;
     public int deerSpeedMod = 0;
     public int wolfSpeedMod = 0;
+    public int timesDeerSpeedChanged = 0;
+    public int timesWolfSpeedChanged = 0;
 
     public float ecoToWorldDivision;
 
@@ -208,6 +210,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
         {
             shrubSizeMod = -1;
         }
+        else
+        {
+            shrubSizeMod = 0;
+        }
 
         if (deerSize > startDeerSize)
         {
@@ -216,6 +222,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
         else if (deerSize < startDeerSize)
         {
             deerSizeMod = -1;
+        }
+        else
+        {
+            deerSizeMod = 0;
         }
 
         if (wolfSize > startWolfSize)
@@ -226,6 +236,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
         {
             wolfSizeMod = -1;
         }
+        else
+        {
+            wolfSizeMod = 0;
+        }
 
         if (deerSpeed > startDeerSpeed)
         {
@@ -235,6 +249,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
         {
            deerSpeedMod = -1;
         }
+        else
+        {
+            deerSpeedMod = 0;
+        }
 
         if (wolfSpeed > startWolfSpeed)
         {
@@ -243,6 +261,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
         else if (deerSpeed < startDeerSpeed)
         {
             wolfSpeedMod = -1;
+        }
+        else
+        {
+            wolfSpeedMod = 0;
         }
     }
 

@@ -26,13 +26,23 @@ public class SpellMenuScript : MonoBehaviour {
 
 	public float spellStrengthMod;
 
+    public bool antler1, antler2, antler3, berry1, berry2, berry3, fang1, fang2, fang3;
+
 	//make nodescript with held, every time one gets filled, call a function here that changes the effect type if all were empty, deny fills of wrong type by having nodes check against node type
 	//in nodescript: if effecttype is null, or equals that being dropped
 
 
 	// Use this for initialization
 	void Start () {
-		
+        antler1 = true;
+        antler2 = true;
+        antler3 = true;
+        berry1 = true;
+        berry2 = true;
+        berry3 = true;
+        fang1 = true;
+        fang2 = true;
+        fang3 = true;
 	}
 	
 	// Update is called once per frame
@@ -45,7 +55,12 @@ public class SpellMenuScript : MonoBehaviour {
 		newSpell.GetComponent<SpellScript> ().target = node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
 		if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 0) {
 			newSpell.GetComponent<SpellScript> ().strength = spellStrengthMod;
-		} else if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 2) {
+		}
+        else if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 1)
+        {
+            newSpell.GetComponent<SpellScript>().strength = 0;
+        }
+            else if (node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 2) {
 			newSpell.GetComponent<SpellScript> ().strength = -spellStrengthMod;
 		}
 		newSpell.GetComponent<SpellScript> ().effect = node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType;
@@ -68,44 +83,240 @@ public class SpellMenuScript : MonoBehaviour {
 		spellPreviewString = "";
 		if (node2.GetComponent<IngredientHolderScript> ().holding != null && node3.GetComponent<IngredientHolderScript> ().holding == null) {
 			if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 0) {
-				spellPreviewString += "Enlarge/Shrink ";
+                if (berry2)
+                {
+                    spellPreviewString += "Enlarge/Shrink ";
+                }
+                else
+                {
+                    spellPreviewString += "??? ";
+                }
+				
 			} else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 1) {
-				spellPreviewString += "Hasten/Slow ";
-			} else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
-				spellPreviewString += "Toughen/Weaken ";
-			}
+                if (antler2)
+                {
+                    spellPreviewString += "Hasten/Slow ";
+                }
+                else
+                {
+                    spellPreviewString += "??? ";
+                }
+            } else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
+                if (fang2)
+                {
+                    spellPreviewString += "Toughen/Weaken ";
+                }
+                else
+                {
+                    spellPreviewString += "??? ";
+                }
+            }
 		}
 		if (node3.GetComponent<IngredientHolderScript> ().holding != null) {
 			if (node2.GetComponent<IngredientHolderScript> ().holding != null && node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 0) {
 				if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 0) {
-					spellPreviewString += "Enlarge ";
-				} else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 1) {
-					spellPreviewString += "Hasten ";
-				} else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
-					spellPreviewString += "Toughen ";
-				}
+                    if (berry2)
+                    {
+                        if (berry3)
+                        {
+                            spellPreviewString += "Enlarge ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Enlarge/Shrink ";
+                        }
+                        
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                } else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 1) {
+                    if (antler2)
+                    {
+                        if (berry3)
+                        {
+                            spellPreviewString += "Hasten ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Hasten/Slow ";
+                        }
+                        
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                } else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
+                    if (fang2)
+                    {
+                        if (berry3)
+                        {
+                            spellPreviewString += "Toughen ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Toughen/Weaken ";
+                        }
+                        
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                }
 			}
 		}
-		if (node3.GetComponent<IngredientHolderScript> ().holding != null) {
+        if (node3.GetComponent<IngredientHolderScript>().holding != null)
+        {
+            if (node2.GetComponent<IngredientHolderScript>().holding != null && node3.GetComponent<IngredientHolderScript>().holding.GetComponent<DragDropScript>().objectType == 1)
+            {
+                if (node2.GetComponent<IngredientHolderScript>().holding.GetComponent<DragDropScript>().objectType == 0)
+                {
+                    if (berry2)
+                    {
+                        if (antler3)
+                        {
+                            spellPreviewString += "Reset Size of ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Enlarge/Shrink ";
+                        }
+
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                }
+                else if (node2.GetComponent<IngredientHolderScript>().holding.GetComponent<DragDropScript>().objectType == 1)
+                {
+                    if (antler2)
+                    {
+                        if (antler3)
+                        {
+                            spellPreviewString += "Reset Speed of ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Hasten/Slow ";
+                        }
+
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                }
+                else if (node2.GetComponent<IngredientHolderScript>().holding.GetComponent<DragDropScript>().objectType == 2)
+                {
+                    if (fang2)
+                    {
+                        if (antler3)
+                        {
+                            spellPreviewString += "Reset Toughness of ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Toughen/Weaken ";
+                        }
+
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                }
+            }
+        }
+        if (node3.GetComponent<IngredientHolderScript> ().holding != null) {
 			if (node2.GetComponent<IngredientHolderScript> ().holding != null && node3.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript>().objectType == 2) {
 				if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 0) {
-					spellPreviewString += "Shrink ";
-				} else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 1) {
-					spellPreviewString += "Slow ";
-				} else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
-					spellPreviewString += "Weaken ";
-				}
+                    if (berry2)
+                    {
+                        if (fang3)
+                        {
+                            spellPreviewString += "Shrink ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Enlarge/Shrink ";
+                        }
+
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                } else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 1) {
+                    if (antler2)
+                    {
+                        if (fang3)
+                        {
+                            spellPreviewString += "Slow ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Hasten/Slow ";
+                        }
+
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                } else if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
+                    if (fang2)
+                    {
+                        if (fang3)
+                        {
+                            spellPreviewString += "Weaken ";
+                        }
+                        else
+                        {
+                            spellPreviewString += "Toughen/Weaken ";
+                        }
+
+                    }
+                    else
+                    {
+                        spellPreviewString += "??? ";
+                    }
+                }
 			}
 		}
 
 		if (node1.GetComponent<IngredientHolderScript> ().holding != null) {
 			if (node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 0) {
-				spellPreviewString += "Shrubs";
+                if (berry1)
+                {
+                    spellPreviewString += "Shrubs";
+                }
+                else
+                {
+                    spellPreviewString += "???";
+                }
 			} else if (node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 1) {
-				spellPreviewString += "Deer";
-			} else if (node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
-				spellPreviewString += "Wolves";
-			}
+                if (antler1)
+                {
+                    spellPreviewString += "Deer";
+                }
+                else
+                {
+                    spellPreviewString += "???";
+                }
+            } else if (node1.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType == 2) {
+                if (fang1)
+                {
+                    spellPreviewString += "Wolves";
+                }
+                else
+                {
+                    spellPreviewString += "???";
+                }
+            }
 		}
 
 		if (node2.GetComponent<IngredientHolderScript> ().holding != null) {
