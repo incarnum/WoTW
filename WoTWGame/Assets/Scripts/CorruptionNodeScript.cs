@@ -21,11 +21,14 @@ public class CorruptionNodeScript : MonoBehaviour {
 	public GameObject creator;
 
 	private GameObject player;
-
+	private Transform upperLeftBound;
+	private Transform lowerRightBound;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
+		upperLeftBound = GameObject.Find ("UpperLeftBound").transform;
+		lowerRightBound = GameObject.Find ("LowerRightBound").transform;
 		GameObject.Find ("CreatureManager").GetComponent <CreatureManagerScript> ().corruptionNodeList.Add (gameObject);
 		if (canSpread) {
 			nextSpreadTime = Time.time + spreadInterval;
@@ -63,13 +66,13 @@ public class CorruptionNodeScript : MonoBehaviour {
 			newCorruption.GetComponent<CorruptionNodeScript> ().activelySliding = true;
 			//randomly generate direction, test if direction is filled, if not spawn there
 			dir = Random.Range (0, 4);
-			if (dir == 0) {
+			if (dir == 0 && transform.position.y + spreadDistanceY + 1 < upperLeftBound.position.y) {
 				newCorruption.GetComponent<CorruptionNodeScript> ().targetPosition =  new Vector3 (transform.position.x, transform.position.y + spreadDistanceY, transform.position.z);
-			} else if (dir == 1) {
+			} else if (dir == 1 && transform.position.x + spreadDistanceX + 1 < lowerRightBound.position.x) {
 				newCorruption.GetComponent<CorruptionNodeScript> ().targetPosition =  new Vector3 (transform.position.x + spreadDistanceX, transform.position.y, transform.position.z);
-			} else if (dir == 2) {
+			} else if (dir == 2 && transform.position.y - spreadDistanceY - 1 > lowerRightBound.position.y) {
 				newCorruption.GetComponent<CorruptionNodeScript> ().targetPosition =  new Vector3 (transform.position.x, transform.position.y - spreadDistanceY, transform.position.z);
-			} else if (dir == 3) {
+			} else if (dir == 3 && transform.position.x - spreadDistanceY - 1 > upperLeftBound.position.x) {
 				newCorruption.GetComponent<CorruptionNodeScript> ().targetPosition =  new Vector3 (transform.position.x - spreadDistanceX, transform.position.y, transform.position.z);
 			}
 		}
