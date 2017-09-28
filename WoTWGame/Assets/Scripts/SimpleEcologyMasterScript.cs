@@ -40,6 +40,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
     public int shrubToughMod = 0;
     public int deerToughMod = 0;
     public int wolfToughMod = 0;
+    public int timesDeerSpeedChanged = 0;
+    public int timesWolfSpeedChanged = 0;
 
 
     public float ecoToWorldDivision;

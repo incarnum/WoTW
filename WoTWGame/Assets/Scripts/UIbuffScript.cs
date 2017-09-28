@@ -7,6 +7,19 @@ public class UIbuffScript : MonoBehaviour {
     public Texture wolfIcon;
     public Texture shrubIcon;
 
+    public Rect shrubGUI;
+    public Rect deerGUI;
+    public Rect wolfGUI;
+
+    public Rect shrubSizeGUI;
+    public Rect shrubToughGUI;
+    public Rect deerSizeGUI;
+    public Rect deerToughGUI;
+    public Rect deerSpeedGUI;
+    public Rect wolfSizeGUI;
+    public Rect wolfToughGUI;
+    public Rect wolfSpeedGUI;
+
     public Texture growIcon;
     public Texture shrinkIcon;
     public Texture speedUpIcon;
@@ -21,9 +34,6 @@ public class UIbuffScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        shrubBuffed = false;
-        deerBuffed = false;
-        wolfBuffed = false;
 
         
 }
@@ -124,5 +134,26 @@ public class UIbuffScript : MonoBehaviour {
 
             }
         }
+    }
+    private void OnGUI()
+    {
+        //draw species icons
+        GUI.DrawTexture(shrubGUI, shrubIcon);
+        GUI.DrawTexture(deerGUI, deerIcon);
+        GUI.DrawTexture(wolfGUI, wolfIcon);
+
+        //draw buffs: shrub
+        GUI.DrawTexture(shrubSizeGUI, growIcon);
+        GUI.DrawTexture(shrubToughGUI, toughIcon);
+
+        //draw buffs: deer
+        GUI.DrawTexture(deerSizeGUI, growIcon);
+        GUI.DrawTexture(deerToughGUI, toughIcon);
+        GUI.DrawTexture(deerSpeedGUI, speedUpIcon);
+
+        //draw buffs: wolves
+        GUI.DrawTexture(wolfSizeGUI, growIcon);
+        GUI.DrawTexture(wolfToughGUI, toughIcon);
+        GUI.DrawTexture(deerSpeedGUI, speedUpIcon);
     }
 }
