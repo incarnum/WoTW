@@ -20,19 +20,22 @@ public class MakeTomeButtonScript : MonoBehaviour {
 	}
 
 	void OnMouseDown () {
-        string result = "";
-        if (tutMode)
-        {
-           result = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().spellPreviewString;
+		CreateSpellButton ();
+	}
 
-        }
-        if (tutMode != true || result == "Enlarge Deer")
-        {
-            GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().CreateSpell();
+	public void CreateSpellButton() {
+		string result = "";
+		if (tutMode)
+		{
+			result = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().spellPreviewString;
+
+		}
+		if (tutMode != true || result == "Enlarge Deer")
+		{
+			GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().CreateSpell();
 			spellRing1.GetComponent<RingSpinScript> ().SpeedBoost ();
 			spellRing2.GetComponent<RingSpinScript> ().SpeedBoost ();
 			spellLight.GetComponent<Animator> ().SetTrigger ("Cast");
-        }
-        
+		}
 	}
 }

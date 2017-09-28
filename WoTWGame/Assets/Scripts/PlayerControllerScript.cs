@@ -34,8 +34,12 @@ public class PlayerControllerScript : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Q)) {
-			Pause ();
+//		if (Input.GetKeyDown (KeyCode.Q)) {
+//			Pause ();
+//		}
+
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			GameObject.Find ("MakeTome").GetComponent<MakeTomeButtonScript> ().CreateSpellButton ();
 		}
 
 		if (Input.GetKeyDown (KeyCode.RightBracket)) {

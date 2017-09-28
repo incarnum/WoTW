@@ -31,6 +31,8 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 			instaCast = true;
 		}
         sms = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>();
+		//This overrides the scaling done by the canvas upon instantiation to avoid a resolution dependent bug.
+		transform.localScale = new Vector3 (.35f, .35f, .35f);
 	}
 	
 	// Update is called once per frame
