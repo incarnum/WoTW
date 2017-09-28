@@ -26,7 +26,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public float deerSize;
 	public float wolfSize;
 
-    //Mods: 0 = default, 1 = positve effect, -1 = negitive effect, should always start on 0
+    //Mods: 0 = default, 1 = positve effect, -1 = negitive effect, should always start on 0, range is -3/+3
     public float startShrubSize;
     public float startDeerSize;
     public float startWolfSize;
@@ -37,8 +37,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
     public int wolfSizeMod = 0;
     public int deerSpeedMod = 0;
     public int wolfSpeedMod = 0;
-    public int timesDeerSpeedChanged = 0;
-    public int timesWolfSpeedChanged = 0;
+    public int shrubToughMod = 0;
+    public int deerToughMod = 0;
+    public int wolfToughMod = 0;
+
 
     public float ecoToWorldDivision;
 
