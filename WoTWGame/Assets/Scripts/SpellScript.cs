@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler {
 
@@ -13,6 +14,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
      float minSize = 0.4f;
 	private CreatureManagerScript cm;
 	public bool indestructible;
+	public GameObject errorPrefab;
 
 	public Transform parentToReturnTo = null;
 
@@ -78,7 +80,10 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
 	public void Cast() {
-		
+		if (effect != 6 || (GameObject.Find ("CorruptedAltar").transform.position - GameObject.Find ("Player").transform.position).magnitude < 6) {
+			if (!indestructible)
+				Destroy (gameObject);
+
 		if (effect == 0) {
             //changes size, keeping biomass the same but changing raw population
             
@@ -311,18 +316,25 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 			}
 		} if (effect == 6) {
 			GameObject.Find ("CorruptedAltar").GetComponent<SpellcraftingAltarScript> ().Cleanse ();
+				GameObject.Find ("IntroMusic").GetComponent<fadeAudioScript> ().beginFade (3f);
 		}
 			
 		GameObject.Find ("CastSpellRing").GetComponent<Animator> ().SetTrigger ("Cast2");
 		//GameObject.Find ("CraftMenuCastFlash").GetComponent<Animator> ().SetTrigger ("cast");
+
+		parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
+		} else {
+			Debug.Log ("FailedCast");
+			GameObject errorMessage = Instantiate (errorPrefab) as GameObject;
+			errorMessage.transform.SetParent(GameObject.Find("ActionBar").transform);
+			errorMessage.GetComponent<RectTransform> ().localPosition = new Vector3 (0, 100, 0);
+			errorMessage.GetComponent<RectTransform> ().localScale = new Vector3 (.7f, .7f, .7f);
+			Destroy (errorMessage, 6f);
+		}
 	}
 
 	public void OnPointerClick(PointerEventData eventData){
-		if (!indestructible)
-			Destroy (gameObject);
 		Cast ();
-		parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
-
 	}
 
 	public void OnBeginDrag(PointerEventData eventData){

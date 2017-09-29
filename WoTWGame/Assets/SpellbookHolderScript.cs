@@ -17,43 +17,43 @@ public class SpellbookHolderScript : MonoBehaviour, IPointerEnterHandler, IPoint
 		if (hotkey == 1 && Input.GetKeyDown(KeyCode.Alpha1)){
 			if (holding != null) {
 				holding.GetComponent<SpellScript> ().Cast();
-				Destroy (holding);
-				holding = null;
+				//Destroy (holding);
+				//holding = null;
 			}
 		}
 		if (hotkey == 2 && Input.GetKeyDown(KeyCode.Alpha2)){
 			if (holding != null) {
 				holding.GetComponent<SpellScript> ().Cast();
-				Destroy (holding);
-				holding = null;
+				//Destroy (holding);
+				//holding = null;
 			}
 		}
 		if (hotkey == 3 && Input.GetKeyDown(KeyCode.Alpha3)){
 			if (holding != null) {
 				holding.GetComponent<SpellScript> ().Cast();
-				Destroy (holding);
-				holding = null;
+				//Destroy (holding);
+				//holding = null;
 			}
 		}
 		if (hotkey == 4 && Input.GetKeyDown(KeyCode.Alpha4)){
 			if (holding != null) {
 				holding.GetComponent<SpellScript> ().Cast();
-				Destroy (holding);
-				holding = null;
+				//Destroy (holding);
+				//holding = null;
 			}
 		}
 		if (hotkey == 5 && Input.GetKeyDown(KeyCode.Alpha5)){
 			if (holding != null) {
 				holding.GetComponent<SpellScript> ().Cast();
-				Destroy (holding);
-				holding = null;
+				//Destroy (holding);
+				//holding = null;
 			}
 		}
 		if (hotkey == 6 && Input.GetKeyDown(KeyCode.Alpha6)){
 			if (holding != null) {
 				holding.GetComponent<SpellScript> ().Cast();
-				Destroy (holding);
-				holding = null;
+				//Destroy (holding);
+				//holding = null;
 			}
 		}
 	}

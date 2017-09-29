@@ -12,6 +12,7 @@ public class AssignedAnimalMovementScript : MonoBehaviour {
 	public float speed;
 	private Animator anim;
 	public bool isWolf;
+	public GameObject munchPrefab;
 	// Use this for initialization
 	void Awake () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -30,9 +31,14 @@ public class AssignedAnimalMovementScript : MonoBehaviour {
 					GetComponent<sDeer1Script> ().phase = 1;
 				}
 				if (isWolf) {
-					Destroy(GameObject.Find ("SDeer1"));
+					if (GameObject.Find("SDeer1") != null) {
+					Destroy (GameObject.Find ("SDeer1"));
+					GameObject munch = Instantiate (munchPrefab);
+					munch.transform.position = GameObject.Find ("SDeer1").transform.position;
+					Destroy (munch, 1.0f);
+				}
 					GameObject.Find ("ScriptedEventManager").GetComponent<ScriptedEventManagerScript> ().NextEvent ();
-					Debug.Log ("MUNCH");
+
 				}
 			}
 		}
