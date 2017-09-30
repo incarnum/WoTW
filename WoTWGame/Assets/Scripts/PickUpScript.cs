@@ -17,6 +17,7 @@ public class PickUpScript : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D coll){
 		if (coll.gameObject.tag == "Player") {
+			Destroy (gameObject);
 			if (pickUpType == 1) {
 				coll.GetComponent<InventoryScript> ().antlerNum += 1;
 			} else if (pickUpType == 2) {
@@ -31,7 +32,7 @@ public class PickUpScript : MonoBehaviour {
 				coll.GetComponent<InventoryScript> ().corrFangNum += 1;
 			}
 			coll.GetComponent<InventoryScript> ().UpdateNumbers ();
-			Destroy (gameObject);
+
 		}
 	}
 
