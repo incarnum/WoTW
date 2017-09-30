@@ -44,19 +44,20 @@ public class UIbuffScript : MonoBehaviour {
     public GameObject wolfSpeedUpGUI;
     public bool wolfSpeedDown;
     public GameObject wolfSpeedDownGUI;
-    private SimpleEcologyMasterScript eco;
+    public SimpleEcologyMasterScript eco;
 
     // Use this for initialization
     void Start () {
+        
 }
 	
 	// Update is called once per frame
-	void Update () {
-
-		// checking shrub
-        if(eco.shrubSizeMod != 0)
+	void Update ()
+    {
+        // checking shrub
+        if(eco.shrubSize != 1)
         {
-            if(eco.shrubSizeMod >= 1)
+            if(eco.shrubSize > 1)
             {
                 shrubGrow = true;
                 shrubShrink = false;
@@ -64,23 +65,22 @@ public class UIbuffScript : MonoBehaviour {
             else
             {
                 shrubShrink = true;
-                shrubGrow = false;
             }
         }
-        if(eco.shrubToughMod != 0)
+        if (eco.shrubDown != 0)
         {
-            if(eco.shrubToughMod >= 1)
+            if (eco.shrubDown >= 1)
             {
-                shrubTough = true;
-                shrubWeak = false;
+                shrubTough = false;
+                shrubWeak = true;
             }
             else
             {
-                shrubWeak = true;
-                shrubTough = false;
+                shrubWeak = false;
+                shrubTough = true;
             }
         }
-        if (eco.shrubSizeMod != 0 || eco.shrubToughMod != 0)
+        if (eco.shrubSize != 1 || eco.shrubDown != 0)
         {
             ShowShrub = true;
         }
@@ -90,9 +90,9 @@ public class UIbuffScript : MonoBehaviour {
         }
 
         //checking deer
-        if (eco.deerSizeMod != 0)
+        if (eco.deerSize != 1)
         {
-            if (eco.deerSizeMod >= 1)
+            if (eco.deerSize >= 1)
             {
                 deerGrow = true;
                 deerShrink = false;
@@ -103,9 +103,9 @@ public class UIbuffScript : MonoBehaviour {
                 deerGrow = false;
             }
         }
-        if (eco.deerToughMod != 0)
+        if (eco.deerDown1 != 0)
         {
-            if (eco.deerToughMod >= 1)
+            if (eco.deerDown1 > 1)
             {
                 deerTough = true;
                 deerWeak = false;
@@ -116,9 +116,9 @@ public class UIbuffScript : MonoBehaviour {
                 deerTough = false;
             }
         }
-        if (eco.deerSpeedMod != 0)
+        if (eco.deerSpeed != 2)
         {
-            if (eco.deerSpeedMod >= 1)
+            if (eco.deerSpeed > 2)
             {
                 deerSpeedUp = true;
                 deerSpeedDown = false;
@@ -130,7 +130,7 @@ public class UIbuffScript : MonoBehaviour {
             }
         }
 
-        if(eco.deerSizeMod !=0 || eco.deerToughMod != 0 || eco.deerSpeedMod != 0)
+        if (eco.deerSize != 1 || eco.deerDown1 != 0 || eco.deerSpeed != 1)
         {
             ShowDeer = true;
         }
@@ -138,11 +138,10 @@ public class UIbuffScript : MonoBehaviour {
         {
             ShowDeer = false;
         }
-
         // checking wolves
-        if (eco.wolfSizeMod != 0)
+        if (eco.wolfSize != 1)
         {
-            if (eco.wolfSizeMod >= 1)
+            if (eco.wolfSize >= 1)
             {
                 wolfGrow = true;
                 wolfShrink = false;
@@ -153,9 +152,9 @@ public class UIbuffScript : MonoBehaviour {
                 wolfGrow = false;
             }
         }
-        if (eco.wolfToughMod != 0)
+        if (eco.wolfDown != 0)
         {
-            if (eco.wolfToughMod >= 1)
+            if (eco.wolfDown >= 1)
             {
                 wolfTough = true;
                 wolfWeak = false;
@@ -166,9 +165,9 @@ public class UIbuffScript : MonoBehaviour {
                 wolfTough = false;
             }
         }
-        if (eco.wolfSpeedMod != 0)
+        if (eco.wolfSpeed != 1)
         {
-            if (eco.wolfSpeedMod >= 1)
+            if (eco.wolfSpeed >= 1)
             {
                 wolfSpeedUp = true;
                 wolfSpeedDown = false;
@@ -179,7 +178,7 @@ public class UIbuffScript : MonoBehaviour {
                 wolfSpeedUp = false;
             }
         }
-        if (eco.wolfSizeMod != 0 || eco.wolfToughMod != 0 || eco.wolfSpeedMod != 0)
+        if (eco.wolfSize != 1 || eco.wolfDown != 0 || eco.wolfSpeed != 1)
         {
             ShowWolf = true;
         }
@@ -212,5 +211,22 @@ public class UIbuffScript : MonoBehaviour {
         wolfWeakGUI.SetActive(wolfWeak);
         wolfSpeedUpGUI.SetActive(wolfSpeedUp);
         wolfSpeedDownGUI.SetActive(wolfSpeedDown);
+    }
+
+    private void NewMethod()
+    {
+        if (eco.shrubSize != 0x1)
+        {
+            if (eco.shrubSize >= 1)
+            {
+                shrubGrow = true;
+                shrubShrink = false;
+            }
+            else
+            {
+                shrubShrink = true;
+                shrubGrow = false;
+            }
+        }
     }
 }
