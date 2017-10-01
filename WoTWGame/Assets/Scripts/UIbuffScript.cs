@@ -18,6 +18,10 @@ public class UIbuffScript : MonoBehaviour {
     public GameObject shrubToughGUI;
     public bool shrubWeak;
     public GameObject shrubWeakGUI;
+    public bool shrubSpeedUp;
+    public GameObject shrubSpeedUpGUI;
+    public bool shrubSpeedDown;
+    public GameObject shrubSpeedDownGUI;
 
     public bool deerGrow;
     public GameObject deerGrowGUI;
@@ -67,6 +71,11 @@ public class UIbuffScript : MonoBehaviour {
                 shrubShrink = true;
             }
         }
+        else
+        {
+            shrubGrow = false;
+            shrubShrink = false;
+        }
         if (eco.shrubDown != 0)
         {
             if (eco.shrubDown >= 1)
@@ -80,7 +89,30 @@ public class UIbuffScript : MonoBehaviour {
                 shrubTough = true;
             }
         }
-        if (eco.shrubSize != 1 || eco.shrubDown != 0)
+        else
+        {
+            shrubWeak = false;
+            shrubTough = false;
+        }
+        if (eco.shrubUp != 0)
+        {
+            if (eco.shrubUp > 0)
+            {
+                deerSpeedUp = true;
+                deerSpeedDown = false;
+            }
+            else
+            {
+                deerSpeedDown = true;
+                deerSpeedUp = false;
+            }
+        }
+        else
+        {
+            deerSpeedUp = false;
+            deerSpeedDown = false;
+        }
+        if (eco.shrubSize != 1 || eco.shrubDown != 0 || eco.shrubUp !=0)
         {
             ShowShrub = true;
         }
@@ -103,6 +135,11 @@ public class UIbuffScript : MonoBehaviour {
                 deerGrow = false;
             }
         }
+        else
+        {
+            deerGrow = false;
+            deerShrink = false;
+        }
         if (eco.deerDown1 != 0)
         {
             if (eco.deerDown1 > 1)
@@ -115,6 +152,11 @@ public class UIbuffScript : MonoBehaviour {
                 deerWeak = true;
                 deerTough = false;
             }
+        }
+        else
+        {
+            deerWeak = false;
+            deerTough = false;
         }
         if (eco.deerSpeed != 2)
         {
@@ -129,8 +171,13 @@ public class UIbuffScript : MonoBehaviour {
                 deerSpeedUp = false;
             }
         }
+        else
+        {
+            deerSpeedDown = false;
+            deerSpeedUp = false;
+        }
 
-        if (eco.deerSize != 1 || eco.deerDown1 != 0 || eco.deerSpeed != 1)
+        if (eco.deerSize != 1 || eco.deerDown1 != 0 || eco.deerSpeed != 2)
         {
             ShowDeer = true;
         }
@@ -152,6 +199,11 @@ public class UIbuffScript : MonoBehaviour {
                 wolfGrow = false;
             }
         }
+        else
+        {
+            wolfShrink = false;
+            wolfGrow = false;
+        }
         if (eco.wolfDown != 0)
         {
             if (eco.wolfDown >= 1)
@@ -165,9 +217,14 @@ public class UIbuffScript : MonoBehaviour {
                 wolfTough = false;
             }
         }
-        if (eco.wolfSpeed != 1)
+        else
         {
-            if (eco.wolfSpeed >= 1)
+            wolfWeak = false;
+            wolfTough = false;
+        }
+        if (eco.wolfSpeed != 2)
+        {
+            if (eco.wolfSpeed >= 2)
             {
                 wolfSpeedUp = true;
                 wolfSpeedDown = false;
@@ -178,7 +235,12 @@ public class UIbuffScript : MonoBehaviour {
                 wolfSpeedUp = false;
             }
         }
-        if (eco.wolfSize != 1 || eco.wolfDown != 0 || eco.wolfSpeed != 1)
+        else
+        {
+            wolfSpeedDown = false;
+            wolfSpeedUp = false;
+        }
+        if (eco.wolfSize != 1 || eco.wolfDown != 0 || eco.wolfSpeed != 2)
         {
             ShowWolf = true;
         }
@@ -196,6 +258,8 @@ public class UIbuffScript : MonoBehaviour {
         shrubShrinkGUI.SetActive(shrubShrink);
         shrubToughGUI.SetActive(shrubTough);
         shrubWeakGUI.SetActive(shrubWeak);
+        shrubSpeedUpGUI.SetActive(shrubSpeedUp);
+        shrubSpeedDownGUI.SetActive(shrubSpeedDown);
 
         deerGrowGUI.SetActive(deerGrow);
         deerShrinkGUI.SetActive(deerShrink);

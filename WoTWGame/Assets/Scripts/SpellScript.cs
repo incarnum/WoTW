@@ -10,8 +10,10 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	public int effect;
 	public float strength;
 	public bool instaCast;
-     float maxSize = 1.8f;
-     float minSize = 0.4f;
+    float maxSize = 1.8f;
+    float minSize = 0.4f;
+    float maxSpeed = 2.6f;
+    float minSpeed = 1.4f;
 	private CreatureManagerScript cm;
 	public bool indestructible;
 	public GameObject errorPrefab;
@@ -39,7 +41,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	
 	// Update is called once per frame
 	void Update () {
-//        Debug.Log(eco.deerSize);
+        Debug.Log(eco.deerSpeed);
 	}
 
 	void Charge() {
@@ -145,7 +147,6 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         {
                             garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
                         }
-                        Debug.Log(eco.deerSize);
                     }
                 }
                
@@ -210,17 +211,21 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 }
                 else
                 {
-                    eco.deerUp1 += strength;
-                    eco.shrubDown += strength;
-                    eco.timesDeerSpeedChanged += 1;
-                    eco.deerSpeed += strength * .6f;
-                    foreach (GameObject garfield in cm.deerCreatureList)
+                    float speedCheck = (eco.deerSpeed) + strength * 0.05f;
+                    if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
                     {
-                        garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
-                    }
-                    foreach (GameObject garfield in cm.corruptedDeerCreatureList)
-                    {
-                        garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+                        eco.deerUp1 += strength;
+                        eco.shrubDown += strength;
+                        eco.timesDeerSpeedChanged += 1;
+                        eco.deerSpeed += strength * .05f;
+                        foreach (GameObject garfield in cm.deerCreatureList)
+                        {
+                            garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+                        }
+                        foreach (GameObject garfield in cm.corruptedDeerCreatureList)
+                        {
+                            garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
+                        }
                     }
                 }
 			} else if (target == 2|| target == 5) {
@@ -241,17 +246,21 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 }
                 else
                 {
-                    eco.wolfUp += strength;
-                    eco.deerDown2 += strength;
-                    eco.timesWolfSpeedChanged += 1;
-                    eco.wolfSpeed += strength * .6f;
-                    foreach (GameObject garfield in cm.wolfCreatureList)
+                    float speedCheck = (eco.wolfSpeed) + strength * 0.05f;
+                    if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
                     {
-                        garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
-                    }
-                    foreach (GameObject garfield in cm.corruptedWolfCreatureList)
-                    {
-                        garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+                        eco.wolfUp += strength;
+                        eco.deerDown2 += strength;
+                        eco.timesWolfSpeedChanged += 1;
+                        eco.wolfSpeed += strength * .05f;
+                        foreach (GameObject garfield in cm.wolfCreatureList)
+                        {
+                            garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+                        }
+                        foreach (GameObject garfield in cm.corruptedWolfCreatureList)
+                        {
+                            garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
+                        }
                     }
                 }
 			}
