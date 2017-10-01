@@ -56,7 +56,7 @@ public class WildSpellbookManagerScript : MonoBehaviour {
 		} else if (eff == 2 && mod == 1) {
 			spellPreviewString += "Reset toughness of ";
 		} else if (eff == 2 && mod == 2) {
-			spellPreviewString += "Hasten ";
+			spellPreviewString += "Toughen ";
 		}
 
 		if (targ == 0) {

@@ -56,16 +56,16 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 
 		}
 
-		if(Input.GetKeyDown (KeyCode.Q) && inMenu)
-		{
-			inMenu = false;
-		}
-
-		if (tutMode) {
-			if (Time.time > timeOfSceneChange) {
-				SceneManager.LoadScene ("Forest");
-			}
-		}
+//		if(Input.GetKeyDown (KeyCode.Q) && inMenu)
+//		{
+//			inMenu = false;
+//		}
+//
+//		if (tutMode) {
+//			if (Time.time > timeOfSceneChange) {
+//				SceneManager.LoadScene ("Forest");
+//			}
+//		}
 	}
 
 	void OnTriggerEnter2D (Collider2D coll) {

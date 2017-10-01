@@ -35,6 +35,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
     public int shrubSizeMod = 0;
     public int deerSizeMod = 0;
     public int wolfSizeMod = 0;
+	public int shrubSpeedMod = 0;
     public int deerSpeedMod = 0;
     public int wolfSpeedMod = 0;
     public int shrubToughMod = 0;
@@ -205,71 +206,71 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			}
 		}
 
-        // Mod updates
-        if (shrubSize > startShrubSize)
-        {
-            shrubSizeMod = 1;
-        }
-        else if (shrubSize < startShrubSize)
-        {
-            shrubSizeMod = -1;
-        }
-        else
-        {
-            shrubSizeMod = 0;
-        }
-
-        if (deerSize > startDeerSize)
-        {
-            deerSizeMod = 1;
-        }
-        else if (deerSize < startDeerSize)
-        {
-            deerSizeMod = -1;
-        }
-        else
-        {
-            deerSizeMod = 0;
-        }
-
-        if (wolfSize > startWolfSize)
-        {
-            wolfSizeMod = 1;
-        }
-        else if (wolfSize < startWolfSize)
-        {
-            wolfSizeMod = -1;
-        }
-        else
-        {
-            wolfSizeMod = 0;
-        }
-
-        if (deerSpeed > startDeerSpeed)
-        {
-            deerSpeedMod = 1;
-        }
-        else if (deerSpeed < startDeerSpeed)
-        {
-           deerSpeedMod = -1;
-        }
-        else
-        {
-            deerSpeedMod = 0;
-        }
-
-        if (wolfSpeed > startWolfSpeed)
-        {
-            wolfSpeedMod = 1;
-        }
-        else if (deerSpeed < startDeerSpeed)
-        {
-            wolfSpeedMod = -1;
-        }
-        else
-        {
-            wolfSpeedMod = 0;
-        }
+//        // Mod updates
+//        if (shrubSize > startShrubSize)
+//        {
+//            shrubSizeMod = 1;
+//        }
+//        else if (shrubSize < startShrubSize)
+//        {
+//            shrubSizeMod = -1;
+//        }
+//        else
+//        {
+//            shrubSizeMod = 0;
+//        }
+//
+//        if (deerSize > startDeerSize)
+//        {
+//            deerSizeMod = 1;
+//        }
+//        else if (deerSize < startDeerSize)
+//        {
+//            deerSizeMod = -1;
+//        }
+//        else
+//        {
+//            deerSizeMod = 0;
+//        }
+//
+//        if (wolfSize > startWolfSize)
+//        {
+//            wolfSizeMod = 1;
+//        }
+//        else if (wolfSize < startWolfSize)
+//        {
+//            wolfSizeMod = -1;
+//        }
+//        else
+//        {
+//            wolfSizeMod = 0;
+//        }
+//
+//        if (deerSpeed > startDeerSpeed)
+//        {
+//            deerSpeedMod = 1;
+//        }
+//        else if (deerSpeed < startDeerSpeed)
+//        {
+//           deerSpeedMod = -1;
+//        }
+//        else
+//        {
+//            deerSpeedMod = 0;
+//        }
+//
+//        if (wolfSpeed > startWolfSpeed)
+//        {
+//            wolfSpeedMod = 1;
+//        }
+//        else if (deerSpeed < startDeerSpeed)
+//        {
+//            wolfSpeedMod = -1;
+//        }
+//        else
+//        {
+//            wolfSpeedMod = 0;
+//        }
     }
 
 	public void UpdateBars() {
@@ -454,11 +455,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			}
 		}
 
-
-
-
-
 	}
+
 
 	void CheckForFailure() {
 		if (shrubPop <= 0) {

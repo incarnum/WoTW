@@ -36,7 +36,7 @@ public class BushScript : MonoBehaviour {
 			GameObject newBerry = Instantiate (corrBerryPrefab) as GameObject;
 			myBerry = newBerry;
 			newBerry.GetComponent<BerryScript> ().sourceBush = gameObject;
-			newBerry.transform.position = gameObject.transform.position;
+			newBerry.transform.position = new Vector3 (gameObject.transform.position.x, gameObject.transform.position.y - .5f, gameObject.transform.position.z - .5f);
 		}
 	}
 }

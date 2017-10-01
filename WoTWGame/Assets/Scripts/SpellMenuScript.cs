@@ -21,6 +21,7 @@ public class SpellMenuScript : MonoBehaviour {
 	public List<GameObject> uncastTomes;
 	public Transform warningSpot;
 	public TextMesh spellPreviewTextbox;
+	public UIbuffScript buffMenu;
 
 	public string spellPreviewString;
 
@@ -69,6 +70,9 @@ public class SpellMenuScript : MonoBehaviour {
 		//newSpell.transform.position = new Vector3 (GameObject.Find ("TomeSpot").transform.position.x, GameObject.Find ("TomeSpot").transform.position.y - uncastTomes.Count, GameObject.Find ("TomeSpot").transform.position.z);
 		PlaceSpell(newSpell);
 		uncastTomes.Add (newSpell);
+		Debug.Log (buffMenu);
+		newSpell.GetComponent<SpellScript> ().bms = buffMenu;
+
 
 		Destroy (node1.GetComponent<IngredientHolderScript> ().holding);
 		Destroy (node2.GetComponent<IngredientHolderScript> ().holding);

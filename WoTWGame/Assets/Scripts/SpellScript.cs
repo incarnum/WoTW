@@ -26,7 +26,15 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     private SpellMenuScript sms;
 
+	public UIbuffScript bms;
+
 	// Use this for initialization
+	void Awake() {
+		if (GameObject.Find ("MultiMenu") != null) {
+			bms = GameObject.Find ("MultiMenu").GetComponentInChildren<UIbuffScript> (true);
+		}
+	}
+
 	void Start () {
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 		cm = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ();
@@ -37,11 +45,15 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         sms = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>();
 		//This overrides the scaling done by the canvas upon instantiation to avoid a resolution dependent bug.
 		transform.localScale = new Vector3 (.35f, .35f, .35f);
+		if (GameObject.Find ("MultiMenu") != null) {
+			bms = GameObject.Find ("MultiMenu").GetComponentInChildren<UIbuffScript> (true);
+		}
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(eco.deerSpeed);
+        
 	}
 
 	void Charge() {
@@ -94,6 +106,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 if(strength == 0)
                 {
                     eco.shrubSize = eco.startShrubSize;
+						eco.shrubSizeMod = 0;
                     foreach (GameObject garfield in cm.shrubCreatureList)
                     {
                         garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
@@ -117,13 +130,20 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         {
                             garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
                         }
+							if (strength > 0) {
+								eco.shrubSizeMod += 1;
+							} else if (strength < 0) {
+								eco.shrubSizeMod -= 1;
+							}
                     }
+
                 }
                 
 			} else if (target == 1 || target == 4) {
                 if (strength == 0)
                 {
                     eco.deerSize = eco.startDeerSize;
+						eco.deerSizeMod = 0;
                     foreach (GameObject garfield in cm.deerCreatureList)
                     {
                         garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
@@ -147,6 +167,11 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         {
                             garfield.transform.localScale = new Vector3(eco.deerSize, eco.deerSize);
                         }
+							if (strength > 0) {
+								eco.deerSizeMod += 1;
+							} else if (strength < 0) {
+								eco.deerSizeMod -= 1;
+							}
                     }
                 }
                
@@ -154,6 +179,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 if (strength == 0)
                 {
                     eco.wolfSize = eco.startWolfSize;
+						eco.wolfSizeMod = 0;
                     foreach (GameObject garfield in cm.wolfCreatureList)
                     {
                         garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
@@ -177,6 +203,11 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         {
                             garfield.transform.localScale = new Vector3(eco.wolfSize, eco.wolfSize);
                         }
+							if (strength > 0) {
+								eco.wolfSizeMod += 1;
+							} else if (strength < 0) {
+								eco.wolfSizeMod -= 1;
+							}
                     }
                 }
 			}
@@ -188,16 +219,23 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 if(strength == 0)
                 {
                     eco.shrubUp = 0;
+						eco.shrubSpeedMod = 0;
                 }
                 else
                 {
                     eco.shrubUp += strength;
+						if (strength > 0) {
+							eco.shrubSpeedMod += 1;
+						} else if (strength < 0) {
+							eco.shrubSpeedMod -= 1;
+						}
                 }
 			} else if (target == 1 || target == 4) {
                 if(strength == 0)
                 {
                     eco.deerUp1 = 0;
                     eco.shrubDown -= sms.spellStrengthMod * eco.timesDeerSpeedChanged;
+						eco.deerSpeedMod = 0;
                     eco.timesDeerSpeedChanged = 0;
                     eco.deerSpeed = eco.startDeerSpeed;
                     foreach (GameObject garfield in cm.deerCreatureList)
@@ -226,6 +264,11 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         {
                             garfield.GetComponent<AnimalMovementScript>().speed2 = eco.deerSpeed;
                         }
+							if (strength > 0) {
+								eco.deerSpeedMod += 1;
+							} else if (strength < 0) {
+								eco.deerSpeedMod -= 1;
+							}
                     }
                 }
 			} else if (target == 2|| target == 5) {
@@ -233,6 +276,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 {
                     eco.wolfUp = 0;
                     eco.deerDown2 -= sms.spellStrengthMod * eco.timesWolfSpeedChanged;
+						eco.wolfSpeedMod = 0;
                     eco.timesWolfSpeedChanged = 0;
                     eco.wolfSpeed = eco.startWolfSpeed;
                     foreach (GameObject garfield in cm.wolfCreatureList)
@@ -261,6 +305,11 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                         {
                             garfield.GetComponent<AnimalMovementScript>().speed2 = eco.wolfSpeed;
                         }
+							if (strength > 0) {
+								eco.wolfSpeedMod += 1;
+							} else if (strength < 0) {
+								eco.wolfSpeedMod -= 1;
+							}
                     }
                 }
 			}
@@ -272,11 +321,17 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             {
                 if (strength == 0)
                 {
-                    eco.shrubDown = sms.spellStrengthMod * eco.timesDeerSpeedChanged; ;
+                    eco.shrubDown = sms.spellStrengthMod * eco.timesDeerSpeedChanged;
+						eco.shrubToughMod = 0;
                 }
                 else
                 {
                     eco.shrubDown -= strength;
+						if (strength > 0) {
+							eco.shrubToughMod += 1;
+						} else if (strength < 0) {
+							eco.shrubToughMod -= 1;
+						}
                 }
             }
             else if (target == 1 || target == 4)
@@ -285,11 +340,17 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 {
                     eco.deerDown1 = 0;
                     eco.deerDown2 = sms.spellStrengthMod * eco.timesWolfSpeedChanged;
+						eco.deerToughMod = 0;
                 }
                 else
                 {
                     eco.deerDown1 -= strength;
                     eco.deerDown2 -= strength;
+						if (strength > 0) {
+							eco.deerToughMod += 1;
+						} else if (strength < 0) {
+							eco.deerToughMod -= 1;
+						}
                 }
             }
             else if (target == 2 || target == 5)
@@ -297,10 +358,16 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
                 if(strength == 0)
                 {
                     eco.wolfDown = 0;
+						eco.wolfToughMod = 0;
                 }
                 else
                 {
                 eco.wolfDown -= strength;
+						if (strength > 0) {
+							eco.wolfToughMod += 1;
+						} else if (strength < 0) {
+							eco.wolfToughMod -= 1;
+						}
                 }
             }
 				
@@ -330,8 +397,9 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 			
 		GameObject.Find ("CastSpellRing").GetComponent<Animator> ().SetTrigger ("Cast2");
 		//GameObject.Find ("CraftMenuCastFlash").GetComponent<Animator> ().SetTrigger ("cast");
-
-		parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
+			if (parentToReturnTo != null) {
+				parentToReturnTo.GetComponent<SpellbookHolderScript> ().holding = null;
+			}
 		} else {
 			Debug.Log ("FailedCast");
 			GameObject errorMessage = Instantiate (errorPrefab) as GameObject;
@@ -340,6 +408,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 			errorMessage.GetComponent<RectTransform> ().localScale = new Vector3 (.7f, .7f, .7f);
 			Destroy (errorMessage, 6f);
 		}
+		bms.UpdateUIBuffs ();
 	}
 
 	public void OnPointerClick(PointerEventData eventData){
