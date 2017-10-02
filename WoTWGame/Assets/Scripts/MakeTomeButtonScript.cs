@@ -25,12 +25,11 @@ public class MakeTomeButtonScript : MonoBehaviour {
 
 	public void CreateSpellButton() {
 		string result = "";
-		if (tutMode)
-		{
+
 			result = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().spellPreviewString;
 
-		}
-		if (tutMode != true || result == "Enlarge Deer")
+		
+		if (result != "" && result != "Shrubs" && result != "Deer" && result != "Wolves")
 		{
 			GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>().CreateSpell();
 			spellRing1.GetComponent<RingSpinScript> ().SpeedBoost ();

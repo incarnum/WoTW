@@ -61,11 +61,11 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 //			inMenu = false;
 //		}
 //
-//		if (tutMode) {
-//			if (Time.time > timeOfSceneChange) {
-//				SceneManager.LoadScene ("Forest");
-//			}
-//		}
+		if (tutMode) {
+			if (Time.time > timeOfSceneChange) {
+				SceneManager.LoadScene ("Forest");
+			}
+		}
 	}
 
 	void OnTriggerEnter2D (Collider2D coll) {
