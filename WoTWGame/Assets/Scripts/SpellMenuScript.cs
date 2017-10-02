@@ -325,7 +325,13 @@ public class SpellMenuScript : MonoBehaviour {
 
 		if (node2.GetComponent<IngredientHolderScript> ().holding != null) {
 			if (node2.GetComponent<IngredientHolderScript> ().holding.GetComponent<DragDropScript> ().objectType >= 3) {
-				spellPreviewString = "Cleanse Corruption";
+                if(node3.GetComponent<IngredientHolderScript>().holding.GetComponent<DragDropScript>().objectType >= 3)
+                {
+                    if(node1.GetComponent<IngredientHolderScript>().holding.GetComponent<DragDropScript>().objectType >= 3)
+                    {
+                        spellPreviewString = "Cleanse Corruption";
+                    }
+                }
 			}
 		}
 

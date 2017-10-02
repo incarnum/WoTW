@@ -117,6 +117,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	public GameObject gameOver5;
 	public GameObject gameOver6;
     public GameObject mainMenuButton;
+    public GameObject victory;
     public GameObject menuCamera;
 	// Use this for initialization
 	void Start () {
@@ -491,6 +492,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			gameOver6.SetActive (true);
             mainMenuButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-		}
+		} else if (CMan.corruptionNodeList.Count == 0)
+        {
+            Time.timeScale = 0;
+            victory.SetActive(true);
+            mainMenuButton.SetActive(true);
+            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
+        }
 	}
 }
