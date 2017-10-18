@@ -22,7 +22,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 	private GameObject spellCore;
 
-	private SimpleEcologyMasterScript eco;
+	private SimpleEcologyMasterScript2 eco;
 
     private SpellMenuScript sms;
 
@@ -36,7 +36,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 	}
 
 	void Start () {
-		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
+		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript2> ();
 		cm = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ();
 		spellCore = GameObject.Find ("Core");
 		if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().noChargeMode) {

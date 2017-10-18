@@ -94,7 +94,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().wolfCreatureList) {
 				gunch.GetComponent<AnimalMovementScript> ().canMove = false;
 			}
-			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = true;
+			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript2> ().paused = true;
 
 
 			float wid = worldUpperLeft.x - worldLowerRight.x;
@@ -142,7 +142,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			}
 			corrIconList.Clear();
 
-			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
+			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript2> ().paused = false;
 			actionBar.SetActive (true);
 			if (multiMenu != null) {
 				multiMenu.SetActive (true);

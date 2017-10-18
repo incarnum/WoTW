@@ -6,11 +6,11 @@ public class corruptionManagerScript : MonoBehaviour {
 	public float infectTime;
 	public float minimumInfectionPop;
 	private float nextCorruptionTime;
-	private SimpleEcologyMasterScript ecoManager;
+	private SimpleEcologyMasterScript2 ecoManager;
 	// Use this for initialization
 	void Start () {
 		nextCorruptionTime = Time.time + infectTime;
-		ecoManager = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
+		ecoManager = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript2>();
 	}
 	
 	// Update is called once per frame
