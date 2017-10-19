@@ -5,8 +5,9 @@ using UnityEngine;
 public class CastTargetScript : MonoBehaviour {
 	private GameObject player;
 	public int animalType;
-	// Use this for initialization
-	void Start () {
+    private InventoryScript power;
+    // Use this for initialization
+    void Start () {
 		player = GameObject.Find ("Player");
 	}
 	
@@ -21,5 +22,12 @@ public class CastTargetScript : MonoBehaviour {
 			player.GetComponent<PlaceMasterScript> ().spellbookHolding.GetComponent<SpellScriptJTest> ().target = animalType;
 			player.GetComponent<PlaceMasterScript> ().spellbookHolding.GetComponent<SpellScriptJTest> ().Cast ();
 		}
+        else
+        {
+            Debug.Log("Die!");
+            power.ManaCount += 20;
+            Destroy(gameObject);
+
+        }
 	}
 }

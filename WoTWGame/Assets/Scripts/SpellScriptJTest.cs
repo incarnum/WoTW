@@ -89,10 +89,6 @@ public class SpellScriptJTest : MonoBehaviour, IBeginDragHandler, IDragHandler, 
                 Destroy(gameObject);
             }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-
-        }
 
     }
 
