@@ -32,7 +32,8 @@ public class PickUpScript : MonoBehaviour {
 				coll.GetComponent<InventoryScript> ().corrFangNum += 1;
 			}
 			coll.GetComponent<InventoryScript> ().UpdateNumbers ();
-
+			if (GameObject.Find ("SpellMaker") != null)
+			GameObject.Find ("SpellMaker").GetComponent<SpellMakerScript> ().CheckCastability();
 		}
 	}
 

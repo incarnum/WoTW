@@ -1,7 +1,7 @@
-OSXStandalone
+WindowsStandalone
 80b431f4b8918d057b485f13144da89b Assembly-CSharp.dll:.bNodeScript
 aacd2ae0f9114895bd12a8d98b9e67b0 Assembly-CSharp.dll:.DragDropScript
-1d9dd571d3e1c52d41c17b8a34cf3610 Assembly-CSharp.dll:.SpellcraftingAltarScript
+bbb434cdc4ead07960be57e699198c70 Assembly-CSharp.dll:.SpellcraftingAltarScript
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cac917711d0e84d412d48737b6fc9ae7 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
@@ -155,7 +155,7 @@ fd5dbb8a6cf962a9ce5ed79964933b4f Assembly-CSharp.dll:.create_stacks
 bc3bd18ead7dac8172356b0e206e96b1 Assembly-CSharp.dll:.rotation
 4ed72d8925df059d126beab99b231100 Assembly-CSharp.dll:.PlayerPlaceScript
 9e52b117c36522973923496d74493097 Assembly-CSharp.dll:.MakeTomeButtonScript
-3083e7450d89be3c15d3aa5b1fddc5e2 Assembly-CSharp.dll:.MultiMenuScript
+7cf02b3323af77f3e91ae6b73d3fa675 Assembly-CSharp.dll:.MultiMenuScript
 0c8f9743f0f1eda26c1de571767bfe85 Assembly-CSharp.dll:.corruptionManagerScript
 dde939922634746c3daaeef4b5ebec95 Assembly-CSharp.dll:.CoreScript
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.OuterRingScript
@@ -202,3 +202,6 @@ fcefec7be1142f4711771067f1632cb4 Assembly-CSharp.dll:.SpellScript
 c93c946dc36dd00680529c70b7d08af9 Assembly-CSharp.dll:.BushScript
 c478172158304aef9cbf97228d4a1592 Assembly-CSharp.dll:.fadeInScreenScript
 186b6edb854ed6613d42ee2d411e90ba Assembly-CSharp.dll:.SpellSlotScript
+4a09053b2aec0a2ae9860cf129cb1c43 Assembly-CSharp.dll:.SpellMakerScript
+fde29412603372a4c25a18f391faa071 Assembly-CSharp.dll:.SpellMakerButtonScript
+8598c52524763a26d5dc0590257c1bd6 Assembly-CSharp.dll:.SpellMakerCastButton

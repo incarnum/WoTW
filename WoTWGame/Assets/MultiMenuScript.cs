@@ -6,6 +6,7 @@ public class MultiMenuScript : MonoBehaviour {
 	public GameObject menu1;
 	public GameObject menu2;
 	public GameObject menu3;
+	public GameObject spellMakerButtons;
 	public GameObject button1;
 	public GameObject button2;
 	public GameObject button3;
@@ -32,6 +33,7 @@ public class MultiMenuScript : MonoBehaviour {
 		menu3.SetActive (false);
 		button2.SetActive (false);
 		button3.SetActive (false);
+		spellMakerButtons.SetActive (false);
 		menu1.SetActive (!menu1.activeSelf);
 		button1.SetActive (!button1.activeSelf);
 	}
@@ -42,7 +44,12 @@ public class MultiMenuScript : MonoBehaviour {
 		button1.SetActive (false);
 		button3.SetActive (false);
 		menu2.SetActive (!menu2.activeSelf);
+		spellMakerButtons.SetActive (!button2.activeSelf);
 		button2.SetActive (!button2.activeSelf);
+		if (GameObject.Find("SpellMaker") != null) {
+			GameObject.Find("SpellMaker").GetComponent<SpellMakerScript> ().CheckCastability ();
+		}
+
 	}
 
 	public void openMap() {
@@ -50,6 +57,7 @@ public class MultiMenuScript : MonoBehaviour {
 		menu2.SetActive (false);
 		button1.SetActive (false);
 		button2.SetActive (false);
+		spellMakerButtons.SetActive (false);
 		menu3.SetActive (!menu3.activeSelf);
 		button3.SetActive (!button3.activeSelf);
 	}

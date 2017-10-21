@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpellcraftingAltarScript : MonoBehaviour {
-	private bool touching;
+	public bool touching;
 	private bool inMenu;
 	public bool corrupted;
 	public bool tutMode;
@@ -71,6 +71,10 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Player") {
 			touching = true;
+			if (GameObject.Find ("SpellMaker") != null) {
+				GameObject.Find ("SpellMaker").GetComponent<SpellMakerScript> ().touchingAltar = true;
+				GameObject.Find ("SpellMaker").GetComponent<SpellMakerScript> ().CheckCastability ();
+			}
 			if (!corrupted)
 				GetComponentsInChildren<SpriteRenderer> () [1].enabled = true;
 		}
@@ -79,6 +83,10 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 	void OnTriggerExit2D (Collider2D coll) {
 		if (coll.gameObject.tag == "Player") {
 			touching = false;
+			if (GameObject.Find ("SpellMaker") != null) {
+				GameObject.Find ("SpellMaker").GetComponent<SpellMakerScript> ().touchingAltar = false;
+				GameObject.Find ("SpellMaker").GetComponent<SpellMakerScript> ().CheckCastability ();
+			}
 			if (!corrupted)
 				GetComponentsInChildren<SpriteRenderer> () [1].enabled = false;
 		}
