@@ -408,7 +408,7 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 			errorMessage.GetComponent<RectTransform> ().localScale = new Vector3 (.7f, .7f, .7f);
 			Destroy (errorMessage, 6f);
 		}
-		bms.UpdateUIBuffs ();
+		//bms.UpdateUIBuffs ();
 	}
 
 	public void OnPointerClick(PointerEventData eventData){

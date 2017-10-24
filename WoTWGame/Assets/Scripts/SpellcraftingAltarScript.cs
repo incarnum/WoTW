@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SpellcraftingAltarScript : MonoBehaviour {
-	private bool touching;
+	public bool touching;
 	private bool inMenu;
 	public bool corrupted;
 	public bool tutMode;
@@ -20,7 +20,7 @@ public class SpellcraftingAltarScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.E) && touching && !corrupted) {
+		if (Input.GetKeyDown (KeyCode.P) && touching && !corrupted) {
 			if (!inMenu)
 			{
 				if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().paused == false)
