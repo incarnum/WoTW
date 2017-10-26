@@ -14,8 +14,10 @@ public class InventoryScript : MonoBehaviour {
 	public int corrBerryNum;
 	public int corrAntlerNum;
 	public int corrFangNum;
+    public int MaxMana;
+    public int ManaCount;
 
-	public GameObject berryText;
+    public GameObject berryText;
 	public GameObject antlerText;
 	public GameObject fangText;
 	public GameObject mouseSkullText;
@@ -34,6 +36,11 @@ public class InventoryScript : MonoBehaviour {
 	public GameObject corrBerryText2;
 	public GameObject corrAntlerText2;
 	public GameObject corrFangText2;
+
+    public GameObject ManaAmountText;
+    public GameObject ManaCostText;
+    public GameObject ManaCorText;
+
 	// Use this for initialization
 	void Start () {
 		berryText = GameObject.Find ("BerryText");
@@ -50,7 +57,10 @@ public class InventoryScript : MonoBehaviour {
 		corrAntlerText2 = GameObject.Find ("CorrAntlerText2");
 		corrFangText = GameObject.Find ("CorrFangText");
 		corrFangText2 = GameObject.Find ("CorrFangText2");
-	}
+
+        ManaCount = MaxMana;
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -64,7 +74,22 @@ public class InventoryScript : MonoBehaviour {
 			corrFangNum += 20;
 			UpdateNumbers ();
 		}
-	}
+
+        //Mana capping
+        if (ManaCount > MaxMana)
+        {
+            ManaCount = MaxMana;
+        }
+        else if (ManaCount < 0)
+        {
+            ManaCount = 0;
+        }
+
+        //ManaText Update
+        ManaAmountText.GetComponent<Text>().text = "Mana: " + ManaCount;
+        ManaCostText.GetComponent<Text>().text = "Cost: 20";
+        ManaCorText.GetComponent<Text>().text = "Cost: 20";
+    }
 
 	public void UpdateNumbers () {
 		berryText.GetComponent<Text> ().text = berryNum.ToString ();
