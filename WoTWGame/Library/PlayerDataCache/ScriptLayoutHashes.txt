@@ -1,4 +1,4 @@
-OSXStandalone
+WindowsStandalone
 80b431f4b8918d057b485f13144da89b Assembly-CSharp.dll:.bNodeScript
 aacd2ae0f9114895bd12a8d98b9e67b0 Assembly-CSharp.dll:.DragDropScript
 1d9dd571d3e1c52d41c17b8a34cf3610 Assembly-CSharp.dll:.SpellcraftingAltarScript
@@ -16,11 +16,13 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 5667fb372c2b292ccdec2a31aaac98fa UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 c24a21b131bfa67be1162db2cba4b52b UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.reaction
+7282834aca0c66f2519a7fe471a22c18 Assembly-CSharp.dll:.SortingLayerExposer
 c6c90dbe7fc61fd286b1d02f9d7cc194 Assembly-CSharp.dll:.shoot_energy
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.tabOverlayScript
 2d08cbc39bbce923113650557d8f98b5 Assembly-CSharp.dll:.BuffMasterScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ANodeScript
 1e7365e8db0115ad63f5739a3658e937 Assembly-CSharp.dll:.NoOverlapScript
+290a6002492874b1d8abce746734ce4d Assembly-CSharp.dll:.PylonScipt
 6cbe34f1abcd9568131ce5f580f4e883 Assembly-CSharp.dll:.PlayerControllerB
 f0be6b80586b4825dee24ae9ece23503 Assembly-CSharp.dll:.ScriptedEventManagerScript
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -176,8 +178,10 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 5f2ad81aa8994e8fbe25d1e57afe6773 UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
 f95d221cd400dc7b99e308fe7db5f977 Assembly-CSharp.dll:.BerryScript
+f2678131953caf2836872c2fe1b900c6 Assembly-CSharp.dll:.PylonCoreScript
 9326a48c3eb564e37e0036364bf6c572 Assembly-CSharp.dll:.zDepthScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ExitGameButtonScript
+e96debd1dcd8a6291bae1be8a64c098a Assembly-CSharp.dll:.DescriptionTextScript
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
@@ -198,3 +202,4 @@ fcefec7be1142f4711771067f1632cb4 Assembly-CSharp.dll:.SpellScript
 c93c946dc36dd00680529c70b7d08af9 Assembly-CSharp.dll:.BushScript
 c478172158304aef9cbf97228d4a1592 Assembly-CSharp.dll:.fadeInScreenScript
 186b6edb854ed6613d42ee2d411e90ba Assembly-CSharp.dll:.SpellSlotScript
+e4c52cf00c3f33bdbe560eb4e3371233 Assembly-CSharp.dll:.ProximityPopUpScript

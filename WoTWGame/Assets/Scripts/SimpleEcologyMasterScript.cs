@@ -391,7 +391,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	}
 
 	void Corrupt() {
-		corruptionRate = 7 - CMan.corruptionNodeList.Count * corruptionAcceleration;
+		corruptionRate = 9 - CMan.corruptionNodeList.Count * corruptionAcceleration;
 
 		if (corruptedShrubPop <= 0) {
 			corruptingShrubs = false;
