@@ -125,6 +125,13 @@ public class AnimalMovementScript : MonoBehaviour {
 				PauseMovementForTime (2.0f);
 			}
 		}
+//		if (col.gameObject.tag == "Corruption") {
+//			if (col.gameObject.GetComponent<CorruptionNodeScript> ().activelySliding) {
+//				anim.SetTrigger ("die");
+//				GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().deerCreatureList.Remove (gameObject);
+//				Destroy (gameObject, 1.0f);
+//			}
+//		}
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {

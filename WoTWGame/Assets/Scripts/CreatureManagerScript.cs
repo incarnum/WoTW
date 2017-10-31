@@ -53,12 +53,16 @@ public class CreatureManagerScript : MonoBehaviour {
 
 	private Transform upperLeftBound;
 	private Transform lowerRightBound;
+	private Transform upperLeftAntiBound;
+	private Transform lowerRightAntiBound;
 
 	// Use this for initialization
 	void Start () {
 		eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
 		upperLeftBound = GetComponentsInChildren<Transform> ()[1];
 		lowerRightBound = GetComponentsInChildren<Transform> ()[2];
+		upperLeftAntiBound = GetComponentsInChildren<Transform> ()[3];
+		lowerRightAntiBound = GetComponentsInChildren<Transform> ()[4];
 		if (initializeAtStart == true) {
 			Initialize ();
 		}
@@ -202,8 +206,8 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateShrub() {
 		GameObject newShrub = Instantiate (shrubPrefab) as GameObject;
 		shrubCreatureList.Add (newShrub);
-		newShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newShrub.transform.position -= (newShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+		newShrub.transform.position = findPosition ();
+		//newShrub.transform.position -= (newShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 		newShrub.transform.localScale = new Vector3 (eco.shrubSize, eco.shrubSize);
 
 		//GameObject newBall = Instantiate (ballPrefab) as GameObject;
@@ -214,30 +218,30 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateCorruptedShrub() {
 		GameObject newCorruptedShrub = Instantiate (corruptedShrubPrefab) as GameObject;
 		corruptedShrubCreatureList.Add (newCorruptedShrub);
-		newCorruptedShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newCorruptedShrub.transform.position -= (newCorruptedShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+		newCorruptedShrub.transform.position = findPosition ();
+		//newCorruptedShrub.transform.position -= (newCorruptedShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 		newCorruptedShrub.transform.localScale = new Vector3 (eco.shrubSize, eco.shrubSize);
 	}
 
 	public void CreateBerry() {
 		GameObject newBerry = Instantiate (berryPrefab) as GameObject;
 		berryList.Add (newBerry);
-		newBerry.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newBerry.transform.position -= (newBerry.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+		newBerry.transform.position = findPosition ();
+		//newBerry.transform.position -= (newBerry.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedBerry() {
 		GameObject newCorruptedBerry = Instantiate (corruptedBerryPrefab) as GameObject;
 		corruptedBerryList.Add (newCorruptedBerry);
-		newCorruptedBerry.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newCorruptedBerry.transform.position -= (newCorruptedBerry.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
+		newCorruptedBerry.transform.position = findPosition ();
+		//newCorruptedBerry.transform.position -= (newCorruptedBerry.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 	}
 
 	public void CreateDeer() {
 		GameObject newDeer = Instantiate (deerPrefab) as GameObject;
 		deerCreatureList.Add (newDeer);
-		newDeer.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newDeer.transform.position -= (newDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
+		newDeer.transform.position = findPosition ();
+		//newDeer.transform.position -= (newDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 		newDeer.transform.localScale = new Vector3 (eco.deerSize, eco.deerSize);
 		newDeer.GetComponent<AnimalMovementScript> ().speed2 = eco.deerSpeed;
 	}
@@ -245,8 +249,8 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateCorruptedDeer() {
 		GameObject newCorruptedDeer = Instantiate (corruptedDeerPrefab) as GameObject;
 		corruptedDeerCreatureList.Add (newCorruptedDeer);
-		newCorruptedDeer.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newCorruptedDeer.transform.position -= (newCorruptedDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
+		newCorruptedDeer.transform.position = findPosition ();
+		//newCorruptedDeer.transform.position -= (newCorruptedDeer.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 		newCorruptedDeer.transform.localScale = new Vector3 (eco.deerSize, eco.deerSize);
 		newCorruptedDeer.GetComponent<AnimalMovementScript> ().speed2 = eco.deerSpeed;
 	}
@@ -254,22 +258,22 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateAntler() {
 		GameObject newAntler = Instantiate (antlerPrefab) as GameObject;
 		antlerList.Add (newAntler);
-		newAntler.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newAntler.transform.position -= (newAntler.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
+		newAntler.transform.position = findPosition ();
+		//newAntler.transform.position -= (newAntler.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedAntler() {
 		GameObject newAntler = Instantiate (corruptedAntlerPrefab) as GameObject;
 		corruptedAntlerList.Add (newAntler);
-		newAntler.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newAntler.transform.position -= (newAntler.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
+		newAntler.transform.position = findPosition ();
+		//newAntler.transform.position -= (newAntler.transform.position - GameObject.Find ("DeerNucleus").transform.position) / 2;
 	}
 
 	public void CreateWolf() {
 		GameObject newWolf = Instantiate (wolfPrefab) as GameObject;
 		wolfCreatureList.Add (newWolf);
-		newWolf.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
+		newWolf.transform.position = findPosition ();
+		//newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 		newWolf.transform.localScale = new Vector3 (eco.wolfSize, eco.wolfSize);
 		newWolf.GetComponent<AnimalMovementScript> ().speed2 = eco.wolfSpeed;
 	}
@@ -277,8 +281,8 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateCorruptedWolf() {
 		GameObject newWolf = Instantiate (corruptedWolfPrefab) as GameObject;
 		corruptedWolfCreatureList.Add (newWolf);
-		newWolf.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
+		newWolf.transform.position = findPosition ();
+		//newWolf.transform.position -= (newWolf.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 		newWolf.transform.localScale = new Vector3 (eco.wolfSize, eco.wolfSize);
 		newWolf.GetComponent<AnimalMovementScript> ().speed2 = eco.wolfSpeed;
 	}
@@ -286,15 +290,32 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateFang() {
 		GameObject newFang = Instantiate (fangPrefab) as GameObject;
 		fangList.Add (newFang);
-		newFang.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newFang.transform.position -= (newFang.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
+		newFang.transform.position = findPosition ();
+		//newFang.transform.position -= (newFang.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 	}
 
 	public void CreateCorruptedFang() {
 		GameObject newFang = Instantiate (corruptedFangPrefab) as GameObject;
 		corruptedFangList.Add (newFang);
-		newFang.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
-		newFang.transform.position -= (newFang.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
+		newFang.transform.position = findPosition ();
+		//newFang.transform.position -= (newFang.transform.position - GameObject.Find ("WolfNucleus").transform.position) / 2;
 	}
 		
+	private Vector2 findPosition() {
+		bool validPos = false;
+		Vector2 garfPos = new Vector2(0,0);
+		int loopNum = 0;
+		while (validPos == false) {
+			garfPos = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
+			if (garfPos.x > upperLeftAntiBound.position.x && garfPos.x < lowerRightAntiBound.position.x && garfPos.y < upperLeftAntiBound.position.y && garfPos.y > lowerRightAntiBound.position.y) {
+				validPos = false;
+				loopNum += 1;
+				//Debug.Log ("invalid " + loopNum);
+				//Debug.Log (garfPos);
+			} else {
+				validPos = true;
+			}
+		}
+		return garfPos;
+	}
 }

@@ -378,18 +378,36 @@ public class SpellScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 					Destroy (gunch);
 				}
 			}
+				foreach (GameObject gunch in GameObject.Find ("TreeHolder").GetComponent <TreeHolderScript> ().treeList) {
+					if ((gunch.transform.position - GameObject.Find ("Player").transform.position).magnitude < 6) {
+						gunch.GetComponent<Animator> ().ResetTrigger ("corrupt");
+						gunch.GetComponent<Animator> ().SetTrigger ("cleanse");
+					}
+				}
 		} if (effect == 4) {
 			foreach (GameObject gunch in GameObject.Find ("CreatureManager").GetComponent <CreatureManagerScript> ().corruptionNodeList) {
 				if ((gunch.transform.position - GameObject.Find ("Player").transform.position).magnitude < 6) {
 					Destroy (gunch);
 				}
 			}
+				foreach (GameObject gunch in GameObject.Find ("TreeHolder").GetComponent <TreeHolderScript> ().treeList) {
+					if ((gunch.transform.position - GameObject.Find ("Player").transform.position).magnitude < 6) {
+						gunch.GetComponent<Animator> ().ResetTrigger ("corrupt");
+						gunch.GetComponent<Animator> ().SetTrigger ("cleanse");
+					}
+				}
 		} if (effect == 5) {
 			foreach (GameObject gunch in GameObject.Find ("CreatureManager").GetComponent <CreatureManagerScript> ().corruptionNodeList) {
 				if ((gunch.transform.position - GameObject.Find ("Player").transform.position).magnitude < 6) {
 					Destroy (gunch);
 				}
 			}
+				foreach (GameObject gunch in GameObject.Find ("TreeHolder").GetComponent <TreeHolderScript> ().treeList) {
+					if ((gunch.transform.position - GameObject.Find ("Player").transform.position).magnitude < 6) {
+						gunch.GetComponent<Animator> ().ResetTrigger ("corrupt");
+						gunch.GetComponent<Animator> ().SetTrigger ("cleanse");
+					}
+				}
 		} if (effect == 6) {
 			GameObject.Find ("CorruptedAltar").GetComponent<SpellcraftingAltarScript> ().Cleanse ();
 				GameObject.Find ("IntroMusic").GetComponent<fadeAudioScript> ().beginFade (3f);

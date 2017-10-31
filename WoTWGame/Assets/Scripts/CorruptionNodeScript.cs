@@ -35,6 +35,7 @@ public class CorruptionNodeScript : MonoBehaviour {
 		}
 		GameObject.Find ("SludgeBar").GetComponent<barScript> ().SetFillSizeValue (GameObject.Find ("CreatureManager").GetComponent <CreatureManagerScript> ().corruptionNodeList.Count * .04f);
 		startTime = Time.time;
+		gameObject.name = Random.Range (0, 100).ToString ();
 	}
 	
 	// Update is called once per frame
@@ -93,7 +94,16 @@ public class CorruptionNodeScript : MonoBehaviour {
 				//Debug.Log ("corruption node hit another node");
 				if (col.gameObject != creator) {
 					Destroy (gameObject);
+					//if you're looking here it's probably because corruption nodes are randomly disappearing while they spread
+					//it's almost certainly happening because youve turned up the speed at which they spread super high,
+					//so they're colliding with other nodes that their creator is spawning simultaneously because their spread time overlaps
+					//if you're not jay, hopefully this saves you some trouble
+					//if you are jay, this is like the fourth time you've forgotten why this glitch happens. come on, man.
 				}
+			}
+			if (col.gameObject.tag == "Tree") {
+				col.gameObject.GetComponent<Animator> ().SetTrigger ("corrupt");
+				Debug.Log (gameObject);
 			}
 		}
 	}

@@ -20,16 +20,22 @@ public class PickUpScript : MonoBehaviour {
 			Destroy (gameObject);
 			if (pickUpType == 1) {
 				coll.GetComponent<InventoryScript> ().antlerNum += 1;
+				GameObject.Find ("AntlerIngGlow").GetComponent<Animator> ().SetTrigger ("glow");
 			} else if (pickUpType == 2) {
 				coll.GetComponent<InventoryScript> ().fangNum += 1;
+				GameObject.Find ("FangIngGlow").GetComponent<Animator> ().SetTrigger ("glow");
 			} else if (pickUpType == 0) {
 				coll.GetComponent<InventoryScript> ().berryNum += 1;
+				GameObject.Find ("BerryIngGlow").GetComponent<Animator> ().SetTrigger ("glow");
 			} else if (pickUpType == 3) {
 				coll.GetComponent<InventoryScript> ().corrBerryNum += 1;
+				GameObject.Find ("CorrBerryIngGlow").GetComponent<Animator> ().SetTrigger ("glow");
 			} else if (pickUpType == 4) {
 				coll.GetComponent<InventoryScript> ().corrAntlerNum += 1;
+				GameObject.Find ("CorrAntlerIngGlow").GetComponent<Animator> ().SetTrigger ("glow");
 			} else if (pickUpType == 5) {
 				coll.GetComponent<InventoryScript> ().corrFangNum += 1;
+				GameObject.Find ("CorrFangIngGlow").GetComponent<Animator> ().SetTrigger ("glow");
 			}
 			coll.GetComponent<InventoryScript> ().UpdateNumbers ();
 
