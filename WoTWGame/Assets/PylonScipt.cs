@@ -13,10 +13,12 @@ public class PylonScipt : MonoBehaviour {
 	public int activeSelection = -1;
 	public List<GameObject> options;
 	public PylonCoreScript core;
+	public CorruptedPylonCoreScript core2;
 	private bool validSelection;
 	public GameObject holdingSprite;
 	public SpriteRenderer glow;
 	public GameObject descriptionText;
+	public bool corrupted;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
@@ -34,7 +36,7 @@ public class PylonScipt : MonoBehaviour {
 				options [0].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().berryNum);
 				options [1].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().antlerNum);
 				options [2].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().fangNum);
-				options [3].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().corrBerryNum);
+				//options [3].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().corrBerryNum);
 				CheckIfValid ();
 
 			} else if (validSelection) {
@@ -80,8 +82,11 @@ public class PylonScipt : MonoBehaviour {
 			} else if (pylonNum == 2) {
 				core.strength = -1;
 			}
-
-			core.PredictSpell ();
+			if (corrupted == false) {
+				core.PredictSpell ();
+			} else {
+				core2.PredictSpell ();
+			}
 
 		}
 
@@ -148,19 +153,27 @@ public class PylonScipt : MonoBehaviour {
 		player.GetComponent<PlayerControllerScript> ().canMove = true;
 		player.GetComponent<PlayerControllerB> ().canMove = true;
 		windowActive = false;
-		if (pylonNum == 0) {
-			core.target = activeSelection;
-		} else if (pylonNum == 1) {
-			core.effect = activeSelection;
-		} else if (pylonNum == 2) {
-			if (activeSelection == 0) {
-				core.strength = 4;
-			} else if (activeSelection == 1) {
-				core.strength = 0;
-			} else if (activeSelection == 2) {
-				core.strength = -4;
-			} else if (activeSelection == 3) {
-				core.strength = 3;
+		if (!corrupted) {
+			if (pylonNum == 0) {
+				core.target = activeSelection;
+			} else if (pylonNum == 1) {
+				core.effect = activeSelection;
+			} else if (pylonNum == 2) {
+				if (activeSelection == 0) {
+					core.strength = 4;
+				} else if (activeSelection == 1) {
+					core.strength = 0;
+				} else if (activeSelection == 2) {
+					core.strength = -4;
+				} else if (activeSelection == 3) {
+					core.strength = 3;
+				}
+			}
+		} else {
+			if (pylonNum == 0) {
+				core2.target = activeSelection;
+			} else if (pylonNum == 2) {
+				core2.strength = activeSelection;
 			}
 		}
 		if (activeSelection == 0) {
@@ -174,7 +187,11 @@ public class PylonScipt : MonoBehaviour {
 		}
 		player.GetComponent<InventoryScript> ().UpdateNumbers ();
 		UpdateSprite ();
-		core.PredictSpell ();
+		if (corrupted == false) {
+			core.PredictSpell ();
+		} else {
+			core2.PredictSpell ();
+		}
 	}
 
 	public void UpdateSprite() {

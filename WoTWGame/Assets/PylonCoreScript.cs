@@ -32,6 +32,7 @@ public class PylonCoreScript : MonoBehaviour {
 	public PylonScipt pylon2;
 	public PylonScipt pylon3;
 	public string spellPreviewText;
+	public GameObject spellPreviewTextbox;
 	public RingSpinScript ring1;
 	public RingSpinScript ring2;
 	private bool castable;
@@ -458,7 +459,7 @@ public class PylonCoreScript : MonoBehaviour {
 		}
 
 
-		GameObject.Find ("PylonPreviewText").GetComponent<TextMesh> ().text = spellPreviewText;
+		spellPreviewTextbox.GetComponent<TextMesh> ().text = spellPreviewText;
 	}
 
 	public void CreateSpell() {

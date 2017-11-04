@@ -293,6 +293,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 	}
 
 	void SimpleEcologize() {
+		//sets the rising triggers. If a rising trigger is true, it makes the pop rise, if it's false, it makes it fall.
+		//some triggers are set as soon as they go over or under another value, while others wait to go a little bit beyond 
+		//to an overshoot value to simulate an ecosystem better
 		if (shrubBiomass > (deerBiomass + overShootValue)) {
 			deerRising = true;
 			deerArrowsShrub.SetTrigger (deerUp1.ToString());
@@ -304,7 +307,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		if (shrubBiomass < deerBiomass) {
 			shrubRising = false;
 			shrubArrowsDeer.SetTrigger (shrubDown.ToString());
-		} else if (shrubBiomass > deerBiomass) {
+		}  else if (shrubBiomass > deerBiomass) {
 			shrubRising = true;
 			shrubArrowsDeer.SetTrigger (shrubUp.ToString());
 		}
@@ -321,39 +324,48 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		if (deerBiomass < wolfBiomass) {
 			deerRising2 = false;
 			deerArrowsWolf.SetTrigger (deerDown2.ToString());
-		} else if (deerBiomass > wolfBiomass) {
+		}  else if (deerBiomass > wolfBiomass) {
 			deerRising2 = true;
 			deerArrowsWolf.SetTrigger (deerUp2.ToString());
 		}
 
+
+		//Below is the section that changes the populations according to what rising triggers are set
+
+		//Because deer are the only creatures with 2 rising triggers (their pop changes both from the shrub pop and the wolf pop) they have an extra step
+		//In order to have a way of telling what the net change to deer pop is every tick, the change from the bools has to be added together into
+		//the float rateOfDeerChange, and then that float is applies to the actual population.
 		rateOfDeerChange = 0;
 
-
+		//the format of these is:
+		//population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
+		// of the buffs.
+		//One of these is also multiplied by 2 at the end, I don't remember why specifically, but I think it's part of keeping things balanced.
 		if (shrubRising == true) {
 			shrubPop += (2 + shrubUp * .2f) * overallSpeed * Time.deltaTime;
 			//corruptedShrubPop += (2 + shrubUp * .2f) * overallSpeed * Time.deltaTime * (corruptedShrubPop / shrubPop);
-		} else {
+		}  else {
 			shrubPop -= (2 + shrubDown * .2f) * overallSpeed * Time.deltaTime;
 			corruptedShrubPop -= (2 + shrubDown * .2f) * overallSpeed * Time.deltaTime;
 		}
 
 		if (deerRising == true) {
 			rateOfDeerChange += (2 + deerUp1 * .2f) * overallSpeed * Time.deltaTime;
-		} else {
+		}  else {
 			rateOfDeerChange -= (3 + deerDown1 * .2f) * overallSpeed * Time.deltaTime;
 		}
 
 		if (wolfRising == true) {
 			wolfPop += (2 + wolfUp * .2f) * overallSpeed * Time.deltaTime;
 			//corruptedWolfPop += (1.9f + wolfUp * .2f) * overallSpeed * Time.deltaTime * (corruptedWolfPop / wolfPop);
-		} else {
+		}  else {
 			wolfPop -= (3 + wolfDown * .2f) * overallSpeed * Time.deltaTime;
 			corruptedWolfPop -= (3 + wolfDown * .2f) * overallSpeed * Time.deltaTime;
 		}
 
 		if (deerRising2 == true) {
 			rateOfDeerChange += (2 + deerUp2 * .2f) * overallSpeed * Time.deltaTime;
-		} else {
+		}  else {
 			rateOfDeerChange -= (1 + deerDown2 * .2f) * overallSpeed * Time.deltaTime * 2;
 		}
 		deerPop += rateOfDeerChange;
@@ -361,6 +373,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptedDeerPop += rateOfDeerChange;
 		}
 
+		//populations find out if they have anough food based on their biomass and their foods biomass. biomass is based on population times size.
 		shrubBiomass = shrubPop * shrubSize;
 		deerBiomass = deerPop * deerSize;
 		wolfBiomass = wolfPop * wolfSize;
@@ -368,35 +381,17 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 		corruptedDeerBiomass = corruptedDeerPop * deerSize;
 		corruptedWolfBiomass = corruptedWolfPop * wolfSize;
 
-//		if (Mathf.Abs (shrubPop - deerPop) < 15) {
-//			shrubOvershoot += .5f * Time.deltaTime * overallSpeed;
-//		} else if (shrubOvershoot > 5) {
-//			shrubOvershoot -= .5f * Time.deltaTime * overallSpeed;
-//		}
-//
-//		if (Mathf.Abs (wolfPop - deerPop) < 15) {
-//			deerOvershoot += .5f * Time.deltaTime * overallSpeed;
-//		} else if (deerOvershoot > 5) {
-//			deerOvershoot -= .5f * Time.deltaTime * overallSpeed;
-//		}
 
-
-
-
-
-//		if (deerPop < wolfPop) {
-//			deerPop -= 2 * Time.deltaTime;
-//			wolfPop -= 3 * Time.deltaTime;
-//		}
 	}
 
 	void Corrupt() {
-		corruptionRate = 9 - CMan.corruptionNodeList.Count * corruptionAcceleration;
+		//this section increases corruption on corrupted populations
+		corruptionRate = CMan.corruptionNodeList.Count * corruptionAcceleration;
 
 		if (corruptedShrubPop <= 0) {
 			corruptingShrubs = false;
-//			corruptedShrubArrows.SetTrigger ("0");
-//			corruptedShrubArrowsUI.SetTrigger ("0");
+			//			corruptedShrubArrows.SetTrigger ("0");
+			//			corruptedShrubArrowsUI.SetTrigger ("0");
 		}
 		if (corruptedDeerPop <= 0) {
 			corruptingDeer = false;
@@ -406,38 +401,38 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptingWolves = false;
 			corruptedWolfArrows.SetTrigger ("0");
 		}
-
+		//section below is just setting animations for arrows that aren't currently implemented
 		if (corruptingShrubs == true && shrubRising == true) {
 			corruptedShrubPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedShrubArrows.SetTrigger ("1");
-//				corruptedShrubArrowsUI.SetTrigger ("1");
-			} else if (corruptionRate >= 1 && corruptionRate < 2) {
+				//				corruptedShrubArrowsUI.SetTrigger ("1");
+			}  else if (corruptionRate >= 1 && corruptionRate < 2) {
 				corruptedShrubArrows.SetTrigger ("2");
-//				corruptedShrubArrowsUI.SetTrigger ("2");
-			} else if (corruptionRate >= 2 && corruptionRate < 3) {
+				//				corruptedShrubArrowsUI.SetTrigger ("2");
+			}  else if (corruptionRate >= 2 && corruptionRate < 3) {
 				corruptedShrubArrows.SetTrigger ("3");
-//				corruptedShrubArrowsUI.SetTrigger ("3");
-			} else if (corruptionRate >= 3 && corruptionRate < 4) {
+				//				corruptedShrubArrowsUI.SetTrigger ("3");
+			}  else if (corruptionRate >= 3 && corruptionRate < 4) {
 				corruptedShrubArrows.SetTrigger ("4");
-//				corruptedShrubArrowsUI.SetTrigger ("4");
-			} else if (corruptionRate >= 4 && corruptionRate < 5) {
+				//				corruptedShrubArrowsUI.SetTrigger ("4");
+			}  else if (corruptionRate >= 4 && corruptionRate < 5) {
 				corruptedShrubArrows.SetTrigger ("5");
-//				corruptedShrubArrowsUI.SetTrigger ("5");
+				//				corruptedShrubArrowsUI.SetTrigger ("5");
 			}
 		}
 		if (corruptingDeer == true) {
 			if (rateOfDeerChange >= 0f)
-			corruptedDeerPop += corruptionRate * overallSpeed * Time.deltaTime;
+				corruptedDeerPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedDeerArrows.SetTrigger ("1");
-			} else if (corruptionRate >= 1 && corruptionRate < 2) {
+			}  else if (corruptionRate >= 1 && corruptionRate < 2) {
 				corruptedDeerArrows.SetTrigger ("2");
-			} else if (corruptionRate >= 2 && corruptionRate < 3) {
+			}  else if (corruptionRate >= 2 && corruptionRate < 3) {
 				corruptedDeerArrows.SetTrigger ("3");
-			} else if (corruptionRate >= 3 && corruptionRate < 4) {
+			}  else if (corruptionRate >= 3 && corruptionRate < 4) {
 				corruptedDeerArrows.SetTrigger ("4");
-			} else if (corruptionRate >= 4 && corruptionRate < 5) {
+			}  else if (corruptionRate >= 4 && corruptionRate < 5) {
 				corruptedDeerArrows.SetTrigger ("5");
 			}
 		}
@@ -445,21 +440,21 @@ public class SimpleEcologyMasterScript : MonoBehaviour {
 			corruptedWolfPop += corruptionRate * overallSpeed * Time.deltaTime;
 			if (corruptionRate < 1) {
 				corruptedWolfArrows.SetTrigger ("1");
-			} else if (corruptionRate >= 1 && corruptionRate < 2) {
+			}  else if (corruptionRate >= 1 && corruptionRate < 2) {
 				corruptedWolfArrows.SetTrigger ("2");
-			} else if (corruptionRate >= 2 && corruptionRate < 3) {
+			}  else if (corruptionRate >= 2 && corruptionRate < 3) {
 				corruptedWolfArrows.SetTrigger ("3");
-			} else if (corruptionRate >= 3 && corruptionRate < 4) {
+			}  else if (corruptionRate >= 3 && corruptionRate < 4) {
 				corruptedWolfArrows.SetTrigger ("4");
-			} else if (corruptionRate >= 4 && corruptionRate < 5) {
+			}  else if (corruptionRate >= 4 && corruptionRate < 5) {
 				corruptedWolfArrows.SetTrigger ("5");
 			}
 		}
 
 	}
 
-
 	void CheckForFailure() {
+		//see if the player has lost
 		if (shrubPop <= 0) {
 			Time.timeScale = 0;
 			gameOver1.SetActive (true);
