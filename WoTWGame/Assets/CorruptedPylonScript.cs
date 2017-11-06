@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CorruptedPylonScript : MonoBehaviour {
+	//this script is specifically for pylons that just say "CORRUPTED" when you open them, and don't give you any options
 	private bool windowActive;
 	public GameObject window;
 	private bool touching;

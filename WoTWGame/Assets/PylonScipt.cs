@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PylonScipt : MonoBehaviour {
-	public int pylonNum;
-	private bool windowActive;
-	public GameObject window;
-	public GameObject selector;
-	private bool touching;
+	public int pylonNum; //what role of pylon this is. 0 = target, 1 = effect, 2 = modifier
+	private bool windowActive; //is the window open
+	public GameObject window; //the ui window for choosing an ingredient
+	public GameObject selector; //the icon that shows what you currently have selected, changes color based on validity
+	private bool touching; //is the player touching the pylon
 	private GameObject player;
-	private int currentSelection;
-	public int activeSelection = -1;
+	private int currentSelection; //the ingredient the player has highlighted. This script displays a tooltip explaining what the ing does if used in this slot
+	public int activeSelection = -1; //the ingredient the pylon is currently storing. This is used by the core script to determine what spell is made.
 	public List<GameObject> options;
-	public PylonCoreScript core;
-	public CorruptedPylonCoreScript core2;
-	private bool validSelection;
-	public GameObject holdingSprite;
-	public SpriteRenderer glow;
-	public GameObject descriptionText;
-	public bool corrupted;
+	public PylonCoreScript core; //the object/script that casts the spells
+	public CorruptedPylonCoreScript core2; //the object/script that casts the cleanse corruption spells. Pylons at corrupted pylon circles need and use this rather than regular core
+	private bool validSelection; //a bool for if the player has enough of the currently selected ingredient to put it on the pylon
+	public GameObject holdingSprite; //the ingredient sprite that floats above the pylon
+	public SpriteRenderer glow; //the color changing runes on the pylon
+	public GameObject descriptionText; //the tooltip explaining what an ingredient does
+	public bool corrupted; //is this pylon at a corrupted pylon circle
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
@@ -28,15 +28,17 @@ public class PylonScipt : MonoBehaviour {
 	void Update () {
 		if (touching && Input.GetKeyDown (KeyCode.E)) {
 			if (!windowActive) {
+				//opens window, 
 				window.SetActive (true);
 				player.GetComponent<PlayerControllerScript> ().canMove = false;
 				player.GetComponent<PlayerControllerB> ().canMove = false;
 				windowActive = true;
+				//updates the tooltip saying what the current selection does
 				UpdateText ();
+				//sets number display for how many ingredients the player has
 				options [0].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().berryNum);
 				options [1].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().antlerNum);
 				options [2].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().fangNum);
-				//options [3].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().corrBerryNum);
 				CheckIfValid ();
 
 			} else if (validSelection) {
@@ -91,6 +93,7 @@ public class PylonScipt : MonoBehaviour {
 		}
 
 		if (windowActive) {
+			//moving the selector up and down to see different options
 			if (Input.GetKeyDown (KeyCode.S)) {
 				currentSelection += 1;
 				if (currentSelection + 1 > options.Count) {
@@ -126,6 +129,7 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	void CheckIfValid() {
+		//does the player have enough of this ingredient to choose it
 		if (currentSelection == 0 && player.GetComponent<InventoryScript> ().berryNum > 0 ||
 			currentSelection == 1 && player.GetComponent<InventoryScript> ().antlerNum > 0 ||
 			currentSelection == 2 && player.GetComponent<InventoryScript> ().fangNum > 0 ||
@@ -139,6 +143,9 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	void SelectCurrent() {
+		//turn the current selection into the active selection
+
+		//this first bit is refunding the player whatever ingredient was already in this pylon
 		if (activeSelection == 0) {
 			player.GetComponent<InventoryScript> ().berryNum += 1;
 		} else if (activeSelection == 1) {
@@ -170,6 +177,7 @@ public class PylonScipt : MonoBehaviour {
 				}
 			}
 		} else {
+			//corrupted pylons can only have a pylon num of 0 or 2, since 1 (effect) doesn't have any options,and uses a different script
 			if (pylonNum == 0) {
 				core2.target = activeSelection;
 			} else if (pylonNum == 2) {
@@ -187,6 +195,7 @@ public class PylonScipt : MonoBehaviour {
 		}
 		player.GetComponent<InventoryScript> ().UpdateNumbers ();
 		UpdateSprite ();
+		//updates the spell prediction using the correct core script
 		if (corrupted == false) {
 			core.PredictSpell ();
 		} else {
@@ -195,7 +204,9 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	public void UpdateSprite() {
+		//sets the animation of holding sprite to the animation that shows the right ingredient
 		holdingSprite.GetComponent<Animator> ().SetInteger ("itemnum", activeSelection);
+		//changes the color of the runes on the pylon
 		if (activeSelection == 0) {
 			glow.color = Color.green;
 		} else if (activeSelection == 1) {
@@ -210,12 +221,18 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	public void UpdateText() {
+		//the object descriptionText is a ui textbox that displays the ingredient tooltip
+		//descriptionText has a script called DescriptionTextScript, which holds a list containing several strings
+		//the order of the strings is target berry, target antler, target fang, target corruption, effect berry, effect antler, etc,
+		//basically each target, then each effect, then each modifier
+		//if this is pylon 0 (target pylon), this starts from the beginning of the list, if its pylon 1 it starts from 4, pylon 2, from 8
 		int num = 0;
 		if (pylonNum == 1) {
 			num += 4;
 		} else if (pylonNum == 2) {
 			num += 8;
 		}
+		//it then adds the number of the current(highlighted) selection, causing the correct tooltip to be displayed
 		num += currentSelection;
 		descriptionText.GetComponent<DescriptionTextScript> ().UpdateDescription (num);
 	}

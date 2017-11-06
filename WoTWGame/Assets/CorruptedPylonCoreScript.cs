@@ -41,6 +41,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 		cm = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ();
 		spellCore = GameObject.Find ("Core");
@@ -54,6 +55,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 		}
 		target = -1;
 //		effect = -1;
+		//no choosable effect for corrupted pylon circles
 		strength = -1;
 	}
 
@@ -61,15 +63,18 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 	void Update () {
 		if (touching && Input.GetKeyDown (KeyCode.E)) {
 			if (target != -1 && strength != -1 && castable && target != 3) {
+				//if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
+				//in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
 				Cast ();
 			} else if (target != -1 && strength != -1 && castable) {
+				//this would trigger if there are corrupted berries in every slot, but corrupted berries aren't an option in this build, so it's not necessary
 				CreateSpell ();
 			} else {
 				Debug.Log ("Need more ingredients");
 			}
 		}
 	}
-
+	//determine if the player is touching the core of the pylon circle, allowing them to cast
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
 			touching = true;
@@ -83,8 +88,14 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 	}
 
 	public void Cast() {
+
+		//this is where you put all the code for what corrupted spells do
+
+		//this is all the stuff that gets to be updated when the spell is cast
 		GameObject.Find ("CastSpellRing").GetComponent<Animator> ().SetTrigger ("Cast2");
 		bms.UpdateUIBuffs ();
+		//pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
+		//the values in the core are set back to being empty (-1)
 		pylon1.activeSelection = -1;
 		pylon1.UpdateSprite();
 		pylon2.activeSelection = -1;
@@ -94,12 +105,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 		target = -1;
 		effect = -1;
 		strength = -1;
+		//set the spell preview text to be empty since there are no ingredients
 		PredictSpell ();
+		//visual effect for casting
 		ring1.SpeedBoost ();
 		ring2.SpeedBoost ();
 	}
 
 	public void PredictSpell() {
+		//creates the preview text that appears in the circle. 
 		spellPreviewText = "";
 
 		if (strength == 0) {
@@ -137,13 +151,13 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 		spellPreviewTextbox.GetComponent<TextMesh> ().text = spellPreviewText;
 	}
 
+	//leftover function from spellbooks
 	public void CreateSpell() {
 		GameObject newSpell = Instantiate (spellPrefab) as GameObject;
 		newSpell.GetComponent<SpellScript> ().target = target;
 		newSpell.GetComponent<SpellScript> ().effect = effect;
 		newSpell.GetComponent<SpellScript> ().strength = strength;
 		newSpell.GetComponentsInChildren<Text> () [0].text = spellPreviewText;
-		//newSpell.transform.position = new Vector3 (GameObject.Find ("TomeSpot").transform.position.x, GameObject.Find ("TomeSpot").transform.position.y - uncastTomes.Count, GameObject.Find ("TomeSpot").transform.position.z);
 		PlaceSpell(newSpell);
 		newSpell.GetComponent<SpellScript> ().bms = bms;
 		pylon1.activeSelection = -1;
@@ -161,6 +175,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour {
 
 	}
 
+	//leftover function from spellbooks
 	private void PlaceSpell(GameObject spellbook) {
 		if (GameObject.Find ("ABSlot1").GetComponent<SpellbookHolderScript> ().holding == null) {
 			spellbook.transform.SetParent(GameObject.Find("ABSlot1").transform);

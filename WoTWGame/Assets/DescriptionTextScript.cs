@@ -16,6 +16,11 @@ public class DescriptionTextScript : MonoBehaviour {
 	}
 
 	public void UpdateDescription(int whichDescription) {
+		//this is the script that displays the ingredient tooltip
+		//this script holds several strings
+		//pylonscript tells this script which string to display
+
+		//the string gets split up and reassembled with linebreaks, with the float rowLimit, describing how wide each row can be
 		string garfield = descriptions [whichDescription];
 		GetComponent<TextMesh> ().text = "";
 		string builder = "";
@@ -28,8 +33,6 @@ public class DescriptionTextScript : MonoBehaviour {
 			}
 			builder = GetComponent<TextMesh> ().text;
 		}
-
-		//garfield = garfield.Replace ("@", System.Environment.NewLine);
-		//GetComponent<TextMesh> ().text = garfield;
+			
 	}
 }
