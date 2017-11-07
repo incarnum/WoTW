@@ -38,6 +38,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public RingSpinScript ring1;
     public RingSpinScript ring2;
     private bool castable;
+    public GameObject corruptionNode;
+    public GameObject pcs;
 
 
 
@@ -112,8 +114,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 eco.corruptingShrubs = true;
             }
             if (eco.corruptedShrubPop < cms.shrubPopStart && eco.shrubPop > cms.minimumInfectionPop)
@@ -122,14 +124,14 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             if (strength == 1)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 eco.shrubRate *= 1.25f;
             }
             if (strength == 2)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 cms.shrubRange -= 1;
             }
         }
@@ -138,8 +140,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 eco.corruptingDeer = true;
                 if (eco.corruptedDeerPop < cms.deerPopStart && eco.deerPop > cms.minimumInfectionPop)
                 {
@@ -148,14 +150,14 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             if (strength == 1)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 eco.deerRate *= 1.25f;
             }
             if (strength == 2)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 cms.deerRange -= 1;
             }
         }
@@ -163,8 +165,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 eco.corruptingWolves = true;
                 if (eco.corruptedWolfPop < cms.wolfPopStart && eco.wolfPop > cms.minimumInfectionPop)
                 {
@@ -173,14 +175,14 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             if (strength == 1)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 eco.wolfRate *= 1.25f;
             }
             if (strength == 2)
             {
-                Destroy(cm.corruptionNodeList[cm.corruptionNodeList.Count - 1]);
-                cm.corruptionNodeList.RemoveAt(cm.corruptionNodeList.Count - 1);
+                cm.corruptionNodeList.Remove(corruptionNode);
+                Destroy(corruptionNode);
                 cms.wolfRange -= 1;
             }
         }
@@ -203,6 +205,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //visual effect for casting
         ring1.SpeedBoost();
         ring2.SpeedBoost();
+        /*pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
+        pylon2.GetComponent<PylonScipt>().enabled = true;
+        pcs.GetComponent<PylonCoreScript>().enabled = true; */
     }
 
     public void PredictSpell()

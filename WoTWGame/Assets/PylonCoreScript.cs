@@ -36,6 +36,8 @@ public class PylonCoreScript : MonoBehaviour {
 	public RingSpinScript ring1;
 	public RingSpinScript ring2;
 	private bool castable;
+    public bool wasCorrupted;
+    public GameObject cpcs;
 
 
 
@@ -57,9 +59,17 @@ public class PylonCoreScript : MonoBehaviour {
 		effect = -1;
 		strength = -1;
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    /*private void OnEnable()
+    {
+        if (wasCorrupted)
+        {
+            cpcs.GetComponent<CorruptedPylonCoreScript>().enabled = false;
+        }
+    }*/
+
+    // Update is called once per frame
+    void Update () {
 		if (touching && Input.GetKeyDown (KeyCode.E)) {
 			if (target != -1 && effect != -1 && strength != -1 && castable && target != 3) {
 				//if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
