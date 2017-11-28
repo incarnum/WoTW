@@ -40,13 +40,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private bool castable;
     public GameObject corruptionNode;
     public GameObject pcs;
-
+    public float cooldown;
+    public int health;
 
 
     // Use this for initialization
     void Start()
     {
         //some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
+        cooldown = 0;
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         cms = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
@@ -70,7 +72,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (touching && Input.GetKeyDown(KeyCode.E))
+        cooldown -= Time.deltaTime;
+        if (touching && Input.GetKeyDown(KeyCode.E) && cooldown <= 0)
         {
             if (target != -1 && strength != -1 && castable && target != 3)
             {
@@ -108,14 +111,17 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 
     public void Cast()
     {
-
+        health -= 1;
+        if (health == 0)
+        {
+            cm.corruptionNodeList.Remove(corruptionNode);
+            Destroy(corruptionNode);
+        }
         //this is where you put all the code for what corrupted spells do
         if (target == 0)
         {
             if (strength == 0)
-            {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
+            {                
                 eco.corruptingShrubs = true;
             }
             if (eco.corruptedShrubPop < cms.shrubPopStart && eco.shrubPop > cms.minimumInfectionPop)
@@ -124,14 +130,10 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             if (strength == 1)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 eco.shrubRate *= 1.25f;
             }
             if (strength == 2)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 cms.shrubRange -= 1;
             }
         }
@@ -140,8 +142,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 eco.corruptingDeer = true;
                 if (eco.corruptedDeerPop < cms.deerPopStart && eco.deerPop > cms.minimumInfectionPop)
                 {
@@ -150,14 +150,10 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             if (strength == 1)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 eco.deerRate *= 1.25f;
             }
             if (strength == 2)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 cms.deerRange -= 1;
             }
         }
@@ -165,8 +161,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 eco.corruptingWolves = true;
                 if (eco.corruptedWolfPop < cms.wolfPopStart && eco.wolfPop > cms.minimumInfectionPop)
                 {
@@ -175,14 +169,10 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             if (strength == 1)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 eco.wolfRate *= 1.25f;
             }
             if (strength == 2)
             {
-                cm.corruptionNodeList.Remove(corruptionNode);
-                Destroy(corruptionNode);
                 cms.wolfRange -= 1;
             }
         }
@@ -208,56 +198,63 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         /*pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
         pylon2.GetComponent<PylonScipt>().enabled = true;
         pcs.GetComponent<PylonCoreScript>().enabled = true; */
+        cooldown = 10f;
     }
 
     public void PredictSpell()
     {
         //creates the preview text that appears in the circle. 
         spellPreviewText = "";
-
-        if (strength == 0)
+        if(cooldown > 0)
         {
-            spellPreviewText += "Corrupt ";
-        }
-        else if (strength == 1)
-        {
-            spellPreviewText += "Sicken ";
-        }
-        else if (strength == 2)
-        {
-            spellPreviewText += "Exhaust ";
-        }
-
-
-
-
-        if (target == 0)
-        {
-            spellPreviewText += "shrubs";
-        }
-        else if (target == 1)
-        {
-            spellPreviewText += "deer";
-        }
-        else if (target == 2)
-        {
-            spellPreviewText += "wolves";
-        }
-
-
-
-
-        if (target != -1 && strength != -1)
-        {
-            GetComponent<SpriteRenderer>().enabled = true;
-            castable = true;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = true;
+            spellPreviewText += "Cooldown: " + cooldown;
         }
         else
         {
-            GetComponent<SpriteRenderer>().enabled = false;
-            castable = false;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = false;
+            if (strength == 0)
+            {
+                spellPreviewText += "Corrupt ";
+            }
+            else if (strength == 1)
+            {
+                spellPreviewText += "Sicken ";
+            }
+            else if (strength == 2)
+            {
+                spellPreviewText += "Exhaust ";
+            }
+
+
+
+
+            if (target == 0)
+            {
+                spellPreviewText += "shrubs";
+            }
+            else if (target == 1)
+            {
+                spellPreviewText += "deer";
+            }
+            else if (target == 2)
+            {
+                spellPreviewText += "wolves";
+            }
+
+
+
+
+            if (target != -1 && strength != -1)
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+                castable = true;
+                GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = true;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                castable = false;
+                GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = false;
+            }
         }
 
         spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
