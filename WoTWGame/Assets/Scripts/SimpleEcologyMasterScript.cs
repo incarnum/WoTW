@@ -120,8 +120,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public GameObject mainMenuButton;
     public GameObject victory;
     public GameObject menuCamera;
+<<<<<<< HEAD
     public GameObject exitButton;
     public float shrubRate, deerRate, wolfRate;
+=======
+    public float shrubRate, deerRate, wolfRate, startShrubRate, startDeerRate, startWolfRate;
+>>>>>>> refs/remotes/origin/JayTest2
     // Use this for initialization
     void Start()
     {
@@ -149,8 +153,11 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         startDeerSpeed = deerSpeed;
         startWolfSpeed = wolfSpeed;
         shrubRate = 1f;
+        startShrubRate = shrubRate;
         deerRate = 1f;
+        startDeerRate = deerRate;
         wolfRate = 1f;
+        startWolfRate = wolfRate;
 
 
 

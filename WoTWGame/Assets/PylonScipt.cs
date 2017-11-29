@@ -19,6 +19,7 @@ public class PylonScipt : MonoBehaviour {
 	public SpriteRenderer glow; //the color changing runes on the pylon
 	public GameObject descriptionText; //the tooltip explaining what an ingredient does
 	public bool corrupted; //is this pylon at a corrupted pylon circle
+    public GameObject cpcs;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
@@ -26,7 +27,8 @@ public class PylonScipt : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (touching && Input.GetKeyDown (KeyCode.E)) {
+        
+		if (touching && Input.GetKeyDown (KeyCode.E) && !corrupted) {
 			if (!windowActive) {
 				//opens window, 
 				window.SetActive (true);
@@ -47,7 +49,34 @@ public class PylonScipt : MonoBehaviour {
 				Debug.Log ("Not enough ingredients");
 			}
 		}
-		if (Input.GetKeyDown (KeyCode.Q) && windowActive) {
+        else if (touching && Input.GetKeyDown(KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0)
+        {
+            if (!windowActive)
+            {
+                //opens window, 
+                window.SetActive(true);
+                player.GetComponent<PlayerControllerScript>().canMove = false;
+                player.GetComponent<PlayerControllerB>().canMove = false;
+                windowActive = true;
+                //updates the tooltip saying what the current selection does
+                UpdateText();
+                //sets number display for how many ingredients the player has
+                options[0].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().berryNum);
+                options[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
+                options[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
+                CheckIfValid();
+
+            }
+            else if (validSelection)
+            {
+                SelectCurrent();
+            }
+            else
+            {
+                Debug.Log("Not enough ingredients");
+            }
+        }
+        if (Input.GetKeyDown (KeyCode.Q) && windowActive) {
 			if (activeSelection != -1) {
 				selector.transform.position = new Vector2 (options [activeSelection].transform.position.x - 2, options [activeSelection].transform.position.y);
 				currentSelection = activeSelection;

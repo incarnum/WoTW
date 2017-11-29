@@ -9,7 +9,7 @@ public class corruptionManagerScript : MonoBehaviour
     private float nextCorruptionTime;
     private SimpleEcologyMasterScript ecoManager;
     public float shrubPopStart, deerPopStart, wolfPopStart;
-    public int shrubRange, deerRange, wolfRange;
+    public int shrubRange, deerRange, wolfRange, startShrubRange, startDeerRange, startWolfRange;
     // Use this for initialization
     void Start()
     {

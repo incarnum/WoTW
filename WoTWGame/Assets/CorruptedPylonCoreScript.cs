@@ -42,11 +42,17 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public GameObject pcs;
     public float cooldown;
     public int health;
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/JayTest2
 
 
     // Use this for initialization
     void Start()
     {
+        cooldown = 0;
+        health = 3;
         //some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
         cooldown = 0;
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
@@ -91,6 +97,10 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 Debug.Log("Need more ingredients");
             }
         }
+        if(cooldown >= 0)
+        {
+            PredictSpell();
+        }
     }
     //determine if the player is touching the core of the pylon circle, allowing them to cast
     void OnTriggerEnter2D(Collider2D col)
@@ -112,16 +122,33 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void Cast()
     {
         health -= 1;
+<<<<<<< HEAD
         if (health == 0)
         {
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
+=======
+        if(health == 0)
+        {
+            cm.corruptionNodeList.Remove(corruptionNode);
+            Destroy(corruptionNode);
+            eco.shrubRate = eco.startShrubRate;
+            eco.deerRate = eco.startDeerRate;
+            eco.wolfRate = eco.startWolfRate;
+            cms.shrubRange = cms.startShrubRange;
+            cms.deerRange = cms.startDeerRange;
+            cms.wolfRange = cms.startWolfRange;
+>>>>>>> refs/remotes/origin/JayTest2
         }
         //this is where you put all the code for what corrupted spells do
         if (target == 0)
         {
             if (strength == 0)
+<<<<<<< HEAD
             {                
+=======
+            {
+>>>>>>> refs/remotes/origin/JayTest2
                 eco.corruptingShrubs = true;
             }
             if (eco.corruptedShrubPop < cms.shrubPopStart && eco.shrubPop > cms.minimumInfectionPop)
@@ -195,6 +222,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //visual effect for casting
         ring1.SpeedBoost();
         ring2.SpeedBoost();
+        cooldown = 10f;
         /*pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
         pylon2.GetComponent<PylonScipt>().enabled = true;
         pcs.GetComponent<PylonCoreScript>().enabled = true; */
@@ -205,9 +233,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         //creates the preview text that appears in the circle. 
         spellPreviewText = "";
+<<<<<<< HEAD
         if(cooldown > 0)
         {
             spellPreviewText += "Cooldown: " + cooldown;
+=======
+        if(cooldown >= 0)
+        {
+            spellPreviewText += "Cooldown: " + cooldown.ToString("F2");
+>>>>>>> refs/remotes/origin/JayTest2
         }
         else
         {
@@ -239,6 +273,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 spellPreviewText += "wolves";
             }
+<<<<<<< HEAD
 
 
 
@@ -255,6 +290,28 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 castable = false;
                 GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = false;
             }
+=======
+        }
+        
+
+
+
+        if(cooldown > 0)
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
+        }
+        if (target != -1 && strength != -1 && cooldown <= 0)
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
+            castable = true;
+            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = true;
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().enabled = false;
+            castable = false;
+            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = false;
+>>>>>>> refs/remotes/origin/JayTest2
         }
 
         spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
