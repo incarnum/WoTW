@@ -42,6 +42,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public GameObject pcs;
     public float cooldown;
     public int health;
+    public GameObject cRing1;
+    public GameObject cRing2;
+    public GameObject A3;
 
 
 
@@ -49,7 +52,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     void Start()
     {
         cooldown = 0;
-        health = 3;
+        health = 1;
         //some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
@@ -118,7 +121,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void Cast()
     {
         health -= 1;
-        if(health == 0)
+        if(health <= 0)
         {
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
@@ -128,6 +131,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             cms.shrubRange = cms.startShrubRange;
             cms.deerRange = cms.startDeerRange;
             cms.wolfRange = cms.startWolfRange;
+            pylon1.GetComponent<PylonScipt>().corrupted = false;
+            pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
+            pylon2.GetComponent<PylonScipt>().enabled = true;
+            pylon2.GetComponent<SpriteRenderer>().color = Color.white;
+            cRing1.GetComponent<SpriteRenderer>().color = Color.white;
+            cRing2.GetComponent<SpriteRenderer>().color = Color.white;
+            A3.GetComponent<SpriteRenderer>().color = Color.white;
+            pylon3.GetComponent<PylonScipt>().corrupted = false;
+            pcs.GetComponent<PylonCoreScript>().enabled = true;
         }
         //this is where you put all the code for what corrupted spells do
         if (target == 0)
@@ -207,10 +219,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //visual effect for casting
         ring1.SpeedBoost();
         ring2.SpeedBoost();
-        cooldown = 10f;
-        /*pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
-        pylon2.GetComponent<PylonScipt>().enabled = true;
-        pcs.GetComponent<PylonCoreScript>().enabled = true; */
+        if(health > 0)
+        {
+            cooldown = 10f;
+        }
+        
+        
     }
 
     public void PredictSpell()

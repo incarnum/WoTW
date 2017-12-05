@@ -6,23 +6,31 @@ public class PylonScipt : MonoBehaviour {
 	public int pylonNum; //what role of pylon this is. 0 = target, 1 = effect, 2 = modifier
 	private bool windowActive; //is the window open
 	public GameObject window; //the ui window for choosing an ingredient
+    public GameObject corrWindow;
 	public GameObject selector; //the icon that shows what you currently have selected, changes color based on validity
+    public GameObject corrSelector;
 	private bool touching; //is the player touching the pylon
 	private GameObject player;
 	private int currentSelection; //the ingredient the player has highlighted. This script displays a tooltip explaining what the ing does if used in this slot
 	public int activeSelection = -1; //the ingredient the pylon is currently storing. This is used by the core script to determine what spell is made.
 	public List<GameObject> options;
-	public PylonCoreScript core; //the object/script that casts the spells
+    public List<GameObject> corrOptions;
+    public PylonCoreScript core; //the object/script that casts the spells
 	public CorruptedPylonCoreScript core2; //the object/script that casts the cleanse corruption spells. Pylons at corrupted pylon circles need and use this rather than regular core
 	private bool validSelection; //a bool for if the player has enough of the currently selected ingredient to put it on the pylon
 	public GameObject holdingSprite; //the ingredient sprite that floats above the pylon
 	public SpriteRenderer glow; //the color changing runes on the pylon
 	public GameObject descriptionText; //the tooltip explaining what an ingredient does
+    public GameObject corrDescriptionText;
 	public bool corrupted; //is this pylon at a corrupted pylon circle
     public GameObject cpcs;
+    public int corrCost;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
+        corrCost = 1;
+        core = cpcs.GetComponent<PylonCoreScript>();
+        core2 = cpcs.GetComponent<CorruptedPylonCoreScript>();
 	}
 	
 	// Update is called once per frame
@@ -30,17 +38,33 @@ public class PylonScipt : MonoBehaviour {
         
 		if (touching && Input.GetKeyDown (KeyCode.E) && !corrupted) {
 			if (!windowActive) {
-				//opens window, 
-				window.SetActive (true);
+                if (corrupted)
+                {
+                    corrWindow.SetActive(true);
+                }
+                //opens window, 
+                else
+                {
+                    window.SetActive(true);
+                }
 				player.GetComponent<PlayerControllerScript> ().canMove = false;
 				player.GetComponent<PlayerControllerB> ().canMove = false;
 				windowActive = true;
 				//updates the tooltip saying what the current selection does
 				UpdateText ();
-				//sets number display for how many ingredients the player has
-				options [0].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().berryNum);
-				options [1].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().antlerNum);
-				options [2].GetComponentsInChildren<TextMesh> () [1].text = ("X" + player.GetComponent<InventoryScript> ().fangNum);
+                //sets number display for how many ingredients the player has
+                if (corrupted)
+                {
+                    corrOptions[0].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().berryNum);
+                    corrOptions[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
+                    corrOptions[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
+                }
+                else
+                {
+                    options[0].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().berryNum);
+                    options[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
+                    options[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
+                }
 				CheckIfValid ();
 
 			} else if (validSelection) {
@@ -53,17 +77,33 @@ public class PylonScipt : MonoBehaviour {
         {
             if (!windowActive)
             {
+                if (corrupted)
+                {
+                    corrWindow.SetActive(true);
+                }
                 //opens window, 
-                window.SetActive(true);
+                else
+                {
+                    window.SetActive(true);
+                }
                 player.GetComponent<PlayerControllerScript>().canMove = false;
                 player.GetComponent<PlayerControllerB>().canMove = false;
                 windowActive = true;
                 //updates the tooltip saying what the current selection does
                 UpdateText();
                 //sets number display for how many ingredients the player has
-                options[0].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().berryNum);
-                options[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
-                options[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
+                if(corrupted)
+                {
+                    corrOptions[0].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().berryNum);
+                    corrOptions[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
+                    corrOptions[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
+                }
+                else
+                {
+                    options[0].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().berryNum);
+                    options[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
+                    options[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
+                }
                 CheckIfValid();
 
             }
@@ -78,7 +118,14 @@ public class PylonScipt : MonoBehaviour {
         }
         if (Input.GetKeyDown (KeyCode.Q) && windowActive) {
 			if (activeSelection != -1) {
-				selector.transform.position = new Vector2 (options [activeSelection].transform.position.x - 2, options [activeSelection].transform.position.y);
+                if (corrupted)
+                {
+                    corrSelector.transform.position = new Vector2(corrOptions[activeSelection].transform.position.x - 2, corrOptions[activeSelection].transform.position.y);
+                }
+                else
+                {
+                    selector.transform.position = new Vector2(options[activeSelection].transform.position.x - 2, options[activeSelection].transform.position.y);
+                }
 				currentSelection = activeSelection;
 			}
 				window.SetActive (false);
@@ -91,11 +138,11 @@ public class PylonScipt : MonoBehaviour {
 		//pressing R removes the item from the pylon
 		if (Input.GetKeyDown (KeyCode.R) && windowActive) {
 			if (activeSelection == 0) {
-				player.GetComponent<InventoryScript> ().berryNum += 1;
+				player.GetComponent<InventoryScript> ().berryNum += corrCost;
 			} else if (activeSelection == 1) {
-				player.GetComponent<InventoryScript> ().antlerNum += 1;
+				player.GetComponent<InventoryScript> ().antlerNum += corrCost;
 			} else if (activeSelection == 2) {
-				player.GetComponent<InventoryScript> ().fangNum += 1;
+				player.GetComponent<InventoryScript> ().fangNum += corrCost;
 			} else if (activeSelection == 3) {
 				player.GetComponent<InventoryScript> ().corrBerryNum += 1;
 			}
@@ -129,8 +176,15 @@ public class PylonScipt : MonoBehaviour {
 					currentSelection = 0;
 				}
 				UpdateText ();
-				selector.transform.position = new Vector2 (options [currentSelection].transform.position.x - 2, options [currentSelection].transform.position.y);
-				CheckIfValid ();
+                if (corrupted)
+                {
+                    corrSelector.transform.position = new Vector2(corrOptions[currentSelection].transform.position.x - 2, corrOptions[currentSelection].transform.position.y);
+                }
+                else
+                {
+                    selector.transform.position = new Vector2(options[currentSelection].transform.position.x - 2, options[currentSelection].transform.position.y);
+                }
+                CheckIfValid ();
 			}
 
 			if (Input.GetKeyDown (KeyCode.W)) {
@@ -139,8 +193,15 @@ public class PylonScipt : MonoBehaviour {
 					currentSelection = options.Count -1;
 				}
 				UpdateText ();
-				selector.transform.position = new Vector2 (options [currentSelection].transform.position.x - 2, options [currentSelection].transform.position.y);
-				CheckIfValid ();
+                if (corrupted)
+                {
+                    corrSelector.transform.position = new Vector2(corrOptions[currentSelection].transform.position.x - 2, corrOptions[currentSelection].transform.position.y);
+                }
+                else
+                {
+                    selector.transform.position = new Vector2(options[currentSelection].transform.position.x - 2, options[currentSelection].transform.position.y);
+                }
+                CheckIfValid ();
 			}
 		}
 	}
@@ -163,11 +224,25 @@ public class PylonScipt : MonoBehaviour {
 			currentSelection == 1 && player.GetComponent<InventoryScript> ().antlerNum > 0 ||
 			currentSelection == 2 && player.GetComponent<InventoryScript> ().fangNum > 0 ||
 			currentSelection == 3 && player.GetComponent<InventoryScript> ().corrBerryNum > 0) {
-			selector.GetComponent<SpriteRenderer> ().color = Color.white;
-			validSelection = true;
+            if (corrupted)
+            {
+                corrSelector.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            else
+            {
+                selector.GetComponent<SpriteRenderer>().color = Color.white;
+            }
+            validSelection = true;
 		} else {
-			selector.GetComponent<SpriteRenderer> ().color = Color.black;
-			validSelection = false;
+            if (corrupted)
+            {
+                corrSelector.GetComponent<SpriteRenderer>().color = Color.black;
+            }
+            else
+            {
+                selector.GetComponent<SpriteRenderer>().color = Color.black;
+            }
+            validSelection = false;
 		}
 	}
 
@@ -176,16 +251,24 @@ public class PylonScipt : MonoBehaviour {
 
 		//this first bit is refunding the player whatever ingredient was already in this pylon
 		if (activeSelection == 0) {
-			player.GetComponent<InventoryScript> ().berryNum += 1;
+			player.GetComponent<InventoryScript> ().berryNum += corrCost;
 		} else if (activeSelection == 1) {
-			player.GetComponent<InventoryScript> ().antlerNum += 1;
+			player.GetComponent<InventoryScript> ().antlerNum += corrCost;
 		} else if (activeSelection == 2) {
-			player.GetComponent<InventoryScript> ().fangNum += 1;
+			player.GetComponent<InventoryScript> ().fangNum += corrCost;
 		} else if (activeSelection == 3) {
 			player.GetComponent<InventoryScript> ().corrBerryNum += 1;
 		}
 		activeSelection = currentSelection;
-		window.SetActive (false);
+        if (corrupted)
+        {
+            corrWindow.SetActive(false);
+        }
+        //opens window, 
+        else
+        {
+            window.SetActive(false);
+        }
 		player.GetComponent<PlayerControllerScript> ().canMove = true;
 		player.GetComponent<PlayerControllerB> ().canMove = true;
 		windowActive = false;
@@ -214,11 +297,11 @@ public class PylonScipt : MonoBehaviour {
 			}
 		}
 		if (activeSelection == 0) {
-			player.GetComponent<InventoryScript> ().berryNum -= 1;
+			player.GetComponent<InventoryScript> ().berryNum -= corrCost;
 		} else if (activeSelection == 1) {
-			player.GetComponent<InventoryScript> ().antlerNum -= 1;
+			player.GetComponent<InventoryScript> ().antlerNum -= corrCost;
 		} else if (activeSelection == 2) {
-			player.GetComponent<InventoryScript> ().fangNum -= 1;
+			player.GetComponent<InventoryScript> ().fangNum -= corrCost;
 		} else if (activeSelection == 3) {
 			player.GetComponent<InventoryScript> ().corrBerryNum -= 1;
 		}
@@ -263,7 +346,14 @@ public class PylonScipt : MonoBehaviour {
 		}
 		//it then adds the number of the current(highlighted) selection, causing the correct tooltip to be displayed
 		num += currentSelection;
-		descriptionText.GetComponent<DescriptionTextScript> ().UpdateDescription (num);
+        if (corrupted)
+        {
+            corrDescriptionText.GetComponent<DescriptionTextScript>().UpdateDescription(num);
+        }
+        else
+        {
+            descriptionText.GetComponent<DescriptionTextScript>().UpdateDescription(num);
+        }
 	}
 
 }

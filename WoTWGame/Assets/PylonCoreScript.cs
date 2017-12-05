@@ -60,13 +60,13 @@ public class PylonCoreScript : MonoBehaviour {
 		strength = -1;
 	}
 
-    /*private void OnEnable()
+    private void OnEnable()
     {
         if (wasCorrupted)
         {
             cpcs.GetComponent<CorruptedPylonCoreScript>().enabled = false;
         }
-    }*/
+    }
 
     // Update is called once per frame
     void Update () {
