@@ -52,7 +52,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     void Start()
     {
         cooldown = 0;
-        health = 1;
         //some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();

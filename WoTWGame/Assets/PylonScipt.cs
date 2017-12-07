@@ -128,7 +128,14 @@ public class PylonScipt : MonoBehaviour {
                 }
 				currentSelection = activeSelection;
 			}
-				window.SetActive (false);
+            if (corrupted)
+            {
+                corrWindow.SetActive(false);
+            }
+            else
+            {
+                window.SetActive (false);
+            }
 				player.GetComponent<PlayerControllerScript> ().canMove = true;
 				player.GetComponent<PlayerControllerB> ().canMove = true;
 				windowActive = false;
