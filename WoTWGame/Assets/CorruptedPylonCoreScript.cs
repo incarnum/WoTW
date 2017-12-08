@@ -139,6 +139,31 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             A3.GetComponent<SpriteRenderer>().color = Color.white;
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
+            if(GameObject.Find("AB1Text").GetComponent<Text>().text== "")
+            {
+                GameObject.Find("AB1Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
+            }
+            else if (GameObject.Find("AB2Text").GetComponent<Text>().text == "")
+            {
+                GameObject.Find("AB2Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
+            }
+            else if (GameObject.Find("AB3Text").GetComponent<Text>().text == "")
+            {
+                GameObject.Find("AB3Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
+            }
+            else if (GameObject.Find("AB4Text").GetComponent<Text>().text == "")
+            {
+                GameObject.Find("AB4Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
+            }
+            else if (GameObject.Find("AB5Text").GetComponent<Text>().text == "")
+            {
+                GameObject.Find("AB5Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
+            }
+            else if (GameObject.Find("AB6Text").GetComponent<Text>().text == "")
+            {
+                GameObject.Find("AB6Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
+            }
+
         }
         //this is where you put all the code for what corrupted spells do
         if (target == 0)
