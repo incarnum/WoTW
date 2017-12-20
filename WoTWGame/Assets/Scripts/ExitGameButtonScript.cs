@@ -14,7 +14,7 @@ public class ExitGameButtonScript : MonoBehaviour {
 		
 	}
 
-	void OnMouseDown() {
+	public void OnMouseDown() {
 		Application.Quit ();
 	}
 }

@@ -118,6 +118,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public GameObject gameOver5;
     public GameObject gameOver6;
     public GameObject mainMenuButton;
+    public GameObject exitGameButton;
     public GameObject victory;
     public GameObject menuCamera;
     public float shrubRate, deerRate, wolfRate, startShrubRate, startDeerRate, startWolfRate;
@@ -555,6 +556,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             gameOver1.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
         else if (deerPop <= 0)
@@ -562,6 +564,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             gameOver2.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
         else if (wolfPop <= 0)
@@ -569,6 +572,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             gameOver3.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
 
@@ -577,6 +581,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             gameOver4.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
         else if (deerPop <= corruptedDeerPop)
@@ -584,6 +589,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             gameOver5.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
         else if (wolfPop <= corruptedWolfPop)
@@ -591,6 +597,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             gameOver6.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
         else if (CMan.corruptionNodeList.Count == 0)
@@ -598,6 +605,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             Time.timeScale = 0;
             victory.SetActive(true);
             mainMenuButton.SetActive(true);
+            exitGameButton.SetActive(true);
             menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
         }
     }
