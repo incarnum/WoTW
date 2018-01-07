@@ -20,6 +20,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	private GameObject actionBar;
 	private GameObject multiMenu;
 	private GameObject buttonHolder;
+    private GameObject pauseCanvas;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -31,12 +32,14 @@ public class PlayerControllerScript : MonoBehaviour {
 		actionBar = GameObject.Find ("ActionBar");
 		multiMenu = GameObject.Find ("MultiMenu");
 		buttonHolder = GameObject.Find ("ButtonHolder");
+        pauseCanvas = GameObject.Find("PauseCanvas");
 	}
 
 	void Update () {
-//		if (Input.GetKeyDown (KeyCode.Q)) {
-//			Pause ();
-//		}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause();
+        }
 
 		if (Input.GetKeyDown (KeyCode.Return)) {
 			GameObject.Find ("MakeTome").GetComponent<MakeTomeButtonScript> ().CreateSpellButton ();
@@ -84,10 +87,11 @@ public class PlayerControllerScript : MonoBehaviour {
 
 	public void Pause () {
 		if (!paused) {
-			Camera.main.transform.position = new Vector3(GameObject.Find ("Map").transform.position.x, GameObject.Find ("Map").transform.position.y, GameObject.Find ("Map").transform.position.z - 5);
+			//Camera.main.transform.position = new Vector3(GameObject.Find ("Map").transform.position.x, GameObject.Find ("Map").transform.position.y, GameObject.Find ("Map").transform.position.z - 5);
 			//Time.timeScale = 0;
 			paused = true;
 			canMove = false;
+            pauseCanvas.GetComponent<PauseScript>().PauseGame();
 			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList) {
 				gunch.GetComponent<AnimalMovementScript> ().canMove = false;
 			}
@@ -126,9 +130,10 @@ public class PlayerControllerScript : MonoBehaviour {
 
 
 		} else if (paused) {
-			Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 100f);
+			//Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 100f);
 			paused = false;
 			canMove = true;
+            pauseCanvas.GetComponent<PauseScript>().ResumeGame();
 
 			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList) {
 				gunch.GetComponent<AnimalMovementScript> ().canMove = true;

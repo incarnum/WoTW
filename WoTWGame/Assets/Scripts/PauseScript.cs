@@ -10,13 +10,16 @@ public class PauseScript : MonoBehaviour {
     public GameObject multiMenuCanvas;
     public GameObject overlayCanvas;
 
-    public SimpleEcologyMasterScript eco;
+    public bool paused;
+
+    private GameObject eco;
 
 
 
 	// Use this for initialization
 	void Start () {
-		
+        eco = GameObject.Find("SimpleEcologyMaster");
+        paused = false;
 	}
 	
 	// Update is called once per frame
@@ -26,6 +29,7 @@ public class PauseScript : MonoBehaviour {
     
     public void PauseGame()
     {
+        Debug.Log("Paused");
         resumeButton.SetActive(true);
         optionsButton.SetActive(true);
         mainMenuButton.SetActive(true);
@@ -34,12 +38,15 @@ public class PauseScript : MonoBehaviour {
         overlayCanvas.SetActive(false);
         multiMenuCanvas.SetActive(false);
 
-        eco.paused = true;
-        eco.megaPaused = true;
+        eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = true;
+        eco.GetComponent<SimpleEcologyMasterScript>().paused = true;
+
+        paused = true;
     }
 
     public void ResumeGame()
     {
+        Debug.Log("Unpaused");
         resumeButton.SetActive(false);
         optionsButton.SetActive(false);
         mainMenuButton.SetActive(false);
@@ -48,7 +55,9 @@ public class PauseScript : MonoBehaviour {
         overlayCanvas.SetActive(true);
         multiMenuCanvas.SetActive(true);
 
-        eco.paused = false;
-        eco.megaPaused = false;
+        eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = false;
+        eco.GetComponent<SimpleEcologyMasterScript>().paused = false;
+
+        paused = false;
     }
 }
