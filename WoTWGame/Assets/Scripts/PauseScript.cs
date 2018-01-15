@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseScript : MonoBehaviour {
     //Pause menu buttons
@@ -17,11 +18,13 @@ public class PauseScript : MonoBehaviour {
     public GameObject fullscreenGUI;
     public GameObject musicGUI;
     public GameObject soundGUI;
+    public GameObject resGUI;
     public GameObject backButton;
     public GameObject applyButton;
 
     public bool paused;
     public bool optionsOpened;
+    public Resolution[] resOptions;
     
     //Saved settings
     public bool fullScreen;
@@ -53,11 +56,17 @@ public class PauseScript : MonoBehaviour {
         fullScreen = Screen.fullScreen;
         resWidth = Screen.width;
         resHeight = Screen.height;
+        resOptions = Screen.resolutions;
+        foreach(Resolution res in resOptions)
+        {
+            string resString = res.width + "x" + res.height;
+            resGUI.GetComponent<UnityEngine.UI.Dropdown>().options.Add(new UnityEngine.UI.Dropdown.OptionData {text = resString});
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
     
     public void PauseGame()
@@ -106,21 +115,60 @@ public class PauseScript : MonoBehaviour {
 
         optionsOpened = true;
         fullScreen = Screen.fullScreen;
-      
+        fullscreenGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = fullScreen;
+        musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = music;
+        soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = sound;
+
+        //find current res value
+        string currentRes = resWidth + "x" + resHeight;
+        int setting = 0;
+        for (int i = 0; i < resOptions.Length; i++)
+        {
+            string resString = resOptions[i].width + "x" + resOptions[i].height;
+            if(currentRes.Equals(resString))
+            {
+                setting = i;
+            }
+        }
+        resGUI.GetComponent<UnityEngine.UI.Dropdown>().value = setting;
+
         
-        
-
-
-
     }
     
     public void Apply()
     {
+        fullScreen = fullscreenGUI.GetComponent<UnityEngine.UI.Toggle>().isOn;
 
+        music = musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn;
+
+        sound = soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn;
+
+        
+        int setting = resGUI.GetComponent<UnityEngine.UI.Dropdown>().value;
+        resWidth = resOptions[setting].width;
+        resHeight = resOptions[setting].height;
+        Screen.SetResolution(resWidth, resHeight, fullScreen);
+        
     }
 
     public void ReturnToPause()
     {
+        optionsMenu.SetActive(false);
+        optionsOpened = false;
 
+        resumeButton.SetActive(true);
+        optionsButton.SetActive(true);
+        mainMenuButton.SetActive(true);
+        exitButton.SetActive(true);
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ExitToMain()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
