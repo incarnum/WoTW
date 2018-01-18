@@ -38,7 +38,16 @@ public class PlayerControllerScript : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause();
+            if (pauseCanvas.GetComponent<PauseScript>().optionsOpened)
+            {
+                pauseCanvas.GetComponent<PauseScript>().ReturnToPause();
+            }
+            else
+            {
+                Pause();
+            }
+
+
         }
 
 		if (Input.GetKeyDown (KeyCode.Return)) {
