@@ -122,10 +122,17 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public GameObject victory;
     public GameObject menuCamera;
     public float shrubRate, deerRate, wolfRate, startShrubRate, startDeerRate, startWolfRate;
+
+    private ShrubPopulation shrub;
+    private DeerPopulation deer;
+    private WolfPopulation wolf;
     // Use this for initialization
     void Start()
     {
         CMan = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
+        shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
+        deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
+        wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
         shrubBar = GameObject.Find("ShrubBar").GetComponent<barScript>();
         deerBar = GameObject.Find("DeerBar").GetComponent<barScript>();
         wolfBar = GameObject.Find("WolfBar").GetComponent<barScript>();
@@ -143,17 +150,17 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         deerSize = 1;
         wolfSize = 1;
 
-        startShrubSize = shrubSize;
-        startDeerSize = deerSize;
-        startWolfSize = wolfSize;
-        startDeerSpeed = deerSpeed;
-        startWolfSpeed = wolfSpeed;
-        shrubRate = 1f;
-        startShrubRate = shrubRate;
-        deerRate = 1f;
-        startDeerRate = deerRate;
-        wolfRate = 1f;
-        startWolfRate = wolfRate;
+        startShrubSize = shrub.startSize;
+        startDeerSize = deer.startSize;
+        startWolfSize = wolf.startSize;
+        startDeerSpeed = deer.startSpeed;
+        startWolfSpeed = wolf.startSpeed;
+        shrubRate = shrub.rate;
+        startShrubRate = shrub.startRate;
+        deerRate = deer.rate;
+        startDeerRate = deer.startRate;
+        wolfRate = wolf.rate;
+        startWolfRate = wolf.startRate;
 
 
 
