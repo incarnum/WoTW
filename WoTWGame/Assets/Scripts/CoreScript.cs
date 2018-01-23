@@ -36,8 +36,10 @@ public class CoreScript : MonoBehaviour {
 		if (menuReturnTime2 < Time.time) {
 			GameObject.Find ("SpellTome(Clone)").GetComponent<SpellScript> ().Cast ();
 			Destroy (GameObject.Find ("SpellTome(Clone)"));
-			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().UpdateBars ();
-			menuReturnTime2 = Mathf.Infinity;
+			GameObject.Find ("CreatureMaster").GetComponent<ShrubPopulation> ().UpdateBars ();
+            GameObject.Find ("CreatureMaster").GetComponent<DeerPopulation>().UpdateBars();
+            GameObject.Find ("CreatureMaster").GetComponent<WolfPopulation>().UpdateBars();
+            menuReturnTime2 = Mathf.Infinity;
 		}
 
 

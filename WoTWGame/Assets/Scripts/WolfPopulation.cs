@@ -6,6 +6,7 @@ public class WolfPopulation : basePopulation {
 
 	// Use this for initialization
 	void Start () {
+        DoStart();
         pop = 45;
         size = 1;
         startSize = 1;
@@ -20,9 +21,10 @@ public class WolfPopulation : basePopulation {
         down1 = 0;
         down2 = 0;
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        DoUpdate();
+    }
 }

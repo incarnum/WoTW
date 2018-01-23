@@ -45,6 +45,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public GameObject cRing1;
     public GameObject cRing2;
     public GameObject A3;
+    private ShrubPopulation shrub;
+    private DeerPopulation deer;
+    private WolfPopulation wolf;
 
 
 
@@ -53,6 +56,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         cooldown = 0;
         //some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
+        shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
+        deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
+        wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         cms = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
@@ -124,9 +130,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
-            eco.shrubRate = eco.startShrubRate;
-            eco.deerRate = eco.startDeerRate;
-            eco.wolfRate = eco.startWolfRate;
+            shrub.rate = shrub.startRate;
+            deer.rate = deer.startRate;
+            wolf.rate = wolf.startRate;
             cms.shrubRange = cms.startShrubRange;
             cms.deerRange = cms.startDeerRange;
             cms.wolfRange = cms.startWolfRange;
@@ -170,15 +176,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                eco.corruptingShrubs = true;
+                shrub.corrupting = true;
             }
-            if (eco.corruptedShrubPop < cms.shrubPopStart && eco.shrubPop > cms.minimumInfectionPop)
+            if (shrub.corruptedPop < cms.shrubPopStart && shrub.pop > cms.minimumInfectionPop)
             {
-                eco.corruptedShrubPop = cms.shrubPopStart;
+                shrub.corruptedPop = cms.shrubPopStart;
             }
             if (strength == 1)
             {
-                eco.shrubRate *= 1.25f;
+                shrub.rate *= 1.25f;
             }
             if (strength == 2)
             {
@@ -190,15 +196,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                eco.corruptingDeer = true;
-                if (eco.corruptedDeerPop < cms.deerPopStart && eco.deerPop > cms.minimumInfectionPop)
+                deer.corrupting = true;
+                if (deer.corruptedPop < cms.deerPopStart && deer.pop > cms.minimumInfectionPop)
                 {
-                    eco.corruptedDeerPop = cms.deerPopStart;
+                    deer.corruptedPop = cms.deerPopStart;
                 }
             }
             if (strength == 1)
             {
-                eco.deerRate *= 1.25f;
+                deer.rate *= 1.25f;
             }
             if (strength == 2)
             {
@@ -209,15 +215,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                eco.corruptingWolves = true;
-                if (eco.corruptedWolfPop < cms.wolfPopStart && eco.wolfPop > cms.minimumInfectionPop)
+                wolf.corrupting = true;
+                if (wolf.corruptedPop < cms.wolfPopStart && wolf.pop > cms.minimumInfectionPop)
                 {
-                    eco.corruptedWolfPop = cms.wolfPopStart;
+                    wolf.corruptedPop = cms.wolfPopStart;
                 }
             }
             if (strength == 1)
             {
-                eco.wolfRate *= 1.25f;
+                wolf.rate *= 1.25f;
             }
             if (strength == 2)
             {

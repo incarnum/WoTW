@@ -10,9 +10,15 @@ public class corruptionManagerScript : MonoBehaviour
     private SimpleEcologyMasterScript ecoManager;
     public float shrubPopStart, deerPopStart, wolfPopStart;
     public int shrubRange, deerRange, wolfRange, startShrubRange, startDeerRange, startWolfRange;
+    private ShrubPopulation shrub;
+    private DeerPopulation deer;
+    private WolfPopulation wolf;
     // Use this for initialization
     void Start()
     {
+        shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
+        deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
+        wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
         nextCorruptionTime = Time.time + infectTime;
         ecoManager = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         shrubPopStart = 10f;
@@ -32,33 +38,33 @@ public class corruptionManagerScript : MonoBehaviour
 
     void Corrupt()
     {
-        if (!ecoManager.corruptingShrubs && !ecoManager.corruptingDeer && !ecoManager.corruptingWolves)
+        if (!shrub.corrupting && !deer.corrupting && !wolf.corrupting)
         {
             int rando1 = Random.Range(0, shrubRange);
             int rando2 = Random.Range(0, deerRange);
             int rando3 = Random.Range(0, wolfRange);
             if (rando1 == 0)
             {
-                ecoManager.corruptingShrubs = true;
-                if (ecoManager.corruptedShrubPop < shrubPopStart && ecoManager.shrubPop > minimumInfectionPop)
+                shrub.corrupting = true;
+                if (shrub.corruptedPop < shrubPopStart && shrub.pop > minimumInfectionPop)
                 {
-                    ecoManager.corruptedShrubPop = shrubPopStart;
+                    shrub.corruptedPop = shrubPopStart;
                 }
             }
             else if (rando2 == 0)
             {
-                ecoManager.corruptingDeer = true;
-                if (ecoManager.corruptedDeerPop < deerPopStart && ecoManager.deerPop > minimumInfectionPop)
+                deer.corrupting = true;
+                if (deer.corruptedPop < deerPopStart && deer.pop > minimumInfectionPop)
                 {
-                    ecoManager.corruptedDeerPop = deerPopStart;
+                    deer.corruptedPop = deerPopStart;
                 }
             }
             else if (rando3 == 0)
             {
-                ecoManager.corruptingWolves = true;
-                if (ecoManager.corruptedWolfPop < wolfPopStart && ecoManager.wolfPop > minimumInfectionPop)
+                wolf.corrupting = true;
+                if (wolf.corruptedPop < wolfPopStart && wolf.pop > minimumInfectionPop)
                 {
-                    ecoManager.corruptedWolfPop = wolfPopStart;
+                    wolf.corruptedPop = wolfPopStart;
                 }
             }
         }

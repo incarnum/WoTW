@@ -8,6 +8,7 @@ public class ShrubPopulation : basePopulation
     // Use this for initialization
     void Start()
     {
+        DoStart();
         pop = 55;
         size = 1;
         startSize = 1;
@@ -24,6 +25,6 @@ public class ShrubPopulation : basePopulation
     // Update is called once per frame
     void Update()
     {
-
+        DoUpdate();
     }
 }

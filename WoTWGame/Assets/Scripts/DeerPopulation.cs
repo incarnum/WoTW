@@ -5,7 +5,9 @@ using UnityEngine;
 public class DeerPopulation : basePopulation {
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
+        DoStart();
         pop = 50;
         size = 1;
         startSize = 1;
@@ -22,7 +24,8 @@ public class DeerPopulation : basePopulation {
     }
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+    {
+        DoUpdate();
 	}
 }
