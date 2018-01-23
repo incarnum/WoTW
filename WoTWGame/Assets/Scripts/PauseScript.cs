@@ -41,6 +41,8 @@ public class PauseScript : MonoBehaviour {
     public string tempResWidth;
     public string tempResHeight;
 
+    public GameObject musicSource;
+    public GameObject soundSource;
 
 
 
@@ -114,10 +116,10 @@ public class PauseScript : MonoBehaviour {
         optionsMenu.SetActive(true);
 
         optionsOpened = true;
-        fullScreen = Screen.fullScreen;
-        fullscreenGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = fullScreen;
-        musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = music;
-        soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = sound;
+        fullscreenGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = Screen.fullScreen;
+        musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = musicSource.activeSelf;
+        soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = soundSource.activeSelf;
+
 
         //find current res value
         string currentRes = resWidth + "x" + resHeight;
@@ -137,18 +139,13 @@ public class PauseScript : MonoBehaviour {
     
     public void Apply()
     {
-        fullScreen = fullscreenGUI.GetComponent<UnityEngine.UI.Toggle>().isOn;
-
-        music = musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn;
-
-        sound = soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn;
-
-        
         int setting = resGUI.GetComponent<UnityEngine.UI.Dropdown>().value;
         resWidth = resOptions[setting].width;
         resHeight = resOptions[setting].height;
         Screen.SetResolution(resWidth, resHeight, fullScreen);
-        
+
+        musicSource.SetActive(musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn);
+        soundSource.SetActive(soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn);
     }
 
     public void ReturnToPause()
