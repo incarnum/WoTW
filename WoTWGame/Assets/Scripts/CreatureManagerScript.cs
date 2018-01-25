@@ -63,7 +63,10 @@ public class CreatureManagerScript : MonoBehaviour {
 		eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
 		upperLeftBound = GetComponentsInChildren<Transform> ()[1];
 		lowerRightBound = GetComponentsInChildren<Transform> ()[2];
-		if (initializeAtStart == true) {
+        shrub = GetComponent<ShrubPopulation>();
+        deer = GetComponent<DeerPopulation>();
+        wolf = GetComponent<WolfPopulation>();
+        if (initializeAtStart == true) {
 			Initialize ();
 		}
 	}

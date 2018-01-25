@@ -11,16 +11,15 @@ public class CorruptedSpellDialogue : MonoBehaviour {
 	void Start () {
         shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
         corrMan = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
+        
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if (shrub.corrupting && !hasPlayed)
-        {
-            corrMan.infectTime = 5;
-            print("WantToStart");
-            hasPlayed = true;
-            dialogueTrigger.TriggerDialogue();
-        }
+		
 	}
+    public void DoThing()
+    {
+        dialogueTrigger.TriggerDialogue();
+    }
 }

@@ -48,7 +48,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
-
+    private bool firstCast;
+    public CorruptedSpellDialogue csd;
 
 
     // Use this for initialization
@@ -63,6 +64,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         cms = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
         spellCore = GameObject.Find("Core");
+        firstCast = true;
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {
             instaCast = true;
@@ -176,6 +178,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
+                if (firstCast)
+                {
+                    firstCast = false;
+                    csd.DoThing();
+
+                }
                 shrub.corrupting = true;
             }
             if (shrub.corruptedPop < cms.shrubPopStart && shrub.pop > cms.minimumInfectionPop)

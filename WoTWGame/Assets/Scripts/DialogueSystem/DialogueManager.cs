@@ -33,6 +33,7 @@ public class DialogueManager : MonoBehaviour
         player.canMove = false;
         animator.SetBool("IsOpen", true);
         sentences.Clear();
+        print("cleared sentences");
 
         nameText.text = dialogue.name;
 
@@ -49,6 +50,8 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count == 0)
         {
             EndDialogue();
+            print("J1");
+            print(sentences.Count);
             return;
         }
 
