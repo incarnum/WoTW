@@ -18,6 +18,7 @@ public class CorruptedSpellDialogue : MonoBehaviour {
 		if (shrub.corrupting && !hasPlayed)
         {
             corrMan.infectTime = 5;
+            print("WantToStart");
             hasPlayed = true;
             dialogueTrigger.TriggerDialogue();
         }

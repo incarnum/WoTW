@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColliderDialogue : MonoBehaviour {
     public DialogueTrigger dialogueTrigger;
-    private bool hasPlayed = true;
+    private bool hasPlayed = false;
     // Use this for initialization
     void Start () {
 		
@@ -18,9 +18,9 @@ public class ColliderDialogue : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         print("Want To Trigger");
-        if (hasPlayed && other.CompareTag("Player"))
+        if (!hasPlayed && other.CompareTag("Player"))
         {
-            hasPlayed = false;
+            hasPlayed = true;
             dialogueTrigger.TriggerDialogue();
             print("Triggering Dialogue");
         }
