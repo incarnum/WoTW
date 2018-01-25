@@ -3,26 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour {
+public class DialogueManager : MonoBehaviour
+{
 
     public Text nameText;
     public Text dialogueText;
     public Animator animator;
+    private PlayerControllerScript player;
 
     private Queue<string> sentences;
 
-	// Use this for initialization
-	void Start () {
-        sentences = new Queue<string>();
-	}
-
-    public void StartDialogue (Dialogue dialogue)
+    // Use this for initialization
+    void Start()
     {
+        sentences = new Queue<string>();
+        player = GameObject.Find("Player").GetComponent<PlayerControllerScript>();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown("space"))
+        {
+            DisplayNextSentence();
+        }
+    }
+
+    public void StartDialogue(Dialogue dialogue)
+    {
+        player.canMove = false;
         animator.SetBool("IsOpen", true);
         sentences.Clear();
 
         nameText.text = dialogue.name;
-        
+
         foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
@@ -30,8 +43,8 @@ public class DialogueManager : MonoBehaviour {
 
         DisplayNextSentence();
     }
-	
-    public void DisplayNextSentence ()
+
+    public void DisplayNextSentence()
     {
         if (sentences.Count == 0)
         {
@@ -40,11 +53,12 @@ public class DialogueManager : MonoBehaviour {
         }
 
         string sentence = sentences.Dequeue();
+        print(sentences.Count);
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
     }
 
-    IEnumerator TypeSentence (string sentence)
+    IEnumerator TypeSentence(string sentence)
     {
         dialogueText.text = "";
         foreach (char letter in sentence.ToCharArray())
@@ -54,8 +68,9 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
-    void EndDialogue ()
+    void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
+        player.canMove = true;
     }
 }
