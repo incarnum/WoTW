@@ -48,7 +48,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
-    private bool firstCast;
+    private DialogueManager dm;
     private DialogueTrigger cbc;
     private DialogueTrigger clFN;
     private DialogueTrigger clSN;
@@ -70,7 +70,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         cbc = GameObject.Find("CorruptionBeenCast").GetComponent<DialogueTrigger>();
         clFN = GameObject.Find("CleanseFirstNode").GetComponent<DialogueTrigger>();
         clSN = GameObject.Find("CleanseSecondNode").GetComponent<DialogueTrigger>();
-        firstCast = true;
+        dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {
             instaCast = true;
@@ -110,7 +110,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 Debug.Log("Need more ingredients");
             }
         }
-        if(cooldown >= 0)
+        if (cooldown >= 0)
         {
             PredictSpell();
         }
@@ -135,17 +135,21 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void Cast()
     {
         health -= 1;
-        if(health <= 0)
+        if (health <= 0)
         {
-            if (cm.corruptionNodeList.Count == nodeCount)
+            if (dm.cleansedNodes == 0)
             {
-                //NotWorking
+                dm.cleansedNodes++;
                 clFN.TriggerDialogue();
                 //Deer get activated
                 //Polish: Deer moves across screen
-            } else if (cm.corruptionNodeList.Count == nodeCount -1)
+            }
+            else if (dm.cleansedNodes == 1)
             {
-
+                dm.cleansedNodes++;
+                clSN.TriggerDialogue();
+                //Wolves get activated
+                //Polish: Wolf moves across the screen
             }
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
@@ -164,7 +168,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             A3.GetComponent<SpriteRenderer>().color = Color.white;
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
-            if(GameObject.Find("AB1Text").GetComponent<Text>().text== "")
+            if (GameObject.Find("AB1Text").GetComponent<Text>().text == "")
             {
                 GameObject.Find("AB1Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
             }
@@ -195,9 +199,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                if (firstCast)
+                if (dm.firstCorrCast)
                 {
-                    firstCast = false;
+                    dm.firstCorrCast = false;
                     cbc.TriggerDialogue();
 
                 }
@@ -274,19 +278,19 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //visual effect for casting
         ring1.SpeedBoost();
         ring2.SpeedBoost();
-        if(health > 0)
+        if (health > 0)
         {
             cooldown = 10f;
         }
-        
-        
+
+
     }
 
     public void PredictSpell()
     {
         //creates the preview text that appears in the circle. 
         spellPreviewText = "";
-        if(cooldown >= 0)
+        if (cooldown >= 0)
         {
             spellPreviewText += "Cooldown: " + cooldown.ToString("F2");
         }
@@ -321,11 +325,11 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 spellPreviewText += "wolves";
             }
         }
-        
 
 
 
-        if(cooldown > 0)
+
+        if (cooldown > 0)
         {
             GetComponent<SpriteRenderer>().enabled = true;
         }
@@ -418,3 +422,4 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     }
 
 }
+

@@ -208,7 +208,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (shrubPop < deerPop && firstFall)
+        if (shrub.pop < deer.pop && firstFall)
         {
             firstFall = false;
             sff.TriggerDialogue();

@@ -11,6 +11,8 @@ public class DialogueManager : MonoBehaviour
     public Animator animator;
     private PlayerControllerScript player;
     public int convoCount;
+    public int cleansedNodes;
+    public bool firstCorrCast;
 
     private Queue<string> sentences;
 
@@ -20,6 +22,8 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
         player = GameObject.Find("Player").GetComponent<PlayerControllerScript>();
         convoCount = 0;
+        cleansedNodes = 0;
+        firstCorrCast = true;
     }
 
     void Update()
