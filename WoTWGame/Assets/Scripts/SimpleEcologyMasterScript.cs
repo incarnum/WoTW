@@ -126,6 +126,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
+    private bool firstFall;
+    private DialogueTrigger sff;
     // Use this for initialization
     void Start()
     {
@@ -146,6 +148,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         corruptedShrubArrows = GameObject.Find("corruptedShrubArrows").GetComponent<Animator>();
         corruptedDeerArrows = GameObject.Find("corruptedDeerArrows").GetComponent<Animator>();
         corruptedWolfArrows = GameObject.Find("corruptedWolfArrows").GetComponent<Animator>();
+        sff = GameObject.Find("ShrubsFirstFall").GetComponent<DialogueTrigger>();
         shrubSize = 1;
         deerSize = 1;
         wolfSize = 1;
@@ -199,11 +202,17 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             CMan.AdjustCreatures();
             CMan.AdjustPickips();
         }
+        firstFall = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (shrubPop < deerPop && firstFall)
+        {
+            firstFall = false;
+            sff.TriggerDialogue();
+        }
         if (!paused && !megaPaused)
         {
             //CheckForFailure();

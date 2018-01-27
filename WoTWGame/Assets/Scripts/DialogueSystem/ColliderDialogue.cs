@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ColliderDialogue : MonoBehaviour {
     public DialogueTrigger dialogueTrigger;
+    public int convoCode;
     private bool hasPlayed = false;
+    private DialogueManager dm;
     // Use this for initialization
     void Start () {
-		
+        dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
 	}
 	
 	// Update is called once per frame
@@ -18,11 +20,9 @@ public class ColliderDialogue : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
         print("Want To Trigger");
-        if (!hasPlayed && other.CompareTag("Player"))
+        if (convoCode == dm.convoCount && other.CompareTag("Player"))
         {
-            hasPlayed = true;
             dialogueTrigger.TriggerDialogue();
-            print("Triggering Dialogue");
         }
     }
 }

@@ -38,6 +38,8 @@ public class PylonCoreScript : MonoBehaviour {
 	private bool castable;
     public bool wasCorrupted;
     public GameObject cpcs;
+    private bool firstCast;
+    private DialogueTrigger gsbc;
 
 
 
@@ -46,6 +48,7 @@ public class PylonCoreScript : MonoBehaviour {
 		//some of these things may be unnecessary. This script was made by copying over a lot of stuff from the original spellscript, since it casts spells.
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 		cm = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ();
+        gsbc = GameObject.Find("GrowShrubsBeenCast").GetComponent<DialogueTrigger>();
 		spellCore = GameObject.Find ("Core");
 		if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().noChargeMode) {
 			instaCast = true;
@@ -58,6 +61,7 @@ public class PylonCoreScript : MonoBehaviour {
 		target = -1;
 		effect = -1;
 		strength = -1;
+        firstCast = true;
 	}
 
     private void OnEnable()
@@ -97,6 +101,7 @@ public class PylonCoreScript : MonoBehaviour {
 	}
 	//largely same as in spellscript, differences at the end of the function
 	public void Cast() {
+        print("spellcast");
 			if (effect == 0) {
 				if (target == 0 || target == 3) {
 					if(strength == 0)
@@ -111,7 +116,13 @@ public class PylonCoreScript : MonoBehaviour {
 						{
 							garfield.transform.localScale = new Vector3(eco.shrubSize, eco.shrubSize);
 						}
-					}
+                    if (firstCast)
+                    {
+                        firstCast = false;
+                        print("shrubs growing");
+                        gsbc.TriggerDialogue();
+                    }
+                }
 					else
 					{
 						float sizeCheck = (eco.shrubSize) + strength * 0.05f;

@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public Text dialogueText;
     public Animator animator;
     private PlayerControllerScript player;
+    public int convoCount;
 
     private Queue<string> sentences;
 
@@ -18,6 +19,7 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
         player = GameObject.Find("Player").GetComponent<PlayerControllerScript>();
+        convoCount = 0;
     }
 
     void Update()
@@ -31,6 +33,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         player.canMove = false;
+        convoCount++;
         animator.SetBool("IsOpen", true);
         sentences.Clear();
         print("cleared sentences");

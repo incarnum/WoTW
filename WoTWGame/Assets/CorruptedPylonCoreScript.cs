@@ -49,7 +49,10 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private DeerPopulation deer;
     private WolfPopulation wolf;
     private bool firstCast;
-    public CorruptedSpellDialogue csd;
+    private DialogueTrigger cbc;
+    private DialogueTrigger clFN;
+    private DialogueTrigger clSN;
+    private int nodeCount;
 
 
     // Use this for initialization
@@ -64,6 +67,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         cms = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
         spellCore = GameObject.Find("Core");
+        cbc = GameObject.Find("CorruptionBeenCast").GetComponent<DialogueTrigger>();
+        clFN = GameObject.Find("CleanseFirstNode").GetComponent<DialogueTrigger>();
+        clSN = GameObject.Find("CleanseSecondNode").GetComponent<DialogueTrigger>();
         firstCast = true;
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {
@@ -79,6 +85,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //		effect = -1;
         //no choosable effect for corrupted pylon circles
         strength = -1;
+        nodeCount = cm.corruptionNodeList.Count;
     }
 
     // Update is called once per frame
@@ -130,6 +137,16 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         health -= 1;
         if(health <= 0)
         {
+            if (cm.corruptionNodeList.Count == nodeCount)
+            {
+                //NotWorking
+                clFN.TriggerDialogue();
+                //Deer get activated
+                //Polish: Deer moves across screen
+            } else if (cm.corruptionNodeList.Count == nodeCount -1)
+            {
+
+            }
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
             shrub.rate = shrub.startRate;
@@ -181,7 +198,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 if (firstCast)
                 {
                     firstCast = false;
-                    csd.DoThing();
+                    cbc.TriggerDialogue();
 
                 }
                 shrub.corrupting = true;
