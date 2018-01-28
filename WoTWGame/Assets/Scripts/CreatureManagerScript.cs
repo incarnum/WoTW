@@ -58,8 +58,12 @@ public class CreatureManagerScript : MonoBehaviour {
     private DeerPopulation deer;
     private WolfPopulation wolf;
 
-	// Use this for initialization
-	void Start () {
+    public float ecoToWorldDivision;
+    private float lastAdjustment;
+    public float adjustmentDelay;
+
+    // Use this for initialization
+    void Start () {
 		eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
 		upperLeftBound = GetComponentsInChildren<Transform> ()[1];
 		lowerRightBound = GetComponentsInChildren<Transform> ()[2];
@@ -78,13 +82,51 @@ public class CreatureManagerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		if (Input.GetKeyDown (KeyCode.C)) {
-//			AdjustCreatures();
-//			AdjustPickips ();
-//		}
-	}
+        //		if (Input.GetKeyDown (KeyCode.C)) {
+        //			AdjustCreatures();
+        //			AdjustPickips ();
+        //		}
 
-	public void AdjustCreatures() {
+        if (Time.time > lastAdjustment + adjustmentDelay)
+        {
+            lastAdjustment = Time.time;
+
+            if (shrub.corruptedPop > 0)
+            {
+                shrubNum = (shrub.pop - shrub.corruptedPop) / ecoToWorldDivision;
+            }
+            else
+            {
+                shrubNum = shrub.pop / ecoToWorldDivision;
+            }
+
+            if (deer.corruptedPop > 0)
+            {
+                deerNum = (deer.pop - deer.corruptedPop) / ecoToWorldDivision;
+            }
+            else
+            {
+                deerNum = deer.pop / ecoToWorldDivision;
+            }
+
+            if (wolf.corruptedPop > 0)
+            {
+                wolfNum = (wolf.pop - wolf.corruptedPop) / ecoToWorldDivision;
+            }
+            else
+            {
+                wolfNum = wolf.pop / ecoToWorldDivision;
+            }
+
+            corruptedShrubNum = shrub.corruptedPop / ecoToWorldDivision;
+            corruptedDeerNum = deer.corruptedPop / ecoToWorldDivision;
+            corruptedWolfNum = wolf.corruptedPop / ecoToWorldDivision;
+            AdjustCreatures();
+            AdjustPickips();
+        }
+    }
+
+    public void AdjustCreatures() {
 		//shrubs
 		while (shrubCreatureList.Count > shrubNum + 1f) {
 			Destroy (shrubCreatureList [0]);

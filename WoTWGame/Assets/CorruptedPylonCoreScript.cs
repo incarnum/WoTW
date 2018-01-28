@@ -141,6 +141,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 dm.cleansedNodes++;
                 clFN.TriggerDialogue();
+                deer.enabled = true;
                 //Deer get activated
                 //Polish: Deer moves across screen
             }
@@ -148,6 +149,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 dm.cleansedNodes++;
                 clSN.TriggerDialogue();
+                wolf.enabled = true;
                 //Wolves get activated
                 //Polish: Wolf moves across the screen
             }

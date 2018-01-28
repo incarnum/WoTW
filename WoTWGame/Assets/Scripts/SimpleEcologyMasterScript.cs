@@ -350,48 +350,66 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         //sets the rising triggers. If a rising trigger is true, it makes the pop rise, if it's false, it makes it fall.
         //some triggers are set as soon as they go over or under another value, while others wait to go a little bit beyond 
         //to an overshoot value to simulate an ecosystem better
-        if (shrub.biomass > (deer.biomass + overShootValue))
+        if (deer.enabled == true)
         {
-            deer.rising1 = true;
-            deerArrowsShrub.SetTrigger(deer.up1.ToString());
+            if (shrub.biomass > (deer.biomass + overShootValue))
+            {
+                deer.rising1 = true;
+                deerArrowsShrub.SetTrigger(deer.up1.ToString());
+            }
+            if (shrub.biomass < (deer.biomass - overShootValue))
+            {
+                deer.rising1 = false;
+                deerArrowsShrub.SetTrigger(deer.down1.ToString());
+            }
+            if (shrub.biomass < deer.biomass)
+            {
+                shrub.rising1 = false;
+                shrubArrowsDeer.SetTrigger(shrub.down1.ToString());
+            }
+            else if (shrub.biomass > deer.biomass)
+            {
+                shrub.rising1 = true;
+                shrubArrowsDeer.SetTrigger(shrub.up1.ToString());
+            }
         }
-        if (shrub.biomass < (deer.biomass - overShootValue))
-        {
-            deer.rising1 = false;
-            deerArrowsShrub.SetTrigger(deer.down1.ToString());
-        }
-        if (shrub.biomass < deer.biomass)
-        {
-            shrub.rising1 = false;
-            shrubArrowsDeer.SetTrigger(shrub.down1.ToString());
-        }
-        else if (shrub.biomass > deer.biomass)
+        else
         {
             shrub.rising1 = true;
+
             shrubArrowsDeer.SetTrigger(shrub.up1.ToString());
         }
 
-
-        if (deer.biomass > (wolf.biomass + overShootValue))
+        if (wolf.enabled == true && deer.enabled == true)
         {
-            wolf.rising1 = true;
-            wolfArrowsDeer.SetTrigger(wolf.up1.ToString());
+            if (deer.biomass > (wolf.biomass + overShootValue))
+            {
+                wolf.rising1 = true;
+                wolfArrowsDeer.SetTrigger(wolf.up1.ToString());
+            }
+            if (deer.biomass < (wolf.biomass - overShootValue))
+            {
+                wolf.rising1 = false;
+                wolfArrowsDeer.SetTrigger(wolf.down1.ToString());
+            }
+            if (deer.biomass < wolf.biomass)
+            {
+                deer.rising2 = false;
+                deerArrowsWolf.SetTrigger(deer.down2.ToString());
+            }
+            else if (deer.biomass > wolf.biomass)
+            {
+                deer.rising2 = true;
+                deerArrowsWolf.SetTrigger(deer.up2.ToString());
+            }
         }
-        if (deer.biomass < (wolf.biomass - overShootValue))
-        {
-            wolf.rising1 = false;
-            wolfArrowsDeer.SetTrigger(wolf.down1.ToString());
-        }
-        if (deer.biomass < wolf.biomass)
-        {
-            deer.rising2 = false;
-            deerArrowsWolf.SetTrigger(deer.down2.ToString());
-        }
-        else if (deer.biomass > wolf.biomass)
+        else if (deer.enabled == true)
         {
             deer.rising2 = true;
+
             deerArrowsWolf.SetTrigger(deer.up2.ToString());
         }
+        
 
 
         //Below is the section that changes the populations according to what rising triggers are set
@@ -416,39 +434,47 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             shrub.corruptedPop -= (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
         }
 
-        if (deer.rising1 == true)
+        if(deer.enabled == true)
         {
-            rateOfDeerChange += (2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime;
+            if (deer.rising1 == true)
+            {
+                rateOfDeerChange += (2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime;
+            }
+            else
+            {
+                rateOfDeerChange -= (3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
+            }
+            if (deer.rising2 == true)
+            {
+                rateOfDeerChange += (2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime;
+            }
+            else
+            {
+                rateOfDeerChange -= (1 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 2;
+            }
+            deer.pop += rateOfDeerChange;
+            if (rateOfDeerChange < 0)
+            {
+                deer.corruptedPop += rateOfDeerChange;
+            }
         }
-        else
+        
+        if(wolf.enabled == true)
         {
-            rateOfDeerChange -= (3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
+            if (wolf.rising1 == true)
+            {
+                wolf.pop += (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
+                //wolf.corruptedPop += (1.9f + wolf.up1 * .2f) * overallSpeed * Time.deltaTime * (wolf.corruptedPop / wolf.pop);
+            }
+            else
+            {
+                wolf.pop -= (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
+                wolf.corruptedPop -= (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
+            }
         }
+        
 
-        if (wolf.rising1 == true)
-        {
-            wolf.pop += (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
-            //wolf.corruptedPop += (1.9f + wolf.up1 * .2f) * overallSpeed * Time.deltaTime * (wolf.corruptedPop / wolf.pop);
-        }
-        else
-        {
-            wolf.pop -= (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
-            wolf.corruptedPop -= (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
-        }
-
-        if (deer.rising2 == true)
-        {
-            rateOfDeerChange += (2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime;
-        }
-        else
-        {
-            rateOfDeerChange -= (1 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 2;
-        }
-        deer.pop += rateOfDeerChange;
-        if (rateOfDeerChange < 0)
-        {
-            deer.corruptedPop += rateOfDeerChange;
-        }
+        
 
         //populations find out if they have anough food based on their biomass and their foods biomass. biomass is based on population times size.
         shrub.biomass = shrub.pop * shrub.size;
