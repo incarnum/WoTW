@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class basePopulation : MonoBehaviour {
-    public float up1, up2, down1, down2, pop, biomass, corruptedPop, corruptedBiomass, speed, size, startSize, startSpeed, rate, startRate, corruptionAcceleration, overallSpeed;
+    public float up1, up2, down1, down2, pop, biomass, startPop, corruptedPop, corruptedBiomass, speed, size, startSize, startSpeed, rate, startRate, corruptionAcceleration, overallSpeed;
     public int sizeMod, speedMod, toughMod, timesSpeedChanged;
     public bool rising1, rising2, corrupting, notShrubs;
     public GameObject gameOver;

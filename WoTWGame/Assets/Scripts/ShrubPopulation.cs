@@ -10,7 +10,7 @@ public class ShrubPopulation : basePopulation
     {
         DoStart();
         notShrubs = false;
-        pop = 55;
+        pop = startPop;
         size = 1;
         startSize = 1;
         sizeMod = 0;

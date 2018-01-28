@@ -23,6 +23,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public float deerSpeed;
     public float wolfSpeed;
 
+	public bool tempShrubCapBool;
+	public float tempShrubCap;
+
     public float shrubSize;
     public float deerSize;
     public float wolfSize;
@@ -52,12 +55,6 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public bool deerRising;
     public bool wolfRising;
     public bool deerRising2;
-
-    public float hunter;
-    public float forager;
-    public float growth;
-    public float heartiness;
-    public float energy;
 
     public float shrubUp;
     public float shrubDown;
@@ -423,9 +420,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         //population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
         // of the buffs.
         //One of these is also multiplied by 2 at the end, I don't remember why specifically, but I think it's part of keeping things balanced.
-        if (shrub.rising1 == true)
+		if (shrub.rising1 == true && shrub.pop < 100)
         {
-            shrub.pop += (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
+			if (tempShrubCapBool == false || (shrub.pop < tempShrubCap))
+			shrub.pop += (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
             //shrub.corruptedPop += (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime * (shrub.corruptedPop / shrub.pop);
         }
         else
@@ -436,15 +434,20 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
         if(deer.enabled == true)
         {
-            if (deer.rising1 == true)
+			if (deer.rising1 == true && deer.pop < 100)
             {
                 rateOfDeerChange += (2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime;
             }
             else
             {
-                rateOfDeerChange -= (3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
+				if (wolf.enabled == false) {
+					rateOfDeerChange -= (7 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
+				} else {
+					rateOfDeerChange -= (3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
+				}
+				
             }
-            if (deer.rising2 == true)
+			if (deer.rising2 == true && deer.pop < 100)
             {
                 rateOfDeerChange += (2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime;
             }
@@ -461,7 +464,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         
         if(wolf.enabled == true)
         {
-            if (wolf.rising1 == true)
+			if (wolf.rising1 == true && wolf.pop < 100)
             {
                 wolf.pop += (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
                 //wolf.corruptedPop += (1.9f + wolf.up1 * .2f) * overallSpeed * Time.deltaTime * (wolf.corruptedPop / wolf.pop);
@@ -484,6 +487,22 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         deer.corruptedBiomass = deer.corruptedPop * deer.size;
         wolf.corruptedBiomass = wolf.corruptedPop * wolf.size;
 
+
+//		if (shrub.biomass > 100) {
+//			shrub.biomass = 100;
+//			shrub.pop = 100 / shrub.size;
+//		} else if (tempShrubCapBool && tempShrubCap > deerBiomass) {
+//			shrub.biomass = tempShrubCap;
+//			shrub.pop = tempShrubCap / deer.size;
+//		}
+//		if (deer.biomass > 100) {
+//			deer.biomass = 100;
+//			deer.pop = 100 / deer.size;
+//		}
+//		if (wolf.biomass > 100) {
+//			wolf.biomass = 100;
+//			wolf.pop = 100 / wolf.size;
+//		}
 
     }
 

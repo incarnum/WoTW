@@ -16,6 +16,6 @@ public class PlayButtonScript : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		SceneManager.LoadScene ("MoreForest2");
+		SceneManager.LoadScene ("Forest 2");
 	}
 }

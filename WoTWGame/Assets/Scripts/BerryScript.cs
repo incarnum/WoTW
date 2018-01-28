@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BerryScript : MonoBehaviour {
 	public GameObject sourceBush;
+	public bool eternal;
 	// Use this for initialization
 	void Start () {
-		Destroy (gameObject, 20);
+		if (eternal == false) {
+			Destroy (gameObject, 20);
+		}
 	}
 	
 	// Update is called once per frame

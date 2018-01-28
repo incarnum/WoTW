@@ -142,6 +142,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 dm.cleansedNodes++;
                 clFN.TriggerDialogue();
                 deer.enabled = true;
+				eco.tempShrubCapBool = false;
                 //Deer get activated
                 //Polish: Deer moves across screen
             }
