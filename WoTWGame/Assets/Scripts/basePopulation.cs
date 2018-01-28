@@ -5,21 +5,28 @@ using UnityEngine;
 public class basePopulation : MonoBehaviour {
     public float up1, up2, down1, down2, pop, biomass, corruptedPop, corruptedBiomass, speed, size, startSize, startSpeed, rate, startRate, corruptionAcceleration, overallSpeed;
     public int sizeMod, speedMod, toughMod, timesSpeedChanged;
-    public bool rising1, rising2, corrupting;
+    public bool rising1, rising2, corrupting, notShrubs;
     public GameObject gameOver;
     public GameObject corrGameOver;
     public GameObject mainMenuButton;
     public GameObject exitGameButton;
     public GameObject menuCamera;
     public GameObject bar, corrBar, barUI, corrBarUI;
-	// Use this for initialization
-	void Start () {
+    public List<GameObject> creatureList;
+    public List<GameObject> corruptedCreatureList;
+    public basePopulation food1, food2, pred1, pred2;
+    // Use this for initialization
+    void Start () {
 		
 	}
 
     public void DoStart()
     {
         overallSpeed = 0.25f;
+        corruptionAcceleration = 2;
+        rate = 0.15f;
+        startRate = rate;
+        notShrubs = true;
     }
 	
 	// Update is called once per frame
@@ -39,6 +46,30 @@ public class basePopulation : MonoBehaviour {
             corrBarUI.GetComponent<UIBarScript>().SetFillSizeValue(corruptedBiomass / 100f);
         }
     }
+
+    public void UpdateSize()
+    {
+        foreach (GameObject garfield in creatureList)
+        {
+            garfield.transform.localScale = new Vector3(size, size);
+        }
+        foreach (GameObject garfield in corruptedCreatureList)
+        {
+            garfield.transform.localScale = new Vector3(size, size);
+        }
+    }
+
+    public void UpdateSpeed()
+    {
+        foreach (GameObject garfield in creatureList)
+        {
+            if (notShrubs)
+            {
+            garfield.GetComponent<AnimalMovementScript>().speed2 = speed;
+            }
+        }
+    }
+
     void Corrupt()
     {
         if(corruptedPop <= 0)
@@ -55,6 +86,7 @@ public class basePopulation : MonoBehaviour {
             corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * rate;
         }
     }
+
     void CheckForFailure()
     {
         if(pop <= 0)

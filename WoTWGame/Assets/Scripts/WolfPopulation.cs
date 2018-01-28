@@ -20,6 +20,9 @@ public class WolfPopulation : basePopulation {
         up2 = 0;
         down1 = 0;
         down2 = 0;
+        food1 = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
+        creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().wolfCreatureList;
+        corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedWolfCreatureList;
     }
 
     // Update is called once per frame

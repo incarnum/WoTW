@@ -9,6 +9,7 @@ public class ShrubPopulation : basePopulation
     void Start()
     {
         DoStart();
+        notShrubs = false;
         pop = 55;
         size = 1;
         startSize = 1;
@@ -19,7 +20,9 @@ public class ShrubPopulation : basePopulation
         up2 = 0;
         down1 = 0;
         down2 = 0;
-
+        pred1 = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
+        creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().shrubCreatureList;
+        corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedShrubCreatureList;
     }
 
     // Update is called once per frame

@@ -360,12 +360,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             if (shrub.biomass < (deer.biomass - overShootValue))
             {
                 deer.rising1 = false;
-                deerArrowsShrub.SetTrigger(deer.down1.ToString());
+                deerArrowsShrub.SetTrigger(deer.down2.ToString());
             }
             if (shrub.biomass < deer.biomass)
             {
                 shrub.rising1 = false;
-                shrubArrowsDeer.SetTrigger(shrub.down1.ToString());
+                shrubArrowsDeer.SetTrigger(shrub.down2.ToString());
             }
             else if (shrub.biomass > deer.biomass)
             {

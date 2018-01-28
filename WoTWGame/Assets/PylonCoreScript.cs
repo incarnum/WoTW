@@ -40,6 +40,7 @@ public class PylonCoreScript : MonoBehaviour
     public bool wasCorrupted;
     public GameObject cpcs;
 
+    private basePopulation pop;
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
@@ -125,9 +126,131 @@ public class PylonCoreScript : MonoBehaviour
     //largely same as in spellscript, differences at the end of the function
     public void Cast()
     {
+        if (target == 0)
+        {
+            pop = shrub;
+        }
+        else if (target == 1)
+        {
+            pop = deer;
+        }
+        else if (target == 2)
+        {
+            pop = wolf;
+        }
         if (effect == 0)
         {
-            if (target == 0 || target == 3)
+            if (strength == 0)
+            {
+                pop.size = pop.startSize;
+                pop.sizeMod = 0;
+                pop.UpdateSize();
+            }
+            else
+            {
+                if (firstCast)
+                {
+                    firstCast = false;
+                    print("shrubs growing");
+                    gsbc.TriggerDialogue();
+                }
+                float sizeCheck = (pop.size) + strength * 0.05f;
+                if (sizeCheck >= minSize && sizeCheck <= maxSize)
+                {
+                    pop.size = sizeCheck;
+                    pop.UpdateSize();
+                    if (strength > 0)
+                    {
+                        pop.sizeMod += 1;
+                    }
+                    else if (strength < 0)
+                    {
+                        pop.sizeMod -= 1;
+                    }
+                }
+            }
+        }
+        else if (effect == 1)
+        {
+            if (strength == 0)
+            {
+                pop.speed = pop.startSpeed;
+                pop.speedMod = 0;
+                pop.up1 = 0;
+                pop.timesSpeedChanged = 0;
+                if (pop.food1 != null)
+                {
+                    pop.food1.down2 -= sms.spellStrengthMod * pop.timesSpeedChanged;
+                }
+                if (pop.food2 != null)
+                {
+                    pop.food2.down2 -= sms.spellStrengthMod * pop.timesSpeedChanged;
+                }
+                pop.UpdateSpeed();
+            }
+            else
+            {
+                float speedCheck = deer.speed + strength * 0.05f;
+                if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
+                {
+                    pop.up1 += strength;
+                    if (pop.food1 != null)
+                    {
+                        pop.food1.down2 += strength;
+                    }
+                    if (pop.food2 != null)
+                    {
+                        pop.food2.down2 += strength;
+                    }
+                    pop.timesSpeedChanged += 1;
+                    pop.speed += strength * .05f;
+                    pop.UpdateSpeed();
+                    if (strength > 0)
+                    {
+                        pop.speedMod += 1;
+                    }
+                    else if (strength < 0)
+                    {
+                        pop.speedMod -= 1;
+                    }
+                }
+            }
+        }
+
+        else if (effect == 2)
+        {
+            if (strength == 0)
+            {
+                pop.down1 = 0;
+                if (pop.pred1 != null)
+                {
+                    if (pop.pred2 != null)
+                    {
+                        pop.down2 = sms.spellStrengthMod * pop.pred2.timesSpeedChanged;
+                    }
+                    pop.down2 = sms.spellStrengthMod * pop.pred1.timesSpeedChanged;
+                }                
+                shrub.toughMod = 0;
+            }
+            else
+            {
+                pop.down1 -= strength;
+                pop.down2 -= strength;
+                if (strength > 0)
+                {
+                    pop.toughMod += 1;
+                }
+                else if (strength < 0)
+                {
+                    pop.toughMod -= 1;
+                }
+            }
+        }
+
+
+
+
+            /*if (target == 0 || target == 3)
             {
                 if (strength == 0)
                 {
@@ -256,40 +379,58 @@ public class PylonCoreScript : MonoBehaviour
                     }
                 }
             }
-        }
+        } 
 
-        if (effect == 1)
+            if (effect == 1)
+    {
+        //hasten/slow, change increase; and decrease of food
+        if (target == 0 || target == 3)
         {
-            //hasten/slow, change increase; and decrease of food
-            if (target == 0 || target == 3)
+            if (strength == 0)
             {
-                if (strength == 0)
+                shrub.up1 = 0;
+                shrub.speedMod = 0;
+            }
+            else
+            {
+                shrub.up1 += strength;
+                if (strength > 0)
                 {
-                    shrub.up1 = 0;
-                    shrub.speedMod = 0;
+                    shrub.speedMod += 1;
                 }
-                else
+                else if (strength < 0)
                 {
-                    shrub.up1 += strength;
-                    if (strength > 0)
-                    {
-                        shrub.speedMod += 1;
-                    }
-                    else if (strength < 0)
-                    {
-                        shrub.speedMod -= 1;
-                    }
+                    shrub.speedMod -= 1;
                 }
             }
-            else if (target == 1 || target == 4)
+        }
+        else if (target == 1 || target == 4)
+        {
+            if (strength == 0)
             {
-                if (strength == 0)
+                deer.up1 = 0;
+                shrub.down1 -= sms.spellStrengthMod * deer.timesSpeedChanged;
+                deer.speedMod = 0;
+                deer.timesSpeedChanged = 0;
+                deer.speed = deer.startSpeed;
+                foreach (GameObject garfield in cm.deerCreatureList)
                 {
-                    deer.up1 = 0;
-                    shrub.down1 -= sms.spellStrengthMod * deer.timesSpeedChanged;
-                    deer.speedMod = 0;
-                    deer.timesSpeedChanged = 0;
-                    deer.speed = deer.startSpeed;
+                    garfield.GetComponent<AnimalMovementScript>().speed2 = deer.speed;
+                }
+                foreach (GameObject garfield in cm.corruptedDeerCreatureList)
+                {
+                    garfield.GetComponent<AnimalMovementScript>().speed2 = deer.speed;
+                }
+            }
+            else
+            {
+                float speedCheck = (deer.speed) + strength * 0.05f;
+                if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
+                {
+                    deer.up1 += strength;
+                    shrub.down1 += strength;
+                    deer.timesSpeedChanged += 1;
+                    deer.speed += strength * .05f;
                     foreach (GameObject garfield in cm.deerCreatureList)
                     {
                         garfield.GetComponent<AnimalMovementScript>().speed2 = deer.speed;
@@ -298,44 +439,44 @@ public class PylonCoreScript : MonoBehaviour
                     {
                         garfield.GetComponent<AnimalMovementScript>().speed2 = deer.speed;
                     }
-                }
-                else
-                {
-                    float speedCheck = (deer.speed) + strength * 0.05f;
-                    if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
+                    if (strength > 0)
                     {
-                        deer.up1 += strength;
-                        shrub.down1 += strength;
-                        deer.timesSpeedChanged += 1;
-                        deer.speed += strength * .05f;
-                        foreach (GameObject garfield in cm.deerCreatureList)
-                        {
-                            garfield.GetComponent<AnimalMovementScript>().speed2 = deer.speed;
-                        }
-                        foreach (GameObject garfield in cm.corruptedDeerCreatureList)
-                        {
-                            garfield.GetComponent<AnimalMovementScript>().speed2 = deer.speed;
-                        }
-                        if (strength > 0)
-                        {
-                            deer.speedMod += 1;
-                        }
-                        else if (strength < 0)
-                        {
-                            deer.speedMod -= 1;
-                        }
+                        deer.speedMod += 1;
+                    }
+                    else if (strength < 0)
+                    {
+                        deer.speedMod -= 1;
                     }
                 }
             }
-            else if (target == 2 || target == 5)
+        }
+        else if (target == 2 || target == 5)
+        {
+            if (strength == 0)
             {
-                if (strength == 0)
+                wolf.up1 = 0;
+                deer.down2 -= sms.spellStrengthMod * wolf.timesSpeedChanged;
+                wolf.speedMod = 0;
+                wolf.timesSpeedChanged = 0;
+                wolf.speed = wolf.startSpeed;
+                foreach (GameObject garfield in cm.wolfCreatureList)
                 {
-                    wolf.up1 = 0;
-                    deer.down2 -= sms.spellStrengthMod * wolf.timesSpeedChanged;
-                    wolf.speedMod = 0;
-                    wolf.timesSpeedChanged = 0;
-                    wolf.speed = wolf.startSpeed;
+                    garfield.GetComponent<AnimalMovementScript>().speed2 = wolf.speed;
+                }
+                foreach (GameObject garfield in cm.corruptedWolfCreatureList)
+                {
+                    garfield.GetComponent<AnimalMovementScript>().speed2 = wolf.speed;
+                }
+            }
+            else
+            {
+                float speedCheck = (wolf.speed) + strength * 0.05f;
+                if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
+                {
+                    wolf.up1 += strength;
+                    deer.down2 += strength;
+                    wolf.timesSpeedChanged += 1;
+                    wolf.speed += strength * .05f;
                     foreach (GameObject garfield in cm.wolfCreatureList)
                     {
                         garfield.GetComponent<AnimalMovementScript>().speed2 = wolf.speed;
@@ -344,38 +485,20 @@ public class PylonCoreScript : MonoBehaviour
                     {
                         garfield.GetComponent<AnimalMovementScript>().speed2 = wolf.speed;
                     }
-                }
-                else
-                {
-                    float speedCheck = (wolf.speed) + strength * 0.05f;
-                    if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
+                    if (strength > 0)
                     {
-                        wolf.up1 += strength;
-                        deer.down2 += strength;
-                        wolf.timesSpeedChanged += 1;
-                        wolf.speed += strength * .05f;
-                        foreach (GameObject garfield in cm.wolfCreatureList)
-                        {
-                            garfield.GetComponent<AnimalMovementScript>().speed2 = wolf.speed;
-                        }
-                        foreach (GameObject garfield in cm.corruptedWolfCreatureList)
-                        {
-                            garfield.GetComponent<AnimalMovementScript>().speed2 = wolf.speed;
-                        }
-                        if (strength > 0)
-                        {
-                            wolf.speedMod += 1;
-                        }
-                        else if (strength < 0)
-                        {
-                            wolf.speedMod -= 1;
-                        }
+                        wolf.speedMod += 1;
+                    }
+                    else if (strength < 0)
+                    {
+                        wolf.speedMod -= 1;
                     }
                 }
             }
         }
+    } 
 
-        if (effect == 2)
+            if (effect == 2)
         {
             //toughen/weaken, change decrease rates
             if (target == 0 || target == 3)
@@ -440,9 +563,10 @@ public class PylonCoreScript : MonoBehaviour
                     }
                 }
             }
+            */
 
 
-        }
+        
         if (effect == 3)
         {
             foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptionNodeList)
