@@ -125,6 +125,14 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     private WolfPopulation wolf;
     private bool firstFall;
     private DialogueTrigger sff;
+
+    //Music Manager
+    private AudioSource mainMusic;
+    private AudioSource corruptMusic;
+    private bool corruptPlaying;
+    //Must be < 1
+    public float warningPercent;
+
     // Use this for initialization
     void Start()
     {
@@ -200,11 +208,38 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             CMan.AdjustPickips();
         }
         firstFall = true;
+
+        mainMusic = GameObject.Find("WotW soundtrack").GetComponent<AudioSource>();
+        corruptMusic = GameObject.Find("Mus_Corrupt").GetComponent<AudioSource>();
+        corruptPlaying = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Music Toggle
+        float shrubPer = corruptedShrubPop / shrubPop;
+        float deerPer = corruptedShrubPop / deerPop;
+        float wolfPer = corruptedWolfPop / wolfPop;
+        if((shrubPer >= warningPercent) || (deerPer >= warningPercent) || (wolfPer >= warningPercent))
+        {
+            if(!corruptPlaying)
+            {
+                mainMusic.Stop();
+                corruptMusic.Play();
+                corruptPlaying = true;
+            }
+        }
+        else
+        {
+            if (corruptPlaying)
+            {
+                mainMusic.Play();
+                corruptMusic.Stop();
+                corruptPlaying = false;
+            }
+        }
+        
         if (shrub.pop < deer.pop && firstFall)
         {
             firstFall = false;

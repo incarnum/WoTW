@@ -105,6 +105,7 @@ public class AnimalMovementScript : MonoBehaviour {
 					munch.transform.position = col.gameObject.transform.position;
                     if(gameObject.GetComponent<Renderer>().isVisible)
                     {
+                        munchSound.pitch = Random.Range(1f, 3f);
                         munchSound.Play();
                     }
 					Destroy (munch, 1.0f);
@@ -139,6 +140,7 @@ public class AnimalMovementScript : MonoBehaviour {
 				GameObject munch = Instantiate (munchIcon) as GameObject;
                 if (gameObject.GetComponent<Renderer>().isVisible)
                 {
+                    munchSound.pitch = Random.Range(1f, 3f);
                     munchSound.Play();
                 }
 				Destroy (munch, 1.0f);
