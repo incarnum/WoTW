@@ -47,6 +47,7 @@ public class PylonCoreScript : MonoBehaviour
 
     private bool firstCast;
     private DialogueTrigger gsbc;
+    private AudioSource castSound;
 
 
     // Use this for initialization
@@ -75,6 +76,8 @@ public class PylonCoreScript : MonoBehaviour
 
         gsbc = GameObject.Find("GrowShrubsBeenCast").GetComponent<DialogueTrigger>();
         firstCast = true;
+
+        castSound = GameObject.Find("Snd_Cast").GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -95,6 +98,7 @@ public class PylonCoreScript : MonoBehaviour
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
                 Cast();
+                castSound.Play();
             }
             else if (target != -1 && effect != -1 && strength != -1 && castable)
             {

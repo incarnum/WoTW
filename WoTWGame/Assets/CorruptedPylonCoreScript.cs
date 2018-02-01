@@ -53,6 +53,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private DialogueTrigger clFN;
     private DialogueTrigger clSN;
     private int nodeCount;
+    private AudioSource castSound;
 
 
     // Use this for initialization
@@ -86,6 +87,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //no choosable effect for corrupted pylon circles
         strength = -1;
         nodeCount = cm.corruptionNodeList.Count;
+
+        castSound = GameObject.Find("Snd_Cast").GetComponentInChildren<AudioSource>(true);
     }
 
     // Update is called once per frame
