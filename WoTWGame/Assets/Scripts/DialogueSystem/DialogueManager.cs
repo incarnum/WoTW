@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
     public int convoCount;
     public int cleansedNodes;
     public bool firstCorrCast;
+	public bool typing;
+	private string sentence;
 
     private Queue<string> sentences;
 
@@ -30,7 +32,17 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            DisplayNextSentence();
+			if (typing == true) 
+			{
+				StopAllCoroutines();
+				dialogueText.text = "";
+				dialogueText.text += sentence;
+				typing = false;
+			} 
+			else 
+			{
+				DisplayNextSentence ();
+			}
         }
     }
 
@@ -44,9 +56,9 @@ public class DialogueManager : MonoBehaviour
 
         nameText.text = dialogue.name;
 
-        foreach (string sentence in dialogue.sentences)
+        foreach (string s in dialogue.sentences)
         {
-            sentences.Enqueue(sentence);
+            sentences.Enqueue(s);
         }
 
         DisplayNextSentence();
@@ -62,20 +74,22 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        string sentence = sentences.Dequeue();
+        sentence = sentences.Dequeue();
         print(sentences.Count);
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
     }
 
-    IEnumerator TypeSentence(string sentence)
+    IEnumerator TypeSentence(string s)
     {
+		typing = true;
         dialogueText.text = "";
-        foreach (char letter in sentence.ToCharArray())
+        foreach (char letter in s.ToCharArray())
         {
             dialogueText.text += letter;
             yield return null;
         }
+		typing = false;
     }
 
     void EndDialogue()
