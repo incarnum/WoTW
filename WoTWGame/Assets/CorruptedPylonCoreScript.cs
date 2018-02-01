@@ -102,6 +102,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
                 Cast();
+                castSound.Play();
             }
             else if (target != -1 && strength != -1 && castable)
             {

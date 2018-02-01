@@ -30,6 +30,7 @@ public class AnimalMovementScript : MonoBehaviour {
 	public bool fadeOut;
 	public GameObject munchIcon;
 	public bool markedForDeath;
+    private AudioSource munchSound;
 
 	void Start () {
 		selfRigidbody = GetComponent<Rigidbody2D> ();
@@ -37,6 +38,7 @@ public class AnimalMovementScript : MonoBehaviour {
 		player = GameObject.Find ("Player");
 		deerNucleus = GameObject.Find ("DeerNucleus").transform.position;
 		anim = GetComponent<Animator> ();
+        munchSound = GameObject.Find("Snd_Munch").GetComponent<AudioSource>();
 	}
 
 	// Update is called once per frame
@@ -101,6 +103,10 @@ public class AnimalMovementScript : MonoBehaviour {
 				if (fadeOut == false) {
 					GameObject munch = Instantiate (munchIcon) as GameObject;
 					munch.transform.position = col.gameObject.transform.position;
+                    if(gameObject.GetComponent<Renderer>().isVisible)
+                    {
+                        munchSound.Play();
+                    }
 					Destroy (munch, 1.0f);
 					col.gameObject.GetComponent<AnimalMovementScript> ().PauseMovementForTime (5);
 				}
@@ -131,6 +137,10 @@ public class AnimalMovementScript : MonoBehaviour {
 		if (creatureType == 1 && col.gameObject.GetComponent<BushScript> () != null) {
 			if (col.gameObject.GetComponent<BushScript> ().fadeOut == false) {
 				GameObject munch = Instantiate (munchIcon) as GameObject;
+                if (gameObject.GetComponent<Renderer>().isVisible)
+                {
+                    munchSound.Play();
+                }
 				Destroy (munch, 1.0f);
 				munch.transform.position = col.gameObject.transform.position;
 			}
