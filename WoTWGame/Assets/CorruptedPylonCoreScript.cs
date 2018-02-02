@@ -209,6 +209,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 if (dm.firstCorrCast)
                 {
                     dm.firstCorrCast = false;
+                    health -= 1;
                     cbc.TriggerDialogue();
 
                 }

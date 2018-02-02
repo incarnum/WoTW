@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     public bool firstCorrCast;
 	public bool typing;
 	private string sentence;
+    private InventoryScript inventory;
 
     private Queue<string> sentences;
 
@@ -23,6 +24,7 @@ public class DialogueManager : MonoBehaviour
     {
         sentences = new Queue<string>();
         player = GameObject.Find("Player").GetComponent<PlayerControllerScript>();
+        inventory = GameObject.Find("Player").GetComponent<InventoryScript>();
         convoCount = 0;
         cleansedNodes = 0;
         firstCorrCast = true;
@@ -97,5 +99,11 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
         print("ClosingDBox");
         player.canMove = true;
+        if (convoCount == 1)
+        {
+            inventory.berryNum += 3;
+            inventory.berryText.GetComponent < Text >().text = inventory.berryNum.ToString();
+            inventory.berryText2.GetComponent<Text>().text = inventory.berryNum.ToString();
+        }
     }
 }
