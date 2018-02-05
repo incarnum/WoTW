@@ -16,9 +16,9 @@ public class MultiMenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Z)) {
-			openPop ();
-		}
+		//if (Input.GetKeyDown (KeyCode.Z)) {
+		//	openPop ();
+		//}
 		if (Input.GetKeyDown (KeyCode.X)) {
 			openBuff ();
 		}

@@ -21,6 +21,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	private GameObject multiMenu;
 	private GameObject buttonHolder;
     private GameObject pauseCanvas;
+    public GameObject uiManager;
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -49,8 +50,11 @@ public class PlayerControllerScript : MonoBehaviour {
 
 
         }
-
-		if (Input.GetKeyDown (KeyCode.Return)) {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            uiManager.SetActive(!uiManager.activeSelf);
+        }
+            if (Input.GetKeyDown (KeyCode.Return)) {
 			GameObject.Find ("MakeTome").GetComponent<MakeTomeButtonScript> ().CreateSpellButton ();
 		}
 
