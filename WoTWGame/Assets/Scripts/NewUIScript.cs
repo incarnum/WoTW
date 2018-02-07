@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class NewUIScript : MonoBehaviour {
     public Text corrPop, pop, corrPopChange, popChange, leftChange, rightChange;
     public basePopulation bPop;
+	public RectTransform barFill;
+	public RectTransform corrBarFill;
 	// Use this for initialization
 	void Start () {
         if (bPop.corrupting)
@@ -35,5 +37,7 @@ public class NewUIScript : MonoBehaviour {
         pop.text = bPop.pop.ToString("0");
         corrPop.text = "";
         corrPop.text = bPop.corruptedPop.ToString("0");
+		barFill.localPosition = new Vector3(0, .93f * bPop.pop -110, 0);
+		corrBarFill.localPosition = new Vector3(0, .93f * bPop.corruptedPop -110, 0);
     }
 }
