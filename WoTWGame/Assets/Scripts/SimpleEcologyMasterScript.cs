@@ -217,8 +217,34 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         mainMusic = GameObject.Find("WotW soundtrack").GetComponent<AudioSource>();
         corruptMusic = GameObject.Find("Mus_Corrupt").GetComponent<AudioSource>();
         corruptPlaying = false;
+        corruptMusic.volume = 0;
+        mainMusic.volume = 1;
     }
 
+    // Fades in corrupt music / out main music
+    public void FadeIn()
+    {
+        if (mainMusic.volume > 0)
+        {
+            mainMusic.volume -= 0.1f;
+        }
+        if (corruptMusic.volume < 1)
+        {
+            corruptMusic.volume += 0.1f;
+        }
+    }
+    // Fades out corrupt music / in main music
+    public void FadeOut()
+    {
+        if (mainMusic.volume < 1f)
+        {
+            mainMusic.volume += 0.1f;
+        }
+        if(corruptMusic.volume > 0f)
+        {
+            corruptMusic.volume -= 0.1f;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -228,21 +254,23 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         float wolfPer = corruptedWolfPop / wolfPop;
         if((shrubPer >= warningPercent) || (deerPer >= warningPercent) || (wolfPer >= warningPercent))
         {
-            if(!corruptPlaying)
-            {
-                mainMusic.Stop();
-                corruptMusic.Play();
-                corruptPlaying = true;
-            }
+           // if(!corruptPlaying)
+           // {
+            //    mainMusic.Stop();
+            //    corruptMusic.Play();
+           //     corruptPlaying = true;
+           // }
+            FadeIn();
         }
         else
         {
             if (corruptPlaying)
-            {
+           // {
                 mainMusic.Play();
-                corruptMusic.Stop();
-                corruptPlaying = false;
-            }
+           //     corruptMusic.Stop();
+           //     corruptPlaying = false;
+           // }
+            FadeOut();
         }
         
         if (shrub.pop < deer.pop && firstFall)
