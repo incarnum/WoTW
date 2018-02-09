@@ -52,6 +52,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private DialogueTrigger cbc;
     private DialogueTrigger clFN;
     private DialogueTrigger clSN;
+    private DialogueTrigger clTN;
+    private DialogueTrigger clFoN;
+    private DialogueTrigger clFiN;
     private int nodeCount;
     private AudioSource castSound;
 
@@ -71,6 +74,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         cbc = GameObject.Find("CorruptionBeenCast").GetComponent<DialogueTrigger>();
         clFN = GameObject.Find("CleanseFirstNode").GetComponent<DialogueTrigger>();
         clSN = GameObject.Find("CleanseSecondNode").GetComponent<DialogueTrigger>();
+        clTN = GameObject.Find("CleanseThirdNode").GetComponent<DialogueTrigger>();
+        clFoN = GameObject.Find("CleanseFourthNode").GetComponent<DialogueTrigger>();
+        clFiN = GameObject.Find("CleanseFinalNode").GetComponent<DialogueTrigger>();
         dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {
@@ -141,9 +147,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         health -= 1;
         if (health <= 0)
         {
+            //Checking the number of nodes cleansed, and playing the corresponding dialogue
             if (dm.cleansedNodes == 0)
             {
-                dm.cleansedNodes++;
                 clFN.TriggerDialogue();
                 deer.enabled = true;
 				eco.tempShrubCapBool = false;
@@ -152,12 +158,27 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             else if (dm.cleansedNodes == 1)
             {
-                dm.cleansedNodes++;
                 clSN.TriggerDialogue();
                 wolf.enabled = true;
                 //Wolves get activated
                 //Polish: Wolf moves across the screen
             }
+            else if (dm.cleansedNodes == 2)
+            {
+                clTN.TriggerDialogue();
+                //rabbit.enabled = true;
+            }
+            else if (dm.cleansedNodes == 3)
+            {
+                clFoN.TriggerDialogue();
+                //songbird.enabled = true;
+            }
+            else if (dm.cleansedNodes == 4)
+            {
+                clFiN.TriggerDialogue();
+                //owl.enabled = true;
+            }
+            dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
             shrub.rate = shrub.startRate;

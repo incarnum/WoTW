@@ -46,6 +46,7 @@ public class PylonCoreScript : MonoBehaviour
     private WolfPopulation wolf;
 
     private bool firstCast;
+    private DialogueManager dm;
     private DialogueTrigger gsbc;
     private AudioSource castSound;
 
@@ -75,6 +76,7 @@ public class PylonCoreScript : MonoBehaviour
         strength = -1;
 
         gsbc = GameObject.Find("GrowShrubsBeenCast").GetComponent<DialogueTrigger>();
+        dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
         firstCast = true;
 
         castSound = GameObject.Find("Snd_Cast").GetComponent<AudioSource>();
@@ -152,9 +154,9 @@ public class PylonCoreScript : MonoBehaviour
             }
             else
             {
-                if (firstCast)
+                if (dm.firstGrowShrubsCast)
                 {
-                    firstCast = false;
+                    dm.firstGrowShrubsCast = false;
                     print("shrubs growing");
                     gsbc.TriggerDialogue();
                 }

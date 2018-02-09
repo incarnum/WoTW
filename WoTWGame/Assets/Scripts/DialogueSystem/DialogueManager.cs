@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour
     public int convoCount;
     public int cleansedNodes;
     public bool firstCorrCast;
+    public bool firstGrowShrubsCast;
 	public bool typing;
 	private string sentence;
     private InventoryScript inventory;
@@ -28,6 +29,7 @@ public class DialogueManager : MonoBehaviour
         convoCount = 0;
         cleansedNodes = 0;
         firstCorrCast = true;
+        firstGrowShrubsCast = true;
     }
 
     void Update()
