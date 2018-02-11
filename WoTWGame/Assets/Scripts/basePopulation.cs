@@ -38,13 +38,16 @@ public class basePopulation : MonoBehaviour {
 
     public void UpdateBars()
     {
-        bar.GetComponent<barScript>().SetFillSizeValue(biomass / 100f);
-        corrBar.GetComponent<barScript>().SetFillSizeValue(corruptedBiomass / 100f);
-        if (barUI.GetComponent<UIBarScript>().gameObject.activeSelf)
-        {
-            barUI.GetComponent<UIBarScript>().SetFillSizeValue(biomass / 100f);
-            corrBarUI.GetComponent<UIBarScript>().SetFillSizeValue(corruptedBiomass / 100f);
-        }
+		// commented the two lines below out because as far as I can tell they just referred to old bars -jay
+//        bar.GetComponent<barScript>().SetFillSizeValue(biomass / 100f);
+//        corrBar.GetComponent<barScript>().SetFillSizeValue(corruptedBiomass / 100f);
+
+
+//        if (barUI.GetComponent<UIBarScript>().gameObject.activeSelf)
+//        {
+//            barUI.GetComponent<UIBarScript>().SetFillSizeValue(biomass / 100f);
+//            corrBarUI.GetComponent<UIBarScript>().SetFillSizeValue(corruptedBiomass / 100f);
+//        }
     }
 
     public void UpdateSize()
@@ -76,7 +79,7 @@ public class basePopulation : MonoBehaviour {
         {
             corrupting = false;
         }
-        corruptionRate = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptionNodeList.Count * corruptionAcceleration;
+		corruptionRate = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>().currentCorruptionRate;
         if(corrupting && rising1)
         {
             corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * rate;

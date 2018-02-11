@@ -30,12 +30,12 @@ public class PlayerControllerB : MonoBehaviour {
 				anim.SetBool ("Walking", true);
 				if (h > 0) {
 					anim.SetFloat ("LastMoveX", -1f);
-					transform.localScale = new Vector3 (-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+					transform.localScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 					H = 1f;
 					HDelay = Time.time + HPause;
 				} else if (h < 0) {
 					anim.SetFloat ("LastMoveX", -1f);
-					transform.localScale = new Vector3 (Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+					transform.localScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 					H = -1f;
 					HDelay = Time.time + HPause;
 				} else if (h == 0 && HDelay < Time.time) {
@@ -61,6 +61,8 @@ public class PlayerControllerB : MonoBehaviour {
 				anim.SetBool ("Walking", false);
 			}
 			//Move (h, v);
+		} else {
+			anim.SetBool ("Walking", false);
 		}
 	}
 

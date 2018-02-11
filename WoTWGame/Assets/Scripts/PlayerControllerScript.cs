@@ -12,8 +12,6 @@ public class PlayerControllerScript : MonoBehaviour {
 	public bool noChargeMode;
 	private Vector3 worldUpperLeft;
 	private Vector3 worldLowerRight;
-	private Vector3 mapUpperLeft;
-	private Vector3 mapLowerRight;
 	private GameObject mapIcon;
 	public GameObject corrIconPrefab;
 	public List<GameObject> corrIconList;
@@ -27,9 +25,6 @@ public class PlayerControllerScript : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 		worldUpperLeft = GameObject.Find ("WorldUpperLeft").transform.position;
 		worldLowerRight = GameObject.Find ("WorldLowerRight").transform.position;
-		mapUpperLeft = GameObject.Find ("MapUpperLeft").transform.position;
-		mapLowerRight = GameObject.Find ("MapLowerRight").transform.position;
-		mapIcon = GameObject.Find ("PlayerIcon");
 		actionBar = GameObject.Find ("ActionBar");
 		multiMenu = GameObject.Find ("MultiMenu");
 		buttonHolder = GameObject.Find ("ButtonHolder");
@@ -50,10 +45,11 @@ public class PlayerControllerScript : MonoBehaviour {
 
 
         }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            uiManager.SetActive(!uiManager.activeSelf);
-        }
+//        if (Input.GetKeyDown(KeyCode.Z))
+//        {
+//            uiManager.SetActive(!uiManager.activeSelf);
+//        }
+		//commented out because this is now being done in the button
             if (Input.GetKeyDown (KeyCode.Return)) {
 			GameObject.Find ("MakeTome").GetComponent<MakeTomeButtonScript> ().CreateSpellButton ();
 		}
@@ -104,6 +100,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			//Time.timeScale = 0;
 			paused = true;
 			canMove = false;
+			GetComponent<PlayerControllerB> ().canMove = false;
             pauseCanvas.GetComponent<PauseScript>().PauseGame();
 			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList) {
 				gunch.GetComponent<AnimalMovementScript> ().canMove = false;
@@ -113,39 +110,11 @@ public class PlayerControllerScript : MonoBehaviour {
 			}
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = true;
 
-
-			float wid = worldUpperLeft.x - worldLowerRight.x;
-			float hig = worldUpperLeft.y - worldLowerRight.y;
-
-			float widM = mapUpperLeft.x - mapLowerRight.x;
-			float higM = mapUpperLeft.y - mapLowerRight.y;
-
-			Vector2 relPos = transform.position - worldUpperLeft;
-
-			mapIcon.transform.position = new Vector2 (mapUpperLeft.x + (relPos.x * (widM / wid)), mapUpperLeft.y + (relPos.y * (higM / hig)));
-
-			//place icons on the map for corruption nodes.
-			foreach (GameObject corr in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptionNodeList) {
-				GameObject corrIcon = Instantiate (corrIconPrefab) as GameObject;
-				corrIconList.Add (corrIcon);
-				Vector2 corrIconPos = corr.transform.position - worldUpperLeft;
-				corrIcon.transform.position = new Vector2 (mapUpperLeft.x + (corrIconPos.x * (widM / wid)), mapUpperLeft.y + (corrIconPos.y * (higM / hig)));
-			}
-			actionBar.SetActive (false);
-			if (multiMenu != null) {
-				multiMenu.SetActive (false);
-			}
-
-			if (buttonHolder != null) {
-				buttonHolder.SetActive (false);
-			}
-
-
-
 		} else if (paused) {
 			//Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 100f);
 			paused = false;
 			canMove = true;
+			GetComponent<PlayerControllerB> ().canMove = true;
             pauseCanvas.GetComponent<PauseScript>().ResumeGame();
 
 			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList) {
@@ -161,13 +130,6 @@ public class PlayerControllerScript : MonoBehaviour {
 			corrIconList.Clear();
 
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
-			actionBar.SetActive (true);
-			if (multiMenu != null) {
-				multiMenu.SetActive (true);
-			}
-			if (buttonHolder != null) {
-				buttonHolder.SetActive (true);
-			}
 		}
 	}
 }

@@ -70,17 +70,5 @@ public class InventoryScript : MonoBehaviour {
 		berryText.GetComponent<Text> ().text = berryNum.ToString ();
 		antlerText.GetComponent<Text> ().text = antlerNum.ToString ();
 		fangText.GetComponent<Text> ().text = fangNum.ToString ();
-//		mouseSkullText.GetComponent<TextMesh> ().text = mouseSkullNum.ToString ();
-		corrBerryText.GetComponent<Text> ().text = corrBerryNum.ToString ();
-		corrAntlerText.GetComponent<Text> ().text = corrAntlerNum.ToString ();
-		corrFangText.GetComponent<Text> ().text = corrFangNum.ToString ();
-
-		berryText2.GetComponent<TextMesh> ().text = berryNum.ToString ();
-		antlerText2.GetComponent<TextMesh> ().text = antlerNum.ToString ();
-		fangText2.GetComponent<TextMesh> ().text = fangNum.ToString ();
-//		mouseSkullText2.GetComponent<TextMesh> ().text = mouseSkullNum.ToString ();
-		corrBerryText2.GetComponent<TextMesh> ().text = corrBerryNum.ToString ();
-		corrAntlerText2.GetComponent<TextMesh> ().text = corrAntlerNum.ToString ();
-		corrFangText2.GetComponent<TextMesh> ().text = corrFangNum.ToString ();
 	}
 }

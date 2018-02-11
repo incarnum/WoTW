@@ -5,7 +5,6 @@ using UnityEngine;
 public class cameraShiftScript : MonoBehaviour {
 	public bool stage1;
 	public bool stage2;
-	private GameObject player;
 	private Transform target1;
 	public float speed;
 	private float startTime;
@@ -20,7 +19,6 @@ public class cameraShiftScript : MonoBehaviour {
 	public Animator branch8;
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find ("Player");
 //		target1 = GetComponentsInChildren<Transform>()[1];
 	}
 	

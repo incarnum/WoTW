@@ -16,15 +16,15 @@ public class MultiMenuScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if (Input.GetKeyDown (KeyCode.Z)) {
-		//	openPop ();
-		//}
-		if (Input.GetKeyDown (KeyCode.X)) {
-			openBuff ();
+		if (Input.GetKeyDown (KeyCode.Z)) {
+			openPop ();
 		}
-		if (Input.GetKeyDown (KeyCode.C)) {
-			openMap ();
-		}
+//		if (Input.GetKeyDown (KeyCode.X)) {
+//			openBuff ();
+//		}
+//		if (Input.GetKeyDown (KeyCode.C)) {
+//			openMap ();
+//		}
 	}
 
 	public void openPop() {
@@ -32,7 +32,7 @@ public class MultiMenuScript : MonoBehaviour {
 		menu3.SetActive (false);
 		button2.SetActive (false);
 		button3.SetActive (false);
-		menu1.SetActive (!menu1.activeSelf);
+		menu1.SetActive (!button1.activeSelf);
 		button1.SetActive (!button1.activeSelf);
 	}
 

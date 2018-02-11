@@ -33,7 +33,6 @@ public class CorruptionNodeScript : MonoBehaviour {
 		if (canSpread) {
 			nextSpreadTime = Time.time + spreadInterval;
 		}
-		GameObject.Find ("SludgeBar").GetComponent<barScript> ().SetFillSizeValue (GameObject.Find ("CreatureManager").GetComponent <CreatureManagerScript> ().corruptionNodeList.Count * .04f);
 		startTime = Time.time;
 	}
 	

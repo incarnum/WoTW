@@ -10,20 +10,17 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public int effect;
     public float strength;
     public bool instaCast;
-    float maxSize = 1.8f;
-    float minSize = 0.4f;
-    float maxSpeed = 2.6f;
-    float minSpeed = 1.4f;
+//    float maxSize = 1.8f;
+//    float minSize = 0.4f;
+//    float maxSpeed = 2.6f;
+//    float minSpeed = 1.4f;
     private CreatureManagerScript cm;
     public bool indestructible;
     public GameObject errorPrefab;
     private corruptionManagerScript cms;
 
-    private GameObject spellCore;
 
     private SimpleEcologyMasterScript eco;
-
-    private SpellMenuScript sms;
 
     public UIbuffScript bms;
 
@@ -70,7 +67,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         cms = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
-        spellCore = GameObject.Find("Core");
         cbc = GameObject.Find("CorruptionBeenCast").GetComponent<DialogueTrigger>();
         clFN = GameObject.Find("CleanseFirstNode").GetComponent<DialogueTrigger>();
         clSN = GameObject.Find("CleanseSecondNode").GetComponent<DialogueTrigger>();
@@ -82,7 +78,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             instaCast = true;
         }
-        sms = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>();
         //This overrides the scaling done by the canvas upon instantiation to avoid a resolution dependent bug.
         if (GameObject.Find("MultiMenu") != null)
         {
@@ -145,6 +140,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void Cast()
     {
         health -= 1;
+		print ("health lowered by 1");
         if (health <= 0)
         {
             //Checking the number of nodes cleansed, and playing the corresponding dialogue
@@ -160,12 +156,16 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 clSN.TriggerDialogue();
                 wolf.enabled = true;
+				cms.phase += 1;
+				cms.nextCorruptionTime = Time.time + cms.infectTime;
+				cms.currentCorruptionRate = cms.phase1CorruptionRate;
                 //Wolves get activated
                 //Polish: Wolf moves across the screen
             }
             else if (dm.cleansedNodes == 2)
             {
                 clTN.TriggerDialogue();
+				GameObject.Find ("CorruptionWall").SetActive (false);
                 //rabbit.enabled = true;
             }
             else if (dm.cleansedNodes == 3)
@@ -196,30 +196,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             A3.GetComponent<SpriteRenderer>().color = Color.white;
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
-            if (GameObject.Find("AB1Text").GetComponent<Text>().text == "")
-            {
-                GameObject.Find("AB1Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
-            }
-            else if (GameObject.Find("AB2Text").GetComponent<Text>().text == "")
-            {
-                GameObject.Find("AB2Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
-            }
-            else if (GameObject.Find("AB3Text").GetComponent<Text>().text == "")
-            {
-                GameObject.Find("AB3Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
-            }
-            else if (GameObject.Find("AB4Text").GetComponent<Text>().text == "")
-            {
-                GameObject.Find("AB4Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
-            }
-            else if (GameObject.Find("AB5Text").GetComponent<Text>().text == "")
-            {
-                GameObject.Find("AB5Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
-            }
-            else if (GameObject.Find("AB6Text").GetComponent<Text>().text == "")
-            {
-                GameObject.Find("AB6Text").GetComponent<Text>().text = spellPreviewTextbox.GetComponent<TextMesh>().text;
-            }
 
         }
         //this is where you put all the code for what corrupted spells do
@@ -290,7 +266,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         }
         //this is all the stuff that gets to be updated when the spell is cast
         GameObject.Find("CastSpellRing").GetComponent<Animator>().SetTrigger("Cast2");
-        bms.UpdateUIBuffs();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
         pylon1.activeSelection = -1;
@@ -323,37 +298,37 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             spellPreviewText += "Cooldown: " + cooldown.ToString("F2");
         }
-        else
-        {
-            if (strength == 0)
-            {
-                spellPreviewText += "Corrupt ";
-            }
-            else if (strength == 1)
-            {
-                spellPreviewText += "Sicken ";
-            }
-            else if (strength == 2)
-            {
-                spellPreviewText += "Exhaust ";
-            }
-
-
-
-
-            if (target == 0)
-            {
-                spellPreviewText += "shrubs";
-            }
-            else if (target == 1)
-            {
-                spellPreviewText += "deer";
-            }
-            else if (target == 2)
-            {
-                spellPreviewText += "wolves";
-            }
-        }
+//        else
+//        {
+//            if (strength == 0)
+//            {
+//                spellPreviewText += "Corrupt ";
+//            }
+//            else if (strength == 1)
+//            {
+//                spellPreviewText += "Sicken ";
+//            }
+//            else if (strength == 2)
+//            {
+//                spellPreviewText += "Exhaust ";
+//            }
+//
+//
+//
+//
+//            if (target == 0)
+//            {
+//                spellPreviewText += "shrubs";
+//            }
+//            else if (target == 1)
+//            {
+//                spellPreviewText += "deer";
+//            }
+//            else if (target == 2)
+//            {
+//                spellPreviewText += "wolves";
+//            }
+//        }
 
 
 

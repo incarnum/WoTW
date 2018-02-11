@@ -65,7 +65,6 @@ public class PylonCoreScript : MonoBehaviour
         {
             instaCast = true;
         }
-        sms = GameObject.Find("SpellMenu").GetComponent<SpellMenuScript>();
         if (GameObject.Find("MultiMenu") != null)
         {
             bms = GameObject.Find("MultiMenu").GetComponentInChildren<UIbuffScript>(true);
@@ -196,9 +195,10 @@ public class PylonCoreScript : MonoBehaviour
             }
             else
             {
-                float speedCheck = deer.speed + strength * 0.05f;
-                if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
-                {
+				float speedCheck = pop.speed + strength * 0.05f;
+				// speed check is temporarily disabled since it isn't working right
+//                if (speedCheck >= minSpeed && speedCheck <= maxSpeed)
+//                {
                     pop.up1 += strength;
                     if (pop.food1 != null)
                     {
@@ -219,7 +219,7 @@ public class PylonCoreScript : MonoBehaviour
                     {
                         pop.speedMod -= 1;
                     }
-                }
+//                }
             }
         }
 
@@ -610,7 +610,6 @@ public class PylonCoreScript : MonoBehaviour
         }
 
         GameObject.Find("CastSpellRing").GetComponent<Animator>().SetTrigger("Cast2");
-        bms.UpdateUIBuffs();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
         pylon1.activeSelection = -1;

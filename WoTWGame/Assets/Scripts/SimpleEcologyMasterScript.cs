@@ -82,28 +82,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public float adjustmentDelay;
 
     private CreatureManagerScript CMan;
-    private barScript shrubBar;
-    private barScript deerBar;
-    private barScript wolfBar;
-    private barScript corruptedShrubBar;
-    private barScript corruptedDeerBar;
-    private barScript corruptedWolfBar;
     public UIBarScript shrubBarUI;
     public UIBarScript deerBarUI;
     public UIBarScript wolfBarUI;
     public UIBarScript corruptedShrubBarUI;
     public UIBarScript corruptedDeerBarUI;
     public UIBarScript corruptedWolfBarUI;
-    private Animator shrubArrowsDeer;
-    private Animator deerArrowsShrub;
-    private Animator deerArrowsWolf;
-    private Animator wolfArrowsDeer;
-    private Animator corruptedShrubArrows;
-    private Animator corruptedDeerArrows;
-    private Animator corruptedWolfArrows;
-    public Animator corruptedShrubArrowsUI;
-    public Animator corruptedDeerArrowsUI;
-    public Animator corruptedWolfArrowsUI;
 
     private float rateOfShrubChange;
     private float rateOfDeerChange;
@@ -145,19 +129,6 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
         deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
-        shrubBar = GameObject.Find("ShrubBar").GetComponent<barScript>();
-        deerBar = GameObject.Find("DeerBar").GetComponent<barScript>();
-        wolfBar = GameObject.Find("WolfBar").GetComponent<barScript>();
-        corruptedShrubBar = GameObject.Find("CorruptedShrubBar").GetComponent<barScript>();
-        corruptedDeerBar = GameObject.Find("CorruptedDeerBar").GetComponent<barScript>();
-        corruptedWolfBar = GameObject.Find("CorruptedWolfBar").GetComponent<barScript>();
-        shrubArrowsDeer = GameObject.Find("shrubArrowsDeer").GetComponent<Animator>();
-        deerArrowsShrub = GameObject.Find("deerArrowsShrub").GetComponent<Animator>();
-        deerArrowsWolf = GameObject.Find("deerArrowsWolf").GetComponent<Animator>();
-        wolfArrowsDeer = GameObject.Find("wolfArrowsDeer").GetComponent<Animator>();
-        corruptedShrubArrows = GameObject.Find("corruptedShrubArrows").GetComponent<Animator>();
-        corruptedDeerArrows = GameObject.Find("corruptedDeerArrows").GetComponent<Animator>();
-        corruptedWolfArrows = GameObject.Find("corruptedWolfArrows").GetComponent<Animator>();
         sff = GameObject.Find("ShrubsFirstFall").GetComponent<DialogueTrigger>();
         shrubSize = 1;
         deerSize = 1;
@@ -249,9 +220,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     void Update()
     {
         // Music Toggle
-        float shrubPer = corruptedShrubPop / shrubPop;
-        float deerPer = corruptedShrubPop / deerPop;
-        float wolfPer = corruptedWolfPop / wolfPop;
+		float shrubPer = shrub.corruptedPop / shrub.pop;
+		float deerPer = deer.corruptedPop / deer.pop;
+		float wolfPer = wolf.corruptedPop / wolf.pop;
         if((shrubPer >= warningPercent) || (deerPer >= warningPercent) || (wolfPer >= warningPercent))
         {
            // if(!corruptPlaying)
@@ -420,29 +391,23 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             if (shrub.biomass > (deer.biomass + overShootValue))
             {
                 deer.rising1 = true;
-                deerArrowsShrub.SetTrigger(deer.up1.ToString());
             }
             if (shrub.biomass < (deer.biomass - overShootValue))
             {
                 deer.rising1 = false;
-                deerArrowsShrub.SetTrigger(deer.down2.ToString());
             }
             if (shrub.biomass < deer.biomass)
             {
                 shrub.rising1 = false;
-                shrubArrowsDeer.SetTrigger(shrub.down2.ToString());
             }
             else if (shrub.biomass > deer.biomass)
             {
                 shrub.rising1 = true;
-                shrubArrowsDeer.SetTrigger(shrub.up1.ToString());
             }
         }
         else
         {
             shrub.rising1 = true;
-
-            shrubArrowsDeer.SetTrigger(shrub.up1.ToString());
         }
 
         if (wolf.enabled == true && deer.enabled == true)
@@ -450,29 +415,23 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             if (deer.biomass > (wolf.biomass + overShootValue))
             {
                 wolf.rising1 = true;
-                wolfArrowsDeer.SetTrigger(wolf.up1.ToString());
             }
             if (deer.biomass < (wolf.biomass - overShootValue))
             {
                 wolf.rising1 = false;
-                wolfArrowsDeer.SetTrigger(wolf.down1.ToString());
             }
             if (deer.biomass < wolf.biomass)
             {
                 deer.rising2 = false;
-                deerArrowsWolf.SetTrigger(deer.down2.ToString());
             }
             else if (deer.biomass > wolf.biomass)
             {
                 deer.rising2 = true;
-                deerArrowsWolf.SetTrigger(deer.up2.ToString());
             }
         }
         else if (deer.enabled == true)
         {
             deer.rising2 = true;
-
-            deerArrowsWolf.SetTrigger(deer.up2.ToString());
         }
         
 
@@ -488,15 +447,18 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         //population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
         // of the buffs.
         //One of these is also multiplied by 2 at the end, I don't remember why specifically, but I think it's part of keeping things balanced.
-		if (shrub.rising1 == true && shrub.pop < 100)
-        {
-			if (tempShrubCapBool == false || (shrub.pop < tempShrubCap))
-			shrubPop = (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
-            shrubUI.popChange.text = shrubPop.ToString("0.00");
-            shrubUI.rightChange.text = shrubPop.ToString("0.00");
-            shrub.pop += shrubPop;
-            //shrub.corruptedPop += (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime * (shrub.corruptedPop / shrub.pop);
-        }
+		if (shrub.rising1 == true) {
+			if (shrub.biomass < 100) {
+				if (tempShrubCapBool == false || (shrub.biomass < tempShrubCap)) {
+					shrubPop = (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
+					shrubUI.popChange.text = shrubPop.ToString ("0.00");
+					shrubUI.rightChange.text = shrubPop.ToString ("0.00");
+					shrub.pop += shrubPop;
+				}
+
+				//shrub.corruptedPop += (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime * (shrub.corruptedPop / shrub.pop);
+			}
+		}
         else
         {
             shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;

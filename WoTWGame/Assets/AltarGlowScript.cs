@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class AltarGlowScript : MonoBehaviour {
 	private GameObject player;
-	private Color glowCol;
 	private ParticleSystem ps;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
-		glowCol = GetComponent<SpriteRenderer> ().color;
 		ps = GetComponent<ParticleSystem> ();
 	}
 	

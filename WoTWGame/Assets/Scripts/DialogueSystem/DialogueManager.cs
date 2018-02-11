@@ -53,6 +53,7 @@ public class DialogueManager : MonoBehaviour
     public void StartDialogue(Dialogue dialogue)
     {
         player.canMove = false;
+		player.GetComponent<PlayerControllerB> ().canMove = false;
         convoCount++;
         animator.SetBool("IsOpen", true);
         sentences.Clear();
@@ -101,11 +102,11 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
         print("ClosingDBox");
         player.canMove = true;
+		player.GetComponent<PlayerControllerB> ().canMove = true;
         if (convoCount == 1)
         {
             inventory.berryNum += 3;
             inventory.berryText.GetComponent < Text >().text = inventory.berryNum.ToString();
-            inventory.berryText2.GetComponent<Text>().text = inventory.berryNum.ToString();
         }
     }
 }

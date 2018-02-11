@@ -6,13 +6,17 @@ public class corruptionManagerScript : MonoBehaviour
 {
     public float infectTime;
     public float minimumInfectionPop;
-    private float nextCorruptionTime;
+    public float nextCorruptionTime;
     private SimpleEcologyMasterScript ecoManager;
     public float shrubPopStart, deerPopStart, wolfPopStart;
     public int shrubRange, deerRange, wolfRange, startShrubRange, startDeerRange, startWolfRange;
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
+	public int phase;
+	public float currentCorruptionRate;
+	public float phase0CorruptionRate;
+	public float phase1CorruptionRate;
     // Use this for initialization
     void Start()
     {
@@ -24,16 +28,18 @@ public class corruptionManagerScript : MonoBehaviour
         shrubPopStart = 10f;
         deerPopStart = 10f;
         wolfPopStart = 10f;
+		currentCorruptionRate = phase0CorruptionRate;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (nextCorruptionTime <= Time.time)
-        {
-            Corrupt();
-            nextCorruptionTime = Time.time + infectTime;
-        }
+		if (phase > 0) {
+			if (nextCorruptionTime <= Time.time) {
+				Corrupt ();
+				nextCorruptionTime = Time.time + infectTime;
+			}
+		}
     }
 
     void Corrupt()
