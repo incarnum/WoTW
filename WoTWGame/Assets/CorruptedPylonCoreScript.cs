@@ -18,6 +18,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public bool indestructible;
     public GameObject errorPrefab;
     private corruptionManagerScript cms;
+	public GameObject UIManagerObject;
 
 
     private SimpleEcologyMasterScript eco;
@@ -148,6 +149,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 clFN.TriggerDialogue();
                 deer.enabled = true;
+				eco.GetComponent<UIManager> ().ActivateDeer ();
 				eco.tempShrubCapBool = false;
                 //Deer get activated
                 //Polish: Deer moves across screen
@@ -156,6 +158,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 clSN.TriggerDialogue();
                 wolf.enabled = true;
+				eco.GetComponent<UIManager> ().ActivateWolves ();
 				cms.phase += 1;
 				cms.nextCorruptionTime = Time.time + cms.infectTime;
 				cms.currentCorruptionRate = cms.phase1CorruptionRate;

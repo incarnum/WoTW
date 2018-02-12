@@ -8,6 +8,12 @@ public class NewUIScript : MonoBehaviour {
     public basePopulation bPop;
 	public RectTransform barFill;
 	public RectTransform corrBarFill;
+	private bool moving;
+	private Vector3 targetLocation;
+	private Vector3 startLocation;
+	private float moveStartTime;
+	public float moveDuration;
+	public GameObject UpperLayer;
 	// Use this for initialization
 	void Start () {
         if (bPop.corrupting)
@@ -18,8 +24,7 @@ public class NewUIScript : MonoBehaviour {
         {
             corrPopChange.text = "0";
         }
-//        pop.text = bPop.pop.ToString("0");
-//        corrPop.text = bPop.corruptedPop.ToString("0");
+			
 	}
 	
 	// Update is called once per frame
@@ -39,5 +44,19 @@ public class NewUIScript : MonoBehaviour {
 //        corrPop.text = bPop.corruptedPop.ToString("0");
 		barFill.localPosition = new Vector3(0, .93f * bPop.biomass -110, 0);
 		corrBarFill.localPosition = new Vector3(0, .93f * bPop.corruptedBiomass -110, 0);
+
+		if (moving) {
+			GetComponent<RectTransform> ().localPosition = Vector3.Lerp (startLocation, targetLocation, (Time.time - moveStartTime) / moveDuration);
+			if ((Time.time - moveStartTime) >= moveDuration) {
+				moving = false;
+			}
+		}
     }
+
+	public void Move(Vector3 targ) {
+		moving = true;
+		moveStartTime = Time.time;
+		startLocation = GetComponent<RectTransform> ().localPosition;
+		targetLocation = targ;
+	}
 }

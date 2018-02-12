@@ -31,6 +31,9 @@ public class UIManager : MonoBehaviour {
                 UIRotator.Insert(1, deerUI);
                 leftButton.SetActive(true);
                 rightButton.SetActive(true);
+
+				UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+				UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
             }
         }
         if (!wolfOn)
@@ -38,13 +41,17 @@ public class UIManager : MonoBehaviour {
             if (wolfUI.activeSelf)
             {
                 wolfOn = true;
-                if(UIRotator[0] == deerUI)
-                {
-                    UIRotator.Insert(2, wolfUI);
-                    UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                    UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
-                } 
-                UIRotator.Insert(2, wolfUI);
+				if (UIRotator [0] == deerUI) {
+					UIRotator.Insert (1, wolfUI);
+					UIRotator [1].transform.localPosition = new Vector2 (145, 0);
+					UIRotator [UIRotator.Count - 1].transform.localPosition = new Vector2 (-145, 0);
+				} else {
+					UIRotator.Insert (2, wolfUI);
+				}
+
+				UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+				UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+				UIRotator [2].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
             }
         }
         if (!rabbitOn)
@@ -94,23 +101,40 @@ public class UIManager : MonoBehaviour {
                 {
                     UIRotator.Remove(shrubUI);
                     UIRotator.Insert(1, shrubUI);
-                    UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                    UIRotator[0].transform.localPosition = new Vector2(0, 0);
+					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
+					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
                     UIRotator[1].transform.SetAsLastSibling();
                     UIRotator[0].transform.SetAsLastSibling();
+
+					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
                 }
             }
             else if (UIRotator.Count == 3)
             {
-                GameObject oldCenter = UIRotator[0];
-                UIRotator.RemoveAt(0);
-                UIRotator.Add(oldCenter);
-                UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
-                UIRotator[1].transform.SetAsLastSibling();
-                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-                UIRotator[0].transform.SetAsLastSibling();
+				//line below added as temportary playtesting fix to keep it from looping between shrubs and wolves
+				if(UIRotator[0].name != "Wolf UI") {
+	                GameObject oldCenter = UIRotator[0];
+	                UIRotator.RemoveAt(0);
+	                UIRotator.Add(oldCenter);
+					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
+					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
+					UIRotator[UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (-145, 0));
+	                UIRotator[1].transform.SetAsLastSibling();
+	                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
+	                UIRotator[0].transform.SetAsLastSibling();
+
+					if (UIRotator [1].name == "Wolf UI") {
+						UIRotator [1].SetActive (true);
+					}
+					if (UIRotator [1].name == "Shrub UI") {
+						UIRotator [1].SetActive (false);
+					}
+
+					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+					UIRotator [2].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+				}
             }
             else if (UIRotator.Count == 4)
             {
@@ -158,23 +182,41 @@ public class UIManager : MonoBehaviour {
                 {
                     UIRotator.Remove(deerUI);
                     UIRotator.Insert(1, deerUI);
-                    UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                    UIRotator[0].transform.localPosition = new Vector2(0, 0);
+					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
+					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
                     UIRotator[1].transform.SetAsLastSibling();
                     UIRotator[0].transform.SetAsLastSibling();
+					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
                 }
             }
             else if (UIRotator.Count == 3)
             {
-                GameObject oldLeft = UIRotator[2];
-                UIRotator.RemoveAt(2);
-                UIRotator.Insert(0, oldLeft);
-                UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
-                UIRotator[1].transform.SetAsLastSibling();
-                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-                UIRotator[0].transform.SetAsLastSibling();
+				//line below added as temportary playtesting fix to keep it from looping between shrubs and wolves
+				if (UIRotator [0].name != "Shrub UI") {
+					GameObject oldLeft = UIRotator [2];
+					UIRotator.RemoveAt (2);
+					UIRotator.Insert (0, oldLeft);
+					UIRotator [0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
+					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
+					UIRotator [UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (-145, 0));
+
+					UIRotator [1].transform.SetAsLastSibling ();
+					UIRotator [UIRotator.Count - 1].transform.SetAsLastSibling ();
+					UIRotator [0].transform.SetAsLastSibling ();
+
+					if (UIRotator [UIRotator.Count - 1].name == "Wolf UI") {
+						UIRotator [UIRotator.Count - 1].SetActive (false);
+					}
+
+					if (UIRotator [UIRotator.Count - 1].name == "Shrub UI") {
+						UIRotator [UIRotator.Count - 1].SetActive (true);
+					}
+
+					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+					UIRotator [2].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+				}
             }
             else if (UIRotator.Count == 4)
             {
@@ -213,4 +255,14 @@ public class UIManager : MonoBehaviour {
             }
         }
     }
+	public void ActivateDeer() {
+		deerUI.SetActive (true);
+	}
+	public void ActivateWolves() {
+		wolfUI.SetActive (true);
+//		UIRotator.RemoveAll;
+//		UIRotator.Add(deerUI);
+//		UIRotator.Add(shrubUI);
+//		UIRotator.Add (wolfUI);
+	}
 }
