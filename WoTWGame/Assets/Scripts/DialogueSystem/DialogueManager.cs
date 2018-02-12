@@ -15,8 +15,13 @@ public class DialogueManager : MonoBehaviour
     public bool firstCorrCast;
     public bool firstGrowShrubsCast;
 	public bool typing;
+    public bool tutorialActive = true;
 	private string sentence;
     private InventoryScript inventory;
+    private bool givenStartingBerries = false;
+
+    private DeerPopulation deer;
+    private WolfPopulation wolf;
 
     private Queue<string> sentences;
 
@@ -30,6 +35,13 @@ public class DialogueManager : MonoBehaviour
         cleansedNodes = 0;
         firstCorrCast = true;
         firstGrowShrubsCast = true;
+        deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
+        wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
+        if (!tutorialActive)
+        {
+            deer.enabled = true;
+            wolf.enabled = true;
+        }
     }
 
     void Update()
@@ -52,21 +64,24 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Dialogue dialogue)
     {
-        player.canMove = false;
-		player.GetComponent<PlayerControllerB> ().canMove = false;
-        convoCount++;
-        animator.SetBool("IsOpen", true);
-        sentences.Clear();
-        print("cleared sentences");
-
-        nameText.text = dialogue.name;
-
-        foreach (string s in dialogue.sentences)
+        if (tutorialActive)
         {
-            sentences.Enqueue(s);
-        }
+            player.canMove = false;
+            player.GetComponent<PlayerControllerB>().canMove = false;
+            convoCount++;
+            animator.SetBool("IsOpen", true);
+            sentences.Clear();
+            print("cleared sentences");
 
-        DisplayNextSentence();
+            nameText.text = dialogue.name;
+
+            foreach (string s in dialogue.sentences)
+            {
+                sentences.Enqueue(s);
+            }
+
+            DisplayNextSentence();
+        }
     }
 
     public void DisplayNextSentence()
@@ -103,8 +118,9 @@ public class DialogueManager : MonoBehaviour
         print("ClosingDBox");
         player.canMove = true;
 		player.GetComponent<PlayerControllerB> ().canMove = true;
-        if (convoCount == 1)
+        if (convoCount == 1 && !givenStartingBerries)
         {
+            givenStartingBerries = true;
             inventory.berryNum += 3;
             inventory.berryText.GetComponent < Text >().text = inventory.berryNum.ToString();
         }

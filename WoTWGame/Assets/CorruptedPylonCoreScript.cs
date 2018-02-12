@@ -171,12 +171,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             else if (dm.cleansedNodes == 3)
             {
                 clFoN.TriggerDialogue();
-                //songbird.enabled = true;
+                //owl.enabled = true;
             }
             else if (dm.cleansedNodes == 4)
             {
                 clFiN.TriggerDialogue();
-                //owl.enabled = true;
+                //no longer present in level
             }
             dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);
