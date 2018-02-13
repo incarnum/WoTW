@@ -453,7 +453,6 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 					shrubPop = (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
 					shrubUI.popChange.text = (shrubPop * 100).ToString ("0.00");
 					shrubUI.rightChange.text = (shrubPop * 100 ).ToString ("0.00");
-					print (shrubPop);
 					shrub.pop += shrubPop;
 				}
 
@@ -465,7 +464,6 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
 			shrubUI.popChange.text = (shrubPop * -100).ToString("0.00");
 			shrubUI.rightChange.text = (shrubPop * -100).ToString("0.00");
-			print (shrubPop);
             shrub.pop -= shrubPop;
             shrub.corruptedPop -= (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
         }

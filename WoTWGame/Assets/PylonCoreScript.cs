@@ -40,6 +40,10 @@ public class PylonCoreScript : MonoBehaviour
     public bool wasCorrupted;
     public GameObject cpcs;
 
+	public centerStoneGlowScript CenterStoneGlow;
+	public GameObject corePopUp;
+	private SpellFXController spellFX;
+
     private basePopulation pop;
     private ShrubPopulation shrub;
     private DeerPopulation deer;
@@ -49,6 +53,14 @@ public class PylonCoreScript : MonoBehaviour
     private DialogueManager dm;
     private DialogueTrigger gsbc;
     private AudioSource castSound;
+
+	public Color corrColor;
+	public Color shrubColor;
+	public Color deerColor;
+	public Color wolfColor;
+	public Color rabbitColor;
+	public Color owlColor;
+	public Color spellColor;
 
 
     // Use this for initialization
@@ -61,6 +73,7 @@ public class PylonCoreScript : MonoBehaviour
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         spellCore = GameObject.Find("Core");
+		spellFX = GetComponent<SpellFXController> ();
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {
             instaCast = true;
@@ -73,7 +86,7 @@ public class PylonCoreScript : MonoBehaviour
         target = -1;
         effect = -1;
         strength = -1;
-
+		sms = GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ();
         gsbc = GameObject.Find("GrowShrubsBeenCast").GetComponent<DialogueTrigger>();
         dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
         firstCast = true;
@@ -185,6 +198,7 @@ public class PylonCoreScript : MonoBehaviour
                 pop.timesSpeedChanged = 0;
                 if (pop.food1 != null)
                 {
+					print (pop.timesSpeedChanged);
                     pop.food1.down2 -= sms.spellStrengthMod * pop.timesSpeedChanged;
                 }
                 if (pop.food2 != null)
@@ -609,7 +623,7 @@ public class PylonCoreScript : MonoBehaviour
             GameObject.Find("IntroMusic").GetComponent<fadeAudioScript>().beginFade(3f);
         }
 
-        GameObject.Find("CastSpellRing").GetComponent<Animator>().SetTrigger("Cast2");
+		spellFX.playSpellCastEffect ();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
         pylon1.activeSelection = -1;
@@ -624,8 +638,7 @@ public class PylonCoreScript : MonoBehaviour
         //set the spell preview text to be empty since there are no ingredients
         PredictSpell();
         //visual effect for casting
-        ring1.SpeedBoost();
-        ring2.SpeedBoost();
+        
     }
 
     public void PredictSpell()
@@ -708,25 +721,32 @@ public class PylonCoreScript : MonoBehaviour
         }
         if (target != -1 && effect != -1 && strength != -1 && spellPreviewText != "Cleanse Corruption")
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+			CenterStoneGlow.SetColor (Color.white);
             castable = true;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = true;
+			corePopUp.SetActive (true);
         }
         else
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+			CenterStoneGlow.SetColor (Color.clear);
             castable = false;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = false;
+			corePopUp.SetActive (false);
+			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
         }
         if (target == 3 && effect == 3 && strength == 3)
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+			CenterStoneGlow.SetColor (Color.white);
             castable = true;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = true;
+			corePopUp.SetActive (true);
         }
 
 
         spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
+		if (spellPreviewText != "") {
+			spellPreviewTextbox.SetActive (true);
+			spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (spellPreviewText.Length / 7f);
+		} else {
+			spellPreviewTextbox.SetActive (false);
+		}
     }
 
     public void CreateSpell()

@@ -25,12 +25,25 @@ public class PylonScipt : MonoBehaviour {
 	public bool corrupted; //is this pylon at a corrupted pylon circle
     public GameObject cpcs;
     public int corrCost;
+	public GameObject ingredientPopUp;
+	private Color corrColor;
+	private Color shrubColor;
+	private Color deerColor;
+	private Color wolfColor;
+	private Color rabbitColor;
+	private Color owlColor;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
         corrCost = 1;
         core = cpcs.GetComponent<PylonCoreScript>();
         core2 = cpcs.GetComponent<CorruptedPylonCoreScript>();
+		corrColor = core.corrColor;
+		shrubColor = core.shrubColor;
+		deerColor = core.deerColor;
+		wolfColor = core.wolfColor;
+		rabbitColor = core.rabbitColor;
+		owlColor = core.owlColor;
 	}
 	
 	// Update is called once per frame
@@ -216,12 +229,14 @@ public class PylonScipt : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
 			touching = true;
+			ingredientPopUp.SetActive (true);
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 		if (col.gameObject.tag == "Player") {
 			touching = false;
+			ingredientPopUp.SetActive (false);
 		}
 	}
 
@@ -327,15 +342,15 @@ public class PylonScipt : MonoBehaviour {
 		holdingSprite.GetComponent<Animator> ().SetInteger ("itemnum", activeSelection);
 		//changes the color of the runes on the pylon
 		if (activeSelection == 0) {
-			glow.color = Color.green;
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (shrubColor);
 		} else if (activeSelection == 1) {
-			glow.color = Color.red;
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (deerColor);
 		} else if (activeSelection == 2) {
-			glow.color = Color.white;
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (wolfColor);
 		} else if (activeSelection == 3) {
-			glow.color = Color.magenta;
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (corrColor);
 		} if (activeSelection == -1) {
-			glow.color = Color.gray;
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (Color.clear);
 		}
 	}
 

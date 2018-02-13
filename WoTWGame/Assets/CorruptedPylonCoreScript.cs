@@ -19,7 +19,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public GameObject errorPrefab;
     private corruptionManagerScript cms;
 	public GameObject UIManagerObject;
-
+	private SpellFXController spellFX;
 
     private SimpleEcologyMasterScript eco;
 
@@ -42,7 +42,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public int health;
     public GameObject cRing1;
     public GameObject cRing2;
-    public GameObject A3;
+	public centerStoneGlowScript CenterStoneGlow;
+	public GameObject corePopUp;
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
@@ -89,7 +90,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //no choosable effect for corrupted pylon circles
         strength = -1;
         nodeCount = cm.corruptionNodeList.Count;
-
+		spellFX = GetComponent<SpellFXController> ();
         castSound = GameObject.Find("Snd_Cast").GetComponentInChildren<AudioSource>(true);
     }
 
@@ -194,9 +195,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
             pylon2.GetComponent<PylonScipt>().enabled = true;
             pylon2.GetComponent<SpriteRenderer>().color = Color.white;
-            cRing1.GetComponent<SpriteRenderer>().color = Color.white;
-            cRing2.GetComponent<SpriteRenderer>().color = Color.white;
-            A3.GetComponent<SpriteRenderer>().color = Color.white;
+			cRing1.GetComponent<SpriteRenderer> ().color = GetComponent<PylonCoreScript> ().spellColor;
+			cRing2.GetComponent<SpriteRenderer>().color = GetComponent<PylonCoreScript> ().spellColor;
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
 
@@ -268,7 +268,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
         }
         //this is all the stuff that gets to be updated when the spell is cast
-        GameObject.Find("CastSpellRing").GetComponent<Animator>().SetTrigger("Cast2");
+		spellFX.playCorrSpellEffect();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
         pylon1.activeSelection = -1;
@@ -283,8 +283,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //set the spell preview text to be empty since there are no ingredients
         PredictSpell();
         //visual effect for casting
-        ring1.SpeedBoost();
-        ring2.SpeedBoost();
         if (health > 0)
         {
             cooldown = 10f;
@@ -338,19 +336,20 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 
         if (cooldown > 0)
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+			CenterStoneGlow.SetColor (Color.white);
         }
         if (target != -1 && strength != -1 && cooldown <= 0)
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+			CenterStoneGlow.SetColor (Color.white);
             castable = true;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = true;
+			corePopUp.SetActive (true);
         }
         else
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+			CenterStoneGlow.SetColor (Color.clear);
             castable = false;
-            GameObject.Find("CorePopUp").GetComponent<ProximityPopUpScript>().isenabled = false;
+			corePopUp.SetActive (false);
+			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
         }
 
         spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
