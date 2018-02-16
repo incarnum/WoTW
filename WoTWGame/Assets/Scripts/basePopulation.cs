@@ -15,6 +15,7 @@ public class basePopulation : MonoBehaviour {
     public List<GameObject> creatureList;
     public List<GameObject> corruptedCreatureList;
     public basePopulation food1, food2, pred1, pred2;
+	public SimpleEcologyMasterScript eco;
     // Use this for initialization
     void Start () {
 		

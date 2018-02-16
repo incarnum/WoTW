@@ -38,12 +38,13 @@ public class NewUIScript : MonoBehaviour {
         {
             corrPopChange.text = "0";
         }
+		print (bPop.biomass);
 //        pop.text = "";
 //        pop.text = bPop.pop.ToString("0");
 //        corrPop.text = "";
 //        corrPop.text = bPop.corruptedPop.ToString("0");
-		barFill.localPosition = new Vector3(0, .93f * bPop.biomass -110, 0);
-		corrBarFill.localPosition = new Vector3(0, .93f * bPop.corruptedBiomass -110, 0);
+		barFill.localPosition = new Vector3(0, .93f * bPop.biomass -115, 0);
+		corrBarFill.localPosition = new Vector3(0, .93f * bPop.corruptedBiomass -115, 0);
 
 		if (moving) {
 			GetComponent<RectTransform> ().localPosition = Vector3.Lerp (startLocation, targetLocation, (Time.time - moveStartTime) / moveDuration);

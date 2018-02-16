@@ -121,6 +121,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             PredictSpell();
         }
+		if (Input.GetKeyDown (KeyCode.P)) {
+			cooldown = 0f;
+		}
     }
     //determine if the player is touching the core of the pylon circle, allowing them to cast
     void OnTriggerEnter2D(Collider2D col)
@@ -143,6 +146,13 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         health -= 1;
 		print ("health lowered by 1");
+		if (dm.firstCorrCast)
+		{
+			dm.firstCorrCast = false;
+			health -= 5;
+			cbc.TriggerDialogue();
+
+		}
         if (health <= 0)
         {
             //Checking the number of nodes cleansed, and playing the corresponding dialogue
@@ -150,6 +160,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 clFN.TriggerDialogue();
                 deer.enabled = true;
+				deer.DoStart ();
 				eco.GetComponent<UIManager> ().ActivateDeer ();
 				eco.tempShrubCapBool = false;
                 //Deer get activated
@@ -159,6 +170,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             {
                 clSN.TriggerDialogue();
                 wolf.enabled = true;
+				wolf.DoStart ();
 				eco.GetComponent<UIManager> ().ActivateWolves ();
 				cms.phase += 1;
 				cms.nextCorruptionTime = Time.time + cms.infectTime;
@@ -206,13 +218,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         {
             if (strength == 0)
             {
-                if (dm.firstCorrCast)
-                {
-                    dm.firstCorrCast = false;
-                    health -= 1;
-                    cbc.TriggerDialogue();
-
-                }
                 shrub.corrupting = true;
             }
             if (shrub.corruptedPop < cms.shrubPopStart && shrub.pop > cms.minimumInfectionPop)
@@ -285,10 +290,15 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //visual effect for casting
         if (health > 0)
         {
-            cooldown = 10f;
+            cooldown = 30f;
         }
-
-
+		cm.GetComponent<ShrubPopulation> ().DoUpdate();
+//		if (cm.GetComponent<DeerPopulation> ().enabled == true) {
+//			cm.GetComponent<DeerPopulation> ().DoUpdate ();
+//		}
+//		if (cm.GetComponent<WolfPopulation> ().enabled == true) {
+//			cm.GetComponent<WolfPopulation> ().DoUpdate ();
+//		}
     }
 
     public void PredictSpell()

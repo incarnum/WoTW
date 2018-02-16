@@ -23,11 +23,15 @@ public class WolfPopulation : basePopulation {
         food1 = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().wolfCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedWolfCreatureList;
+		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
+		DoUpdate ();
+		biomass = pop;
     }
 
     // Update is called once per frame
     void Update()
     {
+		if (!eco.areaTimeStop && !eco.megaPaused)
         DoUpdate();
     }
 }

@@ -7,6 +7,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
     public bool paused;
     public bool megaPaused;
+	public bool areaTimeStop;
 
     public float shrubPop;
     public float deerPop;
@@ -15,12 +16,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public float shrubBiomass;
     public float deerBiomass;
     public float wolfBiomass;
-    public float corruptedShrubPop;
-    public float corruptedDeerPop;
-    public float corruptedWolfPop;
-    public float corruptedShrubBiomass;
-    public float corruptedDeerBiomass;
-    public float corruptedWolfBiomass;
+//    public float corruptedShrubPop;
+//    public float corruptedDeerPop;
+//    public float corruptedWolfPop;
+//    public float corruptedShrubBiomass;
+//    public float corruptedDeerBiomass;
+//    public float corruptedWolfBiomass;
     public float deerSpeed;
     public float wolfSpeed;
 
@@ -112,6 +113,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public NewUIScript deerUI;
     public NewUIScript wolfUI;
 
+	public float corruptionFallFactor;
+
     private bool firstFall;
     private DialogueTrigger sff;
 
@@ -148,7 +151,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
 
 
-        if (!megaPaused)
+		if (!megaPaused)
         {
             if (shrub.corruptedPop > 0)
             {
@@ -227,137 +230,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             firstFall = false;
             sff.TriggerDialogue();
         }
-        if (!paused && !megaPaused)
+		if (!paused && !megaPaused && !areaTimeStop)
         {
-            //CheckForFailure();
             SimpleEcologize();
-            /*Corrupt();
-            UpdateBars();
-            if (Time.time > lastAdjustment + adjustmentDelay)
-            {
-                lastAdjustment = Time.time;
-
-                if (corruptedShrubPop > 0)
-                {
-                    CMan.shrubNum = (shrubPop - corruptedShrubPop) / ecoToWorldDivision;
-                }
-                else
-                {
-                    CMan.shrubNum = shrubPop / ecoToWorldDivision;
-                }
-
-                if (corruptedDeerPop > 0)
-                {
-                    CMan.deerNum = (deerPop - corruptedDeerPop) / ecoToWorldDivision;
-                }
-                else
-                {
-                    CMan.deerNum = deerPop / ecoToWorldDivision;
-                }
-
-                if (corruptedWolfPop > 0)
-                {
-                    CMan.wolfNum = (wolfPop - corruptedWolfPop) / ecoToWorldDivision;
-                }
-                else
-                {
-                    CMan.wolfNum = wolfPop / ecoToWorldDivision;
-                }
-
-                CMan.corruptedShrubNum = corruptedShrubPop / ecoToWorldDivision;
-                CMan.corruptedDeerNum = corruptedDeerPop / ecoToWorldDivision;
-                CMan.corruptedWolfNum = corruptedWolfPop / ecoToWorldDivision;
-                CMan.AdjustCreatures();
-                CMan.AdjustPickips();
-            } */
         }
 
-        //        // Mod updates
-        //        if (shrubSize > startShrubSize)
-        //        {
-        //            shrubSizeMod = 1;
-        //        }
-        //        else if (shrubSize < startShrubSize)
-        //        {
-        //            shrubSizeMod = -1;
-        //        }
-        //        else
-        //        {
-        //            shrubSizeMod = 0;
-        //        }
-        //
-        //        if (deerSize > startDeerSize)
-        //        {
-        //            deerSizeMod = 1;
-        //        }
-        //        else if (deerSize < startDeerSize)
-        //        {
-        //            deerSizeMod = -1;
-        //        }
-        //        else
-        //        {
-        //            deerSizeMod = 0;
-        //        }
-        //
-        //        if (wolfSize > startWolfSize)
-        //        {
-        //            wolfSizeMod = 1;
-        //        }
-        //        else if (wolfSize < startWolfSize)
-        //        {
-        //            wolfSizeMod = -1;
-        //        }
-        //        else
-        //        {
-        //            wolfSizeMod = 0;
-        //        }
-        //
-        //        if (deerSpeed > startDeerSpeed)
-        //        {
-        //            deerSpeedMod = 1;
-        //        }
-        //        else if (deerSpeed < startDeerSpeed)
-        //        {
-        //           deerSpeedMod = -1;
-        //        }
-        //        else
-        //        {
-        //            deerSpeedMod = 0;
-        //        }
-        //
-        //        if (wolfSpeed > startWolfSpeed)
-        //        {
-        //            wolfSpeedMod = 1;
-        //        }
-        //        else if (deerSpeed < startDeerSpeed)
-        //        {
-        //            wolfSpeedMod = -1;
-        //        }
-        //        else
-        //        {
-        //            wolfSpeedMod = 0;
-        //        }
     }
-    
-    /*public void UpdateBars()
-    {
-        shrubBar.SetFillSizeValue(shrubBiomass / 100f);
-        deerBar.SetFillSizeValue(deerBiomass / 100f);
-        wolfBar.SetFillSizeValue(wolfBiomass / 100f);
-        corruptedShrubBar.SetFillSizeValue(corruptedShrubBiomass / 100f);
-        corruptedDeerBar.SetFillSizeValue(corruptedDeerBiomass / 100f);
-        corruptedWolfBar.SetFillSizeValue(corruptedWolfBiomass / 100f);
-
-        if (shrubBarUI.gameObject.activeSelf)
-        {
-            shrubBarUI.SetFillSizeValue(shrubBiomass / 100f);
-            deerBarUI.SetFillSizeValue(deerBiomass / 100f);
-            wolfBarUI.SetFillSizeValue(wolfBiomass / 100f);
-            corruptedShrubBarUI.SetFillSizeValue(corruptedShrubBiomass / 100f);
-            corruptedDeerBarUI.SetFillSizeValue(corruptedDeerBiomass / 100f);
-            corruptedWolfBarUI.SetFillSizeValue(corruptedWolfBiomass / 100f);
-        }
-    }*/
 
     void SimpleEcologize()
     {
@@ -419,8 +297,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         //Because deer are the only creatures with 2 rising triggers (their pop changes both from the shrub pop and the wolf pop) they have an extra step
         //In order to have a way of telling what the net change to deer pop is every tick, the change from the bools has to be added together into
         //the float rateOfDeerChange, and then that float is applies to the actual population.
-        rateOfDeerChange = 0;
-
+		rateOfShrubChange = 0;
+		rateOfDeerChange = 0;
+		rateOfWolfChange = 0;
         //the format of these is:
         //population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
         // of the buffs.
@@ -431,10 +310,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 					shrubPop = (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
 					shrubUI.popChange.text = (shrubPop * 100).ToString ("0.00");
 					shrubUI.rightChange.text = (shrubPop * 100 ).ToString ("0.00");
-					shrub.pop += shrubPop;
+					rateOfShrubChange += shrubPop;
 				}
-
-				//shrub.corruptedPop += (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime * (shrub.corruptedPop / shrub.pop);
 			}
 		}
         else
@@ -442,9 +319,13 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
 			shrubUI.popChange.text = (shrubPop * -100).ToString("0.00");
 			shrubUI.rightChange.text = (shrubPop * -100).ToString("0.00");
-            shrub.pop -= shrubPop;
-            shrub.corruptedPop -= (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
+			rateOfShrubChange -= shrubPop;
         }
+		shrub.pop += rateOfShrubChange;
+		if (rateOfShrubChange < 0)
+		{
+			shrub.corruptedPop += rateOfShrubChange * corruptionFallFactor;
+		}
 
         if(deer.enabled == true)
         {
@@ -484,7 +365,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             deer.pop += rateOfDeerChange;
             if (rateOfDeerChange < 0)
             {
-                deer.corruptedPop += rateOfDeerChange;
+				deer.corruptedPop += rateOfDeerChange * corruptionFallFactor;
             }
         }
         
@@ -495,17 +376,20 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                 wolfPop = (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
 				wolfUI.leftChange.text = (wolfPop * 100).ToString("0.00");
 				wolfUI.popChange.text = (wolfPop * 100).ToString("0.00");
-                wolf.pop += wolfPop;
-                //wolf.corruptedPop += (1.9f + wolf.up1 * .2f) * overallSpeed * Time.deltaTime * (wolf.corruptedPop / wolf.pop);
+				rateOfWolfChange += wolfPop;
             }
             else
             {
                 wolfPop = (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
 				wolfUI.leftChange.text = (wolfPop * -100).ToString("0.00");
 				wolfUI.popChange.text = (wolfPop * -100).ToString("0.00");
-                wolf.pop -= wolfPop;
-                wolf.corruptedPop -= (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
+				rateOfWolfChange -= wolfPop;
             }
+			wolf.pop += rateOfWolfChange;
+			if (rateOfWolfChange < 0)
+			{
+				wolf.corruptedPop += rateOfWolfChange * corruptionFallFactor;
+			}
         }
         
 
@@ -519,187 +403,5 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         deer.corruptedBiomass = deer.corruptedPop * deer.size;
         wolf.corruptedBiomass = wolf.corruptedPop * wolf.size;
 
-
-//		if (shrub.biomass > 100) {
-//			shrub.biomass = 100;
-//			shrub.pop = 100 / shrub.size;
-//		} else if (tempShrubCapBool && tempShrubCap > deerBiomass) {
-//			shrub.biomass = tempShrubCap;
-//			shrub.pop = tempShrubCap / deer.size;
-//		}
-//		if (deer.biomass > 100) {
-//			deer.biomass = 100;
-//			deer.pop = 100 / deer.size;
-//		}
-//		if (wolf.biomass > 100) {
-//			wolf.biomass = 100;
-//			wolf.pop = 100 / wolf.size;
-//		}
-
     }
-
-    /*void Corrupt()
-    {
-        //this section increases corruption on corrupted populations
-        corruptionRate = CMan.corruptionNodeList.Count * corruptionAcceleration;
-
-        if (corruptedShrubPop <= 0)
-        {
-            corruptingShrubs = false;
-            //			corruptedShrubArrows.SetTrigger ("0");
-            //			corruptedShrubArrowsUI.SetTrigger ("0");
-        }
-        if (corruptedDeerPop <= 0)
-        {
-            corruptingDeer = false;
-            corruptedDeerArrows.SetTrigger("0");
-        }
-        if (corruptedWolfPop <= 0)
-        {
-            corruptingWolves = false;
-            corruptedWolfArrows.SetTrigger("0");
-        }
-        //section below is just setting animations for arrows that aren't currently implemented
-        if (corruptingShrubs == true && shrubRising == true)
-        {
-            corruptedShrubPop += corruptionRate * overallSpeed * Time.deltaTime * shrubRate;
-            if (corruptionRate < 1)
-            {
-                corruptedShrubArrows.SetTrigger("1");
-                //				corruptedShrubArrowsUI.SetTrigger ("1");
-            }
-            else if (corruptionRate >= 1 && corruptionRate < 2)
-            {
-                corruptedShrubArrows.SetTrigger("2");
-                //				corruptedShrubArrowsUI.SetTrigger ("2");
-            }
-            else if (corruptionRate >= 2 && corruptionRate < 3)
-            {
-                corruptedShrubArrows.SetTrigger("3");
-                //				corruptedShrubArrowsUI.SetTrigger ("3");
-            }
-            else if (corruptionRate >= 3 && corruptionRate < 4)
-            {
-                corruptedShrubArrows.SetTrigger("4");
-                //				corruptedShrubArrowsUI.SetTrigger ("4");
-            }
-            else if (corruptionRate >= 4 && corruptionRate < 5)
-            {
-                corruptedShrubArrows.SetTrigger("5");
-                //				corruptedShrubArrowsUI.SetTrigger ("5");
-            }
-        }
-        if (corruptingDeer == true)
-        {
-            if (rateOfDeerChange >= 0f)
-                corruptedDeerPop += corruptionRate * overallSpeed * Time.deltaTime * deerRate;
-            if (corruptionRate < 1)
-            {
-                corruptedDeerArrows.SetTrigger("1");
-            }
-            else if (corruptionRate >= 1 && corruptionRate < 2)
-            {
-                corruptedDeerArrows.SetTrigger("2");
-            }
-            else if (corruptionRate >= 2 && corruptionRate < 3)
-            {
-                corruptedDeerArrows.SetTrigger("3");
-            }
-            else if (corruptionRate >= 3 && corruptionRate < 4)
-            {
-                corruptedDeerArrows.SetTrigger("4");
-            }
-            else if (corruptionRate >= 4 && corruptionRate < 5)
-            {
-                corruptedDeerArrows.SetTrigger("5");
-            }
-        }
-        if (corruptingWolves == true && wolfRising == true)
-        {
-            corruptedWolfPop += corruptionRate * overallSpeed * Time.deltaTime * wolfRate;
-            if (corruptionRate < 1)
-            {
-                corruptedWolfArrows.SetTrigger("1");
-            }
-            else if (corruptionRate >= 1 && corruptionRate < 2)
-            {
-                corruptedWolfArrows.SetTrigger("2");
-            }
-            else if (corruptionRate >= 2 && corruptionRate < 3)
-            {
-                corruptedWolfArrows.SetTrigger("3");
-            }
-            else if (corruptionRate >= 3 && corruptionRate < 4)
-            {
-                corruptedWolfArrows.SetTrigger("4");
-            }
-            else if (corruptionRate >= 4 && corruptionRate < 5)
-            {
-                corruptedWolfArrows.SetTrigger("5");
-            }
-        }
-
-    }
-
-    void CheckForFailure()
-    {
-        //see if the player has lost
-        if (shrubPop <= 0)
-        {
-            Time.timeScale = 0;
-            gameOver1.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-        else if (deerPop <= 0)
-        {
-            Time.timeScale = 0;
-            gameOver2.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-        else if (wolfPop <= 0)
-        {
-            Time.timeScale = 0;
-            gameOver3.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-
-        if (shrubPop <= corruptedShrubPop)
-        {
-            Time.timeScale = 0;
-            gameOver4.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-        else if (deerPop <= corruptedDeerPop)
-        {
-            Time.timeScale = 0;
-            gameOver5.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-        else if (wolfPop <= corruptedWolfPop)
-        {
-            Time.timeScale = 0;
-            gameOver6.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-        else if (CMan.corruptionNodeList.Count == 0)
-        {
-            Time.timeScale = 0;
-            victory.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-            menuCamera.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y, Camera.main.transform.position.z + 1);
-        }
-    } */
 }

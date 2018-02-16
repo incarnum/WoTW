@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour {
     public GameObject shrubUI, deerUI, wolfUI, rabbitUI, owlUI, manager, leftButton, rightButton;
     private List<GameObject> UIRotator;
     public bool shrubOn, deerOn, wolfOn, rabbitOn, owlOn;
+	public float rightX;
+	public float leftX;
 	// Use this for initialization
 	void Start () {
         UIRotator = new List<GameObject>();
@@ -43,8 +45,8 @@ public class UIManager : MonoBehaviour {
                 wolfOn = true;
 				if (UIRotator [0] == deerUI) {
 					UIRotator.Insert (1, wolfUI);
-					UIRotator [1].transform.localPosition = new Vector2 (145, 0);
-					UIRotator [UIRotator.Count - 1].transform.localPosition = new Vector2 (-145, 0);
+					UIRotator [1].transform.localPosition = new Vector2 (rightX, 0);
+					UIRotator [UIRotator.Count - 1].transform.localPosition = new Vector2 (leftX, 0);
 				} else {
 					UIRotator.Insert (2, wolfUI);
 				}
@@ -62,15 +64,15 @@ public class UIManager : MonoBehaviour {
                 if (UIRotator[0] == shrubUI)
                 {
                     UIRotator.Add(rabbitUI);
-                    UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                    UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
+					UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
+					UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
                     UIRotator[2].SetActive(false);
                 }
                 else if(UIRotator[0] == wolfUI)
                 {
                     UIRotator.Insert(1, rabbitUI);
-                    UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                    UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
+					UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
+					UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
                     UIRotator[2].SetActive(false);
                 }
                 else
@@ -101,7 +103,7 @@ public class UIManager : MonoBehaviour {
                 {
                     UIRotator.Remove(shrubUI);
                     UIRotator.Insert(1, shrubUI);
-					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
+					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
 					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
                     UIRotator[1].transform.SetAsLastSibling();
                     UIRotator[0].transform.SetAsLastSibling();
@@ -118,8 +120,8 @@ public class UIManager : MonoBehaviour {
 	                UIRotator.RemoveAt(0);
 	                UIRotator.Add(oldCenter);
 					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
-					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
-					UIRotator[UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (-145, 0));
+					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
+					UIRotator[UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (leftX, 0));
 	                UIRotator[1].transform.SetAsLastSibling();
 	                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
 	                UIRotator[0].transform.SetAsLastSibling();
@@ -142,8 +144,8 @@ public class UIManager : MonoBehaviour {
                 UIRotator.RemoveAt(0);
                 UIRotator.Add(oldCenter);
                 UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
+				UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
+				UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
                 UIRotator[1].transform.SetAsLastSibling();
                 UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
                 UIRotator[0].transform.SetAsLastSibling();
@@ -158,8 +160,8 @@ public class UIManager : MonoBehaviour {
                 UIRotator.RemoveAt(0);
                 UIRotator.Add(oldCenter);
                 UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
+                UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
+                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
                 UIRotator[1].transform.SetAsLastSibling();
                 UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
                 UIRotator[0].transform.SetAsLastSibling();
@@ -182,7 +184,7 @@ public class UIManager : MonoBehaviour {
                 {
                     UIRotator.Remove(deerUI);
                     UIRotator.Insert(1, deerUI);
-					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
+					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
 					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
                     UIRotator[1].transform.SetAsLastSibling();
                     UIRotator[0].transform.SetAsLastSibling();
@@ -198,8 +200,8 @@ public class UIManager : MonoBehaviour {
 					UIRotator.RemoveAt (2);
 					UIRotator.Insert (0, oldLeft);
 					UIRotator [0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
-					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (145, 0));
-					UIRotator [UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (-145, 0));
+					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
+					UIRotator [UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (leftX, 0));
 
 					UIRotator [1].transform.SetAsLastSibling ();
 					UIRotator [UIRotator.Count - 1].transform.SetAsLastSibling ();
@@ -225,8 +227,8 @@ public class UIManager : MonoBehaviour {
                 UIRotator.RemoveAt(UIRotator.Count - 1);
                 UIRotator.Insert(0, oldLeft);
                 UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
+                UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
+                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
                 UIRotator[1].transform.SetAsLastSibling();
                 UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
                 UIRotator[0].transform.SetAsLastSibling();
@@ -242,8 +244,8 @@ public class UIManager : MonoBehaviour {
                 UIRotator.RemoveAt(UIRotator.Count - 1);
                 UIRotator.Insert(0, oldLeft);
                 UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(145, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(-145, 0);
+                UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
+                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
                 UIRotator[1].transform.SetAsLastSibling();
                 UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
                 UIRotator[0].transform.SetAsLastSibling();
