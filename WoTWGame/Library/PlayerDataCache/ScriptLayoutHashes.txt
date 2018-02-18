@@ -18,7 +18,7 @@ ff05dcdf90651c3d98a9cad3df5e471e UnityEngine.Timeline.dll:UnityEngine.Timeline.C
 6af7378a45ad6da4992a71ef50ddc2eb UnityEngine.Timeline.dll:UnityEngine.Timeline.GroupTrack
 6af7378a45ad6da4992a71ef50ddc2eb UnityEngine.Timeline.dll:UnityEngine.Timeline.PlayableTrack
 9ca6347af5ceb6b0d1c105af31b6722e UnityEngine.Timeline.dll:UnityEngine.Timeline.TimelineAsset
-6d39c71f6d1b7916f3c12993055ac9dc Assembly-CSharp.dll:.WolfPopulation
+ce00f8549bcdedc48dff352f41f849dd Assembly-CSharp.dll:.WolfPopulation
 d3e2ff86bbfe83464a2e79921a12e08d Assembly-CSharp.dll:.OptionsButtonScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.reaction
 7282834aca0c66f2519a7fe471a22c18 Assembly-CSharp.dll:.SortingLayerExposer
@@ -28,7 +28,7 @@ c6c90dbe7fc61fd286b1d02f9d7cc194 Assembly-CSharp.dll:.shoot_energy
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ANodeScript
 a4a0f14e6375258632d79f9f78bb1ab4 Assembly-CSharp.dll:.smoothCamScript
 1e7365e8db0115ad63f5739a3658e937 Assembly-CSharp.dll:.NoOverlapScript
-b0b2ddcd1f6496dfeda3ff23b622f5b6 Assembly-CSharp.dll:.PylonScipt
+b1dc696ab531c467e3103c3277cd00df Assembly-CSharp.dll:.PylonScipt
 6cbe34f1abcd9568131ce5f580f4e883 Assembly-CSharp.dll:.PlayerControllerB
 f0be6b80586b4825dee24ae9ece23503 Assembly-CSharp.dll:.ScriptedEventManagerScript
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -63,8 +63,9 @@ c63db43c730fa2cbb8ca07de15898cb6 UnityEngine.UI.dll:UnityEngine.UI.Toggle
 f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 86d36c43c53541d667100dc90b89cfba UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 1b8c02d0aa82fbf036a2b9b2d713eec3 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
-6d39c71f6d1b7916f3c12993055ac9dc Assembly-CSharp.dll:.basePopulation
-93128c52de9cce8c3868b99136823aae Assembly-CSharp.dll:.SimpleEcologyMasterScript
+ce00f8549bcdedc48dff352f41f849dd Assembly-CSharp.dll:.basePopulation
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SpellCircleTimeStop
+9c96d60edfd58c1f1ef426d98fb3efb3 Assembly-CSharp.dll:.SimpleEcologyMasterScript
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.InnerRingScript
 a35dc9cca2faebc5f5f1aeb9e8e47bbe UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -144,7 +145,8 @@ aa357dcdb2ba1aaf1b96fa1ff1ab4a12 Assembly-CSharp.dll:.sDeer1Script
 322cb40e1e282f28af980cbef7922a90 UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsEventTracker
 dc07d7ad69b399a46e92c483bf1c04ca UnityEngine.Analytics.dll:UnityEngine.Analytics.AnalyticsTracker
 6c2e533b6bae1b4916ad88a98b1726dd Assembly-CSharp.dll:.AnimalMovementScript
-d32d2728afc775ba2fd9198c899b149c Assembly-CSharp.dll:.CorruptedPylonCoreScript
+083ec887a7003488b822f9bb41504d27 Assembly-CSharp.dll:.PylonTextBGScript
+684c2812601505cc1ad4039ca474b13b Assembly-CSharp.dll:.CorruptedPylonCoreScript
 e4c52cf00c3f33bdbe560eb4e3371233 Assembly-CSharp.dll:.ProximityPopUpScript
 bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.AudioSpatializerMicrosoft
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInput
@@ -154,6 +156,7 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.Spa
 dfa8bed6cebdcf2639dbc001d733fd6d Assembly-CSharp.dll:.push
 4d13814515479d22abd8c39c4e9e8182 Assembly-CSharp.dll:.IngredientSourceScript
 ec87b9949674bf4296286d979bbc38cf Assembly-CSharp.dll:.PauseScript
+1e0e0c684f39714e6fa20bc76b92e367 Assembly-CSharp.dll:.SpellFXController
 c7a28aaf02165d84f88cd128b8d2ee79 Assembly-CSharp.dll:.SpellMenuScript
 62053e6929f9a4de200817efd130f953 Assembly-CSharp.dll:.ProjectileScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SWolf1Script
@@ -190,7 +193,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
-6d39c71f6d1b7916f3c12993055ac9dc Assembly-CSharp.dll:.DeerPopulation
+ce00f8549bcdedc48dff352f41f849dd Assembly-CSharp.dll:.DeerPopulation
 6cf9906891a2913561cb146625f7d3d5 Assembly-CSharp.dll:.UIBarScript
 f5e35da0598256c802249709a133fd94 Assembly-CSharp.dll:.TreeHolderScript
 537fa3afe8190b66581db8fd42f406cf Assembly-CSharp.dll:.CorruptionNodeScript
@@ -199,10 +202,11 @@ ca85baa647772d40e44841a501c07fdc Assembly-CSharp.dll:.DialogueTrigger
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
-ef4cf3f1eeee8b17acd8b6a0efc32417 Assembly-CSharp.dll:.UIManager
+7c7ae6ac814dbc4432f3d270ed34cd52 Assembly-CSharp.dll:.UIManager
 b0aa147d9811221b7517d7644f018873 Assembly-CSharp.dll:.BerryScript
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CooldownDisplayScript
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
-15e94c7eae10009345756234f5c35d5a Assembly-CSharp.dll:.PylonCoreScript
+acd919ad764ac0c5fd56711e532cfeca Assembly-CSharp.dll:.PylonCoreScript
 9326a48c3eb564e37e0036364bf6c572 Assembly-CSharp.dll:.zDepthScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ExitGameButtonScript
 e96debd1dcd8a6291bae1be8a64c098a Assembly-CSharp.dll:.DescriptionTextScript
@@ -221,10 +225,11 @@ b450d090c839b1fcfa00f0d3e35481bc Assembly-CSharp.dll:.InventoryScript
 0b24325b2b73510b967dbf26210db914 Assembly-CSharp.dll:.posit_core
 88afaa58c5fe5be28a7234b81bd2edc2 Assembly-CSharp.dll:.ecologyMasterScript
 4a6ce6b07d761cc5fe9c96b7e1f9bde1 Assembly-CSharp.dll:.ColliderDialogue
-6d39c71f6d1b7916f3c12993055ac9dc Assembly-CSharp.dll:.ShrubPopulation
+ce00f8549bcdedc48dff352f41f849dd Assembly-CSharp.dll:.ShrubPopulation
 d9cde9d470d9ae5d2d3630e920855c74 Assembly-CSharp.dll:.WildSpellbookManagerScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.PlayButtonScript
-c88286199257f0e422ffaa3d672bd54c Assembly-CSharp.dll:.DialogueManager
+0790b3f531723fb0f0945aff9f3a0e09 Assembly-CSharp.dll:.centerStoneGlowScript
+9007efcb0046ba0af06378e02faf11c1 Assembly-CSharp.dll:.DialogueManager
 5520d4a73294b495ba1db13f04515179 Assembly-CSharp.dll:.DropdownHandler
 fcefec7be1142f4711771067f1632cb4 Assembly-CSharp.dll:.SpellScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SpellLightScript

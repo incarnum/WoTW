@@ -38,7 +38,6 @@ public class NewUIScript : MonoBehaviour {
         {
             corrPopChange.text = "0";
         }
-		print (bPop.biomass);
 //        pop.text = "";
 //        pop.text = bPop.pop.ToString("0");
 //        corrPop.text = "";

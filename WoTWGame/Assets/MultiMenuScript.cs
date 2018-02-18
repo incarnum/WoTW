@@ -32,6 +32,7 @@ public class MultiMenuScript : MonoBehaviour {
 		menu3.SetActive (false);
 		button2.SetActive (false);
 		button3.SetActive (false);
+		GameObject.Find ("ZButtonIndicator").transform.GetChild(0).gameObject.SetActive (false);
 		menu1.SetActive (!button1.activeSelf);
 		button1.SetActive (!button1.activeSelf);
 	}

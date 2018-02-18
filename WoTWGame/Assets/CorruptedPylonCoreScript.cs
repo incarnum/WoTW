@@ -39,6 +39,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public GameObject corruptionNode;
     public GameObject pcs;
     public float cooldown;
+	public float generalCooldown;
     public int health;
     public GameObject cRing1;
     public GameObject cRing2;
@@ -56,6 +57,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private DialogueTrigger clFiN;
     private int nodeCount;
     private AudioSource castSound;
+	public GameObject timeStopTrigger;
 
 
     // Use this for initialization
@@ -146,11 +148,19 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         health -= 1;
 		print ("health lowered by 1");
+		if (dm.secondCorrCast)
+		{
+			dm.secondCorrCast = false;
+			cbc.TriggerDialogue();
+
+		}
+
 		if (dm.firstCorrCast)
 		{
 			dm.firstCorrCast = false;
+			dm.secondCorrCast = true;
 			health -= 5;
-			cbc.TriggerDialogue();
+			//cbc.TriggerDialogue();
 
 		}
         if (health <= 0)
@@ -180,20 +190,26 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             else if (dm.cleansedNodes == 2)
             {
-                clTN.TriggerDialogue();
-				GameObject.Find ("CorruptionWall").SetActive (false);
+                //clTN.TriggerDialogue();
+				//GameObject.Find ("CorruptionWall").SetActive (false);
                 //rabbit.enabled = true;
             }
             else if (dm.cleansedNodes == 3)
             {
-                clFoN.TriggerDialogue();
+                //clFoN.TriggerDialogue();
                 //owl.enabled = true;
             }
             else if (dm.cleansedNodes == 4)
             {
-                clFiN.TriggerDialogue();
+                //clFiN.TriggerDialogue();
                 //no longer present in level
             }
+			else if (dm.cleansedNodes == 5)
+			{
+				clTN.TriggerDialogue();
+				GameObject.Find ("CorruptionWall").SetActive (false);
+				//rabbit.enabled = true;
+			}
             dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);
             Destroy(corruptionNode);
@@ -211,6 +227,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			cRing2.GetComponent<SpriteRenderer>().color = GetComponent<PylonCoreScript> ().spellColor;
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
+			timeStopTrigger.SetActive (true);
 
         }
         //this is where you put all the code for what corrupted spells do
@@ -290,7 +307,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //visual effect for casting
         if (health > 0)
         {
-            cooldown = 30f;
+			cooldown = generalCooldown;
         }
 		cm.GetComponent<ShrubPopulation> ().DoUpdate();
 //		if (cm.GetComponent<DeerPopulation> ().enabled == true) {
@@ -307,7 +324,13 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         spellPreviewText = "";
         if (cooldown >= 0)
         {
-            spellPreviewText += "Cooldown: " + cooldown.ToString("F2");
+			spellPreviewText += "Cooldown: " + (Mathf.Floor(cooldown)).ToString();
+			if (spellPreviewText != "") {
+				spellPreviewTextbox.SetActive (true);
+				spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (spellPreviewText.Length / 7f);
+			} else {
+				spellPreviewTextbox.SetActive (false);
+			}
         }
 //        else
 //        {

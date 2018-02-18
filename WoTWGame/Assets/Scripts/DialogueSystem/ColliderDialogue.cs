@@ -19,7 +19,7 @@ public class ColliderDialogue : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        print("Want To Trigger");
+//        print("Want To Trigger");
         if (convoCode == dm.convoCount && other.CompareTag("Player"))
         {
             dialogueTrigger.TriggerDialogue();

@@ -228,7 +228,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         if (shrub.pop < deer.pop && firstFall)
         {
             firstFall = false;
-            sff.TriggerDialogue();
+            //sff.TriggerDialogue();
         }
 		if (!paused && !megaPaused && !areaTimeStop)
         {

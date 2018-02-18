@@ -13,12 +13,14 @@ public class DialogueManager : MonoBehaviour
     public int convoCount;
     public int cleansedNodes;
     public bool firstCorrCast;
+	public bool secondCorrCast;
     public bool firstGrowShrubsCast;
 	public bool typing;
     public bool tutorialActive = true;
 	private string sentence;
     private InventoryScript inventory;
     private bool givenStartingBerries = false;
+	private bool zMenuPopUpDone = false;
 
     private DeerPopulation deer;
     private WolfPopulation wolf;
@@ -71,7 +73,7 @@ public class DialogueManager : MonoBehaviour
             convoCount++;
             animator.SetBool("IsOpen", true);
             sentences.Clear();
-            print("cleared sentences");
+//            print("cleared sentences");
 
             nameText.text = dialogue.name;
 
@@ -89,13 +91,13 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count == 0)
         {
             EndDialogue();
-            print("J1");
-            print(sentences.Count);
+//            print("J1");
+//            print(sentences.Count);
             return;
         }
 
         sentence = sentences.Dequeue();
-        print(sentences.Count);
+//        print(sentences.Count);
         StopAllCoroutines();
         StartCoroutine(TypeSentence(sentence));
     }
@@ -115,7 +117,7 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         animator.SetBool("IsOpen", false);
-        print("ClosingDBox");
+//        print("ClosingDBox");
         player.canMove = true;
 		player.GetComponent<PlayerControllerB> ().canMove = true;
         if (convoCount == 1 && !givenStartingBerries)
@@ -124,5 +126,9 @@ public class DialogueManager : MonoBehaviour
             inventory.berryNum += 3;
             inventory.berryText.GetComponent < Text >().text = inventory.berryNum.ToString();
         }
+		if (convoCount == 4 && zMenuPopUpDone == false) {
+			GameObject.Find ("ZButtonIndicator").transform.GetChild(0).gameObject.SetActive (true);
+			zMenuPopUpDone = true;
+		}
     }
 }
