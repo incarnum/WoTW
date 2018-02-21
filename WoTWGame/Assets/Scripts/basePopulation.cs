@@ -83,11 +83,11 @@ public class basePopulation : MonoBehaviour {
 		corruptionRate = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>().currentCorruptionRate;
         if(corrupting && rising1)
         {
-            corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * rate;
+            corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * 4;
         }
         if (corrupting && rising2)
         {
-            corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * rate;
+            corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * 4;
         }
     }
 
