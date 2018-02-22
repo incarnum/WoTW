@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DescriptionTextScript : MonoBehaviour {
-	public List<string> descriptions;
+    [TextArea(1, 10)]
+    public List<string> descriptions;
 	public float rowLimit;
 	// Use this for initialization
 	void Start () {
