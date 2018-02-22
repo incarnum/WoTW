@@ -43,14 +43,14 @@ public class PickUpScript : MonoBehaviour {
 			creatureManager.fangList.Remove (gameObject);
 		} else if (pickUpType == 3) {
 			//creatureManager.corruptedBerryList.Remove (gameObject);
-		} else if (pickUpType == 3) {
-			if (creatureManager.corruptedAntlerList.Contains(gameObject)) {
-			creatureManager.corruptedAntlerList.Remove (gameObject);
-			}
-		} else if (pickUpType == 3) {
-			if (creatureManager.corruptedAntlerList.Contains (gameObject)) {
-				creatureManager.corruptedFangList.Remove (gameObject);
-			}
+//		} else if (pickUpType == 3) {
+//			if (creatureManager.corruptedAntlerList.Contains(gameObject)) {
+//			creatureManager.corruptedAntlerList.Remove (gameObject);
+//			}
+//		} else if (pickUpType == 3) {
+//			if (creatureManager.corruptedAntlerList.Contains (gameObject)) {
+//				creatureManager.corruptedFangList.Remove (gameObject);
+//			}
 		}
 	}
 }

@@ -78,6 +78,13 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         clFoN = GameObject.Find("CleanseFourthNode").GetComponent<DialogueTrigger>();
         clFiN = GameObject.Find("CleanseFinalNode").GetComponent<DialogueTrigger>();
         dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
+		if (health == 3) {
+			corruptionNode.GetComponent<Animator> ().SetTrigger ("idle1");
+		} else if (health == 2) {
+			corruptionNode.GetComponent<Animator> ().SetTrigger ("idle2");
+		} else if (health == 1) {
+			corruptionNode.GetComponent<Animator> ().SetTrigger ("idle3");
+		}
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {
             instaCast = true;
@@ -147,6 +154,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void Cast()
     {
         health -= 1;
+		corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
 		print ("health lowered by 1");
 		if (dm.secondCorrCast)
 		{
@@ -159,7 +167,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		{
 			dm.firstCorrCast = false;
 			dm.secondCorrCast = true;
-			health -= 5;
+			//health -= 5;
 			//cbc.TriggerDialogue();
 
 		}
@@ -212,7 +220,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			}
             dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);
-            Destroy(corruptionNode);
+            Destroy(corruptionNode, 1f);
             shrub.rate = shrub.startRate;
             deer.rate = deer.startRate;
             wolf.rate = wolf.startRate;

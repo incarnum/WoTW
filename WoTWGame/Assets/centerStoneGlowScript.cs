@@ -29,6 +29,5 @@ public class centerStoneGlowScript : MonoBehaviour {
 		changing = true;
 		startColor = sr.color;
 		targetColor = col;
-		print ("color set");
 	}
 }
