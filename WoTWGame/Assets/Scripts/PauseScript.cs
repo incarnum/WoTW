@@ -9,8 +9,12 @@ public class PauseScript : MonoBehaviour {
     public GameObject optionsButton;
     public GameObject mainMenuButton;
     public GameObject exitButton;
+	public GameObject pauseMenu;
     public GameObject multiMenuCanvas;
     public GameObject overlayCanvas;
+
+	//Selection effects
+	public List<GameObject> selectionEffects;
 
     //Options menu layout
     public GameObject optionsMenu;
@@ -74,10 +78,7 @@ public class PauseScript : MonoBehaviour {
     public void PauseGame()
     {
         Debug.Log("Paused");
-        resumeButton.SetActive(true);
-        optionsButton.SetActive(true);
-        mainMenuButton.SetActive(true);
-        exitButton.SetActive(true);
+		pauseMenu.SetActive(true);
 
         overlayCanvas.SetActive(false);
         multiMenuCanvas.SetActive(false);
@@ -91,10 +92,16 @@ public class PauseScript : MonoBehaviour {
     public void ResumeGame()
     {
         Debug.Log("Unpaused");
-        resumeButton.SetActive(false);
-        optionsButton.SetActive(false);
-        mainMenuButton.SetActive(false);
-        exitButton.SetActive(false);
+		pauseMenu.SetActive(false);
+
+		foreach (GameObject gunch in selectionEffects) {
+			gunch.SetActive (false);
+		}
+
+		resumeButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		optionsButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		mainMenuButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		exitButton.GetComponent<menuButtonScript> ().ResetTextSize ();
 
         overlayCanvas.SetActive(true);
         multiMenuCanvas.SetActive(true);
@@ -112,6 +119,15 @@ public class PauseScript : MonoBehaviour {
         optionsButton.SetActive(false);
         mainMenuButton.SetActive(false);
         exitButton.SetActive(false);
+
+		resumeButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		optionsButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		mainMenuButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		exitButton.GetComponent<menuButtonScript> ().ResetTextSize ();
+		foreach (GameObject gunch in selectionEffects) {
+			gunch.SetActive (false);
+		}
+
 
         optionsMenu.SetActive(true);
 
