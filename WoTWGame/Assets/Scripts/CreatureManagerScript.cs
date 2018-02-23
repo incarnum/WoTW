@@ -26,7 +26,19 @@ public class CreatureManagerScript : MonoBehaviour {
 	public GameObject fangPrefab;
 	public float wolfNum;
 
-	public List<GameObject> corruptedShrubCreatureList;
+    public List<GameObject> rabbitCreatureList;
+    public List<GameObject> rabbitItemList;
+    public GameObject rabbitPrefab;
+    public GameObject rabbitItemPrefab;
+    public float rabbitNum;
+
+    public List<GameObject> owlCreatureList;
+    public List<GameObject> featherList;
+    public GameObject owlPrefab;
+    public GameObject featherPrefab;
+    public float owlNum;
+
+    public List<GameObject> corruptedShrubCreatureList;
 	public List<GameObject> corruptedBerryList;
 	public GameObject corruptedShrubPrefab;
 	public float corruptedShrubNum;
@@ -39,7 +51,15 @@ public class CreatureManagerScript : MonoBehaviour {
 	public GameObject corruptedWolfPrefab;
 	public float corruptedWolfNum;
 
-	public List<GameObject> corruptionNodeList;
+    public List<GameObject> corruptedRabbitCreatureList;
+    public GameObject corruptedRabbitPrefab;
+    public float corruptedRabbitNum;
+
+    public List<GameObject> corruptedOwlCreatureList;
+    public GameObject corruptedOwlPrefab;
+    public float corruptedOwlNum;
+
+    public List<GameObject> corruptionNodeList;
 
 	private Transform upperLeftBound;
 	private Transform lowerRightBound;
@@ -47,6 +67,8 @@ public class CreatureManagerScript : MonoBehaviour {
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
+    private RabbitPopulation rabbit;
+    private OwlPopulation owl;
 
     public float ecoToWorldDivision;
     private float lastAdjustment;
@@ -66,6 +88,8 @@ public class CreatureManagerScript : MonoBehaviour {
         shrub = GetComponent<ShrubPopulation>();
         deer = GetComponent<DeerPopulation>();
         wolf = GetComponent<WolfPopulation>();
+        rabbit = GetComponent<RabbitPopulation>();
+        owl = GetComponent<OwlPopulation>();
         if (initializeAtStart == true) {
 			Initialize ();
 		}
@@ -109,9 +133,29 @@ public class CreatureManagerScript : MonoBehaviour {
                 wolfNum = wolf.pop / ecoToWorldDivision;
             }
 
+            if (rabbit.corruptedPop > 0)
+            {
+                rabbitNum = (rabbit.pop - rabbit.corruptedPop) / ecoToWorldDivision;
+            }
+            else
+            {
+                rabbitNum = rabbit.pop / ecoToWorldDivision;
+            }
+
+            if (owl.corruptedPop > 0)
+            {
+                owlNum = (owl.pop - owl.corruptedPop) / ecoToWorldDivision;
+            }
+            else
+            {
+                owlNum = owl.pop / ecoToWorldDivision;
+            }
+
             corruptedShrubNum = shrub.corruptedPop / ecoToWorldDivision;
             corruptedDeerNum = deer.corruptedPop / ecoToWorldDivision;
             corruptedWolfNum = wolf.corruptedPop / ecoToWorldDivision;
+            corruptedRabbitNum = rabbit.corruptedPop / ecoToWorldDivision;
+            corruptedOwlNum = owl.corruptedPop / ecoToWorldDivision;
             AdjustCreatures();
             AdjustPickips();
         }
@@ -157,8 +201,28 @@ public class CreatureManagerScript : MonoBehaviour {
 		while (wolfCreatureList.Count < wolfNum) {
 			CreateWolf ();
 		}
-		//corruptedshrubs
-		while (corruptedShrubCreatureList.Count > corruptedShrubNum / 2f + 1f && corruptedShrubNum > 0) {
+        //rabbits
+        while (rabbitCreatureList.Count > rabbitNum + 1f)
+        {
+            Destroy(rabbitCreatureList[0]);
+            rabbitCreatureList.RemoveAt(0);
+        }
+        while (rabbitCreatureList.Count < rabbitNum)
+        {
+            CreateRabbit();
+        }
+        //owls
+        while (owlCreatureList.Count > owlNum + 1f)
+        {
+            Destroy(owlCreatureList[0]);
+            owlCreatureList.RemoveAt(0);
+        }
+        while (owlCreatureList.Count < owlNum)
+        {
+            CreateOwl();
+        }
+        //corruptedshrubs
+        while (corruptedShrubCreatureList.Count > corruptedShrubNum / 2f + 1f && corruptedShrubNum > 0) {
 			Destroy (corruptedShrubCreatureList [0]);
 			corruptedShrubCreatureList.RemoveAt (0);
 		}
@@ -181,8 +245,27 @@ public class CreatureManagerScript : MonoBehaviour {
 		while (corruptedWolfCreatureList.Count < corruptedWolfNum / 2f) {
 			CreateCorruptedWolf ();
 		}
-	
-	}
+        //corruptedrabbits
+        while (corruptedRabbitCreatureList.Count > corruptedRabbitNum / 2f + 1f && corruptedRabbitNum > 0)
+        {
+            Destroy(corruptedRabbitCreatureList[0]);
+            corruptedRabbitCreatureList.RemoveAt(0);
+        }
+        while (corruptedRabbitCreatureList.Count < corruptedRabbitNum / 2f)
+        {
+            CreateCorruptedRabbit();
+        }
+        //corruptedowls
+        while (corruptedOwlCreatureList.Count > corruptedOwlNum / 2f + 1f && corruptedOwlNum > 0)
+        {
+            Destroy(corruptedOwlCreatureList[0]);
+            corruptedOwlCreatureList.RemoveAt(0);
+        }
+        while (corruptedOwlCreatureList.Count < corruptedOwlNum / 2f)
+        {
+            CreateCorruptedOwl();
+        }
+    }
 
 	public void AdjustPickips() {
 
@@ -278,8 +361,57 @@ public class CreatureManagerScript : MonoBehaviour {
 		Place(newFang, 2, true);
 	}
 
+    public void CreateRabbit()
+    {
+        GameObject newRabbit = Instantiate(rabbitPrefab) as GameObject;
+        rabbitCreatureList.Add(newRabbit);
+        Place(newRabbit, 2, false);
+        newRabbit.transform.localScale = new Vector3(rabbit.size, rabbit.size);
+        newRabbit.GetComponent<AnimalMovementScript>().speed2 = rabbit.speed;
+    }
 
-	public void Place(GameObject obj, float type, bool isStatic) {
+    public void CreateCorruptedRabbit()
+    {
+        GameObject newRabbit = Instantiate(corruptedRabbitPrefab) as GameObject;
+        corruptedRabbitCreatureList.Add(newRabbit);
+        Place(newRabbit, 2, false);
+        newRabbit.transform.localScale = new Vector3(rabbit.size, rabbit.size);
+        newRabbit.GetComponent<AnimalMovementScript>().speed2 = rabbit.speed;
+    }
+
+    public void CreateRabbitItem()
+    {
+        GameObject newRI = Instantiate(rabbitItemPrefab) as GameObject;
+        rabbitItemList.Add(newRI);
+        Place(newRI, 2, true);
+    }
+
+    public void CreateOwl()
+    {
+        GameObject newOwl = Instantiate(owlPrefab) as GameObject;
+        owlCreatureList.Add(newOwl);
+        Place(newOwl, 2, false);
+        newOwl.transform.localScale = new Vector3(owl.size, owl.size);
+        newOwl.GetComponent<AnimalMovementScript>().speed2 = owl.speed;
+    }
+
+    public void CreateCorruptedOwl()
+    {
+        GameObject newOwl = Instantiate(corruptedOwlPrefab) as GameObject;
+        corruptedOwlCreatureList.Add(newOwl);
+        Place(newOwl, 2, false);
+        newOwl.transform.localScale = new Vector3(owl.size, owl.size);
+        newOwl.GetComponent<AnimalMovementScript>().speed2 = owl.speed;
+    }
+
+    public void CreateFeather()
+    {
+        GameObject newFeather = Instantiate(featherPrefab) as GameObject;
+        fangList.Add(newFeather);
+        Place(newFeather, 2, true);
+    }
+
+    public void Place(GameObject obj, float type, bool isStatic) {
 		float garf = Random.Range (1, 10);
 		float region;
 		if (garf <= 5) {

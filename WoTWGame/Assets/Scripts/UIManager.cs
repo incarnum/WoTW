@@ -6,6 +6,8 @@ public class UIManager : MonoBehaviour {
     public GameObject shrubUI, deerUI, wolfUI, rabbitUI, owlUI, manager, leftButton, rightButton;
     private List<GameObject> UIRotator;
     public bool shrubOn, deerOn, wolfOn, rabbitOn, owlOn;
+    public float X;
+    public int currentSelection;
 	public float rightX;
 	public float leftX;
 	// Use this for initialization
@@ -13,6 +15,7 @@ public class UIManager : MonoBehaviour {
         UIRotator = new List<GameObject>();
         UIRotator.Insert(0, shrubUI);
         shrubOn = true;
+        X = 150;
 	}
 	
 	// Update is called once per frame
@@ -31,11 +34,12 @@ public class UIManager : MonoBehaviour {
             {
                 deerOn = true;
                 UIRotator.Insert(1, deerUI);
-                leftButton.SetActive(true);
-                rightButton.SetActive(true);
 
-				UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-				UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+
+                UIRotator[0].GetComponent<NewUIScript>().Move(new Vector2(-X, 0));
+                UIRotator[1].GetComponent<NewUIScript>().Move(new Vector2(X, 0));
+                UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+				UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
             }
         }
         if (!wolfOn)
@@ -43,17 +47,22 @@ public class UIManager : MonoBehaviour {
             if (wolfUI.activeSelf)
             {
                 wolfOn = true;
-				if (UIRotator [0] == deerUI) {
-					UIRotator.Insert (1, wolfUI);
-					UIRotator [1].transform.localPosition = new Vector2 (rightX, 0);
-					UIRotator [UIRotator.Count - 1].transform.localPosition = new Vector2 (leftX, 0);
-				} else {
-					UIRotator.Insert (2, wolfUI);
-				}
-
-				UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-				UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
-				UIRotator [2].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+                UIRotator.Insert(2, wolfUI);
+                leftButton.SetActive(true);
+                rightButton.SetActive(true);
+                currentSelection = 1;
+                for (int i = 0; i < UIRotator.Count; i++)
+                {
+                    UIRotator[i].GetComponent<NewUIScript>().Move(new Vector2(X * (i - currentSelection), 0));
+                    if (i == currentSelection)
+                    {
+                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
+                    }
+                    else
+                    {
+                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(false);
+                    }
+                }
             }
         }
         if (!rabbitOn)
@@ -61,25 +70,9 @@ public class UIManager : MonoBehaviour {
             if (rabbitUI.activeSelf)
             {
                 rabbitOn = true;
-                if (UIRotator[0] == shrubUI)
-                {
-                    UIRotator.Add(rabbitUI);
-					UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
-					UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
-                    UIRotator[2].SetActive(false);
-                }
-                else if(UIRotator[0] == wolfUI)
-                {
-                    UIRotator.Insert(1, rabbitUI);
-					UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
-					UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
-                    UIRotator[2].SetActive(false);
-                }
-                else
-                {
-                    UIRotator.Insert(2, rabbitUI);
-                    rabbitUI.SetActive(false);
-                }
+                UIRotator.Insert(3, rabbitUI);
+
+                UIRotator[3].GetComponent<NewUIScript>().Move(new Vector2(X * (3 - currentSelection), 0));
             }
         }
         if (!owlOn)
@@ -87,8 +80,9 @@ public class UIManager : MonoBehaviour {
             if (owlUI.activeSelf)
             {
                 owlOn = true;
-                UIRotator.Insert(2, owlUI);
-                owlUI.SetActive(false);
+                UIRotator.Insert(4, owlUI);
+
+                UIRotator[4].GetComponent<NewUIScript>().Move(new Vector2(X * (4 - currentSelection), 0));
             }
         }
 	}
@@ -97,79 +91,30 @@ public class UIManager : MonoBehaviour {
     {
         if (manager.activeSelf)
         {
-            if (UIRotator.Count == 2)
+            if(currentSelection > 0)
             {
-                if (UIRotator[0] == shrubUI)
+                currentSelection -= 1;
+                for (int i = 0; i < UIRotator.Count; i++)
                 {
-                    UIRotator.Remove(shrubUI);
-                    UIRotator.Insert(1, shrubUI);
-					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
-					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
-                    UIRotator[1].transform.SetAsLastSibling();
-                    UIRotator[0].transform.SetAsLastSibling();
-
-					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+                    UIRotator[i].GetComponent<NewUIScript>().Move(new Vector2(X * (i - currentSelection), 0));
+                    if (i == currentSelection)
+                    {
+                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
+                        UIRotator[i].transform.SetAsLastSibling();
+                    }
+                    else
+                    {
+                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(false);
+                    }
                 }
             }
-            else if (UIRotator.Count == 3)
+            if(currentSelection == 0)
             {
-				//line below added as temportary playtesting fix to keep it from looping between shrubs and wolves
-				if(UIRotator[0].name != "Wolf UI") {
-	                GameObject oldCenter = UIRotator[0];
-	                UIRotator.RemoveAt(0);
-	                UIRotator.Add(oldCenter);
-					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
-					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
-					UIRotator[UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (leftX, 0));
-	                UIRotator[1].transform.SetAsLastSibling();
-	                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-	                UIRotator[0].transform.SetAsLastSibling();
-
-					if (UIRotator [1].name == "Wolf UI") {
-						UIRotator [1].SetActive (true);
-					}
-					if (UIRotator [1].name == "Shrub UI") {
-						UIRotator [1].SetActive (false);
-					}
-
-					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
-					UIRotator [2].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
-				}
+                leftButton.SetActive(false);
             }
-            else if (UIRotator.Count == 4)
+            if (!rightButton.activeSelf)
             {
-                GameObject oldCenter = UIRotator[0];
-                UIRotator.RemoveAt(0);
-                UIRotator.Add(oldCenter);
-                UIRotator[0].transform.localPosition = new Vector2(0, 0);
-				UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
-				UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
-                UIRotator[1].transform.SetAsLastSibling();
-                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-                UIRotator[0].transform.SetAsLastSibling();
-                UIRotator[0].SetActive(true);
-                UIRotator[1].SetActive(true);
-                UIRotator[UIRotator.Count - 1].SetActive(true);
-                UIRotator[2].SetActive(false);
-            }
-            else if (UIRotator.Count == 5)
-            {
-                GameObject oldCenter = UIRotator[0];
-                UIRotator.RemoveAt(0);
-                UIRotator.Add(oldCenter);
-                UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
-                UIRotator[1].transform.SetAsLastSibling();
-                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-                UIRotator[0].transform.SetAsLastSibling();
-                UIRotator[0].SetActive(true);
-                UIRotator[1].SetActive(true);
-                UIRotator[UIRotator.Count - 1].SetActive(true);
-                UIRotator[2].SetActive(false);
-                UIRotator[3].SetActive(false);
+                rightButton.SetActive(true);
             }
         }
     }
@@ -178,82 +123,30 @@ public class UIManager : MonoBehaviour {
     {
         if (manager.activeSelf)
         {
-            if (UIRotator.Count == 2)
+            if (currentSelection < UIRotator.Count - 1)
             {
-                if (UIRotator[0] == deerUI)
+                currentSelection += 1;
+                for (int i = 0; i < UIRotator.Count; i++)
                 {
-                    UIRotator.Remove(deerUI);
-                    UIRotator.Insert(1, deerUI);
-					UIRotator[1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
-					UIRotator[0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
-                    UIRotator[1].transform.SetAsLastSibling();
-                    UIRotator[0].transform.SetAsLastSibling();
-					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
+                    UIRotator[i].GetComponent<NewUIScript>().Move(new Vector2(X * (i - currentSelection), 0));
+                    if (i == currentSelection)
+                    {
+                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
+                        UIRotator[i].transform.SetAsLastSibling();
+                    }
+                    else
+                    {
+                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(false);
+                    }
                 }
             }
-            else if (UIRotator.Count == 3)
+            if (currentSelection == UIRotator.Count - 1)
             {
-				//line below added as temportary playtesting fix to keep it from looping between shrubs and wolves
-				if (UIRotator [0].name != "Shrub UI") {
-					GameObject oldLeft = UIRotator [2];
-					UIRotator.RemoveAt (2);
-					UIRotator.Insert (0, oldLeft);
-					UIRotator [0].GetComponent<NewUIScript> ().Move (new Vector2 (0, 0));
-					UIRotator [1].GetComponent<NewUIScript> ().Move (new Vector2 (rightX, 0));
-					UIRotator [UIRotator.Count - 1].GetComponent<NewUIScript> ().Move (new Vector2 (leftX, 0));
-
-					UIRotator [1].transform.SetAsLastSibling ();
-					UIRotator [UIRotator.Count - 1].transform.SetAsLastSibling ();
-					UIRotator [0].transform.SetAsLastSibling ();
-
-					if (UIRotator [UIRotator.Count - 1].name == "Wolf UI") {
-						UIRotator [UIRotator.Count - 1].SetActive (false);
-					}
-
-					if (UIRotator [UIRotator.Count - 1].name == "Shrub UI") {
-						UIRotator [UIRotator.Count - 1].SetActive (true);
-					}
-
-					UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-					UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
-					UIRotator [2].GetComponent<NewUIScript> ().UpperLayer.SetActive (false);
-				}
+                rightButton.SetActive(false);
             }
-            else if (UIRotator.Count == 4)
+            if (!leftButton.activeSelf)
             {
-
-                GameObject oldLeft = UIRotator[UIRotator.Count - 1];
-                UIRotator.RemoveAt(UIRotator.Count - 1);
-                UIRotator.Insert(0, oldLeft);
-                UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
-                UIRotator[1].transform.SetAsLastSibling();
-                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-                UIRotator[0].transform.SetAsLastSibling();
-                UIRotator[0].SetActive(true);
-                UIRotator[1].SetActive(true);
-                UIRotator[UIRotator.Count - 1].SetActive(true);
-                UIRotator[2].SetActive(false);
-            }
-            else if (UIRotator.Count == 5)
-            {
-
-                GameObject oldLeft = UIRotator[UIRotator.Count - 1];
-                UIRotator.RemoveAt(UIRotator.Count - 1);
-                UIRotator.Insert(0, oldLeft);
-                UIRotator[0].transform.localPosition = new Vector2(0, 0);
-                UIRotator[1].transform.localPosition = new Vector2(rightX, 0);
-                UIRotator[UIRotator.Count - 1].transform.localPosition = new Vector2(leftX, 0);
-                UIRotator[1].transform.SetAsLastSibling();
-                UIRotator[UIRotator.Count - 1].transform.SetAsLastSibling();
-                UIRotator[0].transform.SetAsLastSibling();
-                UIRotator[0].SetActive(true);
-                UIRotator[1].SetActive(true);
-                UIRotator[UIRotator.Count - 1].SetActive(true);
-                UIRotator[2].SetActive(false);
-                UIRotator[3].SetActive(false);
+                leftButton.SetActive(true);
             }
         }
     }

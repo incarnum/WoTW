@@ -69,7 +69,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Q)) {
 			Application.Quit();
 		}
-	}
+    }
 
 	// Update is called once per frame
 	void FixedUpdate () {

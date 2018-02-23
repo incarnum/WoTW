@@ -13,6 +13,10 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public float deerPop;
     public float deerPop2;
     public float wolfPop;
+    public float wolfPop2;
+    public float rabbitPop;
+    public float rabbitPop2;
+    public float owlPop;
     public float shrubBiomass;
     public float deerBiomass;
     public float wolfBiomass;
@@ -93,6 +97,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     private float rateOfShrubChange;
     private float rateOfDeerChange;
     private float rateOfWolfChange;
+    private float rateOfRabbitChange;
+    private float rateOfOwlChange;
 
     public GameObject gameOver1;
     public GameObject gameOver2;
@@ -109,9 +115,13 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
+    private RabbitPopulation rabbit;
+    private OwlPopulation owl;
     public NewUIScript shrubUI;
     public NewUIScript deerUI;
     public NewUIScript wolfUI;
+    public NewUIScript rabbitUI;
+    public NewUIScript owlUI;
 
 	public float corruptionFallFactor;
 
@@ -132,6 +142,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
         deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
+        rabbit = GameObject.Find("CreatureManager").GetComponent<RabbitPopulation>();
+        owl = GameObject.Find("CreatureManager").GetComponent<OwlPopulation>();
         sff = GameObject.Find("ShrubsFirstFall").GetComponent<DialogueTrigger>();
         shrubSize = 1;
         deerSize = 1;
@@ -289,7 +301,39 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         {
             deer.rising2 = true;
         }
-        
+
+        if (rabbit.enabled)
+        {
+            if(rabbit.biomass > wolf.biomass)
+            {
+                rabbit.rising1 = true;
+            }
+            else if(rabbit.biomass < wolf.biomass)
+            {
+                rabbit.rising1 = false;
+            }
+            if(rabbit.biomass > wolf.biomass + overShootValue)
+            {
+                wolf.rising2 = true;
+            }
+            else if(rabbit.biomass < wolf.biomass - overShootValue)
+            {
+                wolf.rising2 = false;
+            }
+            if (owl.enabled)
+            {
+                if (rabbit.biomass > owl.biomass + overShootValue)
+                {
+                    owl.rising1 = true;
+                    rabbit.rising2 = true;
+                }
+                else if (rabbit.biomass < owl.biomass - overShootValue)
+                {
+                    owl.rising1 = false;
+                    rabbit.rising2 = false;
+                }
+            }
+        }
 
 
         //Below is the section that changes the populations according to what rising triggers are set
@@ -300,6 +344,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 		rateOfShrubChange = 0;
 		rateOfDeerChange = 0;
 		rateOfWolfChange = 0;
+        rateOfRabbitChange = 0;
+        rateOfOwlChange = 0;
         //the format of these is:
         //population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
         // of the buffs.
@@ -375,22 +421,93 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             {
                 wolfPop = (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
 				wolfUI.leftChange.text = (wolfPop * 100).ToString("0.00");
-				wolfUI.popChange.text = (wolfPop * 100).ToString("0.00");
 				rateOfWolfChange += wolfPop;
             }
             else
             {
                 wolfPop = (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
 				wolfUI.leftChange.text = (wolfPop * -100).ToString("0.00");
-				wolfUI.popChange.text = (wolfPop * -100).ToString("0.00");
 				rateOfWolfChange -= wolfPop;
             }
-			wolf.pop += rateOfWolfChange;
-			if (rateOfWolfChange < 0)
-			{
-				wolf.corruptedPop += rateOfWolfChange * corruptionFallFactor;
-			}
+			
+            if (rabbit.enabled)
+            {
+                if (rabbit.rising1 && rabbit.pop < 100)
+                {
+                    rabbitPop = (1 + rabbit.up1 * .2f) * overallSpeed * Time.deltaTime;
+                    rabbitUI.leftChange.text = (rabbitPop * 100).ToString("0.00");
+                    rateOfRabbitChange += rabbitPop;
+                }
+                else
+                {
+                    rabbitPop = (1 + rabbit.down1 * .2f) * overallSpeed * Time.deltaTime;
+                    rabbitUI.leftChange.text = (rabbitPop * -100).ToString("0.00");
+                    rateOfRabbitChange -= rabbitPop;
+                }
+
+                if (wolf.rising2 && wolf.pop < 100)
+                {
+                    wolfPop2 = (3 + wolf.up2 * .2f) * overallSpeed * Time.deltaTime;
+                    wolfUI.rightChange.text = (wolfPop2 * 100).ToString("0.00");
+                    rateOfWolfChange += wolfPop2;
+                }
+                else
+                {
+                    wolfPop2 = (2 + wolf.down2 * .2f) * overallSpeed * Time.deltaTime;
+                    wolfUI.rightChange.text = (wolfPop2 * -100).ToString("0.00");
+                    rateOfWolfChange -= wolfPop2;
+                }
+
+                if (owl.enabled)
+                {
+                    if(owl.rising1 && owl.pop < 100)
+                    {
+                        owlPop = (3 + owl.up1 * .2f) * overallSpeed * Time.deltaTime;
+                        owlUI.leftChange.text = (owlPop * 100).ToString("0.00");
+                        rateOfOwlChange += owlPop;
+                    }
+                    else
+                    {
+                        owlPop = (3 + owl.down1 * .2f) * overallSpeed * Time.deltaTime;
+                        owlUI.leftChange.text = (owlPop * -100).ToString("0.00");
+                        rateOfOwlChange -= owlPop;
+                    }
+
+                    owl.pop += rateOfOwlChange;
+                    if (rateOfOwlChange < 0)
+                    {
+                        owl.corruptedPop += rateOfOwlChange * corruptionFallFactor;
+                    }
+
+                    if (rabbit.rising2 && rabbit.pop < 100)
+                    {
+                        rabbitPop2 = (1 + rabbit.up2 * .2f) * overallSpeed * Time.deltaTime;
+                        rabbitUI.rightChange.text = (rabbitPop2 * 100).ToString("0.00");
+                        rateOfRabbitChange += rabbitPop2;
+                    }
+                    else
+                    {
+                        rabbitPop2 = (1 + rabbit.down2 * .2f) * overallSpeed * Time.deltaTime;
+                        rabbitUI.rightChange.text = (rabbitPop2 * -100).ToString("0.00");
+                        rateOfRabbitChange -= rabbitPop2;
+                    }
+                }
+
+                rabbit.pop += rateOfRabbitChange;
+                if (rateOfRabbitChange < 0)
+                {
+                    rabbit.corruptedPop += rateOfRabbitChange * corruptionFallFactor;
+                }
+            }
+
+            wolf.pop += rateOfWolfChange;
+            if (rateOfWolfChange < 0)
+            {
+                wolf.corruptedPop += rateOfWolfChange * corruptionFallFactor;
+            }
         }
+
+        
         
 
         
@@ -399,9 +516,13 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         shrub.biomass = shrub.pop * shrub.size;
         deer.biomass = deer.pop * deer.size;
         wolf.biomass = wolf.pop * wolf.size;
+        rabbit.biomass = rabbit.pop * rabbit.size;
+        owl.biomass = owl.pop * owl.size;
         shrub.corruptedBiomass = shrub.corruptedPop * shrub.size;
         deer.corruptedBiomass = deer.corruptedPop * deer.size;
         wolf.corruptedBiomass = wolf.corruptedPop * wolf.size;
+        rabbit.corruptedBiomass = rabbit.corruptedPop * rabbit.size;
+        owl.corruptedBiomass = owl.corruptedPop * owl.size;
 
     }
 }
