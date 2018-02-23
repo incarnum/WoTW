@@ -51,6 +51,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
+	private RabbitPopulation rabbit;
+	private OwlPopulation owl;
     private DialogueManager dm;
     private DialogueTrigger cbc;
     private DialogueTrigger clFN;
@@ -76,6 +78,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
         deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
+		rabbit = GameObject.Find("CreatureManager").GetComponent<RabbitPopulation>();
+		owl = GameObject.Find("CreatureManager").GetComponent<OwlPopulation>();
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         cms = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>();
@@ -206,12 +210,18 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             else if (dm.cleansedNodes == 2)
             {
+				rabbit.enabled = true;
+				rabbit.DoStart ();
+				eco.GetComponent<UIManager> ().ActivateRabbits ();
                 //clTN.TriggerDialogue();
 				//GameObject.Find ("CorruptionWall").SetActive (false);
                 //rabbit.enabled = true;
             }
             else if (dm.cleansedNodes == 3)
             {
+				owl.enabled = true;
+				owl.DoStart ();
+				eco.GetComponent<UIManager> ().ActivateOwls ();
                 //clFoN.TriggerDialogue();
                 //owl.enabled = true;
             }

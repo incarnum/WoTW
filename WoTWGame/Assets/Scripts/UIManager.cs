@@ -160,4 +160,10 @@ public class UIManager : MonoBehaviour {
 //		UIRotator.Add(shrubUI);
 //		UIRotator.Add (wolfUI);
 	}
+	public void ActivateRabbits() {
+		rabbitUI.SetActive (true);
+	}
+	public void ActivateOwls () {
+		owlUI.SetActive (true);
+	}
 }

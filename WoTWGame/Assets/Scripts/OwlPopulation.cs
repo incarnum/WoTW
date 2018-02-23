@@ -10,8 +10,8 @@ public class OwlPopulation : basePopulation {
         pop = GetComponent<WolfPopulation>().pop;
         size = 1;
         startSize = 1;
-        speed = 2;
-        startSpeed = 2;
+        speed = 4;
+        startSpeed = 4;
         timesSpeedChanged = 0;
         sizeMod = 0;
         speedMod = 0;

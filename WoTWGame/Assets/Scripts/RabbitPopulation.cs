@@ -10,6 +10,8 @@ public class RabbitPopulation : basePopulation {
         pop = GetComponent<ShrubPopulation>().pop;
         size = 1;
         startSize = 1;
+		speed = 4;
+		startSpeed = 4;
         sizeMod = 0;
         speedMod = 0;
         toughMod = 0;
