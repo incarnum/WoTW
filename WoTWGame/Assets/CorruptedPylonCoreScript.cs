@@ -31,6 +31,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public PylonScipt pylon1;
     public PylonScipt pylon2;
     public PylonScipt pylon3;
+	public centerStoneGlowScript pylonGlow1;
+	public centerStoneGlowScript pylonGlow2;
+	public centerStoneGlowScript pylonGlow3;
     public string spellPreviewText;
     public GameObject spellPreviewTextbox;
     public RingSpinScript ring1;
@@ -58,7 +61,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     private int nodeCount;
     private AudioSource castSound;
 	public GameObject timeStopTrigger;
-
+	public GameObject cooldownBar;
+	public GameObject cooldownFill;
+	private float lastColorChangeTime;
+	private bool colorPulse;
+	public Color pulseColor;
+	public bool finalFlash;
 
     // Use this for initialization
     void Start()
@@ -106,7 +114,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cooldown -= Time.deltaTime;
         if (touching && Input.GetKeyDown(KeyCode.E) && cooldown <= 0)
         {
             if (target != -1 && strength != -1 && castable && target != 3)
@@ -126,12 +133,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 Debug.Log("Need more ingredients");
             }
         }
-        if (cooldown >= 0)
-        {
-            PredictSpell();
-        }
 		if (Input.GetKeyDown (KeyCode.P)) {
 			cooldown = 0f;
+		}
+		cooldown -= Time.deltaTime;
+		if (cooldown > 0) {
+			Cooldown ();
 		}
     }
     //determine if the player is touching the core of the pylon circle, allowing them to cast
@@ -155,7 +162,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         health -= 1;
 		corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
-		print ("health lowered by 1");
+		CenterStoneGlow.SetColor (Color.clear, .5f);
+		cooldownFill.GetComponent<centerStoneGlowScript> ().SetColor (Color.white, .1f);
 		if (dm.secondCorrCast)
 		{
 			dm.secondCorrCast = false;
@@ -329,69 +337,37 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void PredictSpell()
     {
         //creates the preview text that appears in the circle. 
-        spellPreviewText = "";
-        if (cooldown >= 0)
-        {
-			spellPreviewText += "Cooldown: " + (Mathf.Floor(cooldown)).ToString();
-			if (spellPreviewText != "") {
-				spellPreviewTextbox.SetActive (true);
-				spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (spellPreviewText.Length / 7f);
-			} else {
-				spellPreviewTextbox.SetActive (false);
-			}
-        }
-//        else
+//        spellPreviewText = "";
+//        if (cooldown >= 0)
 //        {
-//            if (strength == 0)
-//            {
-//                spellPreviewText += "Corrupt ";
-//            }
-//            else if (strength == 1)
-//            {
-//                spellPreviewText += "Sicken ";
-//            }
-//            else if (strength == 2)
-//            {
-//                spellPreviewText += "Exhaust ";
-//            }
-//
-//
-//
-//
-//            if (target == 0)
-//            {
-//                spellPreviewText += "shrubs";
-//            }
-//            else if (target == 1)
-//            {
-//                spellPreviewText += "deer";
-//            }
-//            else if (target == 2)
-//            {
-//                spellPreviewText += "wolves";
-//            }
+//			spellPreviewText += "Cooldown: " + (Mathf.Floor(cooldown)).ToString();
+//			if (spellPreviewText != "") {
+//				spellPreviewTextbox.SetActive (true);
+//				spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (spellPreviewText.Length / 7f);
+//			} else {
+//				spellPreviewTextbox.SetActive (false);
+//			}
 //        }
 
 
-
-
-        if (cooldown > 0)
-        {
-			CenterStoneGlow.SetColor (Color.white);
-        }
         if (target != -1 && strength != -1 && cooldown <= 0)
         {
-			CenterStoneGlow.SetColor (Color.white);
+			CenterStoneGlow.SetColor (Color.white, .5f);
             castable = true;
 			corePopUp.SetActive (true);
         }
         else
         {
-			CenterStoneGlow.SetColor (Color.clear);
+			CenterStoneGlow.SetColor (Color.clear, .5f);
             castable = false;
 			corePopUp.SetActive (false);
 			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
         }
+		if (cooldown > 0)
+		{
+			CenterStoneGlow.SetColor (Color.clear, .5f);
+			print ("Trying to set clear");
+		}
 
         spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
     }
@@ -467,6 +443,36 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             GameObject.Find("ABSlot6").GetComponent<SpellbookHolderScript>().holding = spellbook;
         }
     }
+
+	private void Cooldown() {
+		cooldownBar.GetComponent<SpriteMask> ().alphaCutoff = (cooldown / generalCooldown) + -.02f;
+		if (Time.time > lastColorChangeTime + 1f) {
+			if (colorPulse == true) {
+				pylonGlow1.SetColor (pulseColor, 1f);
+				pylonGlow2.SetColor (pulseColor, 1f);
+				pylonGlow3.SetColor (pulseColor, 1f);
+			} else {
+				pylonGlow1.SetColor (Color.clear, 1f);
+				pylonGlow2.SetColor (Color.clear, 1f);
+				pylonGlow3.SetColor (Color.clear, 1f);
+			}
+			colorPulse = !colorPulse;
+			lastColorChangeTime = Time.time;
+		}
+		if (cooldown < 1f && finalFlash == false) {
+			CenterStoneGlow.SetColor (Color.white, .5f);
+			cooldownFill.GetComponent<centerStoneGlowScript> ().SetColor (Color.clear, .5f);
+			finalFlash = true;
+		}
+		if (cooldown < .5f && finalFlash == true) {
+			pylonGlow1.SetColor (Color.clear, 1f);
+			pylonGlow2.SetColor (Color.clear, 1f);
+			pylonGlow3.SetColor (Color.clear, 1f);
+			cooldownBar.GetComponent<SpriteMask> ().alphaCutoff = 1f;
+			CenterStoneGlow.SetColor (Color.clear, .5f);
+			finalFlash = false;
+		}
+	}
 
 }
 

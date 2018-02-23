@@ -6,10 +6,11 @@ public class basePopulation : MonoBehaviour {
     public float up1, up2, down1, down2, pop, biomass, startPop, corruptedPop, corruptedBiomass, speed, size, startSize, startSpeed, rate, startRate, corruptionAcceleration, corruptionRate, overallSpeed;
     public int sizeMod, speedMod, toughMod, timesSpeedChanged;
     public bool rising1, rising2, corrupting, notShrubs;
-    public GameObject gameOver;
+	public GameObject gameOverScreen;
+	public GameObject gameOver;
+	public GameObject darkenScreen;
+	public GameObject enpurpleScreen;
     public GameObject corrGameOver;
-    public GameObject mainMenuButton;
-    public GameObject exitGameButton;
     public GameObject menuCamera;
     public GameObject bar, corrBar, barUI, corrBarUI;
     public List<GameObject> creatureList;
@@ -95,17 +96,18 @@ public class basePopulation : MonoBehaviour {
     {
         if(pop <= 0)
         {
-            Time.timeScale = 0;
+			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+			gameOverScreen.SetActive (true);
             gameOver.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
-        }
-        if (pop <= corruptedPop)
+			darkenScreen.SetActive (true);
+//			GameObject.Find ("MultiMenu").SetActive (false);
+        } else if (pop <= corruptedPop)
         {
-            Time.timeScale = 0;
+			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+			gameOverScreen.SetActive (true);
             corrGameOver.SetActive(true);
-            mainMenuButton.SetActive(true);
-            exitGameButton.SetActive(true);
+			enpurpleScreen.SetActive (true);
+//			GameObject.Find ("MultiMenu").SetActive (false);
         }
 ;    }
 }

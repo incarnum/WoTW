@@ -33,9 +33,9 @@ public class SpellFXController : MonoBehaviour {
 		if (playing) {
 			if (played1 == false && Time.time > startTime + 0f) {
 				pylonSwirl1.SetTrigger ("swirl");
-				pylonGlow1.SetColor (Color.white);
-				pylonGlow2.SetColor (Color.white);
-				pylonGlow3.SetColor (Color.white);
+				pylonGlow1.SetColor (Color.white, .2f);
+				pylonGlow2.SetColor (Color.white, .2f);
+				pylonGlow3.SetColor (Color.white, .2f);
 				played1 = true;
 			}
 			if (played2 == false && Time.time > startTime + .2f) {
@@ -58,9 +58,9 @@ public class SpellFXController : MonoBehaviour {
 			}
 
 			if (played6 == false && Time.time > startTime + 1.6f) {
-				pylonGlow1.SetColor (Color.clear);
-				pylonGlow2.SetColor (Color.clear);
-				pylonGlow3.SetColor (Color.clear);
+				pylonGlow1.SetColor (Color.clear, .2f);
+				pylonGlow2.SetColor (Color.clear, .2f);
+				pylonGlow3.SetColor (Color.clear, .2f);
 				played6 = true;
 				playing = false;
 			}

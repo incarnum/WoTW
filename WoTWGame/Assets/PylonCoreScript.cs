@@ -721,20 +721,20 @@ public class PylonCoreScript : MonoBehaviour
         }
         if (target != -1 && effect != -1 && strength != -1 && spellPreviewText != "Cleanse Corruption")
         {
-			CenterStoneGlow.SetColor (Color.white);
+			CenterStoneGlow.SetColor (Color.white, .2f);
             castable = true;
 			corePopUp.SetActive (true);
         }
         else
         {
-			CenterStoneGlow.SetColor (Color.clear);
+			CenterStoneGlow.SetColor (Color.clear, .2f);
             castable = false;
 			corePopUp.SetActive (false);
 			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
         }
         if (target == 3 && effect == 3 && strength == 3)
         {
-			CenterStoneGlow.SetColor (Color.white);
+			CenterStoneGlow.SetColor (Color.white, .2f);
             castable = true;
 			corePopUp.SetActive (true);
         }

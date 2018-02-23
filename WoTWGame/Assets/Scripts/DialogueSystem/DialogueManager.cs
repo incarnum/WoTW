@@ -50,17 +50,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-			if (typing == true) 
-			{
-				StopAllCoroutines();
-				dialogueText.text = "";
-				dialogueText.text += sentence;
-				typing = false;
-			} 
-			else 
-			{
-				DisplayNextSentence ();
-			}
+			Advance ();
         }
     }
 
@@ -88,6 +78,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
+		GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.clear, .05f);
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -112,6 +103,7 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
 		typing = false;
+		GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
     }
 
     void EndDialogue()
@@ -131,4 +123,19 @@ public class DialogueManager : MonoBehaviour
 			zMenuPopUpDone = true;
 		}
     }
+
+	public void Advance() {
+		if (typing == true) 
+		{
+			StopAllCoroutines();
+			dialogueText.text = "";
+			dialogueText.text += sentence;
+			typing = false;
+			GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
+		} 
+		else 
+		{
+			DisplayNextSentence ();
+		}
+	}
 }

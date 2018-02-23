@@ -24,10 +24,12 @@ public class centerStoneGlowScript : MonoBehaviour {
 		}
 	}
 
-	public void SetColor (Color col) {
+	public void SetColor (Color col, float changeTime) {
 		startTime = Time.time;
 		changing = true;
 		startColor = sr.color;
 		targetColor = col;
+		colorChangeTime = changeTime;
 	}
+		
 }

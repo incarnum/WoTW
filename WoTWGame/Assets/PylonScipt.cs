@@ -342,15 +342,15 @@ public class PylonScipt : MonoBehaviour {
 		holdingSprite.GetComponent<Animator> ().SetInteger ("itemnum", activeSelection);
 		//changes the color of the runes on the pylon
 		if (activeSelection == 0) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (shrubColor);
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (shrubColor, .2f);
 		} else if (activeSelection == 1) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (deerColor);
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (deerColor, .2f);
 		} else if (activeSelection == 2) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (wolfColor);
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (wolfColor, .2f);
 		} else if (activeSelection == 3) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (corrColor);
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (corrColor, .2f);
 		} if (activeSelection == -1) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (Color.clear);
+			glow.GetComponent<centerStoneGlowScript> ().SetColor (Color.clear, .2f);
 		}
 	}
 
