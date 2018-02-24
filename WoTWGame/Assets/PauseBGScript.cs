@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.ImageEffects;
 
 public class PauseBGScript : MonoBehaviour {
 	private bool changing;
@@ -13,6 +14,7 @@ public class PauseBGScript : MonoBehaviour {
 	public float startingSizeMultiplier;
 	private Vector2 startingSize;
 	private Vector2 targetSize;
+	public bool alsoBlur;
 	// Use this for initialization
 	void Awake () {
 		im = GetComponent<Image> ();
@@ -44,6 +46,9 @@ public class PauseBGScript : MonoBehaviour {
 	void OnEnable () {
 		changing = true;
 		startTime = Time.time;
+		if (alsoBlur) {
+			Camera.main.GetComponent<BlurOptimized> ().enabled = true;
+		}
 	}
 
 	void OnDisable () {
@@ -52,6 +57,7 @@ public class PauseBGScript : MonoBehaviour {
 			child.GetComponent<Image>().enabled = false;
 			rt.localScale = startingSize;
 			im.color = Color.clear;
+			Camera.main.GetComponent<BlurOptimized> ().enabled = false;
 		}
 	}
 }

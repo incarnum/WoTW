@@ -37,6 +37,7 @@ public class PlayButtonScript : MonoBehaviour {
 			Debug.Log (operation.progress);
 			if (operation.progress >= .9f) {
 				screenFade.SetActive (true);
+				GameObject.Find ("Audio").GetComponent<fadeAudioScript> ().beginFade (1f);
 				yield return new WaitForSeconds (1);
 			}
 			yield return null;

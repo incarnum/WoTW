@@ -48,7 +48,7 @@ public class PauseScript : MonoBehaviour {
     public GameObject musicSource;
     public GameObject soundSource;
 
-
+	public GameObject screenFade;
 
     private GameObject eco;
 
@@ -182,6 +182,18 @@ public class PauseScript : MonoBehaviour {
 
     public void ExitToMain()
     {
-        SceneManager.LoadScene("MainMenu");
+		StartCoroutine (LoadAsynchronously());
+		GameObject.Find ("WotW soundtrack").GetComponent<fadeAudioScript> ().beginFade (1f);
+		screenFade.SetActive (true);
     }
+
+	IEnumerator LoadAsynchronously ()
+	{
+		AsyncOperation operation = SceneManager.LoadSceneAsync ("MainMenu");
+		Application.backgroundLoadingPriority = ThreadPriority.Low;
+		while (!operation.isDone) {
+			Debug.Log (operation.progress);
+			yield return null;
+		}
+	}
 }
