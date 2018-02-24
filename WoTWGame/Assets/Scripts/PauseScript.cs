@@ -80,7 +80,7 @@ public class PauseScript : MonoBehaviour {
         Debug.Log("Paused");
 		pauseMenu.SetActive(true);
 
-        overlayCanvas.SetActive(false);
+        overlayCanvas.GetComponent<Canvas>().enabled = false;
         multiMenuCanvas.SetActive(false);
 
         eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = true;
@@ -103,7 +103,7 @@ public class PauseScript : MonoBehaviour {
 		mainMenuButton.GetComponent<menuButtonScript> ().ResetTextSize ();
 		exitButton.GetComponent<menuButtonScript> ().ResetTextSize ();
 
-        overlayCanvas.SetActive(true);
+        overlayCanvas.GetComponent<Canvas>().enabled = true;
         multiMenuCanvas.SetActive(true);
 
         eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = false;

@@ -26,10 +26,12 @@ public class DialogueManager : MonoBehaviour
     private WolfPopulation wolf;
 
     private Queue<string> sentences;
+    private Canvas overLay;
 
     // Use this for initialization
     void Start()
     {
+        overLay = GameObject.Find("MainOverlayCanvas").GetComponent<Canvas>();
         sentences = new Queue<string>();
         player = GameObject.Find("Player").GetComponent<PlayerControllerScript>();
         inventory = GameObject.Find("Player").GetComponent<InventoryScript>();
@@ -48,7 +50,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown("space") && overLay.enabled)
         {
 			Advance ();
         }
