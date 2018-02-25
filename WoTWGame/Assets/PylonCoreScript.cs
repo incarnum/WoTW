@@ -161,6 +161,9 @@ public class PylonCoreScript : MonoBehaviour
             if (strength == 0)
             {
                 pop.size = pop.startSize;
+				float corrPercent = pop.corruptedPop / pop.pop;
+				pop.pop += 15f * -pop.sizeMod;
+				pop.corruptedPop = corrPercent * pop.pop;
                 pop.sizeMod = 0;
                 pop.UpdateSize();
             }
@@ -180,10 +183,16 @@ public class PylonCoreScript : MonoBehaviour
                     if (strength > 0)
                     {
                         pop.sizeMod += 1;
+						float corrPercent = pop.corruptedPop / pop.pop;
+						pop.pop += 15f;
+						pop.corruptedPop = corrPercent * pop.pop;
                     }
                     else if (strength < 0)
                     {
                         pop.sizeMod -= 1;
+						float corrPercent = pop.corruptedPop / pop.pop;
+						pop.pop -= 15f;
+						pop.corruptedPop = corrPercent * pop.pop;
                     }
                 }
             }

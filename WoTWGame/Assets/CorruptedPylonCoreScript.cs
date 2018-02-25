@@ -259,61 +259,61 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         //this is where you put all the code for what corrupted spells do
         if (target == 0)
         {
-            if (strength == 0)
-            {
+//            if (strength == 0)
+//            {
                 shrub.corrupting = true;
-            }
-            if (shrub.corruptedPop < cms.shrubPopStart && shrub.pop > cms.minimumInfectionPop)
-            {
-                shrub.corruptedPop = cms.shrubPopStart;
-            }
-            if (strength == 1)
-            {
-                shrub.rate *= 1.25f;
-            }
-            if (strength == 2)
-            {
-                cms.shrubRange -= 1;
-            }
+//            }
+//            if (shrub.corruptedPop < cms.shrubPopStart && shrub.pop > cms.minimumInfectionPop)
+//            {
+                shrub.corruptedPop += cms.shrubPopStart;
+//            }
+//            if (strength == 1)
+//            {
+//                shrub.rate *= 1.25f;
+//            }
+//            if (strength == 2)
+//            {
+//                cms.shrubRange -= 1;
+//            }
         }
 
         else if (target == 1)
         {
-            if (strength == 0)
-            {
+//            if (strength == 0)
+//            {
                 deer.corrupting = true;
-                if (deer.corruptedPop < cms.deerPopStart && deer.pop > cms.minimumInfectionPop)
-                {
-                    deer.corruptedPop = cms.deerPopStart;
-                }
-            }
-            if (strength == 1)
-            {
-                deer.rate *= 1.25f;
-            }
-            if (strength == 2)
-            {
-                cms.deerRange -= 1;
-            }
+//                if (deer.corruptedPop < cms.deerPopStart && deer.pop > cms.minimumInfectionPop)
+//                {
+                    deer.corruptedPop += cms.deerPopStart;
+//                }
+//            }
+//            if (strength == 1)
+//            {
+//                deer.rate *= 1.25f;
+//            }
+//            if (strength == 2)
+//            {
+//                cms.deerRange -= 1;
+//            }
         }
         else if (target == 2)
         {
-            if (strength == 0)
-            {
+//            if (strength == 0)
+//            {
                 wolf.corrupting = true;
-                if (wolf.corruptedPop < cms.wolfPopStart && wolf.pop > cms.minimumInfectionPop)
-                {
-                    wolf.corruptedPop = cms.wolfPopStart;
-                }
-            }
-            if (strength == 1)
-            {
-                wolf.rate *= 1.25f;
-            }
-            if (strength == 2)
-            {
-                cms.wolfRange -= 1;
-            }
+//                if (wolf.corruptedPop < cms.wolfPopStart && wolf.pop > cms.minimumInfectionPop)
+//                {
+                    wolf.corruptedPop += cms.wolfPopStart;
+//               }
+//            }
+//            if (strength == 1)
+//            {
+//                wolf.rate *= 1.25f;
+//            }
+//            if (strength == 2)
+//            {
+//                cms.wolfRange -= 1;
+//            }
         }
         //this is all the stuff that gets to be updated when the spell is cast
 		spellFX.playCorrSpellEffect();

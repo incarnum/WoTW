@@ -354,8 +354,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 			if (shrub.biomass < 100) {
 				if (tempShrubCapBool == false || (shrub.biomass < tempShrubCap)) {
 					shrubPop = (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
-					shrubUI.popChange.text = (shrubPop * 100).ToString ("0.00");
-					shrubUI.rightChange.text = (shrubPop * 100 ).ToString ("0.00");
+					shrubUI.popChange.text = simplifyNumber(shrubPop * 100).ToString ();
+					shrubUI.rightChange.text = simplifyNumber(shrubPop * 100).ToString ();
 					rateOfShrubChange += shrubPop;
 				}
 			}
@@ -363,8 +363,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         else
         {
             shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
-			shrubUI.popChange.text = (shrubPop * -100).ToString("0.00");
-			shrubUI.rightChange.text = (shrubPop * -100).ToString("0.00");
+			shrubUI.popChange.text = simplifyNumber(shrubPop * -100).ToString ();
+			shrubUI.rightChange.text = simplifyNumber(shrubPop * -100).ToString ();
 			rateOfShrubChange -= shrubPop;
         }
 		shrub.pop += rateOfShrubChange;
@@ -378,18 +378,18 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 			if (deer.rising1 == true && deer.pop < 100)
             {
                 rateOfDeerChange += (2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime;
-                deerUI.leftChange.text = ((2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime * 100).ToString("0.00");
+				deerUI.leftChange.text = simplifyNumber((2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime * 100).ToString();
                 deerPop = rateOfDeerChange;
             }
             else
             {
 				if (wolf.enabled == false) {
 					rateOfDeerChange -= (7 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
-                    deerUI.leftChange.text = (-((7 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 100)).ToString("0.00");
+					deerUI.leftChange.text = simplifyNumber(-((7 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 100)).ToString();
                     deerPop = rateOfDeerChange;
 				} else {
 					rateOfDeerChange -= (3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
-                    deerUI.leftChange.text = (-((3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 100)).ToString("0.00");
+					deerUI.leftChange.text = simplifyNumber(-((3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 100)).ToString();
                     deerPop = rateOfDeerChange;
                 }
 				
@@ -397,17 +397,17 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 			if (deer.rising2 == true && deer.pop < 100)
             {
                 rateOfDeerChange += (2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime;
-                deerUI.rightChange.text = ((2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime * 100).ToString("0.00");
+				deerUI.rightChange.text = simplifyNumber((2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime * 100).ToString();
                 deerPop2 = rateOfDeerChange;
             }
             else
             {
                 rateOfDeerChange -= (1 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 2;
 
-                deerUI.rightChange.text = (-((1 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 2 * 100)).ToString("0.00");
+				deerUI.rightChange.text = simplifyNumber(-((1 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 2 * 100)).ToString();
                 deerPop2 = rateOfDeerChange;
             }
-            deerUI.popChange.text = rateOfDeerChange.ToString("0.00");
+			deerUI.popChange.text = simplifyNumber(rateOfDeerChange * 100).ToString();
             deer.pop += rateOfDeerChange;
             if (rateOfDeerChange < 0)
             {
@@ -420,13 +420,13 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 			if (wolf.rising1 == true && wolf.pop < 100)
             {
                 wolfPop = (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
-				wolfUI.leftChange.text = (wolfPop * 100).ToString("0.00");
+				wolfUI.leftChange.text = simplifyNumber(wolfPop * 100).ToString();
 				rateOfWolfChange += wolfPop;
             }
             else
             {
                 wolfPop = (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
-				wolfUI.leftChange.text = (wolfPop * -100).ToString("0.00");
+				wolfUI.leftChange.text = simplifyNumber(wolfPop * -100).ToString();
 				rateOfWolfChange -= wolfPop;
             }
 			
@@ -435,26 +435,26 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                 if (rabbit.rising1 && rabbit.pop < 100)
                 {
                     rabbitPop = (1 + rabbit.up1 * .2f) * overallSpeed * Time.deltaTime;
-                    rabbitUI.leftChange.text = (rabbitPop * 100).ToString("0.00");
+					rabbitUI.leftChange.text = simplifyNumber(rabbitPop * 100).ToString();
                     rateOfRabbitChange += rabbitPop;
                 }
                 else
                 {
                     rabbitPop = (1 + rabbit.down1 * .2f) * overallSpeed * Time.deltaTime;
-                    rabbitUI.leftChange.text = (rabbitPop * -100).ToString("0.00");
+					rabbitUI.leftChange.text = simplifyNumber(rabbitPop * -100).ToString();
                     rateOfRabbitChange -= rabbitPop;
                 }
 
                 if (wolf.rising2 && wolf.pop < 100)
                 {
                     wolfPop2 = (3 + wolf.up2 * .2f) * overallSpeed * Time.deltaTime;
-                    wolfUI.rightChange.text = (wolfPop2 * 100).ToString("0.00");
+					wolfUI.rightChange.text = simplifyNumber(wolfPop2 * 100).ToString();
                     rateOfWolfChange += wolfPop2;
                 }
                 else
                 {
                     wolfPop2 = (2 + wolf.down2 * .2f) * overallSpeed * Time.deltaTime;
-                    wolfUI.rightChange.text = (wolfPop2 * -100).ToString("0.00");
+					wolfUI.rightChange.text = simplifyNumber(wolfPop2 * -100).ToString();
                     rateOfWolfChange -= wolfPop2;
                 }
 
@@ -463,13 +463,13 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                     if(owl.rising1 && owl.pop < 100)
                     {
                         owlPop = (3 + owl.up1 * .2f) * overallSpeed * Time.deltaTime;
-                        owlUI.leftChange.text = (owlPop * 100).ToString("0.00");
+						owlUI.leftChange.text = simplifyNumber(owlPop * 100).ToString();
                         rateOfOwlChange += owlPop;
                     }
                     else
                     {
                         owlPop = (3 + owl.down1 * .2f) * overallSpeed * Time.deltaTime;
-                        owlUI.leftChange.text = (owlPop * -100).ToString("0.00");
+						owlUI.leftChange.text = simplifyNumber(owlPop * -100).ToString();
                         rateOfOwlChange -= owlPop;
                     }
 
@@ -482,13 +482,13 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                     if (rabbit.rising2 && rabbit.pop < 100)
                     {
                         rabbitPop2 = (1 + rabbit.up2 * .2f) * overallSpeed * Time.deltaTime;
-                        rabbitUI.rightChange.text = (rabbitPop2 * 100).ToString("0.00");
+						rabbitUI.rightChange.text = simplifyNumber(rabbitPop2 * 100).ToString();
                         rateOfRabbitChange += rabbitPop2;
                     }
                     else
                     {
                         rabbitPop2 = (1 + rabbit.down2 * .2f) * overallSpeed * Time.deltaTime;
-                        rabbitUI.rightChange.text = (rabbitPop2 * -100).ToString("0.00");
+						rabbitUI.rightChange.text = simplifyNumber(rabbitPop2 * -100).ToString();
                         rateOfRabbitChange -= rabbitPop2;
                     }
                 }
@@ -512,17 +512,41 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
         
 
-        //populations find out if they have anough food based on their biomass and their foods biomass. biomass is based on population times size.
-        shrub.biomass = shrub.pop * shrub.size;
-        deer.biomass = deer.pop * deer.size;
-        wolf.biomass = wolf.pop * wolf.size;
-        rabbit.biomass = rabbit.pop * rabbit.size;
-        owl.biomass = owl.pop * owl.size;
-        shrub.corruptedBiomass = shrub.corruptedPop * shrub.size;
-        deer.corruptedBiomass = deer.corruptedPop * deer.size;
-        wolf.corruptedBiomass = wolf.corruptedPop * wolf.size;
-        rabbit.corruptedBiomass = rabbit.corruptedPop * rabbit.size;
-        owl.corruptedBiomass = owl.corruptedPop * owl.size;
+        //populations find out if they have anough food based on their biomass and their foods biomass.
+        shrub.biomass = shrub.pop;
+        deer.biomass = deer.pop;
+        wolf.biomass = wolf.pop;
+        rabbit.biomass = rabbit.pop;
+        owl.biomass = owl.pop;
+        shrub.corruptedBiomass = shrub.corruptedPop;
+        deer.corruptedBiomass = deer.corruptedPop;
+        wolf.corruptedBiomass = wolf.corruptedPop;
+        rabbit.corruptedBiomass = rabbit.corruptedPop;
+        owl.corruptedBiomass = owl.corruptedPop;
 
     }
+
+	static int simplifyNumber(float incomingNum) {
+		if (incomingNum >= .2f && incomingNum < .6) {
+			return 1;
+		} else if (incomingNum >= .6 && incomingNum < 1f) {
+			return 2;
+		} else if (incomingNum >= 1f && incomingNum < 1.4f) {
+			return 3;
+		} else if (incomingNum >= 1.4f) {
+			return 4;
+		}
+
+		if (incomingNum <= -.2f && incomingNum > -.6) {
+			return -1;
+		} else if (incomingNum <= -.6 && incomingNum > -1f) {
+			return -2;
+		} else if (incomingNum <= -1f && incomingNum > -1.4f) {
+			return -3;
+		} else if (incomingNum <= -1.4f) {
+			return -4;
+		}
+		return 0;
+			
+	}
 }

@@ -79,6 +79,9 @@ public class basePopulation : MonoBehaviour {
     {
         if(corruptedPop <= 0)
         {
+			if (corrupting == true) {
+				GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().CheckStartingTimer ();
+			}
             corrupting = false;
         }
 		corruptionRate = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>().currentCorruptionRate;

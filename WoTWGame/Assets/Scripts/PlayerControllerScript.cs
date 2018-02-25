@@ -99,6 +99,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			//Camera.main.transform.position = new Vector3(GameObject.Find ("Map").transform.position.x, GameObject.Find ("Map").transform.position.y, GameObject.Find ("Map").transform.position.z - 5);
 			//Time.timeScale = 0;
 			paused = true;
+			GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().TimeStopped ();
 			canMove = false;
 			GetComponent<PlayerControllerB> ().canMove = false;
             pauseCanvas.GetComponent<PauseScript>().PauseGame();
@@ -113,6 +114,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		} else if (paused) {
 			//Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 100f);
 			paused = false;
+			GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().TimeResumed ();
 			canMove = true;
 			GetComponent<PlayerControllerB> ().canMove = true;
             pauseCanvas.GetComponent<PauseScript>().ResumeGame();
