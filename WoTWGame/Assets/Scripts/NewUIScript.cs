@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class NewUIScript : MonoBehaviour {
+public class NewUIScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
     public Text corrPop, pop, corrPopChange, popChange, leftChange, rightChange;
     public basePopulation bPop;
 	public RectTransform barFill;
@@ -14,6 +15,7 @@ public class NewUIScript : MonoBehaviour {
 	private float moveStartTime;
 	public float moveDuration;
 	public GameObject UpperLayer;
+	public GameObject MouseoverInfo;
 	// Use this for initialization
 	void Start () {
         if (bPop.corrupting)
@@ -58,5 +60,17 @@ public class NewUIScript : MonoBehaviour {
 		moveStartTime = Time.time;
 		startLocation = GetComponent<RectTransform> ().localPosition;
 		targetLocation = targ;
+	}
+
+	public void OnPointerEnter(PointerEventData eventData) {
+		MouseoverInfo.SetActive (true);
+	}
+
+	public void OnPointerExit(PointerEventData eventData) {
+		MouseoverInfo.SetActive (false);
+	}
+
+	public void OnDisable() {
+		MouseoverInfo.SetActive (false);
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour {
     public GameObject shrubUI, deerUI, wolfUI, rabbitUI, owlUI, manager, leftButton, rightButton;
@@ -10,6 +11,10 @@ public class UIManager : MonoBehaviour {
     public int currentSelection;
 	public float rightX;
 	public float leftX;
+	public Text size;
+	public Text speed;
+	public Text toughness;
+	private basePopulation pop;
 	// Use this for initialization
 	void Start () {
         UIRotator = new List<GameObject>();
@@ -117,6 +122,7 @@ public class UIManager : MonoBehaviour {
                 rightButton.SetActive(true);
             }
         }
+		UpdateMouseoverInfo ();
     }
 
     public void RotateRight()
@@ -149,6 +155,7 @@ public class UIManager : MonoBehaviour {
                 leftButton.SetActive(true);
             }
         }
+		UpdateMouseoverInfo ();
     }
 	public void ActivateDeer() {
 		deerUI.SetActive (true);
@@ -165,5 +172,28 @@ public class UIManager : MonoBehaviour {
 	}
 	public void ActivateOwls () {
 		owlUI.SetActive (true);
+	}
+
+	public void UpdateMouseoverInfo () {
+		
+		if (currentSelection == 0) {
+			pop = GameObject.Find ("CreatureManager").GetComponent<ShrubPopulation> ();
+		} else if (currentSelection == 1) {
+			pop = GameObject.Find ("CreatureManager").GetComponent<DeerPopulation> ();
+		} else if (currentSelection == 2) {
+			pop = GameObject.Find ("CreatureManager").GetComponent<WolfPopulation> ();
+		} else if (currentSelection == 3) {
+			pop = GameObject.Find ("CreatureManager").GetComponent<RabbitPopulation> ();
+		} else if (currentSelection == 4) {
+			pop = GameObject.Find ("CreatureManager").GetComponent<OwlPopulation> ();
+		}
+		print (pop);
+		size.text = pop.sizeMod.ToString ();
+		speed.text = pop.speedMod.ToString ();
+		toughness.text = pop.toughMod.ToString ();
+	}
+
+	void OnEnable() {
+		UpdateMouseoverInfo ();
 	}
 }
