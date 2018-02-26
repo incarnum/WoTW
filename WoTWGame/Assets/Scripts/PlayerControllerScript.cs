@@ -73,7 +73,8 @@ public class PlayerControllerScript : MonoBehaviour {
 		}
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 400));
+            targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 189));
+			//print (targetPosition);
         }
     }
 
@@ -96,9 +97,9 @@ public class PlayerControllerScript : MonoBehaviour {
 			}
             if (targetPosition != null)
             {
-                rb.MovePosition(new Vector2(targetPosition.Value.x, targetPosition.Value.y));
+				Move(targetPosition.Value.x - transform.position.x, targetPosition.Value.y - transform.position.y);
             }
-            if (targetPosition.Value.x == transform.position.x && targetPosition.Value.y == transform.position.y)
+			if (targetPosition.Value.x < transform.position.x + .1 && targetPosition.Value.x > transform.position.x - .1 && targetPosition.Value.y < transform.position.y + .1 && targetPosition.Value.y > transform.position.y - .1)
             {
                 rb.velocity.Set(0, 0);
                 targetPosition = null;
