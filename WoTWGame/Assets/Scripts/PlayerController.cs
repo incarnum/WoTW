@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
 	public float VPause;
 	private float HDelay;
 	private float VDelay;
+    public Vector3 targetPosition;
 
 
 	void Start () {
@@ -60,7 +61,13 @@ public class PlayerController : MonoBehaviour {
 			}
 			Move (h, v);
 		}
-	}
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            print(targetPosition);
+            Move(targetPosition.x, targetPosition.y);
+        }
+    }
 
 	void Move (float h, float v)
 	{

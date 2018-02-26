@@ -20,6 +20,8 @@ public class PlayerControllerScript : MonoBehaviour {
 	private GameObject buttonHolder;
     private GameObject pauseCanvas;
     public GameObject uiManager;
+    public Vector3? targetPosition;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
@@ -69,21 +71,38 @@ public class PlayerControllerScript : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Q)) {
 			Application.Quit();
 		}
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 400));
+        }
     }
 
 	// Update is called once per frame
 	void FixedUpdate () {
+        
+        //print(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -2)));
 		if (canMove) {
+            
 			float h = Input.GetAxisRaw ("Horizontal");
 			float v = Input.GetAxisRaw ("Vertical");
 			if (h != 0 || v != 0) {
 				//anim.SetBool ("Moving", true);
 				Move (h, v);
-				//anim.SetFloat ("H", Input.GetAxisRaw ("Horizontal"));
-				//anim.SetFloat ("V", Input.GetAxisRaw ("Vertical"));
-			}  else {
+                targetPosition = null;
+                //anim.SetFloat ("H", Input.GetAxisRaw ("Horizontal"));
+                //anim.SetFloat ("V", Input.GetAxisRaw ("Vertical"));
+            }  else {
 				//anim.SetBool ("Moving", false);
 			}
+            if (targetPosition != null)
+            {
+                rb.MovePosition(new Vector2(targetPosition.Value.x, targetPosition.Value.y));
+            }
+            if (targetPosition.Value.x == transform.position.x && targetPosition.Value.y == transform.position.y)
+            {
+                rb.velocity.Set(0, 0);
+                targetPosition = null;
+            }
 		}
 	}
 
