@@ -31,7 +31,7 @@ public class PlayButtonScript : MonoBehaviour {
 
 	IEnumerator LoadAsynchronously ()
 	{
-		AsyncOperation operation = SceneManager.LoadSceneAsync ("Forest 2");
+		AsyncOperation operation = SceneManager.LoadSceneAsync ("Forest 3");
 		Application.backgroundLoadingPriority = ThreadPriority.Low;
 		while (!operation.isDone) {
 			Debug.Log (operation.progress);
