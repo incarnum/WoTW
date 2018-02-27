@@ -3,52 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PylonScipt : MonoBehaviour {
-	public int pylonNum; //what role of pylon this is. 0 = target, 1 = effect, 2 = modifier
-	private bool windowActive; //is the window open
-	public GameObject window; //the ui window for choosing an ingredient
+    public int pylonNum; //what role of pylon this is. 0 = target, 1 = effect, 2 = modifier
+    private bool windowActive; //is the window open
+    public GameObject window; //the ui window for choosing an ingredient
     public GameObject corrWindow;
-	public GameObject selector; //the icon that shows what you currently have selected, changes color based on validity
+    public GameObject selector; //the icon that shows what you currently have selected, changes color based on validity
     public GameObject corrSelector;
-	private bool touching; //is the player touching the pylon
-	private GameObject player;
-	private int currentSelection; //the ingredient the player has highlighted. This script displays a tooltip explaining what the ing does if used in this slot
-	public int activeSelection = -1; //the ingredient the pylon is currently storing. This is used by the core script to determine what spell is made.
-	public List<GameObject> options;
+    private bool touching; //is the player touching the pylon
+    private GameObject player;
+    private int currentSelection; //the ingredient the player has highlighted. This script displays a tooltip explaining what the ing does if used in this slot
+    public int activeSelection = -1; //the ingredient the pylon is currently storing. This is used by the core script to determine what spell is made.
+    public List<GameObject> options;
     public List<GameObject> corrOptions;
     public PylonCoreScript core; //the object/script that casts the spells
-	public CorruptedPylonCoreScript core2; //the object/script that casts the cleanse corruption spells. Pylons at corrupted pylon circles need and use this rather than regular core
-	private bool validSelection; //a bool for if the player has enough of the currently selected ingredient to put it on the pylon
-	public GameObject holdingSprite; //the ingredient sprite that floats above the pylon
-	public SpriteRenderer glow; //the color changing runes on the pylon
-	public GameObject descriptionText; //the tooltip explaining what an ingredient does
+    public CorruptedPylonCoreScript core2; //the object/script that casts the cleanse corruption spells. Pylons at corrupted pylon circles need and use this rather than regular core
+    private bool validSelection; //a bool for if the player has enough of the currently selected ingredient to put it on the pylon
+    public GameObject holdingSprite; //the ingredient sprite that floats above the pylon
+    public SpriteRenderer glow; //the color changing runes on the pylon
+    public GameObject descriptionText; //the tooltip explaining what an ingredient does
     public GameObject corrDescriptionText;
-	public bool corrupted; //is this pylon at a corrupted pylon circle
+    public bool corrupted; //is this pylon at a corrupted pylon circle
     public GameObject cpcs;
     public int corrCost;
-	public GameObject ingredientPopUp;
-	private Color corrColor;
-	private Color shrubColor;
-	private Color deerColor;
-	private Color wolfColor;
-	private Color rabbitColor;
-	private Color owlColor;
-	// Use this for initialization
-	void Start () {
-		player = GameObject.Find ("Player");
+    public GameObject ingredientPopUp;
+    private Color corrColor;
+    private Color shrubColor;
+    private Color deerColor;
+    private Color wolfColor;
+    private Color rabbitColor;
+    private Color owlColor;
+    // Use this for initialization
+    void Start() {
+        player = GameObject.Find("Player");
         corrCost = 1;
         core = cpcs.GetComponent<PylonCoreScript>();
         core2 = cpcs.GetComponent<CorruptedPylonCoreScript>();
-		corrColor = core.corrColor;
-		shrubColor = core.shrubColor;
-		deerColor = core.deerColor;
-		wolfColor = core.wolfColor;
-		rabbitColor = core.rabbitColor;
-		owlColor = core.owlColor;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
+        corrColor = core.corrColor;
+        shrubColor = core.shrubColor;
+        deerColor = core.deerColor;
+        wolfColor = core.wolfColor;
+        rabbitColor = core.rabbitColor;
+        owlColor = core.owlColor;
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (corrWindow.active || window.active)
+        {
+            player.GetComponent<PlayerControllerScript>().canMove = false;
+            player.GetComponent<PlayerControllerB>().canMove = false;
+        }
 		if (touching && Input.GetKeyDown (KeyCode.E) && !corrupted) {
 			if (!windowActive) {
                 if (corrupted)
