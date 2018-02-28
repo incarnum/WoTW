@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseScript : MonoBehaviour {
     //Pause menu buttons
@@ -52,6 +53,9 @@ public class PauseScript : MonoBehaviour {
 
     private GameObject eco;
 
+	private Color DefaultTextColor;
+
+	public GameManagerScript gameManager;
 
 
 	// Use this for initialization
@@ -68,6 +72,7 @@ public class PauseScript : MonoBehaviour {
             string resString = res.width + "x" + res.height;
             resGUI.GetComponent<UnityEngine.UI.Dropdown>().options.Add(new UnityEngine.UI.Dropdown.OptionData {text = resString});
         }
+		DefaultTextColor = applyButton.GetComponentsInChildren<Text> () [0].color;
 	}
 	
 	// Update is called once per frame
@@ -135,6 +140,7 @@ public class PauseScript : MonoBehaviour {
         fullscreenGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = Screen.fullScreen;
         musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = musicSource.activeSelf;
         soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn = soundSource.activeSelf;
+		CheckIfThereAreChanges ();
 
 
         //find current res value
@@ -158,10 +164,15 @@ public class PauseScript : MonoBehaviour {
         int setting = resGUI.GetComponent<UnityEngine.UI.Dropdown>().value;
         resWidth = resOptions[setting].width;
         resHeight = resOptions[setting].height;
+		fullScreen = fullscreenGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn;
         Screen.SetResolution(resWidth, resHeight, fullScreen);
 
         musicSource.SetActive(musicGUI.GetComponent<UnityEngine.UI.Toggle>().isOn);
         soundSource.SetActive(soundGUI.GetComponent<UnityEngine.UI.Toggle>().isOn);
+		CheckIfThereAreChanges ();
+
+		gameManager.musicBool = musicGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn;
+		gameManager.soundBool = soundGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn;
     }
 
     public void ReturnToPause()
@@ -183,7 +194,7 @@ public class PauseScript : MonoBehaviour {
     public void ExitToMain()
     {
 		StartCoroutine (LoadAsynchronously());
-		GameObject.Find ("WotW soundtrack").GetComponent<fadeAudioScript> ().beginFade (1f);
+		musicSource.GetComponent<fadeAudioScript> ().beginFade (1f);
 		screenFade.SetActive (true);
     }
 
@@ -194,6 +205,24 @@ public class PauseScript : MonoBehaviour {
 		while (!operation.isDone) {
 			Debug.Log (operation.progress);
 			yield return null;
+		}
+	}
+
+	public void CheckIfThereAreChanges() {
+
+		if (
+			fullScreen == fullscreenGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn &&
+			musicSource.activeSelf == musicGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn &&
+			soundSource.activeSelf == soundGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn &&
+			Screen.currentResolution.height == resOptions[resGUI.GetComponent<UnityEngine.UI.Dropdown>().value].height &&
+			Screen.currentResolution.width == resOptions[resGUI.GetComponent<UnityEngine.UI.Dropdown>().value].width
+		)
+		{
+			applyButton.GetComponent<Button> ().interactable = false;
+			applyButton.GetComponentsInChildren<Text> () [0].color = Color.clear;
+		} else {
+			applyButton.GetComponent<Button> ().interactable = true;
+			applyButton.GetComponentsInChildren<Text> () [0].color = DefaultTextColor;
 		}
 	}
 }

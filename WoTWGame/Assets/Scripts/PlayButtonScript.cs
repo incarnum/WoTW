@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class PlayButtonScript : MonoBehaviour {
 	public RingSpinUI ring;
 	public GameObject screenFade;
+	public GameObject menu;
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1f;
-
 	}
 	
 	// Update is called once per frame
@@ -27,6 +27,7 @@ public class PlayButtonScript : MonoBehaviour {
 	public void Pressed() {
 		StartCoroutine (LoadAsynchronously());
 		ring.SpeedBoost ();
+		menu.SetActive (false);
 	}
 
 	IEnumerator LoadAsynchronously ()

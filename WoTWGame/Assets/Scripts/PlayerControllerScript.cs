@@ -71,11 +71,11 @@ public class PlayerControllerScript : MonoBehaviour {
 		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Q)) {
 			Application.Quit();
 		}
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 189));
-			//print (targetPosition);
-        }
+//        if (Input.GetKeyDown(KeyCode.Mouse0))
+//        {
+//            targetPosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 189));
+//			//print (targetPosition);
+//        }
     }
 
 	// Update is called once per frame
@@ -89,21 +89,21 @@ public class PlayerControllerScript : MonoBehaviour {
 			if (h != 0 || v != 0) {
 				//anim.SetBool ("Moving", true);
 				Move (h, v);
-                targetPosition = null;
+//                targetPosition = null;
                 //anim.SetFloat ("H", Input.GetAxisRaw ("Horizontal"));
                 //anim.SetFloat ("V", Input.GetAxisRaw ("Vertical"));
             }  else {
 				//anim.SetBool ("Moving", false);
 			}
-            if (targetPosition != null)
-            {
-				Move(targetPosition.Value.x - transform.position.x, targetPosition.Value.y - transform.position.y);
-            }
-			if (targetPosition.Value.x < transform.position.x + .1 && targetPosition.Value.x > transform.position.x - .1 && targetPosition.Value.y < transform.position.y + .1 && targetPosition.Value.y > transform.position.y - .1)
-            {
-                rb.velocity.Set(0, 0);
-                targetPosition = null;
-            }
+//            if (targetPosition != null)
+//            {
+//				Move(targetPosition.Value.x - transform.position.x, targetPosition.Value.y - transform.position.y);
+//            }
+//			if (targetPosition.Value.x < transform.position.x + .1 && targetPosition.Value.x > transform.position.x - .1 && targetPosition.Value.y < transform.position.y + .1 && targetPosition.Value.y > transform.position.y - .1)
+//            {
+//                rb.velocity.Set(0, 0);
+//                targetPosition = null;
+//            }
 		}
 	}
 

@@ -129,8 +129,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     private DialogueTrigger sff;
 
     //Music Manager
-    private AudioSource mainMusic;
-    private AudioSource corruptMusic;
+    public AudioSource mainMusic;
+    public AudioSource corruptMusic;
     private bool corruptPlaying;
     //Must be < 1
     public float warningPercent;
@@ -200,8 +200,6 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         }
         firstFall = true;
 
-        mainMusic = GameObject.Find("WotW soundtrack").GetComponent<AudioSource>();
-        corruptMusic = GameObject.Find("Mus_Corrupt").GetComponent<AudioSource>();
         corruptPlaying = false;
     }
 
