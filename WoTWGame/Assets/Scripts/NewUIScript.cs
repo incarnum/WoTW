@@ -18,28 +18,28 @@ public class NewUIScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 	public GameObject MouseoverInfo;
 	// Use this for initialization
 	void Start () {
-        if (bPop.corrupting)
-        {
-            corrPopChange.text += bPop.corruptionRate.ToString("0");
-        }
-        else
-        {
-            corrPopChange.text = "0";
-        }
+//        if (bPop.corrupting)
+//        {
+//            corrPopChange.text += bPop.corruptionRate.ToString("0");
+//        }
+//        else
+//        {
+//            corrPopChange.text = "0";
+//        }
 			
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (bPop.corrupting)
-        {
-//            corrPopChange.text = "";
-//            corrPopChange.text += bPop.corruptionRate.ToString("0");
-        }
-        else
-        {
-            corrPopChange.text = "0";
-        }
+//        if (bPop.corrupting)
+//        {
+////            corrPopChange.text = "";
+////            corrPopChange.text += bPop.corruptionRate.ToString("0");
+//        }
+//        else
+//        {
+//            corrPopChange.text = "0";
+//        }
 //        pop.text = "";
 //        pop.text = bPop.pop.ToString("0");
 //        corrPop.text = "";

@@ -33,6 +33,10 @@ public class UIManager : MonoBehaviour {
         {
             RotateRight();
         }
+		if (Input.GetKeyDown("z"))
+		{
+			UpdateMouseoverInfo ();
+		}
         if (!deerOn)
         {
             if (deerUI.activeSelf)

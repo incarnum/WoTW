@@ -32,7 +32,7 @@ public class InventoryScript : MonoBehaviour {
 		berryText = GameObject.Find ("BerryText");
 		antlerText = GameObject.Find ("AntlerText");	
 		fangText = GameObject.Find ("FangText");
-		rabbitFootText = GameObject.Find ("RabitFootText");
+		rabbitFootText = GameObject.Find ("RabbitFootText");
 		owlFeatherText = GameObject.Find ("OwlFeatherText");
 	}
 	
