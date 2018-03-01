@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class cameraShiftScript : MonoBehaviour {
 	public bool stage1;
@@ -17,9 +18,13 @@ public class cameraShiftScript : MonoBehaviour {
 	public Animator branch6;
 	public Animator branch7;
 	public Animator branch8;
+	public Animator credits;
+	public Animator overlay;
 	// Use this for initialization
 	void Start () {
 //		target1 = GetComponentsInChildren<Transform>()[1];
+		overlay = GameObject.Find("MainOverlayCanvas").GetComponent<Animator>();
+		credits = GameObject.Find ("Credits").GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -36,15 +41,20 @@ public class cameraShiftScript : MonoBehaviour {
 			branch1.SetTrigger ("move7");
 			branch3.SetTrigger ("move7");
 			landscape.SetTrigger ("spin");
-//			branch3.SetTrigger ("move2");
-//			branch4.SetTrigger ("move4");
-//			branch5.SetTrigger ("move5");
-//			branch6.SetTrigger ("move6");
-//			branch7.SetTrigger ("move7");
-//			branch8.SetTrigger ("move8");
+			overlay.SetTrigger ("fade");
+			StartCoroutine (CreditsDelay ());
+			StartCoroutine (MainMenuDelay ());
 
-			// put it all in one animator
 
 		}
+	}
+	IEnumerator CreditsDelay() {
+		yield return new WaitForSeconds (27);
+		credits.SetTrigger ("rollCredits");
+	}
+		
+	IEnumerator MainMenuDelay() {
+		yield return new WaitForSeconds (53);
+		SceneManager.LoadScene ("MainMenu");
 	}
 }

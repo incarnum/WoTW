@@ -91,11 +91,17 @@ public class CorruptedPylonCoreScript : MonoBehaviour
         clFiN = GameObject.Find("CleanseFinalNode").GetComponent<DialogueTrigger>();
         dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
 		if (health == 3) {
+			print (corruptionNode.transform.GetChild(0).name);
 			corruptionNode.GetComponent<Animator> ().SetTrigger ("idle1");
+			corruptionNode.transform.GetChild(0).gameObject.SetActive (true);
 		} else if (health == 2) {
 			corruptionNode.GetComponent<Animator> ().SetTrigger ("idle2");
+			corruptionNode.transform.GetChild(0).gameObject.SetActive (false);
+			corruptionNode.transform.GetChild(1).gameObject.SetActive (true);
 		} else if (health == 1) {
 			corruptionNode.GetComponent<Animator> ().SetTrigger ("idle3");
+			corruptionNode.transform.GetChild(1).gameObject.SetActive (false);
+			corruptionNode.transform.GetChild(2).gameObject.SetActive (true);
 		}
         if (GameObject.Find("Player").GetComponent<PlayerControllerScript>().noChargeMode)
         {

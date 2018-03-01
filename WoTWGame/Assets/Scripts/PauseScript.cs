@@ -57,10 +57,13 @@ public class PauseScript : MonoBehaviour {
 
 	public GameManagerScript gameManager;
 
+	private Animator timeStopCanvas;
+
 
 	// Use this for initialization
 	void Start () {
         eco = GameObject.Find("SimpleEcologyMaster");
+		timeStopCanvas = GameObject.Find ("TimeStopCanvas").GetComponent<Animator>();
         paused = false;
         optionsOpened = false;
         fullScreen = Screen.fullScreen;
@@ -86,10 +89,13 @@ public class PauseScript : MonoBehaviour {
 		pauseMenu.SetActive(true);
 
         overlayCanvas.GetComponent<Canvas>().enabled = false;
-        multiMenuCanvas.SetActive(false);
+//        multiMenuCanvas.SetActive(false);
 
         eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = true;
         eco.GetComponent<SimpleEcologyMasterScript>().paused = true;
+		if (eco.GetComponent<SimpleEcologyMasterScript> ().areaTimeStop == false) {
+			timeStopCanvas.SetTrigger ("activate");
+		}
 
         paused = true;
     }
@@ -109,10 +115,13 @@ public class PauseScript : MonoBehaviour {
 		exitButton.GetComponent<menuButtonScript> ().ResetTextSize ();
 
         overlayCanvas.GetComponent<Canvas>().enabled = true;
-        multiMenuCanvas.SetActive(true);
+//        multiMenuCanvas.SetActive(true);
 
         eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = false;
         eco.GetComponent<SimpleEcologyMasterScript>().paused = false;
+		if (eco.GetComponent<SimpleEcologyMasterScript> ().areaTimeStop == false) {
+			timeStopCanvas.SetTrigger ("fade");
+		}
 
         paused = false;
     }
