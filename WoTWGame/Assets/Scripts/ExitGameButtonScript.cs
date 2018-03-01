@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExitGameButtonScript : MonoBehaviour {
+    private GameObject SureMenu;
 
 	// Use this for initialization
 	void Start () {
-		
+        SureMenu = GameObject.Find("AreYouSure");
 	}
 	
 	// Update is called once per frame
@@ -14,7 +15,11 @@ public class ExitGameButtonScript : MonoBehaviour {
 		
 	}
 
-	public void OnMouseDown() {
+	public void Exit() {
 		Application.Quit ();
 	}
+    public void OnMouseDown()
+    {
+        SureMenu.SetActive(true);
+    }
 }
