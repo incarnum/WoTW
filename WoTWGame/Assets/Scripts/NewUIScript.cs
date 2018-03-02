@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class NewUIScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
+public class NewUIScript : MonoBehaviour {
     public Text corrPop, pop, corrPopChange, popChange, leftChange, rightChange;
     public basePopulation bPop;
 	public RectTransform barFill;
@@ -62,15 +62,15 @@ public class NewUIScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 		targetLocation = targ;
 	}
 
-	public void OnPointerEnter(PointerEventData eventData) {
-		MouseoverInfo.SetActive (true);
-	}
-
-	public void OnPointerExit(PointerEventData eventData) {
-		MouseoverInfo.SetActive (false);
-	}
-
-	public void OnDisable() {
-		MouseoverInfo.SetActive (false);
-	}
+//	public void OnPointerEnter(PointerEventData eventData) {
+//		MouseoverInfo.SetActive (true);
+//	}
+//
+//	public void OnPointerExit(PointerEventData eventData) {
+//		MouseoverInfo.SetActive (false);
+//	}
+//
+//	public void OnDisable() {
+//		MouseoverInfo.SetActive (false);
+//	}
 }

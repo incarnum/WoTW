@@ -14,7 +14,9 @@ public class UIManager : MonoBehaviour {
 	public Text size;
 	public Text speed;
 	public Text toughness;
-	private basePopulation pop;
+	public GameObject buffDisplay;
+	public basePopulation pop;
+	public bool maximized;
 	// Use this for initialization
 	void Start () {
         UIRotator = new List<GameObject>();
@@ -25,30 +27,52 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("k"))
+        if (Input.GetKeyDown("a"))
         {
+			if (maximized)
             RotateLeft();
         }
-        if (Input.GetKeyDown("l"))
+        if (Input.GetKeyDown("d"))
         {
+			if (maximized)
             RotateRight();
         }
-		if (Input.GetKeyDown("z"))
+		if (Input.GetKeyDown("tab"))
 		{
 			UpdateMouseoverInfo ();
+			if (!maximized) {
+				if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().canMove) {
+					MaximizeBars ();
+					maximized = true;
+				}
+			} else {
+				ShrinkBars ();
+				maximized = false;
+			}
+
+
 		}
         if (!deerOn)
         {
             if (deerUI.activeSelf)
             {
-                deerOn = true;
-                UIRotator.Insert(1, deerUI);
-
-
-                UIRotator[0].GetComponent<NewUIScript>().Move(new Vector2(-X, 0));
-                UIRotator[1].GetComponent<NewUIScript>().Move(new Vector2(X, 0));
-                UIRotator [0].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
-				UIRotator [1].GetComponent<NewUIScript> ().UpperLayer.SetActive (true);
+				deerOn = true;
+				UIRotator.Insert(1, deerUI);
+				//leftButton.SetActive(true);
+				rightButton.SetActive(true);
+				currentSelection = 0;
+				for (int i = 0; i < UIRotator.Count; i++)
+				{
+					UIRotator[i].GetComponent<NewUIScript>().Move(new Vector2(X * (i - currentSelection), 0));
+					if (i == currentSelection)
+					{
+//						UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
+					}
+					else
+					{
+						UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(false);
+					}
+				}
             }
         }
         if (!wolfOn)
@@ -57,15 +81,15 @@ public class UIManager : MonoBehaviour {
             {
                 wolfOn = true;
                 UIRotator.Insert(2, wolfUI);
-                leftButton.SetActive(true);
-                rightButton.SetActive(true);
-                currentSelection = 1;
+                //leftButton.SetActive(true);
+                //rightButton.SetActive(true);
+                currentSelection = 0;
                 for (int i = 0; i < UIRotator.Count; i++)
                 {
                     UIRotator[i].GetComponent<NewUIScript>().Move(new Vector2(X * (i - currentSelection), 0));
                     if (i == currentSelection)
                     {
-                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
+//                        UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
                     }
                     else
                     {
@@ -98,9 +122,9 @@ public class UIManager : MonoBehaviour {
 
     public void RotateLeft()
     {
-        if (manager.activeSelf)
+		if (manager.activeSelf && deerOn)
         {
-            if(currentSelection > 0)
+			if(currentSelection > 0)
             {
                 currentSelection -= 1;
                 for (int i = 0; i < UIRotator.Count; i++)
@@ -117,7 +141,7 @@ public class UIManager : MonoBehaviour {
                     }
                 }
             }
-            if(currentSelection == 0)
+			if(currentSelection == 0)
             {
                 leftButton.SetActive(false);
             }
@@ -131,9 +155,9 @@ public class UIManager : MonoBehaviour {
 
     public void RotateRight()
     {
-        if (manager.activeSelf)
+		if (manager.activeSelf && deerOn)
         {
-            if (currentSelection < UIRotator.Count - 1)
+			if (currentSelection < UIRotator.Count - 1)
             {
                 currentSelection += 1;
                 for (int i = 0; i < UIRotator.Count; i++)
@@ -199,5 +223,40 @@ public class UIManager : MonoBehaviour {
 
 	void OnEnable() {
 		UpdateMouseoverInfo ();
+	}
+
+	public void MaximizeBars() {
+		manager.GetComponent<RectTransform> ().anchorMin = new Vector2 (.5f, .5f);
+		manager.GetComponent<RectTransform> ().anchorMax = new Vector2 (.5f, .5f);
+		manager.GetComponent<RectTransform> ().pivot = new Vector2 (.5f, .5f);
+		manager.GetComponent<RectTransform> ().localScale = new Vector2 (1, 1);
+		manager.GetComponent<RectTransform> ().localPosition = new Vector2 (0, 0);
+		UIRotator[currentSelection].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
+		buffDisplay.SetActive (true);
+		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().canMove = false;
+	}
+
+	public void ShrinkBars() {
+		manager.GetComponent<RectTransform> ().localScale = new Vector2 (.4f, .4f);
+		manager.GetComponent<RectTransform> ().localPosition = new Vector2 (45f, 45f);
+		manager.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 0);
+		manager.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 0);
+		manager.GetComponent<RectTransform> ().pivot = new Vector2 (.5f, .5f);
+		currentSelection = 0;
+		UIRotator[currentSelection].GetComponent<NewUIScript>().UpperLayer.SetActive(false);
+		for (int i = 0; i < UIRotator.Count; i++)
+		{
+			UIRotator[i].GetComponent<NewUIScript>().Move(new Vector2(X * (i - currentSelection), 0));
+			if (i == currentSelection)
+			{
+				UIRotator[i].transform.SetAsLastSibling();
+			}
+			else
+			{
+				UIRotator[i].GetComponent<NewUIScript>().UpperLayer.SetActive(false);
+			}
+		}
+		buffDisplay.SetActive (false);
+		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().canMove = true;
 	}
 }

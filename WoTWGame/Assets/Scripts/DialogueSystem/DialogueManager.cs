@@ -17,6 +17,7 @@ public class DialogueManager : MonoBehaviour
     public bool firstGrowShrubsCast;
 	public bool typing;
     public bool tutorialActive = true;
+	public bool windowUp;
 	private string sentence;
     private InventoryScript inventory;
     private bool givenStartingBerries = false;
@@ -27,6 +28,8 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<string> sentences;
     private Canvas overLay;
+
+	public TutorialUIManagerScript tm;
 
     // Use this for initialization
     void Start()
@@ -50,7 +53,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space") && overLay.enabled)
+		if (Input.GetKeyDown("space") && overLay.enabled && windowUp)
         {
 			Advance ();
         }
@@ -65,6 +68,7 @@ public class DialogueManager : MonoBehaviour
             convoCount++;
             animator.SetBool("IsOpen", true);
             sentences.Clear();
+			windowUp = true;
 //            print("cleared sentences");
 
             nameText.text = dialogue.name;
@@ -120,10 +124,8 @@ public class DialogueManager : MonoBehaviour
             inventory.berryNum += 3;
             inventory.berryText.GetComponent < Text >().text = inventory.berryNum.ToString();
         }
-		if (convoCount == 4 && zMenuPopUpDone == false) {
-			GameObject.Find ("ZButtonIndicator").transform.GetChild(0).gameObject.SetActive (true);
-			zMenuPopUpDone = true;
-		}
+		windowUp = false;
+		tm.NextPhase ();
     }
 
 	public void Advance() {
