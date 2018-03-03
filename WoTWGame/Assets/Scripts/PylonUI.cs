@@ -9,11 +9,9 @@ public class PylonUI : MonoBehaviour {
     //Collects variables from Editor
     public List<IngCircle> Ingredients = new List<IngCircle>();
     public string DefaultInfo;
+    public GameObject ItemPrefab;
 
     private Text CurrentInfo;
-
-    //Pylon Circle Template
-    private GameObject ItemPrefab;
 
     //List of Cirlces
     private List<GameObject> Elements = new List<GameObject>();
@@ -22,12 +20,11 @@ public class PylonUI : MonoBehaviour {
 	void Start () {
         CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
         CurrentInfo.text = DefaultInfo;
-        ItemPrefab = GameObject.Find("PylonCircle");
 
         //Create Circles from Editor data
         foreach (IngCircle data in Ingredients)
         {
-            GameObject newCircle = ItemPrefab = new GameObject(data.Name);
+            GameObject newCircle = Instantiate(ItemPrefab);
             newCircle.transform.parent = transform;
             newCircle.GetComponent<PylonCircle>().data = data;
             Elements.Add(newCircle);

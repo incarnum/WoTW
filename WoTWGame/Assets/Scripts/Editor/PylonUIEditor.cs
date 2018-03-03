@@ -7,10 +7,12 @@ using UnityEditorInternal;
 public class PylonUIEditor : Editor {
     private ReorderableList list;
     SerializedProperty defaultText;
+    SerializedProperty circlePrefab;
 
     private void OnEnable()
     {
         defaultText = serializedObject.FindProperty("DefaultInfo");
+        circlePrefab = serializedObject.FindProperty("ItemPrefab");
         list = new ReorderableList(serializedObject,
                 serializedObject.FindProperty("Ingredients"),
                 true, true, true, true);
@@ -41,6 +43,7 @@ public class PylonUIEditor : Editor {
         serializedObject.Update();
         list.DoLayoutList();
         EditorGUILayout.PropertyField(defaultText);
+        EditorGUILayout.PropertyField(circlePrefab);
         serializedObject.ApplyModifiedProperties();
     }
 }

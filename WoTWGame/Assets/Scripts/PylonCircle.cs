@@ -8,14 +8,14 @@ public class PylonCircle : MonoBehaviour {
     // Use this for initialization
     private Text Name;
     private Text Amount;
-    private Sprite Icon;
+    private Image Icon;
     private string Info;
     private Text InfoBox;
 
 	void Start () {
         Name = gameObject.transform.Find("Name").GetComponent<Text>();
         Amount = gameObject.transform.Find("Amount").GetComponent<Text>();
-        Icon = gameObject.transform.Find("Icon").GetComponent<Image>().sprite;
+        Icon = gameObject.transform.Find("Icon").GetComponent<Image>();
 		
 	}
 	
@@ -23,7 +23,7 @@ public class PylonCircle : MonoBehaviour {
 	void Update () {
         Name.text = data.Name;
         Amount.text = data.Amount.ToString();
-        Icon = data.Icon;
+        Icon.overrideSprite = data.Icon;
 		
 	}
 
