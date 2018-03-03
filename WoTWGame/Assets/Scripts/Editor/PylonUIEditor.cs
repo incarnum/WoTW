@@ -6,9 +6,11 @@ using UnityEditorInternal;
 [CanEditMultipleObjects]
 public class PylonUIEditor : Editor {
     private ReorderableList list;
+    SerializedProperty defaultText;
 
     private void OnEnable()
     {
+        defaultText = serializedObject.FindProperty("DefaultInfo");
         list = new ReorderableList(serializedObject,
                 serializedObject.FindProperty("Ingredients"),
                 true, true, true, true);
@@ -29,12 +31,16 @@ public class PylonUIEditor : Editor {
             new Rect(rect.x + rect.width - 30, rect.y, 30, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("Icon"), GUIContent.none);
     };
+        list.drawHeaderCallback = (Rect rect) => {
+            EditorGUI.LabelField(rect, "Ingredients On Display:");
+        };
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
         list.DoLayoutList();
+        EditorGUILayout.PropertyField(defaultText);
         serializedObject.ApplyModifiedProperties();
     }
 }
