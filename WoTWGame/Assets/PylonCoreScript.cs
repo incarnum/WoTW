@@ -174,6 +174,7 @@ public class PylonCoreScript : MonoBehaviour
                     dm.firstGrowShrubsCast = false;
                     print("shrubs growing");
                     gsbc.TriggerDialogue();
+					GameObject.Find ("TutorialWall").SetActive (false);
                 }
                 float sizeCheck = (pop.size) + strength * 0.05f;
                 if (sizeCheck >= minSize && sizeCheck <= maxSize)
