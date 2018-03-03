@@ -199,6 +199,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 				deer.DoStart ();
 				eco.GetComponent<UIManager> ().ActivateDeer ();
 				eco.tempShrubCapBool = false;
+				shrub.corruptedPop -= cms.shrubPopStart;
                 //Deer get activated
                 //Polish: Deer moves across screen
             }
@@ -263,7 +264,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 
         }
         //this is where you put all the code for what corrupted spells do
-        if (target == 0)
+		if (target == 0)
         {
 //            if (strength == 0)
 //            {
