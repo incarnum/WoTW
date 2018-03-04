@@ -94,12 +94,6 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     public UIBarScript corruptedDeerBarUI;
     public UIBarScript corruptedWolfBarUI;
 
-    private float rateOfShrubChange;
-    private float rateOfDeerChange;
-    private float rateOfWolfChange;
-    private float rateOfRabbitChange;
-    private float rateOfOwlChange;
-
     public GameObject gameOver1;
     public GameObject gameOver2;
     public GameObject gameOver3;
@@ -338,12 +332,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
         //Because deer are the only creatures with 2 rising triggers (their pop changes both from the shrub pop and the wolf pop) they have an extra step
         //In order to have a way of telling what the net change to deer pop is every tick, the change from the bools has to be added together into
-        //the float rateOfDeerChange, and then that float is applies to the actual population.
-		rateOfShrubChange = 0;
-		rateOfDeerChange = 0;
-		rateOfWolfChange = 0;
-        rateOfRabbitChange = 0;
-        rateOfOwlChange = 0;
+        //the float deer.rateOfChange, and then that float is applies to the actual population.
+		shrub.rateOfChange = 0;
+		deer.rateOfChange = 0;
+		wolf.rateOfChange = 0;
+        rabbit.rateOfChange = 0;
+        owl.rateOfChange = 0;
         //the format of these is:
         //population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
         // of the buffs.
@@ -354,7 +348,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 					shrubPop = (2 + shrub.up1) * overallSpeed * Time.deltaTime;
 					shrubUI.popChange.text = (2 + shrub.up1).ToString();
 					shrubUI.rightChange.text = (2 + shrub.up1).ToString();
-					rateOfShrubChange += shrubPop;
+					shrub.rateOfChange += shrubPop;
 				}
 			}
 		}
@@ -363,12 +357,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
 			shrubUI.popChange.text = (-2 - shrub.down1).ToString();
 			shrubUI.rightChange.text = (-2 - shrub.down1).ToString();
-			rateOfShrubChange -= shrubPop;
+			shrub.rateOfChange -= shrubPop;
         }
-		shrub.pop += rateOfShrubChange;
-		if (rateOfShrubChange < 0)
+		shrub.pop += shrub.rateOfChange;
+		if (shrub.rateOfChange < 0)
 		{
-			shrub.corruptedPop += rateOfShrubChange * corruptionFallFactor;
+			shrub.corruptedPop += shrub.rateOfChange * corruptionFallFactor;
 			if (shrub.corruptedPop < 0)
 				shrub.corruptedPop = 0;
 		}
@@ -378,47 +372,47 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 			float simpleDeerRate = 0;
 			if (deer.rising1 == true && deer.pop < 100)
             {
-                rateOfDeerChange += (2 + deer.up1) * overallSpeed * Time.deltaTime;
+                deer.rateOfChange += (2 + deer.up1) * overallSpeed * Time.deltaTime;
 				deerUI.leftChange.text = (2 + deer.up1).ToString();
-                deerPop = rateOfDeerChange;
+                deerPop = deer.rateOfChange;
 				simpleDeerRate += (2 + deer.up1);
             }
             else
             {
 				if (wolf.enabled == false) {
-					rateOfDeerChange -= (7 + deer.down2) * overallSpeed * Time.deltaTime;
+					deer.rateOfChange -= (7 + deer.down2) * overallSpeed * Time.deltaTime;
 					deerUI.leftChange.text = (-(7 + deer.down2)).ToString();
-                    deerPop = rateOfDeerChange;
+                    deerPop = deer.rateOfChange;
 					simpleDeerRate += -(7 + deer.down2);
 				} else {
-					rateOfDeerChange -= (3 + deer.down2) * overallSpeed * Time.deltaTime;
+					deer.rateOfChange -= (3 + deer.down2) * overallSpeed * Time.deltaTime;
 					deerUI.leftChange.text = (-(3 + deer.down2)).ToString();
-                    deerPop = rateOfDeerChange;
+                    deerPop = deer.rateOfChange;
 					simpleDeerRate += -(3 + deer.down2);
                 }
 				
             }
 			if (deer.rising2 == true && deer.pop < 100)
             {
-                rateOfDeerChange += (2 + deer.up2) * overallSpeed * Time.deltaTime;
+                deer.rateOfChange += (2 + deer.up2) * overallSpeed * Time.deltaTime;
 				deerUI.rightChange.text = (2 + deer.up2).ToString();
-                deerPop2 = rateOfDeerChange;
+                deerPop2 = deer.rateOfChange;
 				simpleDeerRate += (2 + deer.up2);
             }
             else
             {
-                rateOfDeerChange -= (1 + deer.down2) * overallSpeed * Time.deltaTime * 2;
+                deer.rateOfChange -= (1 + deer.down2) * overallSpeed * Time.deltaTime * 2;
 
 				deerUI.rightChange.text = ((1 + deer.down2) * -2).ToString();
-                deerPop2 = rateOfDeerChange;
+                deerPop2 = deer.rateOfChange;
 				simpleDeerRate += (1 + deer.down2) * -2f;
             }
 
 			deerUI.popChange.text = simpleDeerRate.ToString();
-            deer.pop += rateOfDeerChange;
-            if (rateOfDeerChange < 0)
+            deer.pop += deer.rateOfChange;
+            if (deer.rateOfChange < 0)
             {
-				deer.corruptedPop += rateOfDeerChange * corruptionFallFactor;
+				deer.corruptedPop += deer.rateOfChange * corruptionFallFactor;
 				if (deer.corruptedPop < 0)
 					deer.corruptedPop = 0;
             }
@@ -431,14 +425,14 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             {
                 wolfPop = (2 + wolf.up1) * overallSpeed * Time.deltaTime;
 				wolfUI.leftChange.text = (2 + wolf.up1).ToString();
-				rateOfWolfChange += wolfPop;
+				wolf.rateOfChange += wolfPop;
 				simpleWolfRate += (2 + wolf.up1);
             }
             else
             {
                 wolfPop = (3 + wolf.down1) * overallSpeed * Time.deltaTime;
 				wolfUI.leftChange.text = (-3 - wolfDown).ToString();
-				rateOfWolfChange -= wolfPop;
+				wolf.rateOfChange -= wolfPop;
 				simpleWolfRate += (-3 - wolfDown);
             }
 			
@@ -449,14 +443,14 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                 {
                     rabbitPop = (1 + rabbit.up1) * overallSpeed * Time.deltaTime;
 					rabbitUI.leftChange.text = (1 + rabbit.up1).ToString();
-                    rateOfRabbitChange += rabbitPop;
+                    rabbit.rateOfChange += rabbitPop;
 					simpleRabbitRate += (1 + rabbit.up1);
                 }
                 else
                 {
                     rabbitPop = (1 + rabbit.down1) * overallSpeed * Time.deltaTime;
 					rabbitUI.leftChange.text = (-1 - rabbit.down1).ToString();
-                    rateOfRabbitChange -= rabbitPop;
+                    rabbit.rateOfChange -= rabbitPop;
 					simpleRabbitRate += (-1 - rabbit.down1);
                 }
 
@@ -464,14 +458,14 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                 {
                     wolfPop2 = (3 + wolf.up2) * overallSpeed * Time.deltaTime;
 					wolfUI.rightChange.text = (3 + wolf.up2).ToString();
-                    rateOfWolfChange += wolfPop2;
+                    wolf.rateOfChange += wolfPop2;
 					simpleWolfRate += (3 + wolf.up2);
                 }
                 else
                 {
                     wolfPop2 = (2 + wolf.down2) * overallSpeed * Time.deltaTime;
 					wolfUI.rightChange.text = (-2 - wolf.down2).ToString();
-                    rateOfWolfChange -= wolfPop2;
+                    wolf.rateOfChange -= wolfPop2;
 					simpleWolfRate += (-2 - wolf.down2);
                 }
 
@@ -482,21 +476,21 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                     {
                         owlPop = (3 + owl.up1) * overallSpeed * Time.deltaTime;
 						owlUI.leftChange.text = (3 + owl.up1).ToString();
-                        rateOfOwlChange += owlPop;
+                        owl.rateOfChange += owlPop;
 						simpleOwlRate += (3 + owl.up1);
                     }
                     else
                     {
                         owlPop = (3 + owl.down1) * overallSpeed * Time.deltaTime;
 						owlUI.leftChange.text = (-3 - owl.down1).ToString();
-                        rateOfOwlChange -= owlPop;
+                        owl.rateOfChange -= owlPop;
 						simpleOwlRate += (-3 - owl.down1);
                     }
 					owlUI.popChange.text = simpleOwlRate.ToString();
-                    owl.pop += rateOfOwlChange;
-                    if (rateOfOwlChange < 0)
+                    owl.pop += owl.rateOfChange;
+                    if (owl.rateOfChange < 0)
                     {
-                        owl.corruptedPop += rateOfOwlChange * corruptionFallFactor;
+                        owl.corruptedPop += owl.rateOfChange * corruptionFallFactor;
 						if (owl.corruptedPop < 0)
 							owl.corruptedPop = 0;
                     }
@@ -505,32 +499,32 @@ public class SimpleEcologyMasterScript : MonoBehaviour
                     {
                         rabbitPop2 = (1 + rabbit.up2) * overallSpeed * Time.deltaTime;
 						rabbitUI.rightChange.text = (1 + rabbit.up2).ToString();
-                        rateOfRabbitChange += rabbitPop2;
+                        rabbit.rateOfChange += rabbitPop2;
 						simpleRabbitRate += (1 + rabbit.up2);
                     }
                     else
                     {
                         rabbitPop2 = (1 + rabbit.down2) * overallSpeed * Time.deltaTime;
 						rabbitUI.rightChange.text = (-1 - rabbit.down2).ToString();
-                        rateOfRabbitChange -= rabbitPop2;
+                        rabbit.rateOfChange -= rabbitPop2;
 						simpleRabbitRate += (-1 - rabbit.down2);
                     }
                 }
 
 				rabbitUI.popChange.text = simpleRabbitRate.ToString();
-                rabbit.pop += rateOfRabbitChange;
-                if (rateOfRabbitChange < 0)
+                rabbit.pop += rabbit.rateOfChange;
+                if (rabbit.rateOfChange < 0)
                 {
-                    rabbit.corruptedPop += rateOfRabbitChange * corruptionFallFactor;
+                    rabbit.corruptedPop += rabbit.rateOfChange * corruptionFallFactor;
 					if (rabbit.corruptedPop < 0)
 						rabbit.corruptedPop = 0;
                 }
             }
 			wolfUI.popChange.text = simpleWolfRate.ToString();
-            wolf.pop += rateOfWolfChange;
-            if (rateOfWolfChange < 0)
+            wolf.pop += wolf.rateOfChange;
+            if (wolf.rateOfChange < 0)
             {
-                wolf.corruptedPop += rateOfWolfChange * corruptionFallFactor;
+                wolf.corruptedPop += wolf.rateOfChange * corruptionFallFactor;
 				if (wolf.corruptedPop < 0)
 					wolf.corruptedPop = 0;
             }

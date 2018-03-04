@@ -18,6 +18,7 @@ public class basePopulation : MonoBehaviour {
     public basePopulation food1, food2, pred1, pred2;
 	public SimpleEcologyMasterScript eco;
 	public corruptionManagerScript cm;
+    public float rateOfChange;
     // Use this for initialization
     void Start () {
 		
@@ -86,11 +87,7 @@ public class basePopulation : MonoBehaviour {
             corrupting = false;
         }
 		corruptionRate = cm.currentCorruptionRate;
-        if(corrupting && rising1)
-        {
-            corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * 4;
-        }
-        if (corrupting && rising2)
+        if(corrupting && rateOfChange > 0)
         {
             corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * 4;
         }
