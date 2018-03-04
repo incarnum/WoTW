@@ -14,6 +14,7 @@ public class PlayerControllerB : MonoBehaviour {
 	public float VPause;
 	private float HDelay;
 	private float VDelay;
+	public Transform detector;
 
 
 	void Start () {
@@ -32,29 +33,35 @@ public class PlayerControllerB : MonoBehaviour {
 					anim.SetFloat ("LastMoveX", -1f);
 					transform.localScale = new Vector3 (-Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 					H = 1f;
+					detector.localPosition = new Vector2 (-1f, detector.localPosition.y);
 					HDelay = Time.time + HPause;
 				} else if (h < 0) {
 					anim.SetFloat ("LastMoveX", -1f);
 					transform.localScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
 					H = -1f;
+					detector.localPosition = new Vector2 (-1f, detector.localPosition.y);
 					HDelay = Time.time + HPause;
 				} else if (h == 0 && HDelay < Time.time) {
 					anim.SetFloat ("LastMoveX", 0f);
 					H = 0f;
+					detector.localPosition = new Vector2 (0f, detector.localPosition.y);
 				} 
 
 				if (v > 0) {
 					anim.SetFloat ("LastMoveY", 1f);
 					V = 1f;
 					VDelay = Time.time + VPause;
+					detector.localPosition = new Vector2 (detector.localPosition.x, .6f);
 				} else if (v < 0) {
 					anim.SetFloat ("LastMoveY", -1f);
 
 					V = -1f;
 					VDelay = Time.time + VPause;
+					detector.localPosition = new Vector2 (detector.localPosition.x, -1.4f);
 				} else if (v == 0 && VDelay < Time.time) {
 					anim.SetFloat ("LastMoveY", 0f);
 					V = 0f;
+					detector.localPosition = new Vector2 (detector.localPosition.x, -.5f);
 				} 
 
 			} else {

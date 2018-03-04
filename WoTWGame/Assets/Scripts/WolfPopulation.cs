@@ -24,6 +24,7 @@ public class WolfPopulation : basePopulation {
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().wolfCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedWolfCreatureList;
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
+		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
 		DoUpdate ();
 		biomass = pop;
     }

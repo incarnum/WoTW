@@ -9,6 +9,8 @@ public class PlayerControllerScript : MonoBehaviour {
 	Rigidbody2D rb;
 	public bool canMove;
 	public bool paused;
+	public bool popBarPaused;
+	public bool dialoguePaused;
 	public bool noChargeMode;
 	private Vector3 worldUpperLeft;
 	private Vector3 worldLowerRight;
@@ -21,6 +23,10 @@ public class PlayerControllerScript : MonoBehaviour {
     private GameObject pauseCanvas;
     public GameObject uiManager;
     public Vector3? targetPosition;
+
+	public delegate void PauseAction();
+	public static event PauseAction OnPaused;
+	public static event PauseAction OnUnpaused;
 
 	// Use this for initialization
 	void Start () {
@@ -42,7 +48,7 @@ public class PlayerControllerScript : MonoBehaviour {
             }
             else
             {
-                Pause();
+				ToggleMenuPause ();
             }
 
 
@@ -115,43 +121,51 @@ public class PlayerControllerScript : MonoBehaviour {
 	}
 
 	public void Pause () {
-		if (!paused) {
-			//Camera.main.transform.position = new Vector3(GameObject.Find ("Map").transform.position.x, GameObject.Find ("Map").transform.position.y, GameObject.Find ("Map").transform.position.z - 5);
-			//Time.timeScale = 0;
-			paused = true;
+			if (OnPaused != null)
+				OnPaused ();
+			CheckIfICanMove ();
 			GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().TimeStopped ();
-			canMove = false;
-			GetComponent<PlayerControllerB> ().canMove = false;
-            pauseCanvas.GetComponent<PauseScript>().PauseGame();
-			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList) {
-				gunch.GetComponent<AnimalMovementScript> ().canMove = false;
-			}
-			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().wolfCreatureList) {
-				gunch.GetComponent<AnimalMovementScript> ().canMove = false;
-			}
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = true;
+	}
 
-		} else if (paused) {
-			//Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z - 100f);
-			paused = false;
+	public void UnPause() {
+			if (OnUnpaused != null)
+				OnUnpaused ();
+			CheckIfICanMove ();
 			GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().TimeResumed ();
+			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
+	}
+
+	public void TogglePause() {
+		if (!paused) {
+			paused = true;
+			Pause ();
+		} else {
+			paused = false;
+			UnPause ();
+		}
+	}
+
+	public void ToggleMenuPause() {
+		if (!paused) {
+			paused = true;
+			Pause ();
+			pauseCanvas.GetComponent<PauseScript>().PauseGame();
+		} else {
+			paused = false;
+			UnPause ();
+			pauseCanvas.GetComponent<PauseScript>().ResumeGame();
+		}
+	}
+
+	public void CheckIfICanMove() {
+		if (!paused && !popBarPaused && !dialoguePaused) {
 			canMove = true;
 			GetComponent<PlayerControllerB> ().canMove = true;
-            pauseCanvas.GetComponent<PauseScript>().ResumeGame();
 
-			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList) {
-				gunch.GetComponent<AnimalMovementScript> ().canMove = true;
-			}
-			foreach (GameObject gunch in GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().wolfCreatureList) {
-				gunch.GetComponent<AnimalMovementScript> ().canMove = true;
-			}
-
-			foreach (GameObject gunch in corrIconList) {
-				Destroy (gunch);
-			}
-			corrIconList.Clear();
-
-			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
+		} else {
+			canMove = false;
+			GetComponent<PlayerControllerB> ().canMove = false;
 		}
 	}
 }

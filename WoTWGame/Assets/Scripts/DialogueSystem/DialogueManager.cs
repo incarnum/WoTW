@@ -22,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     private InventoryScript inventory;
     private bool givenStartingBerries = false;
 	private bool zMenuPopUpDone = false;
+	private TimeStopCanvas tsc;
 
     private DeerPopulation deer;
     private WolfPopulation wolf;
@@ -38,6 +39,7 @@ public class DialogueManager : MonoBehaviour
         sentences = new Queue<string>();
         player = GameObject.Find("Player").GetComponent<PlayerControllerScript>();
         inventory = GameObject.Find("Player").GetComponent<InventoryScript>();
+		tsc = GameObject.Find ("TimeStopCanvas").GetComponent<TimeStopCanvas> ();
         convoCount = 0;
         cleansedNodes = 0;
         firstCorrCast = true;
@@ -63,8 +65,10 @@ public class DialogueManager : MonoBehaviour
     {
         if (tutorialActive)
         {
-            player.canMove = false;
-            player.GetComponent<PlayerControllerB>().canMove = false;
+			player.dialoguePaused = true;
+			tsc.dialogueStop = true;
+			tsc.CheckVisibility ();
+			player.CheckIfICanMove ();
             convoCount++;
             animator.SetBool("IsOpen", true);
             sentences.Clear();
@@ -116,8 +120,10 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetBool("IsOpen", false);
 //        print("ClosingDBox");
-        player.canMove = true;
-		player.GetComponent<PlayerControllerB> ().canMove = true;
+		player.dialoguePaused = false;
+		player.CheckIfICanMove ();
+		tsc.dialogueStop = false;
+		tsc.CheckVisibility ();
         if (convoCount == 1 && !givenStartingBerries)
         {
             givenStartingBerries = true;

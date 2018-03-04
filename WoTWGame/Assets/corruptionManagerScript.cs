@@ -53,18 +53,15 @@ public class corruptionManagerScript : MonoBehaviour
 	public void  TimeStopped() {
 		storedNextCorruptTime = nextCorruptionTime - Time.time;
 		nextCorruptionTime = Mathf.Infinity;
-		print ("timer stopped");
 	}
 
 	public void TimeResumed() {
 		nextCorruptionTime = storedNextCorruptTime + Time.time;
-		print ("timer resumed with " + storedNextCorruptTime.ToString () + " seconds to go");
 	}
 
 	public void CheckStartingTimer() {
 		if (shrub.corruptedPop <= 0 && deer.corruptedPop <= 0 && wolf.corruptedPop <= 0 && rabbit.corruptedPop <= 0 && owl.corruptedPop <= 0) {
 			nextCorruptionTime = Time.time + infectTime;
-			print ("Starting timer");
 		}
 	}
 

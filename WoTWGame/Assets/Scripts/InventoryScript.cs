@@ -29,11 +29,7 @@ public class InventoryScript : MonoBehaviour {
 	public GameObject owlFeatherText2;
 	// Use this for initialization
 	void Start () {
-		berryText = GameObject.Find ("BerryText");
-		antlerText = GameObject.Find ("AntlerText");	
-		fangText = GameObject.Find ("FangText");
-		rabbitFootText = GameObject.Find ("RabbitFootText");
-		owlFeatherText = GameObject.Find ("OwlFeatherText");
+
 	}
 	
 	// Update is called once per frame

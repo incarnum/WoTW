@@ -351,9 +351,9 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 		if (shrub.rising1 == true) {
 			if (shrub.biomass < 100) {
 				if (tempShrubCapBool == false || (shrub.biomass < tempShrubCap)) {
-					shrubPop = (2 + shrub.up1 * .2f) * overallSpeed * Time.deltaTime;
-					shrubUI.popChange.text = simplifyNumber(shrubPop / Time.deltaTime).ToString ();
-					shrubUI.rightChange.text = simplifyNumber(shrubPop / Time.deltaTime).ToString ();
+					shrubPop = (2 + shrub.up1) * overallSpeed * Time.deltaTime;
+					shrubUI.popChange.text = (2 + shrub.up1).ToString();
+					shrubUI.rightChange.text = (2 + shrub.up1).ToString();
 					rateOfShrubChange += shrubPop;
 				}
 			}
@@ -361,147 +361,178 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         else
         {
             shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
-			shrubUI.popChange.text = simplifyNumber(shrubPop / Time.deltaTime * -1).ToString ();
-			shrubUI.rightChange.text = simplifyNumber(shrubPop / Time.deltaTime * -1).ToString ();
+			shrubUI.popChange.text = (-2 - shrub.down1).ToString();
+			shrubUI.rightChange.text = (-2 - shrub.down1).ToString();
 			rateOfShrubChange -= shrubPop;
         }
 		shrub.pop += rateOfShrubChange;
 		if (rateOfShrubChange < 0)
 		{
 			shrub.corruptedPop += rateOfShrubChange * corruptionFallFactor;
+			if (shrub.corruptedPop < 0)
+				shrub.corruptedPop = 0;
 		}
 
         if(deer.enabled == true)
         {
+			float simpleDeerRate = 0;
 			if (deer.rising1 == true && deer.pop < 100)
             {
-                rateOfDeerChange += (2 + deer.up1 * .2f) * overallSpeed * Time.deltaTime;
-				deerUI.leftChange.text = simplifyNumber((2 + deer.up1 * .2f) * overallSpeed).ToString();
+                rateOfDeerChange += (2 + deer.up1) * overallSpeed * Time.deltaTime;
+				deerUI.leftChange.text = (2 + deer.up1).ToString();
                 deerPop = rateOfDeerChange;
+				simpleDeerRate += (2 + deer.up1);
             }
             else
             {
 				if (wolf.enabled == false) {
-					rateOfDeerChange -= (7 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
-					deerUI.leftChange.text = simplifyNumber(-((7 + deer.down2 * .2f) * overallSpeed)).ToString();
+					rateOfDeerChange -= (7 + deer.down2) * overallSpeed * Time.deltaTime;
+					deerUI.leftChange.text = (-(7 + deer.down2)).ToString();
                     deerPop = rateOfDeerChange;
+					simpleDeerRate += -(7 + deer.down2);
 				} else {
-					rateOfDeerChange -= (3 + deer.down2 * .2f) * overallSpeed * Time.deltaTime;
-					deerUI.leftChange.text = simplifyNumber(-((3 + deer.down2 * .2f) * overallSpeed)).ToString();
+					rateOfDeerChange -= (3 + deer.down2) * overallSpeed * Time.deltaTime;
+					deerUI.leftChange.text = (-(3 + deer.down2)).ToString();
                     deerPop = rateOfDeerChange;
+					simpleDeerRate += -(3 + deer.down2);
                 }
 				
             }
 			if (deer.rising2 == true && deer.pop < 100)
             {
-                rateOfDeerChange += (2 + deer.up2 * .2f) * overallSpeed * Time.deltaTime;
-				deerUI.rightChange.text = simplifyNumber((2 + deer.up2 * .2f) * overallSpeed).ToString();
+                rateOfDeerChange += (2 + deer.up2) * overallSpeed * Time.deltaTime;
+				deerUI.rightChange.text = (2 + deer.up2).ToString();
                 deerPop2 = rateOfDeerChange;
+				simpleDeerRate += (2 + deer.up2);
             }
             else
             {
-                rateOfDeerChange -= (1 + deer.down2 * .2f) * overallSpeed * Time.deltaTime * 2;
+                rateOfDeerChange -= (1 + deer.down2) * overallSpeed * Time.deltaTime * 2;
 
-				deerUI.rightChange.text = simplifyNumber(-((1 + deer.down2 * .2f) * overallSpeed * 2)).ToString();
+				deerUI.rightChange.text = ((1 + deer.down2) * -2).ToString();
                 deerPop2 = rateOfDeerChange;
+				simpleDeerRate += (1 + deer.down2) * -2f;
             }
-			deerUI.popChange.text = simplifyNumber(rateOfDeerChange / Time.deltaTime).ToString();
+
+			deerUI.popChange.text = simpleDeerRate.ToString();
             deer.pop += rateOfDeerChange;
             if (rateOfDeerChange < 0)
             {
 				deer.corruptedPop += rateOfDeerChange * corruptionFallFactor;
+				if (deer.corruptedPop < 0)
+					deer.corruptedPop = 0;
             }
         }
         
         if(wolf.enabled == true)
         {
+			float simpleWolfRate = 0;
 			if (wolf.rising1 == true && wolf.pop < 100)
             {
-                wolfPop = (2 + wolf.up1 * .2f) * overallSpeed * Time.deltaTime;
-				wolfUI.leftChange.text = simplifyNumber(wolfPop / Time.deltaTime).ToString();
+                wolfPop = (2 + wolf.up1) * overallSpeed * Time.deltaTime;
+				wolfUI.leftChange.text = (2 + wolf.up1).ToString();
 				rateOfWolfChange += wolfPop;
+				simpleWolfRate += (2 + wolf.up1);
             }
             else
             {
-                wolfPop = (3 + wolf.down1 * .2f) * overallSpeed * Time.deltaTime;
-				wolfUI.leftChange.text = simplifyNumber(wolfPop / Time.deltaTime * -1).ToString();
+                wolfPop = (3 + wolf.down1) * overallSpeed * Time.deltaTime;
+				wolfUI.leftChange.text = (-3 - wolfDown).ToString();
 				rateOfWolfChange -= wolfPop;
+				simpleWolfRate += (-3 - wolfDown);
             }
 			
             if (rabbit.enabled)
             {
+				float simpleRabbitRate = 0;
                 if (rabbit.rising1 && rabbit.pop < 100)
                 {
-                    rabbitPop = (1 + rabbit.up1 * .2f) * overallSpeed * Time.deltaTime;
-					rabbitUI.leftChange.text = simplifyNumber(rabbitPop / Time.deltaTime).ToString();
+                    rabbitPop = (1 + rabbit.up1) * overallSpeed * Time.deltaTime;
+					rabbitUI.leftChange.text = (1 + rabbit.up1).ToString();
                     rateOfRabbitChange += rabbitPop;
+					simpleRabbitRate += (1 + rabbit.up1);
                 }
                 else
                 {
-                    rabbitPop = (1 + rabbit.down1 * .2f) * overallSpeed * Time.deltaTime;
-					rabbitUI.leftChange.text = simplifyNumber(rabbitPop / Time.deltaTime * -1).ToString();
+                    rabbitPop = (1 + rabbit.down1) * overallSpeed * Time.deltaTime;
+					rabbitUI.leftChange.text = (-1 - rabbit.down1).ToString();
                     rateOfRabbitChange -= rabbitPop;
+					simpleRabbitRate += (-1 - rabbit.down1);
                 }
 
                 if (wolf.rising2 && wolf.pop < 100)
                 {
-                    wolfPop2 = (3 + wolf.up2 * .2f) * overallSpeed * Time.deltaTime;
-					wolfUI.rightChange.text = simplifyNumber(wolfPop2 / Time.deltaTime).ToString();
+                    wolfPop2 = (3 + wolf.up2) * overallSpeed * Time.deltaTime;
+					wolfUI.rightChange.text = (3 + wolf.up2).ToString();
                     rateOfWolfChange += wolfPop2;
+					simpleWolfRate += (3 + wolf.up2);
                 }
                 else
                 {
-                    wolfPop2 = (2 + wolf.down2 * .2f) * overallSpeed * Time.deltaTime;
-					wolfUI.rightChange.text = simplifyNumber(wolfPop2 / Time.deltaTime * -1).ToString();
+                    wolfPop2 = (2 + wolf.down2) * overallSpeed * Time.deltaTime;
+					wolfUI.rightChange.text = (-2 - wolf.down2).ToString();
                     rateOfWolfChange -= wolfPop2;
+					simpleWolfRate += (-2 - wolf.down2);
                 }
 
                 if (owl.enabled)
                 {
+					float simpleOwlRate = 0;
                     if(owl.rising1 && owl.pop < 100)
                     {
-                        owlPop = (3 + owl.up1 * .2f) * overallSpeed * Time.deltaTime;
-						owlUI.leftChange.text = simplifyNumber(owlPop / Time.deltaTime).ToString();
+                        owlPop = (3 + owl.up1) * overallSpeed * Time.deltaTime;
+						owlUI.leftChange.text = (3 + owl.up1).ToString();
                         rateOfOwlChange += owlPop;
+						simpleOwlRate += (3 + owl.up1);
                     }
                     else
                     {
-                        owlPop = (3 + owl.down1 * .2f) * overallSpeed * Time.deltaTime;
-						owlUI.leftChange.text = simplifyNumber(owlPop / Time.deltaTime * -1).ToString();
+                        owlPop = (3 + owl.down1) * overallSpeed * Time.deltaTime;
+						owlUI.leftChange.text = (-3 - owl.down1).ToString();
                         rateOfOwlChange -= owlPop;
+						simpleOwlRate += (-3 - owl.down1);
                     }
-
+					owlUI.popChange.text = simpleOwlRate.ToString();
                     owl.pop += rateOfOwlChange;
                     if (rateOfOwlChange < 0)
                     {
                         owl.corruptedPop += rateOfOwlChange * corruptionFallFactor;
+						if (owl.corruptedPop < 0)
+							owl.corruptedPop = 0;
                     }
 
                     if (rabbit.rising2 && rabbit.pop < 100)
                     {
-                        rabbitPop2 = (1 + rabbit.up2 * .2f) * overallSpeed * Time.deltaTime;
-						rabbitUI.rightChange.text = simplifyNumber(rabbitPop2 / Time.deltaTime).ToString();
+                        rabbitPop2 = (1 + rabbit.up2) * overallSpeed * Time.deltaTime;
+						rabbitUI.rightChange.text = (1 + rabbit.up2).ToString();
                         rateOfRabbitChange += rabbitPop2;
+						simpleRabbitRate += (1 + rabbit.up2);
                     }
                     else
                     {
-                        rabbitPop2 = (1 + rabbit.down2 * .2f) * overallSpeed * Time.deltaTime;
-						rabbitUI.rightChange.text = simplifyNumber(rabbitPop2 / Time.deltaTime * -1).ToString();
+                        rabbitPop2 = (1 + rabbit.down2) * overallSpeed * Time.deltaTime;
+						rabbitUI.rightChange.text = (-1 - rabbit.down2).ToString();
                         rateOfRabbitChange -= rabbitPop2;
+						simpleRabbitRate += (-1 - rabbit.down2);
                     }
                 }
 
+				rabbitUI.popChange.text = simpleRabbitRate.ToString();
                 rabbit.pop += rateOfRabbitChange;
                 if (rateOfRabbitChange < 0)
                 {
                     rabbit.corruptedPop += rateOfRabbitChange * corruptionFallFactor;
+					if (rabbit.corruptedPop < 0)
+						rabbit.corruptedPop = 0;
                 }
             }
-
+			wolfUI.popChange.text = simpleWolfRate.ToString();
             wolf.pop += rateOfWolfChange;
             if (rateOfWolfChange < 0)
             {
                 wolf.corruptedPop += rateOfWolfChange * corruptionFallFactor;
+				if (wolf.corruptedPop < 0)
+					wolf.corruptedPop = 0;
             }
         }
 
@@ -524,27 +555,27 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
     }
 
-	static int simplifyNumber(float incomingNum) {
+	static string simplifyNumber(float incomingNum) {
 		if (incomingNum >= .2f && incomingNum < .6) {
-			return 1;
-		} else if (incomingNum >= .6 && incomingNum < 1f) {
-			return 2;
-		} else if (incomingNum >= 1f && incomingNum < 1.4f) {
-			return 3;
+			return "+1";
+		} else if (incomingNum >= .6 && incomingNum < 1.1f) {
+			return "+2";
+		} else if (incomingNum >= 1.1f && incomingNum < 1.4f) {
+			return "+3";
 		} else if (incomingNum >= 1.4f) {
-			return 4;
+			return "+4";
 		}
 
 		if (incomingNum <= -.2f && incomingNum > -.6) {
-			return -1;
-		} else if (incomingNum <= -.6 && incomingNum > -1f) {
-			return -2;
-		} else if (incomingNum <= -1f && incomingNum > -1.4f) {
-			return -3;
+			return "-1";
+		} else if (incomingNum <= -.6 && incomingNum > -1.1f) {
+			return "-2";
+		} else if (incomingNum <= -1.1f && incomingNum > -1.4f) {
+			return "-3";
 		} else if (incomingNum <= -1.4f) {
-			return -4;
+			return "-4";
 		}
-		return 0;
+		return "0";
 			
 	}
 }

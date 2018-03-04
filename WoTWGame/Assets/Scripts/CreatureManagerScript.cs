@@ -431,6 +431,7 @@ public class CreatureManagerScript : MonoBehaviour {
 				}
 			} else {
 				print ("trying to replace");
+				Place (obj, type, isStatic);
 			}
 		}
 		if (region == 2) {

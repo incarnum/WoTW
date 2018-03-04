@@ -82,10 +82,10 @@ public class PylonCoreScript : MonoBehaviour
         {
             bms = GameObject.Find("MultiMenu").GetComponentInChildren<UIbuffScript>(true);
         }
-        //int values of -1 always mean "empty"
-        target = -1;
-        effect = -1;
-        strength = -1;
+        //int values of -2 always mean "empty"
+        target = -2;
+        effect = -2;
+        strength = -2;
 		sms = GameObject.Find ("SpellMenu").GetComponent<SpellMenuScript> ();
         gsbc = GameObject.Find("GrowShrubsBeenCast").GetComponent<DialogueTrigger>();
         dm = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
@@ -107,14 +107,14 @@ public class PylonCoreScript : MonoBehaviour
     {
         if (touching && Input.GetKeyDown(KeyCode.E))
         {
-            if (target != -1 && effect != -1 && strength != -1 && castable && target != 3)
+            if (target != -2 && effect != -2 && strength != -2 && castable && target != 3)
             {
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
                 Cast();
                 castSound.Play();
             }
-            else if (target != -1 && effect != -1 && strength != -1 && castable)
+            else if (target != -2 && effect != -2 && strength != -2 && castable)
             {
                 //this would trigger if there are corrupted berries in every slot, but corrupted berries aren't an option in this build, so it's not necessary
                 CreateSpell();
@@ -128,7 +128,7 @@ public class PylonCoreScript : MonoBehaviour
     //determine if the player is touching the core of the pylon circle, allowing them to cast
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "energy")
         {
             touching = true;
         }
@@ -136,7 +136,7 @@ public class PylonCoreScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "energy")
         {
             touching = false;
         }
@@ -636,15 +636,15 @@ public class PylonCoreScript : MonoBehaviour
 		spellFX.playSpellCastEffect ();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
-        pylon1.activeSelection = -1;
+        pylon1.activeSelection = -2;
         pylon1.UpdateSprite();
-        pylon2.activeSelection = -1;
+        pylon2.activeSelection = -2;
         pylon2.UpdateSprite();
-        pylon3.activeSelection = -1;
+        pylon3.activeSelection = -2;
         pylon3.UpdateSprite();
-        target = -1;
-        effect = -1;
-        strength = -1;
+        target = -2;
+        effect = -2;
+        strength = -2;
         //set the spell preview text to be empty since there are no ingredients
         PredictSpell();
         //visual effect for casting
@@ -656,20 +656,20 @@ public class PylonCoreScript : MonoBehaviour
         //creates the preview text that appears in the circle. 
         spellPreviewText = "";
 
-        if (effect == 0 && strength == -1)
+        if (effect == 0 && strength == -2)
         {
             spellPreviewText += "Enlarge/shrink ";
         }
-        else if (effect == 1 && strength == -1)
+        else if (effect == 1 && strength == -2)
         {
             spellPreviewText += "Hasten/slow ";
         }
-        else if (effect == 2 && strength == -1)
+        else if (effect == 2 && strength == -2)
         {
             spellPreviewText += "Toughen/weaken ";
         }
 
-        if (effect == 0 && strength == -4)
+        if (effect == 0 && strength == -1)
         {
             spellPreviewText += "Shrink ";
         }
@@ -677,11 +677,11 @@ public class PylonCoreScript : MonoBehaviour
         {
             spellPreviewText += "Reset size of ";
         }
-        else if (effect == 0 && strength == 4)
+        else if (effect == 0 && strength == 1)
         {
             spellPreviewText += "Enlarge ";
         }
-        if (effect == 1 && strength == -4)
+        if (effect == 1 && strength == -1)
         {
             spellPreviewText += "Slow ";
         }
@@ -689,11 +689,11 @@ public class PylonCoreScript : MonoBehaviour
         {
             spellPreviewText += "Reset speed of ";
         }
-        else if (effect == 1 && strength == 4)
+        else if (effect == 1 && strength == 1)
         {
             spellPreviewText += "Hasten ";
         }
-        if (effect == 2 && strength == -4)
+        if (effect == 2 && strength == -1)
         {
             spellPreviewText += "Weaken ";
         }
@@ -701,7 +701,7 @@ public class PylonCoreScript : MonoBehaviour
         {
             spellPreviewText += "Reset toughness of ";
         }
-        else if (effect == 2 && strength == 4)
+        else if (effect == 2 && strength == 1)
         {
             spellPreviewText += "Toughen ";
         }
@@ -729,7 +729,7 @@ public class PylonCoreScript : MonoBehaviour
         {
             spellPreviewText = "Cleanse Corruption";
         }
-        if (target != -1 && effect != -1 && strength != -1 && spellPreviewText != "Cleanse Corruption")
+        if (target != -2 && effect != -2 && strength != -2 && spellPreviewText != "Cleanse Corruption")
         {
 			CenterStoneGlow.SetColor (Color.white, .2f);
             castable = true;
@@ -769,15 +769,15 @@ public class PylonCoreScript : MonoBehaviour
         newSpell.GetComponentsInChildren<Text>()[0].text = spellPreviewText;
         PlaceSpell(newSpell);
         newSpell.GetComponent<SpellScript>().bms = bms;
-        pylon1.activeSelection = -1;
+        pylon1.activeSelection = -2;
         pylon1.UpdateSprite();
-        pylon2.activeSelection = -1;
+        pylon2.activeSelection = -2;
         pylon2.UpdateSprite();
-        pylon3.activeSelection = -1;
+        pylon3.activeSelection = -2;
         pylon3.UpdateSprite();
-        target = -1;
-        effect = -1;
-        strength = -1;
+        target = -2;
+        effect = -2;
+        strength = -2;
         PredictSpell();
         ring1.SpeedBoost();
         ring2.SpeedBoost();
