@@ -22,14 +22,17 @@ public class PylonUI : MonoBehaviour {
         CurrentInfo.text = DefaultInfo;
         int buttonTot = Ingredients.Count;
 
-        //Create Circles from Editor data
+        //Create and Place Circles from Editor data
         for(int i = 0; i  < Ingredients.Count; i ++)
         {
             GameObject newButton = Instantiate(ItemPrefab) as GameObject;
             newButton.GetComponent<PylonCircle>().data = Ingredients[i];
             newButton.transform.SetParent(transform, false);
             float theta = (2 * Mathf.PI / buttonTot) * i;
-
+            float xPos = Mathf.Sin(theta);
+            float yPos = Mathf.Cos(theta);
+            newButton.transform.localPosition = new Vector3(xPos, yPos, 0f) * 100f;
+            Elements.Add(newButton);
         }
 	}
 	
@@ -37,14 +40,6 @@ public class PylonUI : MonoBehaviour {
 	void Update () {
         
 	}
-
-    void SpawnCircles()
-    {
-        foreach (GameObject cir  in Elements)
-        {
-
-        }
-    }
     public void HoverText(string source)
     {
         CurrentInfo.text = source;
