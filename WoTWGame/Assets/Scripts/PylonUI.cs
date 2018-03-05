@@ -44,9 +44,12 @@ public class PylonUI : MonoBehaviour {
 
         }
     }
-    public void HoverText(PylonCircle source)
+    public void HoverText(string source)
     {
-        CurrentInfo.text = source.data.Info;
+        
+        CurrentInfo.text = source;
+        Debug.Log("Fuck you!");
+
     }
 
     public void ReturnInfoToDefault()

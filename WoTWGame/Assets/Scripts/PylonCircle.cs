@@ -11,21 +11,31 @@ public class PylonCircle : MonoBehaviour {
     private Image Icon;
     private string Info;
     private Text InfoBox;
+    private PylonUI parent;
 
 	void Start () {
-        Name = gameObject.transform.Find("Name").GetComponent<Text>();
         Amount = gameObject.transform.Find("Amount").GetComponent<Text>();
         Icon = gameObject.transform.Find("Icon").GetComponent<Image>();
+        parent = gameObject.transform.parent.GetComponent<PylonUI>();
+        Debug.Log(parent);
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Name.text = data.Name;
         Amount.text = data.Amount.ToString();
         Icon.overrideSprite = data.Icon;
 		
 	}
+
+    public void onHover()
+    {
+        parent.HoverText(data.Info);
+    }
+    public void onExit()
+    {
+        parent.ReturnInfoToDefault();
+    }
 
     public void Use()
     {
