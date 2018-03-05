@@ -20,16 +20,17 @@ public class PylonUI : MonoBehaviour {
 	void Start () {
         CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
         CurrentInfo.text = DefaultInfo;
+        int buttonTot = Ingredients.Count;
 
         //Create Circles from Editor data
-        foreach (IngCircle data in Ingredients)
+        for(int i = 0; i  < Ingredients.Count; i ++)
         {
-            GameObject newCircle = Instantiate(ItemPrefab);
-            newCircle.transform.parent = transform;
-            newCircle.GetComponent<PylonCircle>().data = data;
-            Elements.Add(newCircle);
+            GameObject newButton = Instantiate(ItemPrefab) as GameObject;
+            newButton.GetComponent<PylonCircle>().data = Ingredients[i];
+            newButton.transform.SetParent(transform, false);
+            float theta = (2 * Mathf.PI / buttonTot) * i;
+
         }
-        SpawnCircles();
 	}
 	
 	// Update is called once per frame
@@ -46,10 +47,7 @@ public class PylonUI : MonoBehaviour {
     }
     public void HoverText(string source)
     {
-        
         CurrentInfo.text = source;
-        Debug.Log("Fuck you!");
-
     }
 
     public void ReturnInfoToDefault()
