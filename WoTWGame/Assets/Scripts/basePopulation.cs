@@ -17,6 +17,8 @@ public class basePopulation : MonoBehaviour {
     public List<GameObject> corruptedCreatureList;
     public basePopulation food1, food2, pred1, pred2;
 	public SimpleEcologyMasterScript eco;
+	public corruptionManagerScript cm;
+    public float rateOfChange;
     // Use this for initialization
     void Start () {
 		
@@ -80,16 +82,12 @@ public class basePopulation : MonoBehaviour {
         if(corruptedPop <= 0)
         {
 			if (corrupting == true) {
-				GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().CheckStartingTimer ();
+				cm.CheckStartingTimer ();
 			}
             corrupting = false;
         }
-		corruptionRate = GameObject.Find("CorruptionManager").GetComponent<corruptionManagerScript>().currentCorruptionRate;
-        if(corrupting && rising1)
-        {
-            corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * 4;
-        }
-        if (corrupting && rising2)
+		corruptionRate = cm.currentCorruptionRate;
+        if(corrupting && rateOfChange > 0)
         {
             corruptedPop += corruptionRate * overallSpeed * Time.deltaTime * 4;
         }
@@ -100,6 +98,7 @@ public class basePopulation : MonoBehaviour {
         if(pop <= 0)
         {
 			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
 			gameOverScreen.SetActive (true);
             gameOver.SetActive(true);
 			darkenScreen.SetActive (true);
@@ -107,6 +106,7 @@ public class basePopulation : MonoBehaviour {
         } else if (pop <= corruptedPop)
         {
 			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
 			gameOverScreen.SetActive (true);
             corrGameOver.SetActive(true);
 			enpurpleScreen.SetActive (true);

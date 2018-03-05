@@ -12,7 +12,7 @@ public class PylonScipt : MonoBehaviour {
     private bool touching; //is the player touching the pylon
     private GameObject player;
     private int currentSelection; //the ingredient the player has highlighted. This script displays a tooltip explaining what the ing does if used in this slot
-    public int activeSelection = -1; //the ingredient the pylon is currently storing. This is used by the core script to determine what spell is made.
+    public int activeSelection = -2; //the ingredient the pylon is currently storing. This is used by the core script to determine what spell is made.
     public List<GameObject> options;
     public List<GameObject> corrOptions;
     public PylonCoreScript core; //the object/script that casts the spells
@@ -44,11 +44,12 @@ public class PylonScipt : MonoBehaviour {
         wolfColor = core.wolfColor;
         rabbitColor = core.rabbitColor;
         owlColor = core.owlColor;
+		activeSelection = -2;
     }
 
     // Update is called once per frame
     void Update() {
-        if (corrWindow.active || window.active)
+		if (corrWindow.activeSelf || window.activeSelf)
         {
             player.GetComponent<PlayerControllerScript>().canMove = false;
             player.GetComponent<PlayerControllerB>().canMove = false;
@@ -134,7 +135,7 @@ public class PylonScipt : MonoBehaviour {
             }
         }
         if (Input.GetKeyDown (KeyCode.Q) && windowActive) {
-			if (activeSelection != -1) {
+			if (activeSelection != -2) {
                 if (corrupted)
                 {
                     corrSelector.transform.position = new Vector2(corrOptions[activeSelection].transform.position.x - 2, corrOptions[activeSelection].transform.position.y);
@@ -170,7 +171,7 @@ public class PylonScipt : MonoBehaviour {
 			} else if (activeSelection == 3) {
 				player.GetComponent<InventoryScript> ().corrBerryNum += 1;
 			}
-			activeSelection = -1;
+			activeSelection = -2;
 			window.SetActive (false);
 			player.GetComponent<PlayerControllerScript> ().canMove = true;
 			player.GetComponent<PlayerControllerB> ().canMove = true;
@@ -178,11 +179,11 @@ public class PylonScipt : MonoBehaviour {
 			player.GetComponent<InventoryScript> ().UpdateNumbers ();
 			UpdateSprite ();
 			if (pylonNum == 0) {
-				core.target = -1;
+				core.target = -2;
 			} else if (pylonNum == 1) {
-				core.effect = -1;
+				core.effect = -2;
 			} else if (pylonNum == 2) {
-				core.strength = -1;
+				core.strength = -2;
 			}
 			if (corrupted == false) {
 				core.PredictSpell ();
@@ -231,14 +232,14 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "energy") {
 			touching = true;
 			ingredientPopUp.SetActive (true);
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
-		if (col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "energy") {
 			touching = false;
 			ingredientPopUp.SetActive (false);
 		}
@@ -305,11 +306,11 @@ public class PylonScipt : MonoBehaviour {
 				core.effect = activeSelection;
 			} else if (pylonNum == 2) {
 				if (activeSelection == 0) {
-					core.strength = 4;
+					core.strength = 1;
 				} else if (activeSelection == 1) {
 					core.strength = 0;
 				} else if (activeSelection == 2) {
-					core.strength = -4;
+					core.strength = -1;
 				} else if (activeSelection == 3) {
 					core.strength = 3;
 				}
@@ -353,7 +354,7 @@ public class PylonScipt : MonoBehaviour {
 			glow.GetComponent<centerStoneGlowScript> ().SetColor (wolfColor, .2f);
 		} else if (activeSelection == 3) {
 			glow.GetComponent<centerStoneGlowScript> ().SetColor (corrColor, .2f);
-		} if (activeSelection == -1) {
+		} if (activeSelection == -2) {
 			glow.GetComponent<centerStoneGlowScript> ().SetColor (Color.clear, .2f);
 		}
 	}

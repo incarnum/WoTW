@@ -24,6 +24,8 @@ public class RabbitPopulation : basePopulation {
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().rabbitCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedRabbitCreatureList;
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
+		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
+		DoUpdate ();
     }
 	
 	// Update is called once per frame

@@ -26,6 +26,7 @@ public class DeerPopulation : basePopulation {
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedDeerCreatureList;
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
+		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
 		DoUpdate();
 		biomass = pop;
     }

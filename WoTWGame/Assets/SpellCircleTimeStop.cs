@@ -5,13 +5,12 @@ using UnityEngine;
 public class SpellCircleTimeStop : MonoBehaviour {
 	private SimpleEcologyMasterScript eco;
 	private corruptionManagerScript cm;
-	private Animator timeStopCanvas;
+	private TimeStopCanvas tsc;
 	// Use this for initialization
 	void Start () {
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
-		timeStopCanvas = GameObject.Find ("TimeStopCanvas").GetComponent<Animator> ();
-		timeStopCanvas.SetTrigger ("fade");
+		tsc = GameObject.Find ("TimeStopCanvas").GetComponent<TimeStopCanvas> ();
 	}
 	
 	// Update is called once per frame
@@ -22,7 +21,8 @@ public class SpellCircleTimeStop : MonoBehaviour {
 		if (col.tag == "Player") {
 			eco.areaTimeStop = true;
 			cm.TimeStopped ();
-			timeStopCanvas.SetTrigger ("activate");
+			tsc.areaStop = true;
+			tsc.CheckVisibility ();
 		}
 	}
 
@@ -30,7 +30,8 @@ public class SpellCircleTimeStop : MonoBehaviour {
 		if (col.tag == "Player") {
 			eco.areaTimeStop = false;
 			cm.TimeResumed ();
-			timeStopCanvas.SetTrigger ("fade");
+			tsc.areaStop = false;
+			tsc.CheckVisibility ();
 		}
 	}
 }

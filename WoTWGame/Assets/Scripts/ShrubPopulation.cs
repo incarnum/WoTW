@@ -24,6 +24,7 @@ public class ShrubPopulation : basePopulation
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().shrubCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedShrubCreatureList;
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
+		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
     }
 
     // Update is called once per frame

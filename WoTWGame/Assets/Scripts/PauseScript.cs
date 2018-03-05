@@ -57,13 +57,13 @@ public class PauseScript : MonoBehaviour {
 
 	public GameManagerScript gameManager;
 
-	private Animator timeStopCanvas;
+	private TimeStopCanvas timeStopCanvas;
 
 
 	// Use this for initialization
 	void Start () {
         eco = GameObject.Find("SimpleEcologyMaster");
-		timeStopCanvas = GameObject.Find ("TimeStopCanvas").GetComponent<Animator>();
+		timeStopCanvas = GameObject.Find ("TimeStopCanvas").GetComponent<TimeStopCanvas>();
         paused = false;
         optionsOpened = false;
         fullScreen = Screen.fullScreen;
@@ -85,7 +85,6 @@ public class PauseScript : MonoBehaviour {
     
     public void PauseGame()
     {
-        Debug.Log("Paused");
 		pauseMenu.SetActive(true);
 
         overlayCanvas.GetComponent<Canvas>().enabled = false;
@@ -94,7 +93,8 @@ public class PauseScript : MonoBehaviour {
         eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = true;
         eco.GetComponent<SimpleEcologyMasterScript>().paused = true;
 		if (eco.GetComponent<SimpleEcologyMasterScript> ().areaTimeStop == false) {
-			timeStopCanvas.SetTrigger ("activate");
+			timeStopCanvas.pauseStop = true;
+			timeStopCanvas.CheckVisibility ();
 		}
 
         paused = true;
@@ -102,7 +102,6 @@ public class PauseScript : MonoBehaviour {
 
     public void ResumeGame()
     {
-        Debug.Log("Unpaused");
 		pauseMenu.SetActive(false);
 
 		foreach (GameObject gunch in selectionEffects) {
@@ -120,7 +119,8 @@ public class PauseScript : MonoBehaviour {
         eco.GetComponent<SimpleEcologyMasterScript>().megaPaused = false;
         eco.GetComponent<SimpleEcologyMasterScript>().paused = false;
 		if (eco.GetComponent<SimpleEcologyMasterScript> ().areaTimeStop == false) {
-			timeStopCanvas.SetTrigger ("fade");
+			timeStopCanvas.pauseStop = false;
+			timeStopCanvas.CheckVisibility ();
 		}
 
         paused = false;

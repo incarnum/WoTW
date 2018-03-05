@@ -24,6 +24,7 @@ public class OwlPopulation : basePopulation {
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().owlCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedOwlCreatureList;
         eco = GameObject.Find("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript>();
+		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
         DoUpdate();
         biomass = pop;
     }

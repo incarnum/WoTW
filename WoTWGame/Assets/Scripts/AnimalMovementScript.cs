@@ -82,9 +82,19 @@ public class AnimalMovementScript : MonoBehaviour {
 
 		}
 
-		if (player.GetComponent<PlayerControllerScript> ().paused == false && canMove == true) {
+		if (canMove == true) {
 				Move (h, v, s);
 		}
+	}
+
+	void OnEnable() {
+		PlayerControllerScript.OnPaused += PauseMovement;
+		PlayerControllerScript.OnUnpaused += UnpauseMovement;
+	}
+
+	void OnDisable() {
+		PlayerControllerScript.OnPaused -= PauseMovement;
+		PlayerControllerScript.OnUnpaused -= UnpauseMovement;
 	}
 
 
@@ -94,6 +104,16 @@ public class AnimalMovementScript : MonoBehaviour {
 		selfRigidbody.MovePosition ((Vector2)gameObject.transform.position + movement);
 //		Debug.Log ();
 
+	}
+
+	private void PauseMovement() {
+		canMove = false;
+		anim.enabled = false;
+	}
+
+	private void UnpauseMovement() {
+		canMove = true;
+		anim.enabled = true;
 	}
 
 	void OnCollisionEnter2D(Collision2D col){
@@ -115,6 +135,74 @@ public class AnimalMovementScript : MonoBehaviour {
 					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().deerCreatureList.Remove (col.gameObject);
 				} else {
 					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().corruptedDeerCreatureList.Remove (col.gameObject);
+				}
+				if (col.gameObject.transform.position.y - transform.position.y > 0) {
+					anim.SetTrigger ("Away");
+				} else {
+					anim.SetTrigger ("Toward");
+				}
+				if (col.gameObject.transform.position.x - transform.position.x > 0) {
+					transform.localScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+				} else {
+					transform.localScale = new Vector3 (-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+				}
+
+				Destroy (col.gameObject, 1.0f);
+				col.gameObject.GetComponent<AnimalMovementScript> ().fadeOut = true;
+				PauseMovementForTime (2.0f);
+			}
+
+			if (creatureType == 2 && col.gameObject.GetComponent<AnimalMovementScript> ().creatureType == 3) {
+				Debug.Log ("wolf hit rabbit");
+				if (fadeOut == false) {
+					GameObject munch = Instantiate (munchIcon) as GameObject;
+					munch.transform.position = col.gameObject.transform.position;
+					if(gameObject.GetComponent<Renderer>().isVisible)
+					{
+						munchSound.pitch = Random.Range(1f, 3f);
+						munchSound.Play();
+					}
+					Destroy (munch, 1.0f);
+					col.gameObject.GetComponent<AnimalMovementScript> ().PauseMovementForTime (5);
+				}
+				if (col.gameObject.GetComponent<AnimalMovementScript> ().corrupted == false) {
+					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().rabbitCreatureList.Remove (col.gameObject);
+				} else {
+					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().corruptedRabbitCreatureList.Remove (col.gameObject);
+				}
+				if (col.gameObject.transform.position.y - transform.position.y > 0) {
+					anim.SetTrigger ("Away");
+				} else {
+					anim.SetTrigger ("Toward");
+				}
+				if (col.gameObject.transform.position.x - transform.position.x > 0) {
+					transform.localScale = new Vector3 (Mathf.Abs (transform.localScale.x), transform.localScale.y, transform.localScale.z);
+				} else {
+					transform.localScale = new Vector3 (-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+				}
+
+				Destroy (col.gameObject, 1.0f);
+				col.gameObject.GetComponent<AnimalMovementScript> ().fadeOut = true;
+				PauseMovementForTime (2.0f);
+			}
+
+			if (creatureType == 4 && col.gameObject.GetComponent<AnimalMovementScript> ().creatureType == 3) {
+				Debug.Log ("owl hit rabbit");
+				if (fadeOut == false) {
+					GameObject munch = Instantiate (munchIcon) as GameObject;
+					munch.transform.position = col.gameObject.transform.position;
+					if(gameObject.GetComponent<Renderer>().isVisible)
+					{
+						munchSound.pitch = Random.Range(1f, 3f);
+						munchSound.Play();
+					}
+					Destroy (munch, 1.0f);
+					col.gameObject.GetComponent<AnimalMovementScript> ().PauseMovementForTime (5);
+				}
+				if (col.gameObject.GetComponent<AnimalMovementScript> ().corrupted == false) {
+					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().rabbitCreatureList.Remove (col.gameObject);
+				} else {
+					GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ().corruptedRabbitCreatureList.Remove (col.gameObject);
 				}
 				if (col.gameObject.transform.position.y - transform.position.y > 0) {
 					anim.SetTrigger ("Away");

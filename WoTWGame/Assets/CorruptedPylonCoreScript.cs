@@ -154,7 +154,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     //determine if the player is touching the core of the pylon circle, allowing them to cast
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "energy")
         {
             touching = true;
         }
@@ -162,7 +162,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "energy")
         {
             touching = false;
         }
@@ -326,11 +326,11 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		spellFX.playCorrSpellEffect();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
-        pylon1.activeSelection = -1;
+        pylon1.activeSelection = -2;
         pylon1.UpdateSprite();
-        pylon2.activeSelection = -1;
+        pylon2.activeSelection = -2;
         pylon2.UpdateSprite();
-        pylon3.activeSelection = -1;
+        pylon3.activeSelection = -2;
         pylon3.UpdateSprite();
         target = -1;
         effect = -1;

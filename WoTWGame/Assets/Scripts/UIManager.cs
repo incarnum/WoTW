@@ -17,6 +17,13 @@ public class UIManager : MonoBehaviour {
 	public GameObject buffDisplay;
 	public basePopulation pop;
 	public bool maximized;
+	public GameObject deerRightInfluence;
+	public GameObject wolfRightInfluence;
+	public GameObject rabbitRightIncluence;
+	public GameObject antlerUI;
+	public GameObject fangUI;
+	public GameObject rabbitFootUI;
+	public GameObject owlFeatherUI;
 	// Use this for initialization
 	void Start () {
         UIRotator = new List<GameObject>();
@@ -187,9 +194,12 @@ public class UIManager : MonoBehaviour {
     }
 	public void ActivateDeer() {
 		deerUI.SetActive (true);
+		antlerUI.SetActive (true);
 	}
 	public void ActivateWolves() {
 		wolfUI.SetActive (true);
+		deerRightInfluence.SetActive (true);
+		fangUI.SetActive (true);
 //		UIRotator.RemoveAll;
 //		UIRotator.Add(deerUI);
 //		UIRotator.Add(shrubUI);
@@ -197,9 +207,13 @@ public class UIManager : MonoBehaviour {
 	}
 	public void ActivateRabbits() {
 		rabbitUI.SetActive (true);
+		wolfRightInfluence.SetActive (true);
+		rabbitFootUI.SetActive (true);
 	}
 	public void ActivateOwls () {
 		owlUI.SetActive (true);
+		rabbitRightIncluence.SetActive (true);
+		owlFeatherUI.SetActive (true);
 	}
 
 	public void UpdateMouseoverInfo () {
@@ -233,7 +247,8 @@ public class UIManager : MonoBehaviour {
 		manager.GetComponent<RectTransform> ().localPosition = new Vector2 (0, 0);
 		UIRotator[currentSelection].GetComponent<NewUIScript>().UpperLayer.SetActive(true);
 		buffDisplay.SetActive (true);
-		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().canMove = false;
+		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().popBarPaused = true;
+		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
 	}
 
 	public void ShrinkBars() {
@@ -257,6 +272,7 @@ public class UIManager : MonoBehaviour {
 			}
 		}
 		buffDisplay.SetActive (false);
-		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().canMove = true;
+		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().popBarPaused = false;
+		GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
 	}
 }
