@@ -6,6 +6,7 @@ public class PylonScipt : MonoBehaviour {
     public int pylonNum; //what role of pylon this is. 0 = target, 1 = effect, 2 = modifier
     private bool windowActive; //is the window open
     public GameObject window; //the ui window for choosing an ingredient
+    public GameObject newUI; // Pylon UI overhaul
     public GameObject corrWindow;
     public GameObject selector; //the icon that shows what you currently have selected, changes color based on validity
     public GameObject corrSelector;
@@ -49,13 +50,13 @@ public class PylonScipt : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-		if (corrWindow.activeSelf || window.activeSelf)
+		if (corrWindow.activeSelf || newUI.activeSelf)
         {
             player.GetComponent<PlayerControllerScript>().canMove = false;
             player.GetComponent<PlayerControllerB>().canMove = false;
         }
 		if (touching && Input.GetKeyDown (KeyCode.E) && !corrupted) {
-			if (!windowActive) {
+			if (!newUI.activeSelf) {
                 if (corrupted)
                 {
                     corrWindow.SetActive(true);
@@ -63,7 +64,7 @@ public class PylonScipt : MonoBehaviour {
                 //opens window, 
                 else
                 {
-                    window.SetActive(true);
+                    newUI.SetActive(true);
                 }
 				player.GetComponent<PlayerControllerScript> ().canMove = false;
 				player.GetComponent<PlayerControllerB> ().canMove = false;
@@ -93,7 +94,7 @@ public class PylonScipt : MonoBehaviour {
 		}
         else if (touching && Input.GetKeyDown(KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0)
         {
-            if (!windowActive)
+            if (!newUI.activeSelf)
             {
                 if (corrupted)
                 {
@@ -102,7 +103,7 @@ public class PylonScipt : MonoBehaviour {
                 //opens window, 
                 else
                 {
-                    window.SetActive(true);
+                    newUI.SetActive(true);
                 }
                 player.GetComponent<PlayerControllerScript>().canMove = false;
                 player.GetComponent<PlayerControllerB>().canMove = false;
@@ -152,7 +153,7 @@ public class PylonScipt : MonoBehaviour {
             }
             else
             {
-                window.SetActive (false);
+                newUI.SetActive (false);
             }
 				player.GetComponent<PlayerControllerScript> ().canMove = true;
 				player.GetComponent<PlayerControllerB> ().canMove = true;
@@ -172,7 +173,7 @@ public class PylonScipt : MonoBehaviour {
 				player.GetComponent<InventoryScript> ().corrBerryNum += 1;
 			}
 			activeSelection = -2;
-			window.SetActive (false);
+			newUI.SetActive (false);
 			player.GetComponent<PlayerControllerScript> ().canMove = true;
 			player.GetComponent<PlayerControllerB> ().canMove = true;
 			windowActive = false;
@@ -193,7 +194,7 @@ public class PylonScipt : MonoBehaviour {
 
 		}
 
-		if (windowActive) {
+		if (newUI.activeSelf) {
 			//moving the selector up and down to see different options
 			if (Input.GetKeyDown (KeyCode.S)) {
 				currentSelection += 1;
@@ -294,7 +295,7 @@ public class PylonScipt : MonoBehaviour {
         //opens window, 
         else
         {
-            window.SetActive(false);
+            newUI.SetActive(false);
         }
 		player.GetComponent<PlayerControllerScript> ().canMove = true;
 		player.GetComponent<PlayerControllerB> ().canMove = true;
