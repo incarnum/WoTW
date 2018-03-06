@@ -27,18 +27,15 @@ public class PylonUIEditor : Editor {
             new Rect(rect.x + 60, rect.y, 30, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("IngValue"), GUIContent.none);
         EditorGUI.PropertyField(
-            new Rect(rect.x + 90, rect.y, 30, EditorGUIUtility.singleLineHeight),
-            element.FindPropertyRelative("Amount"), GUIContent.none);
-        EditorGUI.PropertyField(
-            new Rect(rect.x + 110, rect.y, 120, EditorGUIUtility.singleLineHeight),
+            new Rect(rect.x + 90, rect.y, 120, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("Info"), GUIContent.none);
         EditorGUI.PropertyField(
-            new Rect(rect.x + 230, rect.y, 30, EditorGUIUtility.singleLineHeight),
+            new Rect(rect.x + 210, rect.y, 30, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("Icon"), GUIContent.none);
         
     };
         list.drawHeaderCallback = (Rect rect) => {
-            EditorGUI.LabelField(rect, "Name, IngValue, Amount, Info, Icon");
+            EditorGUI.LabelField(rect, "Name, IngValue, Info, Icon");
         };
     }
 
