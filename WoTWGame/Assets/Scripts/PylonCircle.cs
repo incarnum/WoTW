@@ -5,45 +5,47 @@ using UnityEngine.UI;
 
 public class PylonCircle : MonoBehaviour {
     public IngCircle data;
-    // Use this for initialization
+    private InventoryScript invertroy;
     private Text Name;
-    private Text Amount;
+    private Text countUI;
     private Image Icon;
     private string Info;
     private Text InfoBox;
-    private int IngValue;
-    private PylonUI parent;
+    private string IngValue;
+    private PylonUI UI;
+    private PylonScipt parent;
 
 	void Start () {
-        Amount = gameObject.transform.Find("Amount").GetComponent<Text>();
+        countUI = gameObject.transform.Find("Amount").GetComponent<Text>();
         Icon = gameObject.transform.Find("Icon").GetComponent<Image>();
-        parent = gameObject.transform.parent.GetComponent<PylonUI>();
-        Debug.Log(parent);
-		
-	}
+        UI = gameObject.transform.parent.GetComponent<PylonUI>();
+        invertroy = GameObject.Find("Player").GetComponent<InventoryScript>();
+        parent = gameObject.transform.parent.parent.GetComponent<PylonScipt>();
+    }
 	
 	// Update is called once per frame
-	void Update () {
-        Amount.text = data.Amount.ToString();
+	void OnEnable () {
+        data.Amount = (int)invertroy.GetType().GetField(data.IngValue).GetValue(invertroy);
+        countUI.text = data.Amount.ToString();
         Icon.overrideSprite = data.Icon;
-        IngValue = data.IngValue;
-		
-	}
+        
+
+    }
 
     public void onHover()
     {
-        parent.HoverText(data.Info);
+        UI.HoverText(data.Info);
     }
     public void onExit()
     {
-        parent.ReturnInfoToDefault();
+        UI.ReturnInfoToDefault();
     }
 
     public void Use()
     {
         if(data.Amount > 0)
         {
-
+            data.Amount--;
         }
     }
 }

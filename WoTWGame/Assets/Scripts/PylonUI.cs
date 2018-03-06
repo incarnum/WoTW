@@ -11,8 +11,6 @@ public class PylonUI : MonoBehaviour {
     public string DefaultInfo;
     public GameObject ItemPrefab;
 
-    private InventoryScript invertroy;
-
     private Text CurrentInfo;
 
     //List of Cirlces
@@ -20,7 +18,6 @@ public class PylonUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        invertroy = GameObject.Find("Player").GetComponent<InventoryScript>();
         CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
         CurrentInfo.text = DefaultInfo;
         int buttonTot = Ingredients.Count;
@@ -38,9 +35,9 @@ public class PylonUI : MonoBehaviour {
             Elements.Add(newButton);
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         
 	}
     public void HoverText(string source)
