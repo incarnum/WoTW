@@ -217,23 +217,24 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             }
             else if (dm.cleansedNodes == 2)
             {
-				rabbit.enabled = true;
-				rabbit.DoStart ();
-				eco.GetComponent<UIManager> ().ActivateRabbits ();
+
                 //clTN.TriggerDialogue();
 				//GameObject.Find ("CorruptionWall").SetActive (false);
                 //rabbit.enabled = true;
             }
             else if (dm.cleansedNodes == 3)
             {
-				owl.enabled = true;
-				owl.DoStart ();
-				eco.GetComponent<UIManager> ().ActivateOwls ();
+				rabbit.enabled = true;
+				rabbit.DoStart ();
+				eco.GetComponent<UIManager> ().ActivateRabbits ();
                 //clFoN.TriggerDialogue();
                 //owl.enabled = true;
             }
             else if (dm.cleansedNodes == 4)
             {
+				owl.enabled = true;
+				owl.DoStart ();
+				eco.GetComponent<UIManager> ().ActivateOwls ();
                 //clFiN.TriggerDialogue();
                 //no longer present in level
             }

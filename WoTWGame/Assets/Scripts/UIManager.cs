@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour {
 	public GameObject deerRightInfluence;
 	public GameObject wolfRightInfluence;
 	public GameObject rabbitRightIncluence;
+	public GameObject berryUI;
 	public GameObject antlerUI;
 	public GameObject fangUI;
 	public GameObject rabbitFootUI;
@@ -195,11 +196,15 @@ public class UIManager : MonoBehaviour {
 	public void ActivateDeer() {
 		deerUI.SetActive (true);
 		antlerUI.SetActive (true);
+		berryUI.GetComponent<RectTransform>().anchoredPosition = new Vector2 (-38.2f, 0f);
 	}
 	public void ActivateWolves() {
 		wolfUI.SetActive (true);
 		deerRightInfluence.SetActive (true);
 		fangUI.SetActive (true);
+		berryUI.GetComponent<RectTransform>().anchoredPosition = new Vector2 (-94.2f, 0f);
+		antlerUI.GetComponent<RectTransform>().anchoredPosition = new Vector2 (-56.2f, 54.2f);
+
 //		UIRotator.RemoveAll;
 //		UIRotator.Add(deerUI);
 //		UIRotator.Add(shrubUI);

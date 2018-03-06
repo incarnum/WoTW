@@ -19,6 +19,9 @@ public class basePopulation : MonoBehaviour {
 	public SimpleEcologyMasterScript eco;
 	public corruptionManagerScript cm;
     public float rateOfChange;
+	public float simpleRateOfChange;
+	public float leftChange;
+	public float rightChange;
     // Use this for initialization
     void Start () {
 		
