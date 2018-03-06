@@ -18,6 +18,7 @@ public class PylonUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Debug.Log("Hi, there");
         CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
         CurrentInfo.text = DefaultInfo;
         int buttonTot = Ingredients.Count;

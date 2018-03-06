@@ -11,6 +11,7 @@ public class PylonCircle : MonoBehaviour {
     private Image Icon;
     private string Info;
     private Text InfoBox;
+    private int IngValue;
     private PylonUI parent;
 
 	void Start () {
@@ -25,6 +26,7 @@ public class PylonCircle : MonoBehaviour {
 	void Update () {
         Amount.text = data.Amount.ToString();
         Icon.overrideSprite = data.Icon;
+        IngValue = data.IngValue;
 		
 	}
 

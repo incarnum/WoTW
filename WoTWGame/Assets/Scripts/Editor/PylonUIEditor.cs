@@ -25,16 +25,20 @@ public class PylonUIEditor : Editor {
             element.FindPropertyRelative("Name"), GUIContent.none);
         EditorGUI.PropertyField(
             new Rect(rect.x + 60, rect.y, 30, EditorGUIUtility.singleLineHeight),
+            element.FindPropertyRelative("IngValue"), GUIContent.none);
+        EditorGUI.PropertyField(
+            new Rect(rect.x + 90, rect.y, 30, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("Amount"), GUIContent.none);
         EditorGUI.PropertyField(
-            new Rect(rect.x + 90, rect.y, 100, EditorGUIUtility.singleLineHeight),
+            new Rect(rect.x + 110, rect.y, 120, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("Info"), GUIContent.none);
         EditorGUI.PropertyField(
-            new Rect(rect.x + rect.width - 30, rect.y, 30, EditorGUIUtility.singleLineHeight),
+            new Rect(rect.x + 230, rect.y, 30, EditorGUIUtility.singleLineHeight),
             element.FindPropertyRelative("Icon"), GUIContent.none);
+        
     };
         list.drawHeaderCallback = (Rect rect) => {
-            EditorGUI.LabelField(rect, "Ingredients On Display:");
+            EditorGUI.LabelField(rect, "Name, IngValue, Amount, Info, Icon");
         };
     }
 

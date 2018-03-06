@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/UItest.unity
+- path: Assets/Scene/Forest 3.unity
   isLoaded: 1
   isActive: 1
