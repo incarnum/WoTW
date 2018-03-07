@@ -8,11 +8,13 @@ public class PylonUIEditor : Editor {
     private ReorderableList list;
     SerializedProperty defaultText;
     SerializedProperty circlePrefab;
+    SerializedProperty keyboard;
 
     private void OnEnable()
     {
         defaultText = serializedObject.FindProperty("DefaultInfo");
         circlePrefab = serializedObject.FindProperty("ItemPrefab");
+        keyboard = serializedObject.FindProperty("keyboardControls");
         list = new ReorderableList(serializedObject,
                 serializedObject.FindProperty("Ingredients"),
                 true, true, true, true);
@@ -48,6 +50,7 @@ public class PylonUIEditor : Editor {
         list.DoLayoutList();
         EditorGUILayout.PropertyField(defaultText);
         EditorGUILayout.PropertyField(circlePrefab);
+        EditorGUILayout.PropertyField(keyboard);
         serializedObject.ApplyModifiedProperties();
     }
 }

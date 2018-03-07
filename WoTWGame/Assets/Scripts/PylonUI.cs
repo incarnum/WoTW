@@ -10,9 +10,10 @@ public class PylonUI : MonoBehaviour {
     public List<IngCircle> Ingredients = new List<IngCircle>();
     public string DefaultInfo;
     public GameObject ItemPrefab;
+    public bool keyboardControls;
 
     private Text CurrentInfo;
-
+    private int buttonSelected;
     //List of Cirlces
     private List<GameObject> Elements = new List<GameObject>();
 
@@ -34,12 +35,69 @@ public class PylonUI : MonoBehaviour {
             newButton.transform.localPosition = new Vector3(xPos, yPos, 0f) * 100f;
             Elements.Add(newButton);
         }
-	}
-
+        if (keyboardControls)
+        {
+            buttonSelected = 0;
+            OnEnter();
+        }
+    }
     // Update is called once per frame
     void Update () {
-        
-	}
+        if (keyboardControls)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Elements[buttonSelected].GetComponent<PylonCircle>().Use();
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (buttonSelected < Elements.Count -1)
+                {
+                    OnExit();
+                    buttonSelected++;
+                    OnEnter();
+                }
+                else
+                {
+                    OnExit();
+                    buttonSelected = 0;
+                    OnEnter();
+                }
+
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (buttonSelected > 0)
+                {
+                    OnExit();
+                    buttonSelected--;
+                    OnEnter();
+                }
+                else
+                {
+                    OnExit();
+                    buttonSelected = Elements.Count - 1;
+                    OnEnter();
+                }
+
+            }
+        }
+
+    }
+    public void OnEnter()
+    {
+        Elements[buttonSelected].transform.Find("Ring").GetComponent<Image>().enabled = true;
+        Elements[buttonSelected].transform.Find("Amount").GetComponent<Text>().enabled = true;
+        Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
+
+    }
+    public void OnExit()
+    {
+        Elements[buttonSelected].transform.Find("Ring").GetComponent<Image>().enabled = false;
+        Elements[buttonSelected].transform.Find("Amount").GetComponent<Text>().enabled = false;
+        Elements[buttonSelected].GetComponent<PylonCircle>().onExit();
+    }
+
     public void HoverText(string source)
     {
         CurrentInfo.text = source;

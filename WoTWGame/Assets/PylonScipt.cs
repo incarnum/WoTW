@@ -33,6 +33,7 @@ public class PylonScipt : MonoBehaviour {
     private Color wolfColor;
     private Color rabbitColor;
     private Color owlColor;
+    private DialogueManager dialougeActive;
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Player");
@@ -46,20 +47,23 @@ public class PylonScipt : MonoBehaviour {
         rabbitColor = core.rabbitColor;
         owlColor = core.owlColor;
 		activeSelection = -2;
+        dialougeActive = GameObject.Find("TutorialDialogue").GetComponent<DialogueManager>();
     }
 
     // Update is called once per frame
     void Update() {
-		if (corrWindow.activeSelf || newUI.activeSelf)
-        {
-            player.GetComponent<PlayerControllerScript>().canMove = false;
-            player.GetComponent<PlayerControllerB>().canMove = false;
-        }
-		if (touching && Input.GetKeyDown (KeyCode.E) && !corrupted) {
+        bool boxOpen = dialougeActive.windowUp;
+       // if (newUI.activeSelf)
+       // {
+            //player.GetComponent<PlayerControllerScript>().canMove = false;
+            //player.GetComponent<PlayerControllerB>().canMove = false;
+       // }
+		if (touching && Input.GetKeyDown(KeyCode.E) && !corrupted && !boxOpen) {
+            
 			if (!newUI.activeSelf) {
                 if (corrupted)
                 {
-                    corrWindow.SetActive(true);
+                    newUI.SetActive(true);
                 }
                 //opens window, 
                 else
@@ -84,21 +88,21 @@ public class PylonScipt : MonoBehaviour {
                     options[1].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().antlerNum);
                     options[2].GetComponentsInChildren<TextMesh>()[1].text = ("X" + player.GetComponent<InventoryScript>().fangNum);
                 }
-				CheckIfValid ();
+				//CheckIfValid ();
 
-			} else if (validSelection) {
-				SelectCurrent ();
-			} else {
-				Debug.Log ("Not enough ingredients");
-			}
+			}// else if (validSelection) {
+				//SelectCurrent ();
+			//} else {
+			//	Debug.Log ("Not enough ingredients");
+			//}
 		}
-        else if (touching && Input.GetKeyDown(KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0)
+        else if (touching && Input.GetKeyDown(KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0 && !boxOpen)
         {
             if (!newUI.activeSelf)
             {
                 if (corrupted)
                 {
-                    corrWindow.SetActive(true);
+                    newUI.SetActive(true);
                 }
                 //opens window, 
                 else
@@ -128,14 +132,14 @@ public class PylonScipt : MonoBehaviour {
             }
             else if (validSelection)
             {
-                SelectCurrent();
+                //SelectCurrent();
             }
             else
             {
                 Debug.Log("Not enough ingredients");
             }
         }
-        if (Input.GetKeyDown (KeyCode.Q) && windowActive) {
+        /*if (Input.GetKeyDown (KeyCode.Q) && windowActive) {
 			if (activeSelection != -2) {
                 if (corrupted)
                 {
@@ -149,7 +153,7 @@ public class PylonScipt : MonoBehaviour {
 			}
             if (corrupted)
             {
-                corrWindow.SetActive(false);
+                newUI.SetActive(false);
             }
             else
             {
@@ -159,10 +163,10 @@ public class PylonScipt : MonoBehaviour {
 				player.GetComponent<PlayerControllerB> ().canMove = true;
 				windowActive = false;
 			
-		}
+		}*/
 
 		//pressing R removes the item from the pylon
-		if (Input.GetKeyDown (KeyCode.R) && windowActive) {
+		/*if (Input.GetKeyDown (KeyCode.R) && windowActive) {
 			if (activeSelection == 0) {
 				player.GetComponent<InventoryScript> ().berryNum += corrCost;
 			} else if (activeSelection == 1) {
@@ -192,9 +196,9 @@ public class PylonScipt : MonoBehaviour {
 				core2.PredictSpell ();
 			}
 
-		}
+		}*/
 
-		if (newUI.activeSelf) {
+		/*if (newUI.activeSelf) {
 			//moving the selector up and down to see different options
 			if (Input.GetKeyDown (KeyCode.S)) {
 				currentSelection += 1;
@@ -229,7 +233,7 @@ public class PylonScipt : MonoBehaviour {
                 }
                 CheckIfValid ();
 			}
-		}
+		}*/
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
@@ -274,23 +278,39 @@ public class PylonScipt : MonoBehaviour {
 		}
 	}
 
-	void SelectCurrent() {
-		//turn the current selection into the active selection
-
+	public void SelectCurrent(int selection) {
+        //turn the current selection into the active selection
 		//this first bit is refunding the player whatever ingredient was already in this pylon
-		if (activeSelection == 0) {
-			player.GetComponent<InventoryScript> ().berryNum += corrCost;
-		} else if (activeSelection == 1) {
-			player.GetComponent<InventoryScript> ().antlerNum += corrCost;
-		} else if (activeSelection == 2) {
-			player.GetComponent<InventoryScript> ().fangNum += corrCost;
-		} else if (activeSelection == 3) {
-			player.GetComponent<InventoryScript> ().corrBerryNum += 1;
-		}
-		activeSelection = currentSelection;
+        if(activeSelection == selection)
+        {
+            if (activeSelection == 0)
+            {
+                player.GetComponent<InventoryScript>().berryNum += corrCost;
+            }
+            else if (activeSelection == 1)
+            {
+                player.GetComponent<InventoryScript>().antlerNum += corrCost;
+            }
+            else if (activeSelection == 2)
+            {
+                player.GetComponent<InventoryScript>().fangNum += corrCost;
+            }
+            else if (activeSelection == 3)
+            {
+                player.GetComponent<InventoryScript>().corrBerryNum += 1;
+            }
+            activeSelection = -2;
+        }
+        else
+        {
+            activeSelection = selection;
+        }
+        
+		
+		
         if (corrupted)
         {
-            corrWindow.SetActive(false);
+            newUI.SetActive(false);
         }
         //opens window, 
         else
