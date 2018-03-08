@@ -301,21 +301,18 @@ public class PylonScipt : MonoBehaviour {
             }
             activeSelection = -2;
         }
-        else
-        {
-            activeSelection = selection;
-        }
+        activeSelection = selection;
         
 		
 		
         if (corrupted)
         {
-            newUI.SetActive(false);
+			newUI.GetComponent<PylonUI> ().OnExit ();
         }
         //opens window, 
         else
         {
-            newUI.SetActive(false);
+			newUI.GetComponent<PylonUI> ().OnExit ();
         }
 		player.GetComponent<PlayerControllerScript> ().canMove = true;
 		player.GetComponent<PlayerControllerB> ().canMove = true;

@@ -20,6 +20,7 @@ public class PlayerControllerB : MonoBehaviour {
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
+		anim.SetFloat ("LastMoveY", -1f);
 	}
 
 	void FixedUpdate () {

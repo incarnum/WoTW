@@ -20,9 +20,9 @@ public class PylonCircle : MonoBehaviour {
 	void Start () {
         countUI = gameObject.transform.Find("Amount").GetComponent<Text>();
         Icon = gameObject.transform.Find("Icon").GetComponent<Image>();
-        UI = gameObject.transform.parent.GetComponent<PylonUI>();
+		UI = gameObject.transform.parent.parent.GetComponent<PylonUI>();
         invertory = GameObject.Find("Player").GetComponent<InventoryScript>();
-        parent = gameObject.transform.parent.parent.GetComponent<PylonScipt>();
+		parent = gameObject.transform.parent.parent.parent.GetComponent<PylonScipt>();
     }
 	
 	// Update is called once per frame
