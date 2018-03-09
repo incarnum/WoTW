@@ -239,7 +239,7 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.tag == "energy") {
+	if (col.gameObject.tag == "energy" && this.enabled) {
 			touching = true;
 			ingredientPopUp.SetActive (true);
             if (castSpellShouldBeActive)
@@ -250,7 +250,7 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
-		if (col.gameObject.tag == "energy") {
+	if (col.gameObject.tag == "energy" && this.enabled) {
 			touching = false;
 			ingredientPopUp.SetActive (false);
             if (castSpellShouldBeActive)
@@ -378,15 +378,15 @@ public class PylonScipt : MonoBehaviour {
 		}
         if (corrupted)
         {
-            if (activeSelection == 0)
+		if (activeSelection == 0)
             {
                 player.GetComponent<InventoryScript>().berryNum -= corrCost;
             }
-            else if (activeSelection == 1)
+		else if (activeSelection == 1)
             {
                 player.GetComponent<InventoryScript>().antlerNum -= corrCost;
             }
-            else if (activeSelection == 2)
+		else if (activeSelection == 2)
             {
                 player.GetComponent<InventoryScript>().fangNum -= corrCost;
             }

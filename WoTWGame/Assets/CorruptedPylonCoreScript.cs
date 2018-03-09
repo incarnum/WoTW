@@ -69,6 +69,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 	private bool colorPulse;
 	public Color pulseColor;
 	public bool finalFlash;
+	public GameObject x3;
 
     // Use this for initialization
     void Start()
@@ -265,6 +266,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
 			timeStopTrigger.SetActive (true);
+			x3.SetActive (false);
 
         }
         //this is where you put all the code for what corrupted spells do

@@ -338,6 +338,8 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 		wolf.rateOfChange = 0;
         rabbit.rateOfChange = 0;
         owl.rateOfChange = 0;
+		shrubUI.popChange.text = "";
+		shrubUI.rightChange.text = "";
         //the format of these is:
         //population += (constant number chosen in order to keep the ecosystem balanced by default + modifier that is the result of buff * .2f to weaken the impact
         // of the buffs.

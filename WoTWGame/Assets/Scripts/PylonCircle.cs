@@ -56,6 +56,7 @@ public class PylonCircle : MonoBehaviour {
         if(data.Amount > 0)
         {
             //data.Amount--;
+			if (!parent.corrupted || data.Amount >=3)
             parent.SelectCurrent(data.IngNum);
         }
     }

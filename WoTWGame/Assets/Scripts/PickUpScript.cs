@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PickUpScript : MonoBehaviour {
 	private CreatureManagerScript creatureManager;
+	public AudioSource pickUpSound;
 	// Use this for initialization
 	public int pickUpType;
 	void Start () {
 		creatureManager = GameObject.Find ("CreatureManager").GetComponent<CreatureManagerScript> ();
+		pickUpSound = GameObject.Find ("PickUpSound").GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +34,7 @@ public class PickUpScript : MonoBehaviour {
 				coll.GetComponent<InventoryScript> ().corrFangNum += 1;
 			}
 			coll.GetComponent<InventoryScript> ().UpdateNumbers ();
-
+			pickUpSound.Play ();
 		}
 	}
 
