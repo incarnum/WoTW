@@ -128,6 +128,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
     private bool corruptPlaying;
     //Must be < 1
     public float warningPercent;
+	public bool demo;
 
     // Use this for initialization
     void Start()

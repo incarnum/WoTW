@@ -27,14 +27,16 @@ public class InventoryScript : MonoBehaviour {
 	public GameObject fangText2;
 	public GameObject rabbitFootText2;
 	public GameObject owlFeatherText2;
+
+	public SimpleEcologyMasterScript eco;
 	// Use this for initialization
 	void Start () {
-
+		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Backslash)) {
+		if (Input.GetKeyDown (KeyCode.Backslash) && !eco.demo) {
 			berryNum += 20;
 			antlerNum += 20;
 			fangNum += 20;

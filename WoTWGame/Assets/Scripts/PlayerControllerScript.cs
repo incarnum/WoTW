@@ -25,6 +25,7 @@ public class PlayerControllerScript : MonoBehaviour {
     private GameObject pauseCanvas;
     public GameObject uiManager;
     public Vector3? targetPosition;
+	public SimpleEcologyMasterScript eco;
 
 	public delegate void PauseAction();
 	public static event PauseAction OnPaused;
@@ -39,6 +40,7 @@ public class PlayerControllerScript : MonoBehaviour {
 		multiMenu = GameObject.Find ("MultiMenu");
 		buttonHolder = GameObject.Find ("ButtonHolder");
         pauseCanvas = GameObject.Find("PauseCanvas");
+		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 	}
 
 	void Update () {
@@ -64,19 +66,19 @@ public class PlayerControllerScript : MonoBehaviour {
 			GameObject.Find ("MakeTome").GetComponent<MakeTomeButtonScript> ().CreateSpellButton ();
 		}
 
-		if (Input.GetKeyDown (KeyCode.RightBracket)) {
+		if (Input.GetKeyDown (KeyCode.RightBracket) && !eco.demo) {
 			speed += 2;
-		} else if (Input.GetKeyDown (KeyCode.LeftBracket)) {
+		} else if (Input.GetKeyDown (KeyCode.LeftBracket) && !eco.demo) {
 			speed -= 2;
 		}
 
-		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.R)) {
+		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.R) && !eco.demo) {
 			SceneManager.LoadScene ("MainMenu");
 		}
-		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Alpha1)) {
+		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Alpha1) && !eco.demo) {
 			SceneManager.LoadScene ("Forest");
 		}
-		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Q)) {
+		if (Input.GetKey (KeyCode.Alpha0) && Input.GetKeyDown (KeyCode.Q) && !eco.demo) {
 			Application.Quit();
 		}
 //        if (Input.GetKeyDown(KeyCode.Mouse0))

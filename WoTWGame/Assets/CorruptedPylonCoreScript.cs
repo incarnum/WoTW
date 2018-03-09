@@ -144,7 +144,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 Debug.Log("Need more ingredients");
             }
         }
-		if (Input.GetKeyDown (KeyCode.P)) {
+		if (Input.GetKeyDown (KeyCode.P) && !eco.demo) {
 			cooldown = 0f;
 		}
 		cooldown -= Time.deltaTime;
@@ -223,27 +223,37 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 				//GameObject.Find ("CorruptionWall").SetActive (false);
                 //rabbit.enabled = true;
             }
-            else if (dm.cleansedNodes == 3)
+			else if (dm.cleansedNodes == 3)
             {
+				if (!eco.demo) {
 				rabbit.enabled = true;
 				rabbit.DoStart ();
 				eco.GetComponent<UIManager> ().ActivateRabbits ();
                 //clFoN.TriggerDialogue();
                 //owl.enabled = true;
+				}
             }
             else if (dm.cleansedNodes == 4)
             {
-				owl.enabled = true;
-				owl.DoStart ();
-				eco.GetComponent<UIManager> ().ActivateOwls ();
-                //clFiN.TriggerDialogue();
-                //no longer present in level
+				if (!eco.demo) {
+					owl.enabled = true;
+					owl.DoStart ();
+					eco.GetComponent<UIManager> ().ActivateOwls ();
+					//clFiN.TriggerDialogue();
+					//no longer present in level
+				} else {
+					GameObject.Find ("DemoEndCanvas").transform.GetChild (0).gameObject.SetActive (true);
+					GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
+					GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+				}
             }
 			else if (dm.cleansedNodes == 5)
 			{
+				if (!eco.demo) {
 				clTN.TriggerDialogue();
 				GameObject.Find ("CorruptionWall").SetActive (false);
 				//rabbit.enabled = true;
+				}
 			}
             dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);
