@@ -10,6 +10,8 @@ public class PylonUIEditor : Editor {
     SerializedProperty circlePrefab;
     SerializedProperty keyboard;
 	SerializedProperty itemHolder;
+	SerializedProperty corrupted;
+	SerializedProperty numberOfActiveIngredients;
 
     private void OnEnable()
     {
@@ -17,6 +19,8 @@ public class PylonUIEditor : Editor {
         circlePrefab = serializedObject.FindProperty("ItemPrefab");
         keyboard = serializedObject.FindProperty("keyboardControls");
 		itemHolder = serializedObject.FindProperty("itemHolder");
+		corrupted = serializedObject.FindProperty("corrupted");
+		numberOfActiveIngredients = serializedObject.FindProperty("numberOfActiveIngredients");
         list = new ReorderableList(serializedObject,
                 serializedObject.FindProperty("Ingredients"),
                 true, true, true, true);
@@ -54,6 +58,8 @@ public class PylonUIEditor : Editor {
         EditorGUILayout.PropertyField(circlePrefab);
         EditorGUILayout.PropertyField(keyboard);
 		EditorGUILayout.PropertyField(itemHolder);
+		EditorGUILayout.PropertyField(corrupted);
+		EditorGUILayout.PropertyField(numberOfActiveIngredients);
         serializedObject.ApplyModifiedProperties();
     }
 }

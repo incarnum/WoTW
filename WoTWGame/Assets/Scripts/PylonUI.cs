@@ -12,7 +12,8 @@ public class PylonUI : MonoBehaviour {
     public GameObject ItemPrefab;
     public bool keyboardControls;
 	public RectTransform itemHolder;
-
+	public bool corrupted;
+	public int numberOfActiveIngredients;
 
     private Text CurrentInfo;
     private int buttonSelected;
@@ -29,7 +30,7 @@ public class PylonUI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
-        CurrentInfo.text = DefaultInfo;
+        //CurrentInfo.text = DefaultInfo;
 
 
         if (keyboardControls)
@@ -51,7 +52,7 @@ public class PylonUI : MonoBehaviour {
 				OnExit();
 			}
 
-            if (Input.GetKeyDown(KeyCode.D))
+			if (Input.GetKeyDown(KeyCode.A))
             {
                 if (buttonSelected < Elements.Count -1)
                 {
@@ -63,7 +64,7 @@ public class PylonUI : MonoBehaviour {
                 }
 				RotateRight ();
             }
-            if (Input.GetKeyDown(KeyCode.A))
+			if (Input.GetKeyDown(KeyCode.D))
             {
                 if (buttonSelected > 0)
                 {
@@ -92,12 +93,22 @@ public class PylonUI : MonoBehaviour {
     {
         //Elements[buttonSelected].transform.Find("Ring").GetComponent<Image>().enabled = true;
         //Elements[buttonSelected].transform.Find("Amount").GetComponent<Text>().enabled = true;
-		int buttonTot = Ingredients.Count;
+		numberOfActiveIngredients = 1;
+		if (GameObject.Find ("Deer UI") != null)
+			numberOfActiveIngredients += 1;
+		if (GameObject.Find ("Wolf UI") != null)
+			numberOfActiveIngredients += 1;
+		if (GameObject.Find ("Rabbit UI") != null)
+			numberOfActiveIngredients += 1;
+		if (GameObject.Find ("Owl UI") != null)
+			numberOfActiveIngredients += 1;
+		int buttonTot = numberOfActiveIngredients;
 		//Create and Place Circles from Editor data
-		for(int i = 0; i  < Ingredients.Count; i ++)
+		for(int i = 0; i  < numberOfActiveIngredients; i ++)
 		{
 			GameObject newButton = Instantiate(ItemPrefab) as GameObject;
 			newButton.GetComponent<PylonCircle>().data = Ingredients[i];
+			newButton.GetComponent<PylonCircle> ().UI = this;
 			newButton.transform.SetParent(itemHolder, false);
 			float theta = (2 * Mathf.PI / buttonTot) * i;
 			float xPos = Mathf.Sin(theta) * 150f;
@@ -110,7 +121,7 @@ public class PylonUI : MonoBehaviour {
 			child.rotation = Quaternion.Euler(0,0,0);
 		}
 		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (0f, 149.7f), .1f);
-		Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
+		StartText ();
     }
     public void OnExit()
     {
@@ -136,7 +147,20 @@ public class PylonUI : MonoBehaviour {
     public void HoverText(string source)
     {
         CurrentInfo.text = source;
+		print (source);
     }
+
+	private void StartText() {
+		print (buttonSelected);
+		print (Elements [buttonSelected]);
+		print (Elements [buttonSelected].GetComponent<PylonCircle> ());
+		print (Elements [buttonSelected].GetComponent<PylonCircle> ().data);
+		print (Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info);
+		CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
+		print (CurrentInfo);
+
+		CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
+	}
 
     public void ReturnInfoToDefault()
     {
@@ -149,17 +173,23 @@ public class PylonUI : MonoBehaviour {
 
 	public void RotateRight() {
 		rotating = true;
-		targetRotation += (2 * Mathf.PI / Ingredients.Count) * Mathf.Rad2Deg;
+		targetRotation += (2 * Mathf.PI / numberOfActiveIngredients) * Mathf.Rad2Deg;
 		startTime = Time.time;
+		itemHolder.rotation = Quaternion.Euler (0, 0, itemHolder.rotation.eulerAngles.z + 1f);
 		startRotation = itemHolder.eulerAngles.z;
-		Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
+
+		//Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
+		CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
 	}
 
 	public void RotateLeft() {
 		rotating = true;
-		targetRotation -= (2 * Mathf.PI / Ingredients.Count) * Mathf.Rad2Deg;
+		targetRotation -= (2 * Mathf.PI / numberOfActiveIngredients) * Mathf.Rad2Deg;
 		startTime = Time.time;
+		itemHolder.rotation = Quaternion.Euler (0, 0, itemHolder.rotation.eulerAngles.z - 1f);
 		startRotation = itemHolder.eulerAngles.z;
-		Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
+
+		//Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
+		CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
 	}
 }
