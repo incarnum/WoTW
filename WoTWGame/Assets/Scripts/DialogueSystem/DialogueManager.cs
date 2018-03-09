@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown("space") && overLay.enabled && windowUp)
+		if (Input.GetKeyDown(KeyCode.E) && overLay.enabled && windowUp)
         {
 			Advance ();
         }
@@ -88,7 +88,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-		GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.clear, .05f);
+		//GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.clear, .05f);
         if (sentences.Count == 0)
         {
             EndDialogue();
@@ -113,7 +113,7 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
 		typing = false;
-		GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
+		//GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
     }
 
     void EndDialogue()
@@ -141,7 +141,7 @@ public class DialogueManager : MonoBehaviour
 			dialogueText.text = "";
 			dialogueText.text += sentence;
 			typing = false;
-			GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
+			//GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
 		} 
 		else 
 		{

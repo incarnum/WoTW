@@ -11,6 +11,8 @@ public class PlayerControllerScript : MonoBehaviour {
 	public bool paused;
 	public bool popBarPaused;
 	public bool dialoguePaused;
+    public bool pylonPaused;
+    public bool mapPaused;
 	public bool noChargeMode;
 	private Vector3 worldUpperLeft;
 	private Vector3 worldLowerRight;
@@ -159,7 +161,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	}
 
 	public void CheckIfICanMove() {
-		if (!paused && !popBarPaused && !dialoguePaused) {
+		if (!paused && !popBarPaused && !dialoguePaused && !pylonPaused && !mapPaused) {
 			canMove = true;
 			GetComponent<PlayerControllerB> ().canMove = true;
 

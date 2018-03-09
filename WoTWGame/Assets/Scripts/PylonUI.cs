@@ -135,6 +135,8 @@ public class PylonUI : MonoBehaviour {
 		}
 		Elements.Clear ();
 		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (0, 0), .1f);
+        GameObject.Find("Player").GetComponent<PlayerControllerScript>().pylonPaused = false;
+        GameObject.Find("Player").GetComponent<PlayerControllerScript>().CheckIfICanMove();
     }
 
 	IEnumerator WaitDisable() {

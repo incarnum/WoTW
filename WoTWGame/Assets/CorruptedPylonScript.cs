@@ -17,7 +17,7 @@ public class CorruptedPylonScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (touching && Input.GetKeyDown (KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0) {
+		/*if (touching && Input.GetKeyDown (KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0) {
 			if (!windowActive) {
 				window.SetActive (true);
 				player.GetComponent<PlayerControllerScript> ().canMove = false;
@@ -37,7 +37,7 @@ public class CorruptedPylonScript : MonoBehaviour {
 			player.GetComponent<PlayerControllerB> ().canMove = true;
 			windowActive = false;
 
-		}
+		}*/
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PylonCircle : MonoBehaviour {
     public IngCircle data;
-    private InventoryScript invertory;
+    private InventoryScript inventory;
     private Text Name;
     private Text countUI;
     private Image Icon;
@@ -21,7 +21,7 @@ public class PylonCircle : MonoBehaviour {
         countUI = gameObject.transform.Find("Amount").GetComponent<Text>();
         Icon = gameObject.transform.Find("Icon").GetComponent<Image>();
 
-        invertory = GameObject.Find("Player").GetComponent<InventoryScript>();
+        inventory = GameObject.Find("Player").GetComponent<InventoryScript>();
 		parent = gameObject.transform.parent.parent.parent.GetComponent<PylonScipt>();
     }
 	
@@ -35,7 +35,7 @@ public class PylonCircle : MonoBehaviour {
         {
             gameObject.GetComponent<EventTrigger>().enabled = true;
         }
-        data.Amount = (int)invertory.GetType().GetField(data.IngValue).GetValue(invertory);
+        data.Amount = (int)inventory.GetType().GetField(data.IngValue).GetValue(inventory);
         countUI.text = data.Amount.ToString();
         Icon.overrideSprite = data.Icon;
         

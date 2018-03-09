@@ -733,20 +733,28 @@ public class PylonCoreScript : MonoBehaviour
         {
 			CenterStoneGlow.SetColor (Color.white, .2f);
             castable = true;
-			corePopUp.SetActive (true);
+
+            pylon1.castSpellShouldBeActive = true;
+            pylon2.castSpellShouldBeActive = true;
+            pylon3.castSpellShouldBeActive = true;
         }
         else
         {
 			CenterStoneGlow.SetColor (Color.clear, .2f);
             castable = false;
-			corePopUp.SetActive (false);
-			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
+            corePopUp.SetActive(false);
+            pylon1.castSpellShouldBeActive = false;
+            pylon2.castSpellShouldBeActive = false;
+            pylon3.castSpellShouldBeActive = false;
+            corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
         }
         if (target == 3 && effect == 3 && strength == 3)
         {
 			CenterStoneGlow.SetColor (Color.white, .2f);
             castable = true;
-			corePopUp.SetActive (true);
+            pylon1.castSpellShouldBeActive = true;
+            pylon2.castSpellShouldBeActive = true;
+            pylon3.castSpellShouldBeActive = true;
         }
 
 

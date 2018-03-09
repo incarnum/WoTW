@@ -34,10 +34,12 @@ public class PylonScipt : MonoBehaviour {
     private Color rabbitColor;
     private Color owlColor;
     private DialogueManager dialougeActive;
+    public bool castSpellShouldBeActive;
+    public GameObject castSpellPopup;
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Player");
-        corrCost = 1;
+        corrCost = 3;
         core = cpcs.GetComponent<PylonCoreScript>();
         core2 = cpcs.GetComponent<CorruptedPylonCoreScript>();
         corrColor = core.corrColor;
@@ -70,9 +72,9 @@ public class PylonScipt : MonoBehaviour {
                 {
                     newUI.SetActive(true);
                 }
-				player.GetComponent<PlayerControllerScript> ().canMove = false;
-				player.GetComponent<PlayerControllerB> ().canMove = false;
-				windowActive = true;
+				player.GetComponent<PlayerControllerScript> ().pylonPaused = true;
+                player.GetComponent<PlayerControllerScript>().CheckIfICanMove();
+                windowActive = true;
 				//updates the tooltip saying what the current selection does
 				UpdateText ();
                 //sets number display for how many ingredients the player has
@@ -240,6 +242,10 @@ public class PylonScipt : MonoBehaviour {
 		if (col.gameObject.tag == "energy") {
 			touching = true;
 			ingredientPopUp.SetActive (true);
+            if (castSpellShouldBeActive)
+            {
+                castSpellPopup.SetActive(false);
+            }
 		}
 	}
 
@@ -247,6 +253,10 @@ public class PylonScipt : MonoBehaviour {
 		if (col.gameObject.tag == "energy") {
 			touching = false;
 			ingredientPopUp.SetActive (false);
+            if (castSpellShouldBeActive)
+            {
+                castSpellPopup.SetActive(true);
+            }
 		}
 	}
 
@@ -283,23 +293,48 @@ public class PylonScipt : MonoBehaviour {
 		//this first bit is refunding the player whatever ingredient was already in this pylon
         if(activeSelection == selection)
         {
-            if (activeSelection == 0)
+            if (corrupted)
             {
-                player.GetComponent<InventoryScript>().berryNum += corrCost;
+                if (activeSelection == 0)
+                {
+                    player.GetComponent<InventoryScript>().berryNum += corrCost;
+                }
+                else if (activeSelection == 1)
+                {
+                    player.GetComponent<InventoryScript>().antlerNum += corrCost;
+                }
+                else if (activeSelection == 2)
+                {
+                    player.GetComponent<InventoryScript>().fangNum += corrCost;
+                }
+                else if (activeSelection == 3)
+                {
+                    player.GetComponent<InventoryScript>().corrBerryNum += 1;
+                }
+                activeSelection = -2;
             }
-            else if (activeSelection == 1)
+            else
             {
-                player.GetComponent<InventoryScript>().antlerNum += corrCost;
+                if (activeSelection == 0)
+                {
+                    player.GetComponent<InventoryScript>().berryNum += 1;
+                }
+                else if (activeSelection == 1)
+                {
+                    player.GetComponent<InventoryScript>().antlerNum += 1;
+                }
+                else if (activeSelection == 2)
+                {
+                    player.GetComponent<InventoryScript>().fangNum += 1;
+                }
+                else if (activeSelection == 3)
+                {
+                    player.GetComponent<InventoryScript>().corrBerryNum += 1;
+                }
+                activeSelection = -2;
             }
-            else if (activeSelection == 2)
-            {
-                player.GetComponent<InventoryScript>().fangNum += corrCost;
-            }
-            else if (activeSelection == 3)
-            {
-                player.GetComponent<InventoryScript>().corrBerryNum += 1;
-            }
-            activeSelection = -2;
+
+            
         }
         activeSelection = selection;
         
@@ -314,9 +349,9 @@ public class PylonScipt : MonoBehaviour {
         {
 			newUI.GetComponent<PylonUI> ().OnExit ();
         }
-		player.GetComponent<PlayerControllerScript> ().canMove = true;
-		player.GetComponent<PlayerControllerB> ().canMove = true;
-		windowActive = false;
+		player.GetComponent<PlayerControllerScript> ().pylonPaused = false;
+        player.GetComponent<PlayerControllerScript>().CheckIfICanMove();
+        windowActive = false;
 		if (!corrupted) {
 			if (pylonNum == 0) {
 				core.target = activeSelection;
@@ -341,15 +376,45 @@ public class PylonScipt : MonoBehaviour {
 				core2.strength = activeSelection;
 			}
 		}
-		if (activeSelection == 0) {
-			player.GetComponent<InventoryScript> ().berryNum -= corrCost;
-		} else if (activeSelection == 1) {
-			player.GetComponent<InventoryScript> ().antlerNum -= corrCost;
-		} else if (activeSelection == 2) {
-			player.GetComponent<InventoryScript> ().fangNum -= corrCost;
-		} else if (activeSelection == 3) {
-			player.GetComponent<InventoryScript> ().corrBerryNum -= 1;
-		}
+        if (corrupted)
+        {
+            if (activeSelection == 0)
+            {
+                player.GetComponent<InventoryScript>().berryNum -= corrCost;
+            }
+            else if (activeSelection == 1)
+            {
+                player.GetComponent<InventoryScript>().antlerNum -= corrCost;
+            }
+            else if (activeSelection == 2)
+            {
+                player.GetComponent<InventoryScript>().fangNum -= corrCost;
+            }
+            else if (activeSelection == 3)
+            {
+                player.GetComponent<InventoryScript>().corrBerryNum -= 1;
+            }
+        }
+        else
+        {
+            if (activeSelection == 0)
+            {
+                player.GetComponent<InventoryScript>().berryNum -= 1;
+            }
+            else if (activeSelection == 1)
+            {
+                player.GetComponent<InventoryScript>().antlerNum -= 1;
+            }
+            else if (activeSelection == 2)
+            {
+                player.GetComponent<InventoryScript>().fangNum -= 1;
+            }
+            else if (activeSelection == 3)
+            {
+                player.GetComponent<InventoryScript>().corrBerryNum -= 1;
+            }
+        }
+		
 		player.GetComponent<InventoryScript> ().UpdateNumbers ();
 		UpdateSprite ();
 		//updates the spell prediction using the correct core script

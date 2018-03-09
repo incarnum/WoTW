@@ -126,7 +126,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         if (touching && Input.GetKeyDown(KeyCode.E) && cooldown <= 0)
         {
-            if (target != -1 && strength != -1 && castable && target != 3)
+            if (target != -1 && castable && target != 3)
             {
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
@@ -257,7 +257,10 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             pylon2.GetComponent<CorruptedPylonScript>().enabled = false;
             pylon2.GetComponent<PylonScipt>().enabled = true;
             pylon2.GetComponent<SpriteRenderer>().color = Color.white;
-			cRing1.GetComponent<SpriteRenderer> ().color = GetComponent<PylonCoreScript> ().spellColor;
+            pylon3.GetComponent<CorruptedPylonScript>().enabled = false;
+            pylon3.GetComponent<PylonScipt>().enabled = true;
+            pylon3.GetComponent<SpriteRenderer>().color = Color.white;
+            cRing1.GetComponent<SpriteRenderer> ().color = GetComponent<PylonCoreScript> ().spellColor;
 			cRing2.GetComponent<SpriteRenderer>().color = GetComponent<PylonCoreScript> ().spellColor;
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
@@ -344,12 +347,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			cooldown = generalCooldown;
         }
 		cm.GetComponent<ShrubPopulation> ().DoUpdate();
-//		if (cm.GetComponent<DeerPopulation> ().enabled == true) {
-//			cm.GetComponent<DeerPopulation> ().DoUpdate ();
-//		}
-//		if (cm.GetComponent<WolfPopulation> ().enabled == true) {
-//			cm.GetComponent<WolfPopulation> ().DoUpdate ();
-//		}
+		/*if (cm.GetComponent<DeerPopulation> ().enabled == true) {
+			cm.GetComponent<DeerPopulation> ().DoUpdate ();
+		}
+		if (cm.GetComponent<WolfPopulation> ().enabled == true) {
+			cm.GetComponent<WolfPopulation> ().DoUpdate ();
+		}*/
     }
 
     public void PredictSpell()
@@ -368,11 +371,14 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 //        }
 
 
-        if (target != -1 && strength != -1 && cooldown <= 0)
+        if (target != -1 && cooldown <= 0)
         {
 			CenterStoneGlow.SetColor (Color.white, .5f);
             castable = true;
 			corePopUp.SetActive (true);
+            pylon1.castSpellShouldBeActive = true;
+            pylon2.castSpellShouldBeActive = true;
+            pylon3.castSpellShouldBeActive = true;
         }
         else
         {
@@ -380,6 +386,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             castable = false;
 			corePopUp.SetActive (false);
 			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
+            pylon1.castSpellShouldBeActive = false;
+            pylon2.castSpellShouldBeActive = false;
+            pylon3.castSpellShouldBeActive = false;
         }
 		if (cooldown > 0)
 		{
