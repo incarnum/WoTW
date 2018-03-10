@@ -19,7 +19,7 @@ public class PylonUI : MonoBehaviour {
     private int buttonSelected;
 
 	private float startRotation;
-	private float targetRotation;
+	public float targetRotation;
 	private float startTime;
 	private float rotationDuration = .15f;
 	private bool rotating;
@@ -103,6 +103,8 @@ public class PylonUI : MonoBehaviour {
 		if (GameObject.Find ("Owl UI") != null)
 			numberOfActiveIngredients += 1;
 		int buttonTot = numberOfActiveIngredients;
+		itemHolder.rotation = Quaternion.Euler (0, 0, (2 * Mathf.PI / buttonTot) * buttonSelected * Mathf.Rad2Deg);
+		targetRotation = (2 * Mathf.PI / buttonTot) * buttonSelected * Mathf.Rad2Deg;
 		//Create and Place Circles from Editor data
 		for(int i = 0; i  < numberOfActiveIngredients; i ++)
 		{
@@ -153,15 +155,17 @@ public class PylonUI : MonoBehaviour {
     }
 
 	private void StartText() {
-		print (buttonSelected);
-		print (Elements [buttonSelected]);
-		print (Elements [buttonSelected].GetComponent<PylonCircle> ());
-		print (Elements [buttonSelected].GetComponent<PylonCircle> ().data);
-		print (Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info);
 		CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
-		print (CurrentInfo);
 
-		CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
+		if (gameObject.transform.parent.GetComponent<PylonScipt>().corrupted == false) {
+			CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
+		} else if (Elements [buttonSelected].GetComponent<PylonCircle> ().data.IngNum == 0) {
+			CurrentInfo.text = "Cleanses the corruption using energy from shrubs";
+		} else if (Elements [buttonSelected].GetComponent<PylonCircle> ().data.IngNum == 1) {
+			CurrentInfo.text = "Cleanses the corruption using energy from deer";
+		} else if (Elements [buttonSelected].GetComponent<PylonCircle> ().data.IngNum == 2) {
+			CurrentInfo.text = "Cleanses the corruption using energy from wolves";
+		}
 	}
 
     public void ReturnInfoToDefault()
@@ -181,7 +185,7 @@ public class PylonUI : MonoBehaviour {
 		startRotation = itemHolder.eulerAngles.z;
 
 		//Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
-		CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
+		StartText();
 	}
 
 	public void RotateLeft() {
@@ -192,6 +196,6 @@ public class PylonUI : MonoBehaviour {
 		startRotation = itemHolder.eulerAngles.z;
 
 		//Elements[buttonSelected].GetComponent<PylonCircle>().onHover();
-		CurrentInfo.text = Elements [buttonSelected].GetComponent<PylonCircle> ().data.Info;
+		StartText();
 	}
 }

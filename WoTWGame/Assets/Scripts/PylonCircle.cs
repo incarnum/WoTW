@@ -14,7 +14,7 @@ public class PylonCircle : MonoBehaviour {
     private Text InfoBox;
     private string IngValue;
     public PylonUI UI;
-    private PylonScipt parent;
+    public PylonScipt parent;
     
 
 	void Start () {
@@ -44,7 +44,20 @@ public class PylonCircle : MonoBehaviour {
 
     public void onHover()
     {
-        UI.HoverText(data.Info);
+		if (parent.corrupted == false) {
+			UI.HoverText (data.Info);
+		} else if (data.IngNum == 0) {
+			UI.HoverText ("Cleanses the corruption using energy from shrubs");
+			print ("HEYY");
+		} else if (data.IngNum == 1) {
+			UI.HoverText ("Cleanses the corruption using energy from deer");
+		} else if (data.IngNum == 2) {
+			UI.HoverText ("Cleanses the corruption using energy from wolves");
+		} else if (data.IngNum == 3) {
+			UI.HoverText ("Cleanses the corruption using energy from rabbits");
+		} else if (data.IngNum == 4) {
+			UI.HoverText ("Cleanses the corruption using energy from owls");
+		}
     }
     public void onExit()
     {

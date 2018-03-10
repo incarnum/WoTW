@@ -291,8 +291,7 @@ public class PylonScipt : MonoBehaviour {
 	public void SelectCurrent(int selection) {
         //turn the current selection into the active selection
 		//this first bit is refunding the player whatever ingredient was already in this pylon
-        if(activeSelection == selection)
-        {
+
             if (corrupted)
             {
                 if (activeSelection == 0)
@@ -335,7 +334,6 @@ public class PylonScipt : MonoBehaviour {
             }
 
             
-        }
         activeSelection = selection;
         
 		

@@ -10,8 +10,8 @@ public class PylonCoreScript : MonoBehaviour
     public int effect;
     public float strength;
     public bool instaCast;
-    float maxSize = 1.8f;
-    float minSize = 0.4f;
+    float maxSize = 1.75f;
+    float minSize = 0.25f;
     float maxSpeed = 2.6f;
     float minSpeed = 1.4f;
     private CreatureManagerScript cm;
@@ -176,7 +176,7 @@ public class PylonCoreScript : MonoBehaviour
                     gsbc.TriggerDialogue();
 					GameObject.Find ("TutorialWall").SetActive (false);
                 }
-                float sizeCheck = (pop.size) + strength * 0.05f;
+                float sizeCheck = (pop.size) + strength * 0.25f;
                 if (sizeCheck >= minSize && sizeCheck <= maxSize)
                 {
                     pop.size = sizeCheck;

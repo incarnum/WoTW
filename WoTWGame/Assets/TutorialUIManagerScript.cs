@@ -31,7 +31,7 @@ public class TutorialUIManagerScript : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Tab)) {
             tabToOpen.SetActive(!tabToOpen.activeSelf);
-			if (phase <= 6) {
+			if (phase <= 100) {
 				tabToOpen.SetActive (false);
 				popBarAlert.SetActive (false);
 			}
