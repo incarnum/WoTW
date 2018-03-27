@@ -55,7 +55,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.E) && overLay.enabled && windowUp)
+		if (Input.GetButtonDown("Select") && overLay.enabled && windowUp)
         {
 			Advance ();
         }

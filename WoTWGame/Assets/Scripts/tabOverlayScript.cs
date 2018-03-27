@@ -12,6 +12,7 @@ public class tabOverlayScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyUp (KeyCode.Tab)) {
+            Debug.Log("Pressed Tab");
 			if (onPlayer == false) {
 					transform.parent = GameObject.Find ("Player").transform;
 					transform.localPosition = new Vector3 (2, 0, 0);

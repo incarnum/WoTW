@@ -35,17 +35,17 @@ public class UIManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("a"))
+        if (Input.GetButtonDown("Left"))
         {
 			if (maximized)
             RotateLeft();
         }
-        if (Input.GetKeyDown("d"))
+        if (Input.GetButtonDown("Right"))
         {
 			if (maximized)
             RotateRight();
         }
-		if (Input.GetKeyDown("tab"))
+		if (Input.GetButtonDown("PopMenu"))
 		{
 			UpdateMouseoverInfo ();
 			if (!maximized) {

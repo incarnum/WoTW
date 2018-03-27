@@ -105,7 +105,7 @@ public class PylonCoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (touching && Input.GetKeyDown(KeyCode.E))
+        if (touching && Input.GetButtonDown("Select"))
         {
             if (target != -2 && effect != -2 && strength != -2 && castable && target != 3)
             {

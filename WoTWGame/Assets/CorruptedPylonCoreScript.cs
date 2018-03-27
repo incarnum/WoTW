@@ -125,7 +125,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (touching && Input.GetKeyDown(KeyCode.E) && cooldown <= 0)
+        if (touching && Input.GetButtonDown("Select") && cooldown <= 0)
         {
             if (target != -1 && castable && target != 3)
             {

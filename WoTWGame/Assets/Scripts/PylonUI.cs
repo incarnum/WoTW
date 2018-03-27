@@ -42,17 +42,17 @@ public class PylonUI : MonoBehaviour {
     void Update () {
         if (keyboardControls)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetButtonDown("Select"))
             {
                 Elements[buttonSelected].GetComponent<PylonCircle>().Use();
             }
 
-			if (Input.GetKeyDown(KeyCode.Q))
+			if (Input.GetButtonDown("Cancel"))
 			{
 				OnExit();
 			}
 
-			if (Input.GetKeyDown(KeyCode.A))
+			if (Input.GetButtonDown("Left"))
             {
                 if (buttonSelected < Elements.Count -1)
                 {
@@ -64,7 +64,7 @@ public class PylonUI : MonoBehaviour {
                 }
 				RotateRight ();
             }
-			if (Input.GetKeyDown(KeyCode.D))
+			if (Input.GetButtonDown("Right"))
             {
                 if (buttonSelected > 0)
                 {

@@ -60,7 +60,7 @@ public class PylonScipt : MonoBehaviour {
             //player.GetComponent<PlayerControllerScript>().canMove = false;
             //player.GetComponent<PlayerControllerB>().canMove = false;
        // }
-		if (touching && Input.GetKeyDown(KeyCode.E) && !corrupted && !boxOpen) {
+		if (touching && Input.GetButtonDown("Select") && !corrupted && !boxOpen) {
             
 			if (!newUI.activeSelf) {
                 if (corrupted)
@@ -98,7 +98,7 @@ public class PylonScipt : MonoBehaviour {
 			//	Debug.Log ("Not enough ingredients");
 			//}
 		}
-        else if (touching && Input.GetKeyDown(KeyCode.E) && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0 && !boxOpen)
+        else if (touching && Input.GetButtonDown("Select") && cpcs.GetComponent<CorruptedPylonCoreScript>().cooldown <= 0 && !boxOpen)
         {
             if (!newUI.activeSelf)
             {

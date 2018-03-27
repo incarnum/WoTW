@@ -16,7 +16,6 @@ public class PlayerControllerB : MonoBehaviour {
 	private float VDelay;
 	public Transform detector;
 
-
 	void Start () {
 		playerRigidbody = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
