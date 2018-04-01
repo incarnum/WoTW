@@ -165,8 +165,12 @@ public class PylonUI : MonoBehaviour {
 			CurrentInfo.text = "Cleanses the corruption using energy from deer";
 		} else if (Elements [buttonSelected].GetComponent<PylonCircle> ().data.IngNum == 2) {
 			CurrentInfo.text = "Cleanses the corruption using energy from wolves";
-		}
-	}
+		} else if (Elements [buttonSelected].GetComponent<PylonCircle> ().data.IngNum == 3){
+            CurrentInfo.text = "Cleanses the corruption using energy from rabbits";
+        } else if (Elements [buttonSelected].GetComponent<PylonCircle> ().data.IngNum == 4){
+            CurrentInfo.text = "Cleanses the corruption using energy from owls";
+        }
+    }
 
     public void ReturnInfoToDefault()
     {

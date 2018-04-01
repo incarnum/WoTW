@@ -210,10 +210,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 wolf.enabled = true;
 				wolf.DoStart ();
 				eco.GetComponent<UIManager> ().ActivateWolves ();
+                eco.GetComponent<UIManager> ().ActivateRabbits ();
+                eco.GetComponent<UIManager> ().ActivateOwls ();
 				cms.phase += 1;
 				cms.nextCorruptionTime = Time.time + cms.infectTime;
 				cms.currentCorruptionRate = cms.phase1CorruptionRate;
-                //Wolves get activated
+                //Wolves Rabbits and Owls get activated
                 //Polish: Wolf moves across the screen
             }
             else if (dm.cleansedNodes == 2)
