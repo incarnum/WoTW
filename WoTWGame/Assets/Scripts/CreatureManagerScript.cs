@@ -299,7 +299,31 @@ public class CreatureManagerScript : MonoBehaviour {
 				CreateFang ();
 			}
 		}
-	}
+        while (rabbitItemList.Count > rabbitNum + 1f)
+        {
+            Destroy(rabbitItemList[0]);
+            rabbitItemList.RemoveAt(0);
+        }
+        if (rabbitItemList.Count < rabbitNum)
+        {
+            while (rabbitItemList.Count < rabbitNum)
+            {
+                CreateRabbitItem();
+            }
+        }
+        while (featherList.Count > owlNum + 1f)
+        {
+            Destroy(featherList[0]);
+            featherList.RemoveAt(0);
+        }
+        if (featherList.Count < owlNum)
+        {
+            while (featherList.Count < owlNum)
+            {
+                CreateFeather();
+            }
+        }
+    }
 
 	public void CreateShrub() {
 		GameObject newShrub = Instantiate (shrubPrefab) as GameObject;
