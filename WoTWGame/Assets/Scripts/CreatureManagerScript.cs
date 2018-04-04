@@ -431,7 +431,7 @@ public class CreatureManagerScript : MonoBehaviour {
     public void CreateFeather()
     {
         GameObject newFeather = Instantiate(featherPrefab) as GameObject;
-        fangList.Add(newFeather);
+        featherList.Add(newFeather);
         Place(newFeather, 2, true);
     }
 
