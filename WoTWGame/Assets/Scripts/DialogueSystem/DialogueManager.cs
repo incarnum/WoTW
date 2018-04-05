@@ -31,6 +31,7 @@ public class DialogueManager : MonoBehaviour
     private Canvas overLay;
 
 	public TutorialUIManagerScript tm;
+    public GameManagerScript gm;
 
     // Use this for initialization
     void Start()
@@ -46,6 +47,7 @@ public class DialogueManager : MonoBehaviour
         firstGrowShrubsCast = true;
         deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
         if (!tutorialActive)
         {
             deer.enabled = true;
@@ -77,7 +79,7 @@ public class DialogueManager : MonoBehaviour
 
             nameText.text = dialogue.name;
 
-            foreach (string s in dialogue.sentences)
+            foreach (string s in dialogue.sentences)//dialogue[gm.language].sentences
             {
                 sentences.Enqueue(s);
             }

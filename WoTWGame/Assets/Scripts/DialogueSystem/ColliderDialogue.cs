@@ -5,7 +5,7 @@ using UnityEngine;
 public class ColliderDialogue : MonoBehaviour {
     public DialogueTrigger dialogueTrigger;
     public int convoCode;
-    private bool hasPlayed = false;
+    public bool isError = false;
     private DialogueManager dm;
     // Use this for initialization
     void Start () {
@@ -20,9 +20,10 @@ public class ColliderDialogue : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)
     {
 //        print("Want To Trigger");
-        if (convoCode == dm.convoCount && other.CompareTag("Player"))
+        if ((convoCode == dm.convoCount || isError) && other.CompareTag("Player"))
         {
             dialogueTrigger.TriggerDialogue();
+            if (isError) { dm.convoCount -= 1; }
         }
     }
 }

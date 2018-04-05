@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour {
 
 	public bool musicBool = true;
 	public bool soundBool = true;
+    public int language = 0;//0 = English, 1 = Chinese, ?? 2 = Russian ??
 
 	public GameObject musicSource;
 	public GameObject soundSource;
