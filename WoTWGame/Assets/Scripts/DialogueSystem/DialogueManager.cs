@@ -33,6 +33,9 @@ public class DialogueManager : MonoBehaviour
 	public TutorialUIManagerScript tm;
     public GameManagerScript gm;
 
+	public float advanceDelay;
+	private float advanceDelayEndTime;
+
     // Use this for initialization
     void Start()
     {
@@ -47,7 +50,8 @@ public class DialogueManager : MonoBehaviour
         firstGrowShrubsCast = true;
         deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
-        gm = GameObject.Find("GameManager").GetComponent<GameManagerScript>();
+		gm = GameObject.Find("GameManager(Clone)").GetComponent<GameManagerScript>();
+		//Changed the .Find above to include the word clone so it correctly finds the game manager -Jay
         if (!tutorialActive)
         {
             deer.enabled = true;
@@ -57,7 +61,7 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetKeyDown(KeyCode.E) && overLay.enabled && windowUp)
+		if ((Input.GetKeyDown(KeyCode.E) ||Input.GetKeyDown(KeyCode.Space)) && overLay.enabled && windowUp)
         {
 			Advance ();
         }
@@ -115,7 +119,7 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
 		typing = false;
-		GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
+		StartCoroutine (DelaySetColor ());
     }
 
     void EndDialogue()
@@ -143,11 +147,17 @@ public class DialogueManager : MonoBehaviour
 			dialogueText.text = "";
 			dialogueText.text += sentence;
 			typing = false;
-			GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
+			StartCoroutine (DelaySetColor ());
+			advanceDelayEndTime = Time.time + advanceDelay;
 		} 
-		else 
+		else if (Time.time > advanceDelayEndTime)
 		{
 			DisplayNextSentence ();
 		}
+	}
+
+	IEnumerator DelaySetColor() {
+		yield return new WaitForSeconds (advanceDelay);
+		GameObject.Find ("DialogueBoxButtonGlow").GetComponent<UIGlowScript> ().SetColor (Color.white, .1f);
 	}
 }

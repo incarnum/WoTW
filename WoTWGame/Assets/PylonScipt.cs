@@ -36,6 +36,8 @@ public class PylonScipt : MonoBehaviour {
     private DialogueManager dialougeActive;
     public bool castSpellShouldBeActive;
     public GameObject castSpellPopup;
+	public GameObject ingredientPopUpText;
+	public GameObject corruptedPopUpText;
     // Use this for initialization
     void Start() {
         player = GameObject.Find("Player");
@@ -239,14 +241,18 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-	if (col.gameObject.tag == "energy" && this.enabled) {
-			touching = true;
+		if (col.gameObject.tag == "energy" && this.enabled) {
+		touching = true;
+			if (corrupted == false) {
+				ingredientPopUp.SetActive (true);
+				if (castSpellShouldBeActive) {
+					castSpellPopup.SetActive (false);
+				}
+			} else if (cpcs.GetComponent<CorruptedPylonCoreScript> ().cooldown <= 0) {
 			ingredientPopUp.SetActive (true);
-            if (castSpellShouldBeActive)
-            {
-                castSpellPopup.SetActive(false);
-            }
+			}
 		}
+
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
@@ -256,6 +262,8 @@ public class PylonScipt : MonoBehaviour {
             if (castSpellShouldBeActive)
             {
                 castSpellPopup.SetActive(true);
+//			ingredientPopUpText.SetActive (false);
+//			corruptedPopUpText.SetActive (false);
             }
 		}
 	}

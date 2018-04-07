@@ -346,7 +346,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
         // of the buffs.
         //One of these is also multiplied by 2 at the end, I don't remember why specifically, but I think it's part of keeping things balanced.
 		if (shrub.rising1 == true) {
-			if (shrub.biomass < 100) {
+			if (shrub.biomass < 99) {
 				if (tempShrubCapBool == false || (shrub.biomass < tempShrubCap)) {
 					shrubPop = (2 + shrub.up1) * overallSpeed * Time.deltaTime;
 					shrubUI.popChange.text = (2 + shrub.up1).ToString();
@@ -586,7 +586,21 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 			owlUI.leftChange.text = "+" + owlUI.leftChange.text;
 		}
 
-        
+		if (shrub.pop >= 99) {
+			shrubUI.popChange.text = "Max";
+		}
+		if (deer.pop >= 100) {
+			deerUI.popChange.text = "Max";
+		}
+		if (wolf.pop >= 100) {
+			wolfUI.popChange.text = "Max";
+		}
+		if (rabbit.pop >= 100) {
+			rabbitUI.popChange.text = "Max";
+		}
+		if (owl.pop >= 100) {
+			owlUI.popChange.text = "Max";
+		}
 
         
 

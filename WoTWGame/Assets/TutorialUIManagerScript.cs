@@ -13,6 +13,9 @@ public class TutorialUIManagerScript : MonoBehaviour {
 	public GameObject influenceInfo;
 	public GameObject cycleBarsInfo;
 	public GameObject corruptionInfo;
+	public GameObject tabTextObject;
+	public GameObject UIManager;
+	public UIManager uiManagerScript;
 
 	public GameObject tutorialBuffStopper;
 	public GameObject shrubInfluence;
@@ -40,6 +43,9 @@ public class TutorialUIManagerScript : MonoBehaviour {
 
 	public void NextPhase() {
 		if (phase == 0) {
+			UIManager.SetActive (true);
+			uiManagerScript.enabled = true;
+			tabTextObject.SetActive (true);
 			tabToOpen.SetActive (true);
 			barFillInfo.SetActive (true);
 			popRateInfo.SetActive (true);
