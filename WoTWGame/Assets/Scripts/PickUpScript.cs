@@ -27,11 +27,9 @@ public class PickUpScript : MonoBehaviour {
 			} else if (pickUpType == 0) {
 				coll.GetComponent<InventoryScript> ().berryNum += 1;
 			} else if (pickUpType == 3) {
-				coll.GetComponent<InventoryScript> ().corrBerryNum += 1;
+				coll.GetComponent<InventoryScript> ().rabbitFootNum += 1;
 			} else if (pickUpType == 4) {
-				coll.GetComponent<InventoryScript> ().corrAntlerNum += 1;
-			} else if (pickUpType == 5) {
-				coll.GetComponent<InventoryScript> ().corrFangNum += 1;
+				coll.GetComponent<InventoryScript> ().owlFeatherNum += 1;
 			}
 			coll.GetComponent<InventoryScript> ().UpdateNumbers ();
 			pickUpSound.Play ();
