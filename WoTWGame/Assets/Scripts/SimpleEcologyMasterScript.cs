@@ -358,7 +358,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 		}
         else
         {
-            shrubPop = (2 + shrub.down1 * .2f) * overallSpeed * Time.deltaTime;
+            shrubPop = (2 + shrub.down1) * overallSpeed * Time.deltaTime;
 			shrubUI.popChange.text = (-2 - shrub.down1).ToString();
 			shrubUI.rightChange.text = (-2 - shrub.down1).ToString();
 			shrub.rightChange = (-2 - shrub.down1);

@@ -6,6 +6,7 @@ public class basePopulation : MonoBehaviour {
     public float up1, up2, down1, down2, pop, biomass, startPop, corruptedPop, corruptedBiomass, speed, size, startSize, startSpeed, rate, startRate, corruptionAcceleration, corruptionRate, overallSpeed;
     public int sizeMod, speedMod, toughMod, timesSpeedChanged;
     public bool rising1, rising2, corrupting, notShrubs;
+	public float rootSpeed;
 	public GameObject gameOverScreen;
 	public GameObject gameOver;
 	public GameObject darkenScreen;
@@ -59,26 +60,44 @@ public class basePopulation : MonoBehaviour {
 
     public void UpdateSize()
     {
+		float tempSizeNum = (sizeMod + 4f) / 3f;
+
         foreach (GameObject garfield in creatureList)
         {
-            garfield.transform.localScale = new Vector3(size, size);
+			garfield.transform.localScale = new Vector3(tempSizeNum, tempSizeNum);
         }
         foreach (GameObject garfield in corruptedCreatureList)
         {
-            garfield.transform.localScale = new Vector3(size, size);
+			garfield.transform.localScale = new Vector3(tempSizeNum, tempSizeNum);
         }
     }
 
     public void UpdateSpeed()
     {
+		float tempSpeedNum = ((speedMod + 4f) / 3f) * speed;
+		print ("updating speed to " + tempSpeedNum);
         foreach (GameObject garfield in creatureList)
         {
             if (notShrubs)
             {
-            garfield.GetComponent<AnimalMovementScript>().speed2 = speed;
+				garfield.GetComponent<AnimalMovementScript>().speed2 = tempSpeedNum;
             }
         }
     }
+
+	public void UpdateUpDown()
+	{
+		up1 = speedMod;
+		up2 = speedMod;
+		down1 = -toughMod;
+		down2 = -toughMod;
+		if (pred1 != null) {
+			down1 -= pred1.speedMod;
+		}
+		if (pred2 != null) {
+			down2 -= pred2.speedMod;
+		}
+	}
 
     void Corrupt()
     {

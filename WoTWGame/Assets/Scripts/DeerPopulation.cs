@@ -22,7 +22,7 @@ public class DeerPopulation : basePopulation {
         down1 = 0;
         down2 = 0;
         food1 = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
-        pred1 = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
+        pred2 = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList;
         corruptedCreatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().corruptedDeerCreatureList;
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
