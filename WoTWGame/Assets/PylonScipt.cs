@@ -316,8 +316,12 @@ public class PylonScipt : MonoBehaviour {
                 }
                 else if (activeSelection == 3)
                 {
-                    player.GetComponent<InventoryScript>().corrBerryNum += 1;
+                    player.GetComponent<InventoryScript>().rabbitFootNum += 1;
                 }
+                else if (activeSelection == 4)
+            {
+                player.GetComponent<InventoryScript>().owlFeatherNum += 1;
+            }
                 activeSelection = -2;
             }
             else
@@ -336,8 +340,12 @@ public class PylonScipt : MonoBehaviour {
                 }
                 else if (activeSelection == 3)
                 {
-                    player.GetComponent<InventoryScript>().corrBerryNum += 1;
+                    player.GetComponent<InventoryScript>().rabbitFootNum += 1;
                 }
+                else if (activeSelection == 4)
+            {
+                player.GetComponent<InventoryScript>().owlFeatherNum += 1;
+            }
                 activeSelection = -2;
             }
 
@@ -362,17 +370,32 @@ public class PylonScipt : MonoBehaviour {
 			if (pylonNum == 0) {
 				core.target = activeSelection;
 			} else if (pylonNum == 1) {
-				core.effect = activeSelection;
+                if (activeSelection == 3)
+                {
+                    core.effect = 0;
+                }
+                else if (activeSelection == 4)
+                {
+                    core.effect = 2;
+                }
+                else
+                {
+                    core.effect = activeSelection;
+                }
+				
 			} else if (pylonNum == 2) {
-				if (activeSelection == 0) {
-					core.strength = 1;
-				} else if (activeSelection == 1) {
-					core.strength = 0;
-				} else if (activeSelection == 2) {
-					core.strength = -1;
-				} else if (activeSelection == 3) {
-					core.strength = 3;
-				}
+                if (activeSelection == 0 || activeSelection == 3)
+                {
+                    core.strength = 1;
+                }
+                else if (activeSelection == 1)
+                {
+                    core.strength = 0;
+                }
+                else if (activeSelection == 2 || activeSelection == 4)
+                {
+                    core.strength = -1;
+                }
 			}
 		} else {
 			//corrupted pylons can only have a pylon num of 0 or 2, since 1 (effect) doesn't have any options,and uses a different script
@@ -396,9 +419,13 @@ public class PylonScipt : MonoBehaviour {
             {
                 player.GetComponent<InventoryScript>().fangNum -= corrCost;
             }
-            else if (activeSelection == 3)
+        else if (activeSelection == 3)
             {
-                player.GetComponent<InventoryScript>().corrBerryNum -= 1;
+                player.GetComponent<InventoryScript>().rabbitFootNum -= 1;
+            }
+        else if (activeSelection == 4)
+            {
+                player.GetComponent<InventoryScript>().owlFeatherNum -= 1;
             }
         }
         else
@@ -417,7 +444,11 @@ public class PylonScipt : MonoBehaviour {
             }
             else if (activeSelection == 3)
             {
-                player.GetComponent<InventoryScript>().corrBerryNum -= 1;
+                player.GetComponent<InventoryScript>().rabbitFootNum -= 1;
+            }
+            else if (activeSelection == 4)
+            {
+                player.GetComponent<InventoryScript>().owlFeatherNum -= 1;
             }
         }
 		
@@ -434,15 +465,17 @@ public class PylonScipt : MonoBehaviour {
 	public void UpdateSprite() {
 		//sets the animation of holding sprite to the animation that shows the right ingredient
 		holdingSprite.GetComponent<Animator> ().SetInteger ("itemnum", activeSelection);
-		//changes the color of the runes on the pylon
-		if (activeSelection == 0) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (shrubColor, .2f);
-		} else if (activeSelection == 1) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (deerColor, .2f);
-		} else if (activeSelection == 2) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (wolfColor, .2f);
-		} else if (activeSelection == 3) {
-			glow.GetComponent<centerStoneGlowScript> ().SetColor (corrColor, .2f);
+        //changes the color of the runes on the pylon
+        if (activeSelection == 0) {
+            glow.GetComponent<centerStoneGlowScript>().SetColor(shrubColor, .2f);
+        } else if (activeSelection == 1) {
+            glow.GetComponent<centerStoneGlowScript>().SetColor(deerColor, .2f);
+        } else if (activeSelection == 2) {
+            glow.GetComponent<centerStoneGlowScript>().SetColor(wolfColor, .2f);
+        } else if (activeSelection == 3) {
+            glow.GetComponent<centerStoneGlowScript>().SetColor(rabbitColor, .2f);
+        } else if (activeSelection == 4){
+            glow.GetComponent<centerStoneGlowScript>().SetColor(owlColor, .2f);
 		} if (activeSelection == -2) {
 			glow.GetComponent<centerStoneGlowScript> ().SetColor (Color.clear, .2f);
 		}

@@ -209,14 +209,14 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 clSN.TriggerDialogue();
                 wolf.enabled = true;
 				wolf.DoStart ();
-//                rabbit.enabled = true;
-//                rabbit.DoStart();
-//                owl.enabled = true;
-//                owl.DoStart();
+                rabbit.enabled = true;
+                rabbit.DoStart();
+                owl.enabled = true;
+                owl.DoStart();
 
 				eco.GetComponent<UIManager> ().ActivateWolves ();
-//                eco.GetComponent<UIManager> ().ActivateRabbits ();
-//                eco.GetComponent<UIManager> ().ActivateOwls ();
+                eco.GetComponent<UIManager> ().ActivateRabbits ();
+                eco.GetComponent<UIManager> ().ActivateOwls ();
 				cms.phase += 1;
 				cms.nextCorruptionTime = Time.time + cms.infectTime;
 				cms.currentCorruptionRate = cms.phase1CorruptionRate;

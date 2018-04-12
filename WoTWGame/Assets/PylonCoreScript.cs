@@ -48,6 +48,8 @@ public class PylonCoreScript : MonoBehaviour
     private ShrubPopulation shrub;
     private DeerPopulation deer;
     private WolfPopulation wolf;
+    private RabbitPopulation rabbit;
+    private OwlPopulation owl;
 
     private bool firstCast;
     private DialogueManager dm;
@@ -73,6 +75,8 @@ public class PylonCoreScript : MonoBehaviour
         shrub = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
         deer = GameObject.Find("CreatureManager").GetComponent<DeerPopulation>();
         wolf = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
+        rabbit = GameObject.Find("CreatureManager").GetComponent<RabbitPopulation>();
+        owl = GameObject.Find("CreatureManager").GetComponent<OwlPopulation>();
         cm = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>();
         spellCore = GameObject.Find("Core");
 		spellFX = GetComponent<SpellFXController> ();
@@ -152,6 +156,14 @@ public class PylonCoreScript : MonoBehaviour
         else if (target == 2)
         {
             pop = wolf;
+        }
+        else if (target == 3)
+        {
+            pop = rabbit;
+        }
+        else if (target == 4)
+        {
+            pop = owl;
         }
 		if (effect == 0) {
 			if (strength == 0) {
@@ -300,6 +312,14 @@ public class PylonCoreScript : MonoBehaviour
         else if (target == 2)
         {
             spellPreviewText += "wolves";
+        }
+        else if (target == 3)
+        {
+            spellPreviewText += "rabbits";
+        }
+        else if (target == 4)
+        {
+            spellPreviewText += "owls";
         }
 
 
