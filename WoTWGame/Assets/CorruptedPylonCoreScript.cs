@@ -69,7 +69,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 	private bool colorPulse;
 	public Color pulseColor;
 	public bool finalFlash;
-	public GameObject x3;
+	public GameObject x3a;
+	public GameObject x3b;
+	public GameObject x3c;
 
     // Use this for initialization
     void Start()
@@ -127,17 +129,12 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     {
         if (touching && Input.GetButtonDown("Select") && cooldown <= 0)
         {
-            if (target != -1 && castable && target != 3)
+            if (target != -2 && castable)
             {
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
                 Cast();
                 castSound.Play();
-            }
-            else if (target != -1 && strength != -1 && castable)
-            {
-                //this would trigger if there are corrupted berries in every slot, but corrupted berries aren't an option in this build, so it's not necessary
-                CreateSpell();
             }
             else
             {
@@ -186,9 +183,6 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		{
 			dm.firstCorrCast = false;
 			dm.secondCorrCast = true;
-			//health -= 5;
-			//cbc.TriggerDialogue();
-
 		}
         if (health <= 0)
         {
@@ -209,14 +203,20 @@ public class CorruptedPylonCoreScript : MonoBehaviour
                 clSN.TriggerDialogue();
                 wolf.enabled = true;
 				wolf.DoStart ();
-                rabbit.enabled = true;
-                rabbit.DoStart();
-                owl.enabled = true;
-                owl.DoStart();
-
 				eco.GetComponent<UIManager> ().ActivateWolves ();
-                eco.GetComponent<UIManager> ().ActivateRabbits ();
-                eco.GetComponent<UIManager> ().ActivateOwls ();
+
+				if (GameManagerScript.instance.levelType >= 4) {
+					rabbit.enabled = true;
+					rabbit.DoStart ();
+					eco.GetComponent<UIManager> ().ActivateRabbits ();
+				}
+
+				if (GameManagerScript.instance.levelType >= 5) {
+					owl.enabled = true;
+					owl.DoStart ();
+					eco.GetComponent<UIManager> ().ActivateOwls ();
+				}
+
 				cms.phase += 1;
 				cms.nextCorruptionTime = Time.time + cms.infectTime;
 				cms.currentCorruptionRate = cms.phase1CorruptionRate;
@@ -233,9 +233,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			else if (dm.cleansedNodes == 3)
             {
 				if (!eco.demo) {
-				rabbit.enabled = true;
-				rabbit.DoStart ();
-				eco.GetComponent<UIManager> ().ActivateRabbits ();
+//				rabbit.enabled = true;
+//				rabbit.DoStart ();
+//				eco.GetComponent<UIManager> ().ActivateRabbits ();
                 //clFoN.TriggerDialogue();
                 //owl.enabled = true;
 				}
@@ -243,9 +243,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             else if (dm.cleansedNodes == 4)
             {
 				if (!eco.demo) {
-					owl.enabled = true;
-					owl.DoStart ();
-					eco.GetComponent<UIManager> ().ActivateOwls ();
+//					owl.enabled = true;
+//					owl.DoStart ();
+//					eco.GetComponent<UIManager> ().ActivateOwls ();
 					//clFiN.TriggerDialogue();
 					//no longer present in level
 				} else {
@@ -283,69 +283,39 @@ public class CorruptedPylonCoreScript : MonoBehaviour
             pylon3.GetComponent<PylonScipt>().corrupted = false;
             pcs.GetComponent<PylonCoreScript>().enabled = true;
 			timeStopTrigger.SetActive (true);
-			x3.SetActive (false);
+			x3a.SetActive (false);
+			x3b.SetActive (false);
+			x3c.SetActive (false);
 
         }
         //this is where you put all the code for what corrupted spells do
 		if (target == 0)
         {
-//            if (strength == 0)
-//            {
-                shrub.corrupting = true;
-//            }
-//            if (shrub.corruptedPop < cms.shrubPopStart && shrub.pop > cms.minimumInfectionPop)
-//            {
-                shrub.corruptedPop += cms.shrubPopStart;
-//            }
-//            if (strength == 1)
-//            {
-//                shrub.rate *= 1.25f;
-//            }
-//            if (strength == 2)
-//            {
-//                cms.shrubRange -= 1;
-//            }
+            shrub.corrupting = true;
+            shrub.corruptedPop += cms.shrubPopStart;
         }
-
         else if (target == 1)
         {
-//            if (strength == 0)
-//            {
-                deer.corrupting = true;
-//                if (deer.corruptedPop < cms.deerPopStart && deer.pop > cms.minimumInfectionPop)
-//                {
-                    deer.corruptedPop += cms.deerPopStart;
-//                }
-//            }
-//            if (strength == 1)
-//            {
-//                deer.rate *= 1.25f;
-//            }
-//            if (strength == 2)
-//            {
-//                cms.deerRange -= 1;
-//            }
+            deer.corrupting = true;
+            deer.corruptedPop += cms.deerPopStart;
         }
         else if (target == 2)
         {
-//            if (strength == 0)
-//            {
-                wolf.corrupting = true;
-//                if (wolf.corruptedPop < cms.wolfPopStart && wolf.pop > cms.minimumInfectionPop)
-//                {
-                    wolf.corruptedPop += cms.wolfPopStart;
-//               }
-//            }
-//            if (strength == 1)
-//            {
-//                wolf.rate *= 1.25f;
-//            }
-//            if (strength == 2)
-//            {
-//                cms.wolfRange -= 1;
-//            }
+			wolf.corrupting = true;
+			wolf.corruptedPop += cms.wolfPopStart;
         }
-        //this is all the stuff that gets to be updated when the spell is cast
+		else if (target == 3)
+		{
+			rabbit.corrupting = true;
+			rabbit.corruptedPop += cms.wolfPopStart;
+		}
+		else if (target == 4)
+		{
+			owl.corrupting = true;
+			owl.corruptedPop += cms.wolfPopStart;
+		}
+			
+
 		spellFX.playCorrSpellEffect();
         //pylons are set back to being empty (their active selection being -1), then update their sprites to play the corresponding (empty) animation
         //the values in the core are set back to being empty (-1)
@@ -404,7 +374,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			CenterStoneGlow.SetColor (Color.clear, .5f);
             castable = false;
 			corePopUp.SetActive (false);
-			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
+//			corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
             pylon1.castSpellShouldBeActive = false;
             pylon2.castSpellShouldBeActive = false;
             pylon3.castSpellShouldBeActive = false;
@@ -415,81 +385,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			print ("Trying to set clear");
 		}
 
-        spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
+        spellPreviewTextbox.GetComponent<Text>().text = spellPreviewText;
     }
-
-    //leftover function from spellbooks
-    public void CreateSpell()
-    {
-        GameObject newSpell = Instantiate(spellPrefab) as GameObject;
-        newSpell.GetComponent<SpellScript>().target = target;
-        newSpell.GetComponent<SpellScript>().effect = effect;
-        newSpell.GetComponent<SpellScript>().strength = strength;
-        newSpell.GetComponentsInChildren<Text>()[0].text = spellPreviewText;
-        PlaceSpell(newSpell);
-        newSpell.GetComponent<SpellScript>().bms = bms;
-        pylon1.activeSelection = -1;
-        pylon1.UpdateSprite();
-        pylon2.activeSelection = -1;
-        pylon2.UpdateSprite();
-        pylon3.activeSelection = -1;
-        pylon3.UpdateSprite();
-        target = -1;
-        effect = -1;
-        strength = -1;
-        PredictSpell();
-        ring1.SpeedBoost();
-        ring2.SpeedBoost();
-
-    }
-
-    //leftover function from spellbooks
-    private void PlaceSpell(GameObject spellbook)
-    {
-        if (GameObject.Find("ABSlot1").GetComponent<SpellbookHolderScript>().holding == null)
-        {
-            spellbook.transform.SetParent(GameObject.Find("ABSlot1").transform);
-            spellbook.GetComponent<RectTransform>().localPosition = Vector2.zero;
-            spellbook.GetComponent<SpellScript>().parentToReturnTo = GameObject.Find("ABSlot1").transform;
-            GameObject.Find("ABSlot1").GetComponent<SpellbookHolderScript>().holding = spellbook;
-        }
-        else if (GameObject.Find("ABSlot2").GetComponent<SpellbookHolderScript>().holding == null)
-        {
-            spellbook.transform.SetParent(GameObject.Find("ABSlot2").transform);
-            spellbook.GetComponent<RectTransform>().localPosition = Vector2.zero;
-            spellbook.GetComponent<SpellScript>().parentToReturnTo = GameObject.Find("ABSlot2").transform;
-            GameObject.Find("ABSlot2").GetComponent<SpellbookHolderScript>().holding = spellbook;
-        }
-        else if (GameObject.Find("ABSlot3").GetComponent<SpellbookHolderScript>().holding == null)
-        {
-            spellbook.transform.SetParent(GameObject.Find("ABSlot3").transform);
-            spellbook.GetComponent<RectTransform>().localPosition = Vector2.zero;
-            spellbook.GetComponent<SpellScript>().parentToReturnTo = GameObject.Find("ABSlot3").transform;
-            GameObject.Find("ABSlot3").GetComponent<SpellbookHolderScript>().holding = spellbook;
-        }
-        else if (GameObject.Find("ABSlot4").GetComponent<SpellbookHolderScript>().holding == null)
-        {
-            spellbook.transform.SetParent(GameObject.Find("ABSlot4").transform);
-            spellbook.GetComponent<RectTransform>().localPosition = Vector2.zero;
-            spellbook.GetComponent<SpellScript>().parentToReturnTo = GameObject.Find("ABSlot4").transform;
-            GameObject.Find("ABSlot4").GetComponent<SpellbookHolderScript>().holding = spellbook;
-        }
-        else if (GameObject.Find("ABSlot5").GetComponent<SpellbookHolderScript>().holding == null)
-        {
-            spellbook.transform.SetParent(GameObject.Find("ABSlot5").transform);
-            spellbook.GetComponent<RectTransform>().localPosition = Vector2.zero;
-            spellbook.GetComponent<SpellScript>().parentToReturnTo = GameObject.Find("ABSlot5").transform;
-            GameObject.Find("ABSlot5").GetComponent<SpellbookHolderScript>().holding = spellbook;
-        }
-        else if (GameObject.Find("ABSlot6").GetComponent<SpellbookHolderScript>().holding == null)
-        {
-            spellbook.transform.SetParent(GameObject.Find("ABSlot6").transform);
-            spellbook.GetComponent<RectTransform>().localPosition = Vector2.zero;
-            spellbook.GetComponent<SpellScript>().parentToReturnTo = GameObject.Find("ABSlot6").transform;
-            GameObject.Find("ABSlot6").GetComponent<SpellbookHolderScript>().holding = spellbook;
-        }
-    }
-
+		
 	private void Cooldown() {
 		cooldownBar.GetComponent<SpriteMask> ().alphaCutoff = (cooldown / generalCooldown) + -.02f;
 		if (Time.time > lastColorChangeTime + 1f) {

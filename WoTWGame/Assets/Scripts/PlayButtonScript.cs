@@ -8,6 +8,8 @@ public class PlayButtonScript : MonoBehaviour {
 	public RingSpinUI ring;
 	public GameObject screenFade;
 	public GameObject menu;
+	public int levelNum;
+	public GameManagerScript gameManager;
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1f;
@@ -19,12 +21,12 @@ public class PlayButtonScript : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		
 		StartCoroutine (LoadAsynchronously());
 		StartCoroutine (SayFrameALot());
 	}
 
 	public void Pressed() {
+		GameManagerScript.instance.levelType = levelNum;
 		StartCoroutine (LoadAsynchronously());
 		ring.SpeedBoost ();
 		menu.SetActive (false);

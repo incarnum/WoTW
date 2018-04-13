@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PylonTextBGScript : MonoBehaviour {
-	public Transform left;
-	public Transform right;
-	public Transform center;
+	public RectTransform textBG1;
+	public RectTransform textBG2;
 	// Use this for initialization
 	void Start () {
 		
@@ -28,8 +28,7 @@ public class PylonTextBGScript : MonoBehaviour {
 	}
 
 	public void AdjustSize(float size) {
-		center.localScale = new Vector2 (2f * size, 1f);
-		left.localPosition = new Vector2 (-size, 0f);
-		right.localPosition = new Vector2 (size, 0f);
+		textBG1.sizeDelta = new Vector2 (size * 30 + 100f, textBG1.sizeDelta.y);
+		textBG2.sizeDelta = new Vector2 (size * 30 + 175f, textBG2.sizeDelta.y);
 	}
 }

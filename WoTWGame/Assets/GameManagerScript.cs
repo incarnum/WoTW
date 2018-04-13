@@ -8,6 +8,7 @@ public class GameManagerScript : MonoBehaviour {
 	public bool musicBool = true;
 	public bool soundBool = true;
     public int language = 0;//0 = English, 1 = Chinese, ?? 2 = Russian ??
+	public int levelType = 0; //for now, number of animals
 
 	public GameObject musicSource;
 	public GameObject soundSource;

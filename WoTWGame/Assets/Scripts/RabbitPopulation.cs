@@ -7,7 +7,7 @@ public class RabbitPopulation : basePopulation {
 	// Use this for initialization
 	void Start () {
         DoStart();
-        pop = GetComponent<ShrubPopulation>().pop;
+        pop = GetComponent<WolfPopulation>().pop + 15f;
         size = 1;
         startSize = 1;
 		speed = 4;

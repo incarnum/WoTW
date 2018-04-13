@@ -411,12 +411,12 @@ public class SimpleEcologyMasterScript : MonoBehaviour
             }
             else
             {
-                deer.rateOfChange -= (1 + deer.down2) * overallSpeed * Time.deltaTime * 2;
+                deer.rateOfChange -= (1 + deer.down2) * overallSpeed * Time.deltaTime;
 
-				deerUI.rightChange.text = ((1 + deer.down2) * -2).ToString();
-				deer.rightChange = ((1 + deer.down2) * -2);
+				deerUI.rightChange.text = ((1 + deer.down2)).ToString();
+				deer.rightChange = ((1 + deer.down2));
                 deerPop2 = deer.rateOfChange;
-				simpleDeerRate += (1 + deer.down2) * -2f;
+				simpleDeerRate += (1 + deer.down2);
             }
 
 			deerUI.popChange.text = simpleDeerRate.ToString();

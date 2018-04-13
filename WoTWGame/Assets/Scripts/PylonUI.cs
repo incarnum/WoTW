@@ -52,6 +52,11 @@ public class PylonUI : MonoBehaviour {
 				OnExit();
 			}
 
+			if (Input.GetKeyDown (KeyCode.R)) {
+				transform.parent.GetComponent<PylonScipt> ().SelectCurrent (-2);
+				OnExit ();
+			}
+
 			if (Input.GetButtonDown("Left"))
             {
                 if (buttonSelected < Elements.Count -1)
@@ -122,7 +127,7 @@ public class PylonUI : MonoBehaviour {
 		foreach(RectTransform child in itemHolder) {
 			child.rotation = Quaternion.Euler(0,0,0);
 		}
-		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (0f, 149.7f), .1f);
+		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (itemHolder.localPosition.x + 0f, itemHolder.localPosition.y + 149.7f), .1f);
 		StartText ();
     }
     public void OnExit()
@@ -136,7 +141,7 @@ public class PylonUI : MonoBehaviour {
 			StartCoroutine (WaitDisable ());
 		}
 		Elements.Clear ();
-		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (0, 0), .1f);
+		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (itemHolder.localPosition.x, itemHolder.localPosition.y), .1f);
         GameObject.Find("Player").GetComponent<PlayerControllerScript>().pylonPaused = false;
         GameObject.Find("Player").GetComponent<PlayerControllerScript>().CheckIfICanMove();
     }

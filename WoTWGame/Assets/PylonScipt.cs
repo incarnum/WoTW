@@ -299,56 +299,54 @@ public class PylonScipt : MonoBehaviour {
 	public void SelectCurrent(int selection) {
         //turn the current selection into the active selection
 		//this first bit is refunding the player whatever ingredient was already in this pylon
-
-            if (corrupted)
-            {
-                if (activeSelection == 0)
-                {
-                    player.GetComponent<InventoryScript>().berryNum += corrCost;
-                }
-                else if (activeSelection == 1)
-                {
-                    player.GetComponent<InventoryScript>().antlerNum += corrCost;
-                }
-                else if (activeSelection == 2)
-                {
-                    player.GetComponent<InventoryScript>().fangNum += corrCost;
-                }
-                else if (activeSelection == 3)
-                {
-                    player.GetComponent<InventoryScript>().rabbitFootNum += 1;
-                }
-                else if (activeSelection == 4)
-            {
-                player.GetComponent<InventoryScript>().owlFeatherNum += 1;
-            }
-                activeSelection = -2;
-            }
-            else
-            {
-                if (activeSelection == 0)
-                {
-                    player.GetComponent<InventoryScript>().berryNum += 1;
-                }
-                else if (activeSelection == 1)
-                {
-                    player.GetComponent<InventoryScript>().antlerNum += 1;
-                }
-                else if (activeSelection == 2)
-                {
-                    player.GetComponent<InventoryScript>().fangNum += 1;
-                }
-                else if (activeSelection == 3)
-                {
-                    player.GetComponent<InventoryScript>().rabbitFootNum += 1;
-                }
-                else if (activeSelection == 4)
-            {
-                player.GetComponent<InventoryScript>().owlFeatherNum += 1;
-            }
-                activeSelection = -2;
-            }
-
+	if (corrupted)
+	{
+		if (activeSelection == 0)
+		{
+			player.GetComponent<InventoryScript>().berryNum += corrCost;
+		}
+		else if (activeSelection == 1)
+		{
+			player.GetComponent<InventoryScript>().antlerNum += corrCost;
+		}
+		else if (activeSelection == 2)
+		{
+			player.GetComponent<InventoryScript>().fangNum += corrCost;
+		}
+		else if (activeSelection == 3)
+		{
+			player.GetComponent<InventoryScript>().rabbitFootNum += corrCost;
+		}
+		else if (activeSelection == 4)
+		{
+			player.GetComponent<InventoryScript>().owlFeatherNum += corrCost;
+		}
+		activeSelection = -2;
+	}
+	else
+	{
+		if (activeSelection == 0)
+		{
+			player.GetComponent<InventoryScript>().berryNum += 1;
+		}
+		else if (activeSelection == 1)
+		{
+			player.GetComponent<InventoryScript>().antlerNum += 1;
+		}
+		else if (activeSelection == 2)
+		{
+			player.GetComponent<InventoryScript>().fangNum += 1;
+		}
+		else if (activeSelection == 3)
+		{
+			player.GetComponent<InventoryScript>().rabbitFootNum += 1;
+		}
+		else if (activeSelection == 4)
+		{
+			player.GetComponent<InventoryScript>().owlFeatherNum += 1;
+		}
+		activeSelection = -2;
+	}
             
         activeSelection = selection;
         
@@ -396,6 +394,10 @@ public class PylonScipt : MonoBehaviour {
                 {
                     core.strength = -1;
                 }
+				else if (activeSelection == -2)
+				{
+					core.strength = -2;
+				}
 			}
 		} else {
 			//corrupted pylons can only have a pylon num of 0 or 2, since 1 (effect) doesn't have any options,and uses a different script
@@ -421,11 +423,11 @@ public class PylonScipt : MonoBehaviour {
             }
         else if (activeSelection == 3)
             {
-                player.GetComponent<InventoryScript>().rabbitFootNum -= 1;
+			player.GetComponent<InventoryScript>().rabbitFootNum -= corrCost;
             }
         else if (activeSelection == 4)
             {
-                player.GetComponent<InventoryScript>().owlFeatherNum -= 1;
+			player.GetComponent<InventoryScript>().owlFeatherNum -= corrCost;
             }
         }
         else

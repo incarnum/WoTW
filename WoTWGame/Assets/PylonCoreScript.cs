@@ -42,6 +42,7 @@ public class PylonCoreScript : MonoBehaviour
 
 	public centerStoneGlowScript CenterStoneGlow;
 	public GameObject corePopUp;
+	public GameObject highlight;
 	private SpellFXController spellFX;
 
     private basePopulation pop;
@@ -56,7 +57,6 @@ public class PylonCoreScript : MonoBehaviour
     private DialogueTrigger gsbc;
     private AudioSource castSound;
 
-	public Text errorTextbox;
 
 	public Color corrColor;
 	public Color shrubColor;
@@ -132,6 +132,7 @@ public class PylonCoreScript : MonoBehaviour
         if (col.gameObject.tag == "energy")
         {
             touching = true;
+			highlight.SetActive (true);
         }
     }
 
@@ -140,6 +141,7 @@ public class PylonCoreScript : MonoBehaviour
         if (col.gameObject.tag == "energy")
         {
             touching = false;
+			highlight.SetActive (false);
         }
     }
     //largely same as in spellscript, differences at the end of the function
@@ -201,8 +203,10 @@ public class PylonCoreScript : MonoBehaviour
 				}
 			}
 		} else if (effect == 1) {
-			if (pop.speedMod + strength <= 3 && pop.speedMod - strength >= -3) {
+			if (pop.speedMod + strength <= 3 && pop.speedMod + strength >= -3) {
 				pop.speedMod += Mathf.RoundToInt (strength);
+				if (strength == 0)
+					pop.speedMod = 0;
 				pop.UpdateUpDown ();
 				if (pop.food1 != null)
 					pop.food1.UpdateUpDown ();
@@ -217,8 +221,10 @@ public class PylonCoreScript : MonoBehaviour
 
         else if (effect == 2)
         {
-			if (pop.toughMod + strength <= 3 && pop.toughMod - strength >= -3) {
+			if (pop.toughMod + strength <= 3 && pop.toughMod + strength >= -3) {
 				pop.toughMod += Mathf.RoundToInt (strength);
+				if (strength == 0)
+					pop.toughMod = 0;
 				pop.UpdateUpDown ();
 			} else {
 				GiveError ();
@@ -346,7 +352,6 @@ public class PylonCoreScript : MonoBehaviour
             pylon1.castSpellShouldBeActive = false;
             pylon2.castSpellShouldBeActive = false;
             pylon3.castSpellShouldBeActive = false;
-            corePopUp.GetComponent<SpriteRenderer> ().enabled = true;
         }
         if (target == 3 && effect == 3 && strength == 3)
         {
@@ -358,15 +363,14 @@ public class PylonCoreScript : MonoBehaviour
         }
 
 
-        spellPreviewTextbox.GetComponent<TextMesh>().text = spellPreviewText;
+		spellPreviewTextbox.GetComponent<Text>().text = spellPreviewText;
 		if (spellPreviewText != "") {
-			spellPreviewTextbox.SetActive (true);
-			spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (spellPreviewText.Length / 7f);
+			spellPreviewTextbox.transform.parent.gameObject.SetActive (true);
+			spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (spellPreviewText.Length);
 		} else {
-			spellPreviewTextbox.SetActive (false);
+			spellPreviewTextbox.transform.parent.gameObject.SetActive (false);
 		}
-
-		errorTextbox.transform.parent.gameObject.SetActive (false);
+			
     }
 
 	private void GiveError() {
@@ -398,9 +402,13 @@ public class PylonCoreScript : MonoBehaviour
 				errorText += "tougher";
 		}
 
-		print (errorText);
-		errorTextbox.transform.parent.gameObject.SetActive (true);
-		errorTextbox.text = errorText;
+		spellPreviewTextbox.GetComponent<Text>().text = errorText;
+		if (errorText != "") {
+			spellPreviewTextbox.transform.parent.gameObject.SetActive (true);
+			spellPreviewTextbox.GetComponent<PylonTextBGScript> ().AdjustSize (errorText.Length);
+		} else {
+			spellPreviewTextbox.transform.parent.gameObject.SetActive (false);
+		}
 	}
 
 }
