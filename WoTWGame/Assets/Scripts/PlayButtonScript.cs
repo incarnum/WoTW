@@ -10,9 +10,14 @@ public class PlayButtonScript : MonoBehaviour {
 	public GameObject menu;
 	public int levelNum;
 	public GameManagerScript gameManager;
+
+	public int overallMode;
+	public int gameMode;
+	public bool loadFromSaveButton;
 	// Use this for initialization
 	void Start () {
 		Time.timeScale = 1f;
+		gameManager = GameManagerScript.instance;
 	}
 	
 	// Update is called once per frame
@@ -26,10 +31,23 @@ public class PlayButtonScript : MonoBehaviour {
 	}
 
 	public void Pressed() {
-		GameManagerScript.instance.levelType = levelNum;
+		GameManagerScript.instance.gameMode = gameMode;
+		GameManagerScript.instance.loadFromSave = loadFromSaveButton;
 		StartCoroutine (LoadAsynchronously());
 		ring.SpeedBoost ();
 		menu.SetActive (false);
+	}
+
+	public void ChooseCreatureNumber(int i) {
+		if (overallMode == 0) {
+			//story play button
+			//this shouldn't happen since you don't select a species number for story
+			Debug.Log ("This shouldn't be called, you can't choose a creature num for story mode");
+		} else if (overallMode == 1) {
+			gameMode = i;
+		} else if (overallMode == 2) {
+			gameMode = i + 3;
+		}
 	}
 
 	IEnumerator LoadAsynchronously ()
@@ -40,7 +58,7 @@ public class PlayButtonScript : MonoBehaviour {
 			Debug.Log (operation.progress);
 			if (operation.progress >= .9f) {
 				screenFade.SetActive (true);
-				GameObject.Find ("Audio").GetComponent<fadeAudioScript> ().beginFade (1f);
+				GameObject.Find ("Music").GetComponent<fadeAudioScript> ().beginFade (1f);
 				yield return new WaitForSeconds (1);
 			}
 			yield return null;

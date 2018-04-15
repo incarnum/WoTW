@@ -13,6 +13,9 @@ public class GameManagerScript : MonoBehaviour {
 	public GameObject musicSource;
 	public GameObject soundSource;
 
+	public bool loadFromSave;
+	public int gameMode;
+
 	// Use this for initialization
 	void Awake () {
 		if (instance == null)
@@ -41,6 +44,8 @@ public class GameManagerScript : MonoBehaviour {
 		GameObject.Find ("Music").SetActive (musicBool);
 		print (musicBool);
 		GameObject.Find ("Sound Box").SetActive (soundBool);
+
+		GameObject.Find ("LoadingManager").GetComponent<WorldAnalyzerScript> ().gm = this;
 	}
 	
 	// Update is called once per frame

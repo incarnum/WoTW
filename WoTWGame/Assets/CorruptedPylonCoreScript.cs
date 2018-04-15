@@ -418,5 +418,30 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		}
 	}
 
+	public void LoadPylonCoreState(int i) {
+		if (this.isActiveAndEnabled) {
+			health = i;
+			if (i == 0) {
+				Destroy (corruptionNode, 1f);
+				pylon1.GetComponent<PylonScipt> ().corrupted = false;
+				pylon2.GetComponent<CorruptedPylonScript> ().enabled = false;
+				pylon2.GetComponent<PylonScipt> ().enabled = true;
+				pylon3.GetComponent<CorruptedPylonScript> ().enabled = false;
+				pylon3.GetComponent<PylonScipt> ().enabled = true;
+				cRing1.GetComponent<SpriteRenderer> ().color = GetComponent<PylonCoreScript> ().spellColor;
+				cRing2.GetComponent<SpriteRenderer> ().color = GetComponent<PylonCoreScript> ().spellColor;
+				pylon3.GetComponent<PylonScipt> ().corrupted = false;
+				pcs.GetComponent<PylonCoreScript> ().enabled = true;
+				pylon2.GetComponent<SpriteRenderer>().color = Color.white;
+				pylon3.GetComponent<SpriteRenderer>().color = Color.white;
+				x3a.SetActive (false);
+				x3b.SetActive (false);
+				x3c.SetActive (false);
+			} else if (i == 1 || i == 2) {
+				corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
+			}
+		}
+	}
+
 }
 

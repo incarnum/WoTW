@@ -19,16 +19,16 @@ public class SaveLoadTest : MonoBehaviour {
 	}
 
 	public void Save() {
-		LoadingManagerScript.SaveWorld (GetComponent<WorldAnalyzerScript>());
+		LoadingManagerScript.SaveWorld (GetComponent<WorldAnalyzerScript>(), 0);
 	}
 
-	public void Load() {
-		shrubStats = LoadingManagerScript.LoadWorld ().shrubStates;
-		deerStats = LoadingManagerScript.LoadWorld ().deerStates;
-		wolfStats = LoadingManagerScript.LoadWorld ().wolfStates;
-		rabbitStats = LoadingManagerScript.LoadWorld ().rabbitStates;
-		owlStats = LoadingManagerScript.LoadWorld ().owlStates;
-
-
-	}
+//	public void Load() {
+//		shrubStats = LoadingManagerScript.LoadWorld ().shrubStates;
+//		deerStats = LoadingManagerScript.LoadWorld ().deerStates;
+//		wolfStats = LoadingManagerScript.LoadWorld ().wolfStates;
+//		rabbitStats = LoadingManagerScript.LoadWorld ().rabbitStates;
+//		owlStats = LoadingManagerScript.LoadWorld ().owlStates;
+//
+//
+//	}
 }

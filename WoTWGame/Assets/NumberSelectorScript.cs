@@ -7,6 +7,7 @@ public class NumberSelectorScript : MonoBehaviour {
 	public GameObject myButton;
 	public int speciesNum;
 	private Text myText;
+	public PlayButtonScript myPlayButton;
 	// Use this for initialization
 	void Start () {
 		myText = GetComponent<Text> ();
@@ -24,6 +25,7 @@ public class NumberSelectorScript : MonoBehaviour {
 			speciesNum += 1;
 		}
 		myText.text = speciesNum.ToString();
+		myPlayButton.ChooseCreatureNumber (speciesNum);
 	}
 
 	public void Decrease() {
@@ -31,5 +33,6 @@ public class NumberSelectorScript : MonoBehaviour {
 			speciesNum -= 1;
 		}
 		myText.text = speciesNum.ToString();
+		myPlayButton.ChooseCreatureNumber (speciesNum);
 	}
 }
