@@ -12,6 +12,7 @@ public class menuButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
 	private Vector2 originalTextSize;
 	private Color originalTextColor;
 	public Color highlightTextColor;
+	public bool selected;
 	Vector2 newSize;
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,7 @@ public class menuButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
 	public void OnPointerEnter (PointerEventData pointerEventData) {
 		bar1.SetActive (true);
-		bar2.SetActive (true);
+		//bar2.SetActive (true);
 		newSize = new Vector2 (textObject.GetComponent<RectTransform> ().localScale.x * highlightSizeChange, textObject.GetComponent<RectTransform> ().localScale.y * highlightSizeChange);
 		textObject.GetComponent<RectTransform> ().localScale = newSize;
 		textObject.GetComponent<Text> ().color = highlightTextColor;
@@ -34,12 +35,20 @@ public class menuButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
 	public void OnPointerExit (PointerEventData pointerEventData) {
 		bar1.SetActive (false);
-		bar2.SetActive (false);
+		//bar2.SetActive (false);
 		ResetTextSize ();
 	}
 
 	public void ResetTextSize() {
 		textObject.GetComponent<RectTransform> ().localScale = originalTextSize;
 		textObject.GetComponent<Text> ().color = originalTextColor;
+	}
+
+	public void Select() {
+
+	}
+
+	public void Deselect() {
+
 	}
 }

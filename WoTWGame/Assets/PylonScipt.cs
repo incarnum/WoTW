@@ -38,11 +38,15 @@ public class PylonScipt : MonoBehaviour {
     public GameObject castSpellPopup;
 	public GameObject ingredientPopUpText;
 	public GameObject corruptedPopUpText;
-    // Use this for initialization
-    void Start() {
-        player = GameObject.Find("Player");
+
+	void Awake() {
+		player = GameObject.Find("Player");
+		core = cpcs.GetComponent<PylonCoreScript>();
+	}
+   
+
+	void Start() {
         corrCost = 3;
-        core = cpcs.GetComponent<PylonCoreScript>();
         core2 = cpcs.GetComponent<CorruptedPylonCoreScript>();
         corrColor = core.corrColor;
         shrubColor = core.shrubColor;
@@ -297,170 +301,118 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	public void SelectCurrent(int selection) {
-        //turn the current selection into the active selection
-		//this first bit is refunding the player whatever ingredient was already in this pylon
-	if (corrupted)
-	{
-		if (activeSelection == 0)
-		{
-			player.GetComponent<InventoryScript>().berryNum += corrCost;
-		}
-		else if (activeSelection == 1)
-		{
-			player.GetComponent<InventoryScript>().antlerNum += corrCost;
-		}
-		else if (activeSelection == 2)
-		{
-			player.GetComponent<InventoryScript>().fangNum += corrCost;
-		}
-		else if (activeSelection == 3)
-		{
-			player.GetComponent<InventoryScript>().rabbitFootNum += corrCost;
-		}
-		else if (activeSelection == 4)
-		{
-			player.GetComponent<InventoryScript>().owlFeatherNum += corrCost;
-		}
-		activeSelection = -2;
-	}
-	else
-	{
-		if (activeSelection == 0)
-		{
-			player.GetComponent<InventoryScript>().berryNum += 1;
-		}
-		else if (activeSelection == 1)
-		{
-			player.GetComponent<InventoryScript>().antlerNum += 1;
-		}
-		else if (activeSelection == 2)
-		{
-			player.GetComponent<InventoryScript>().fangNum += 1;
-		}
-		else if (activeSelection == 3)
-		{
-			player.GetComponent<InventoryScript>().rabbitFootNum += 1;
-		}
-		else if (activeSelection == 4)
-		{
-			player.GetComponent<InventoryScript>().owlFeatherNum += 1;
-		}
-		activeSelection = -2;
-	}
+	if ((core.isActiveAndEnabled || pylonNum == 0) && selection != -2) {
+			//to keep the save loader from trying to put ingredients in inactive pillars
+
+			//turn the current selection into the active selection
+			//this first bit is refunding the player whatever ingredient was already in this pylon
+			if (corrupted) {
+				if (activeSelection == 0) {
+					player.GetComponent<InventoryScript> ().berryNum += corrCost;
+				} else if (activeSelection == 1) {
+					player.GetComponent<InventoryScript> ().antlerNum += corrCost;
+				} else if (activeSelection == 2) {
+					player.GetComponent<InventoryScript> ().fangNum += corrCost;
+				} else if (activeSelection == 3) {
+					player.GetComponent<InventoryScript> ().rabbitFootNum += corrCost;
+				} else if (activeSelection == 4) {
+					player.GetComponent<InventoryScript> ().owlFeatherNum += corrCost;
+				}
+				activeSelection = -2;
+			} else {
+				if (activeSelection == 0) {
+					player.GetComponent<InventoryScript> ().berryNum += 1;
+				} else if (activeSelection == 1) {
+					player.GetComponent<InventoryScript> ().antlerNum += 1;
+				} else if (activeSelection == 2) {
+					player.GetComponent<InventoryScript> ().fangNum += 1;
+				} else if (activeSelection == 3) {
+					player.GetComponent<InventoryScript> ().rabbitFootNum += 1;
+				} else if (activeSelection == 4) {
+					player.GetComponent<InventoryScript> ().owlFeatherNum += 1;
+				}
+				activeSelection = -2;
+			}
             
-        activeSelection = selection;
+			activeSelection = selection;
         
 		
 		
-        if (corrupted)
-        {
-			newUI.GetComponent<PylonUI> ().OnExit ();
-        }
+			if (corrupted) {
+				newUI.GetComponent<PylonUI> ().OnExit ();
+			}
         //opens window, 
-        else
-        {
-			newUI.GetComponent<PylonUI> ().OnExit ();
-        }
-		player.GetComponent<PlayerControllerScript> ().pylonPaused = false;
-        player.GetComponent<PlayerControllerScript>().CheckIfICanMove();
-        windowActive = false;
-		if (!corrupted) {
-			if (pylonNum == 0) {
-				core.target = activeSelection;
-			} else if (pylonNum == 1) {
-                if (activeSelection == 3)
-                {
-                    core.effect = 0;
-                }
-                else if (activeSelection == 4)
-                {
-                    core.effect = 2;
-                }
-                else
-                {
-                    core.effect = activeSelection;
-                }
+        else {
+				newUI.GetComponent<PylonUI> ().OnExit ();
+			}
+			player.GetComponent<PlayerControllerScript> ().pylonPaused = false;
+			player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
+			windowActive = false;
+			if (!corrupted) {
+				if (pylonNum == 0) {
+					core.target = activeSelection;
+				} else if (pylonNum == 1) {
+					if (activeSelection == 3) {
+						core.effect = 0;
+					} else if (activeSelection == 4) {
+						core.effect = 2;
+					} else {
+						core.effect = activeSelection;
+					}
 				
-			} else if (pylonNum == 2) {
-                if (activeSelection == 0 || activeSelection == 3)
-                {
-                    core.strength = 1;
-                }
-                else if (activeSelection == 1)
-                {
-                    core.strength = 0;
-                }
-                else if (activeSelection == 2 || activeSelection == 4)
-                {
-                    core.strength = -1;
-                }
-				else if (activeSelection == -2)
-				{
-					core.strength = -2;
+				} else if (pylonNum == 2) {
+					if (activeSelection == 0 || activeSelection == 3) {
+						core.strength = 1;
+					} else if (activeSelection == 1) {
+						core.strength = 0;
+					} else if (activeSelection == 2 || activeSelection == 4) {
+						core.strength = -1;
+					} else if (activeSelection == -2) {
+						core.strength = -2;
+					}
+				}
+			} else {
+				//corrupted pylons can only have a pylon num of 0 or 2, since 1 (effect) doesn't have any options,and uses a different script
+				if (pylonNum == 0) {
+					core2.target = activeSelection;
+				} else if (pylonNum == 2) {
+					core2.strength = activeSelection;
 				}
 			}
-		} else {
-			//corrupted pylons can only have a pylon num of 0 or 2, since 1 (effect) doesn't have any options,and uses a different script
-			if (pylonNum == 0) {
-				core2.target = activeSelection;
-			} else if (pylonNum == 2) {
-				core2.strength = activeSelection;
+			if (corrupted) {
+				if (activeSelection == 0) {
+					player.GetComponent<InventoryScript> ().berryNum -= corrCost;
+				} else if (activeSelection == 1) {
+					player.GetComponent<InventoryScript> ().antlerNum -= corrCost;
+				} else if (activeSelection == 2) {
+					player.GetComponent<InventoryScript> ().fangNum -= corrCost;
+				} else if (activeSelection == 3) {
+					player.GetComponent<InventoryScript> ().rabbitFootNum -= corrCost;
+				} else if (activeSelection == 4) {
+					player.GetComponent<InventoryScript> ().owlFeatherNum -= corrCost;
+				}
+			} else {
+				if (activeSelection == 0) {
+					player.GetComponent<InventoryScript> ().berryNum -= 1;
+				} else if (activeSelection == 1) {
+					player.GetComponent<InventoryScript> ().antlerNum -= 1;
+				} else if (activeSelection == 2) {
+					player.GetComponent<InventoryScript> ().fangNum -= 1;
+				} else if (activeSelection == 3) {
+					player.GetComponent<InventoryScript> ().rabbitFootNum -= 1;
+				} else if (activeSelection == 4) {
+					player.GetComponent<InventoryScript> ().owlFeatherNum -= 1;
+				}
 			}
-		}
-        if (corrupted)
-        {
-		if (activeSelection == 0)
-            {
-                player.GetComponent<InventoryScript>().berryNum -= corrCost;
-            }
-		else if (activeSelection == 1)
-            {
-                player.GetComponent<InventoryScript>().antlerNum -= corrCost;
-            }
-		else if (activeSelection == 2)
-            {
-                player.GetComponent<InventoryScript>().fangNum -= corrCost;
-            }
-        else if (activeSelection == 3)
-            {
-			player.GetComponent<InventoryScript>().rabbitFootNum -= corrCost;
-            }
-        else if (activeSelection == 4)
-            {
-			player.GetComponent<InventoryScript>().owlFeatherNum -= corrCost;
-            }
-        }
-        else
-        {
-            if (activeSelection == 0)
-            {
-                player.GetComponent<InventoryScript>().berryNum -= 1;
-            }
-            else if (activeSelection == 1)
-            {
-                player.GetComponent<InventoryScript>().antlerNum -= 1;
-            }
-            else if (activeSelection == 2)
-            {
-                player.GetComponent<InventoryScript>().fangNum -= 1;
-            }
-            else if (activeSelection == 3)
-            {
-                player.GetComponent<InventoryScript>().rabbitFootNum -= 1;
-            }
-            else if (activeSelection == 4)
-            {
-                player.GetComponent<InventoryScript>().owlFeatherNum -= 1;
-            }
-        }
 		
-		player.GetComponent<InventoryScript> ().UpdateNumbers ();
-		UpdateSprite ();
-		//updates the spell prediction using the correct core script
-		if (corrupted == false) {
-			core.PredictSpell ();
-		} else {
-			core2.PredictSpell ();
+			player.GetComponent<InventoryScript> ().UpdateNumbers ();
+			UpdateSprite ();
+			//updates the spell prediction using the correct core script
+			if (corrupted == false) {
+				core.PredictSpell ();
+			} else {
+				core2.PredictSpell ();
+			}
 		}
 	}
 
