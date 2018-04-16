@@ -23,7 +23,7 @@ public class PylonUI : MonoBehaviour {
 	private float startTime;
 	private float rotationDuration = .15f;
 	private bool rotating;
-
+    private GameObject player;
     //List of Cirlces
     private List<GameObject> Elements = new List<GameObject>();
 
@@ -31,6 +31,7 @@ public class PylonUI : MonoBehaviour {
 	void Start () {
         CurrentInfo = gameObject.transform.Find("Info").GetComponent<Text>();
         //CurrentInfo.text = DefaultInfo;
+        player = GameObject.Find("Player");
 
 
         if (keyboardControls)
@@ -144,6 +145,8 @@ public class PylonUI : MonoBehaviour {
 		transform.Find("SelectionRing").GetComponent<SimpleSlideScript> ().Move (new Vector2 (itemHolder.localPosition.x, itemHolder.localPosition.y), .1f);
         GameObject.Find("Player").GetComponent<PlayerControllerScript>().pylonPaused = false;
         GameObject.Find("Player").GetComponent<PlayerControllerScript>().CheckIfICanMove();
+        player.GetComponent<PlayerControllerScript>().canMove = true;
+        player.GetComponent<PlayerControllerB>().canMove = true;
     }
 
 	IEnumerator WaitDisable() {

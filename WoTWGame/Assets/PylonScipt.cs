@@ -61,6 +61,10 @@ public class PylonScipt : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         bool boxOpen = dialougeActive.windowUp;
+        if(newUI.active)
+        {
+            player.GetComponent<PlayerControllerScript>().CheckIfICanMove();
+        }
        // if (newUI.activeSelf)
        // {
             //player.GetComponent<PlayerControllerScript>().canMove = false;
