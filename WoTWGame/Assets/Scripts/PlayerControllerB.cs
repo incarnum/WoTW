@@ -52,7 +52,7 @@ public class PlayerControllerB : MonoBehaviour {
 					anim.SetFloat ("LastMoveY", 1f);
 					V = 1f;
 					VDelay = Time.time + VPause;
-					detector.localPosition = new Vector2 (detector.localPosition.x, .6f);
+					detector.localPosition = new Vector2 (detector.localPosition.x, -0.1f);
 				} else if (v < 0) {
 					anim.SetFloat ("LastMoveY", -1f);
 
