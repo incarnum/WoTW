@@ -1,6 +1,6 @@
-OSXStandalone
+WindowsStandalone
 PlayerPath?
-D:/WotWApr12.app
+C:/Users/reese/OneDrive/Documents/GitHub/WoTW/WoTWGame/wotw4-17.exe
 SceneListBegin?
 Assets/Scene/MainMenu.unity
 Assets/Scene/Forest 3.unity
@@ -122,6 +122,7 @@ b2f8e754b4fd573090bf5b2c3d251321 Assembly-CSharp.dll:.UIbuffScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AltarGlowScript
 71778c9b45c50a65b865c5bc42204043 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.NoiseAndScratches
 cc897e31f90a455da1ad6fffc97043f1 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Antialiasing
+feacb85f2bee0b135e28405e0db5bf5a Assembly-CSharp.dll:.WorldAnalyzerScript
 6fc969c6d0b22697f94d5befe52e2e25 Assembly-CSharp.dll:.MouseCamera
 9334b4ba4c92c0d9d32ddc93fa157ef9 Assembly-CSharp.dll:.AssignedAnimalMovementScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GoBehindScript
@@ -232,7 +233,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 6cf9906891a2913561cb146625f7d3d5 Assembly-CSharp.dll:.UIBarScript
 4aadab9e3e4d34f6e069833451e815bb Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.CreaseShading
 e2b50e4e1e5006d87e7ebe8a724e8f6d Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ContrastEnhance
-e5fbdcf1b9de5b2733b41f07eaf92680 Assembly-CSharp.dll:.menuButtonScript
+6fe9eeb1e9761e310a27cec282f19147 Assembly-CSharp.dll:.menuButtonScript
 0dd6068610fcb8ecb307732bb63e482e Assembly-CSharp.dll:.RingSpinUI
 f5e35da0598256c802249709a133fd94 Assembly-CSharp.dll:.TreeHolderScript
 537fa3afe8190b66581db8fd42f406cf Assembly-CSharp.dll:.CorruptionNodeScript
@@ -279,7 +280,8 @@ f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 a857f78099e412c50f5decc84fc25c38 Assembly-CSharp.dll:.spawnedObject
 3a80caec730a767b903db9e9ec8bd383 Assembly-CSharp.dll:.CardScript
-c12c79e379c83d5797866467aaf41414 Assembly-CSharp.dll:.GameManagerScript
+35d595bb6c7bcbf1473eb3b75f186573 Assembly-CSharp.dll:.MainMenuSaveReader
+96a95991164b2996f178718666b7b99a Assembly-CSharp.dll:.GameManagerScript
 ca6e2f44254d4ea9a2f8bce87bd42075 Assembly-CSharp.dll:UnityEngine.PostProcessing.Utilities.FocusPuller
 3408f29147e238496004f9677da3180f Assembly-CSharp.dll:.topologyTestScript
 0b24325b2b73510b967dbf26210db914 Assembly-CSharp.dll:.posit_core
@@ -293,7 +295,7 @@ b0367f294051665d70b170987478644a Assembly-CSharp.dll:.ColliderDialogue
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.PostEffectsBase
 d9cde9d470d9ae5d2d3630e920855c74 Assembly-CSharp.dll:.WildSpellbookManagerScript
 266f5c4bb580bbe226f179200f594fc8 Assembly-CSharp.dll:.PylonUI
-6c3af8f9a596152d3fb32b8e56d1c6cd Assembly-CSharp.dll:.PlayButtonScript
+2ab68849de5c4c1e6a3e70a34e7d83b7 Assembly-CSharp.dll:.PlayButtonScript
 e2a8fd4524fc2a3a236b7e7720b544a6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.EdgeDetection
 0790b3f531723fb0f0945aff9f3a0e09 Assembly-CSharp.dll:.centerStoneGlowScript
 b3432dfe180f02232d7612fb366593d3 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ColorCorrectionLookup
@@ -301,6 +303,8 @@ b3432dfe180f02232d7612fb366593d3 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 1028dab8df148f8b6d7f9c379c6340a9 Assembly-CSharp.dll:.RabbitPopulation
 5520d4a73294b495ba1db13f04515179 Assembly-CSharp.dll:.DropdownHandler
 fcefec7be1142f4711771067f1632cb4 Assembly-CSharp.dll:.SpellScript
+8e7205eddbe41d0be0e452b186c08b2c Assembly-CSharp.dll:.NumberSelectorScript
+ec97a90ef48f73d1abe056c9bf7b9d40 Assembly-CSharp.dll:.SaveLoadTest
 3ae0dad0b55a80319e1d57c2dce28da7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Tonemapping
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SpellLightScript
 369fb4610e246f6a7be9d8dabff190ea Assembly-CSharp.dll:.MainMenuOptionScript
@@ -308,3 +312,4 @@ c93c946dc36dd00680529c70b7d08af9 Assembly-CSharp.dll:.BushScript
 c478172158304aef9cbf97228d4a1592 Assembly-CSharp.dll:.fadeInScreenScript
 186b6edb854ed6613d42ee2d411e90ba Assembly-CSharp.dll:.SpellSlotScript
 251b5a06f1fffa9d932b3f20836a7687 Assembly-CSharp.dll:.SimpleSlideScript
+4aaa092dbd9f983190e923ffe3d45b1f Assembly-CSharp.dll:.FollowMap

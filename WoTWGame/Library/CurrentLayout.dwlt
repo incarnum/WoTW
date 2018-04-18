@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 88
+  controlID: 11640
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 127
+  controlID: 11641
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -262,12 +262,12 @@ MonoBehaviour:
   m_DepthBufferBits: 32
   m_Pos:
     serializedVersion: 2
-    x: 328
-    y: 92
+    x: 2
+    y: 19
     width: 758
     height: 390
   m_PersistentViewDataDictionary: {fileID: 0}
-  m_MaximizeOnPlay: 0
+  m_MaximizeOnPlay: 1
   m_Gizmos: 0
   m_Stats: 0
   m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
@@ -346,9 +346,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 181affff
-    m_LastClickedID: -58856
-    m_ExpandedIDs: 181affff46faffff00000000de5500001868000024740000aa760000ba760000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: fe3bfbff1c3dfbffc23efbfffc3ffbff829bfdff9efbffff000000001451000004530000c25b0000ce670000646a00009ec304006cc5040044cb040034cd0400f2d10400f2d50400dcda0400fee1040010e30400
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -399,14 +399,14 @@ MonoBehaviour:
     height: 390
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 215.62852707402905
+  lastFramingTime: 1902.070327737167
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -43.83577, y: -98.061584, z: -106.39258}
+    m_Target: {x: 38.382687, y: -62.662655, z: -107.96875}
     speed: 2
-    m_Value: {x: -43.83577, y: -98.061584, z: -106.39258}
+    m_Value: {x: 38.382687, y: -62.662655, z: -107.96875}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -434,9 +434,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 14.434216
+    m_Target: 233.34525
     speed: 2
-    m_Value: 14.434216
+    m_Value: 233.34525
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -761,19 +761,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 50
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: 50
   m_LastProjectPath: C:\Users\reese\OneDrive\Documents\GitHub\WoTW\WoTWGame
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 82380000
-    m_LastClickedID: 14466
-    m_ExpandedIDs: 00000000823800003a390000b23b0000e83d00002240000030420000e4430000ee4300007e450000024700004a49000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 102}
+    m_SelectedIDs: 32360000
+    m_LastClickedID: 13874
+    m_ExpandedIDs: 00000000782a00003c2b0000b82d0000003000005c320000743400002836000032360000c23700004c390000943b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -801,7 +801,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000823800003a390000b23b0000e83d00002240000030420000e4430000ee430000024700004a490000
+    m_ExpandedIDs: 00000000782a00003c2b0000b82d0000003000005c320000743400002836000032360000c23700004c390000943b000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -828,7 +828,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000e0670000d06700003e4f00003e6700001828000064e5000080330000c0280000362c0000cc5f000096991400e65f0000e05f000004790000b6670000f8da0100f6910200080c0800a8920a00166a0000585d0300f43300004cc81c00b23c00005a42000068cb0300d00d0300f031000092320000a23200000a3200004c5a00006e2e0000ea3500000c74000016d50b003c470000c04c0100186b00000c8400006c2c0000462c0000c82e00003a2e00005440000092ba2600e801130080830000802e000000000000a62e00004c38000026380000543800006a5500000c420000dc2e00000e320000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -853,7 +853,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 235}
+    m_ScrollPosition: {x: 0, y: 53.499084}
     m_GridSize: 50
   m_DirectoriesAreaWidth: 159
 --- !u!114 &17
@@ -878,10 +878,10 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 408
-    y: 646
-    width: 958
-    height: 412
+    x: 328
+    y: 503
+    width: 758
+    height: 299
   m_PersistentViewDataDictionary: {fileID: 0}
 --- !u!114 &18
 MonoBehaviour:
