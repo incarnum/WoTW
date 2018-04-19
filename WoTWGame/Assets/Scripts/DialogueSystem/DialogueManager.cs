@@ -67,7 +67,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(List<Dialogue> dialogue)
     {
         if (tutorialActive)
         {
@@ -81,9 +81,9 @@ public class DialogueManager : MonoBehaviour
 			windowUp = true;
 //            print("cleared sentences");
 
-            nameText.text = dialogue.name;
+            nameText.text = dialogue[gm.language].name;
 
-            foreach (string s in dialogue.sentences)//dialogue[gm.language].sentences
+            foreach (string s in dialogue[gm.language].sentences)//dialogue[gm.language].sentences
             {
                 sentences.Enqueue(s);
             }
