@@ -16,6 +16,8 @@ public class GameManagerScript : MonoBehaviour {
 	public bool loadFromSave;
 	public int gameMode;
 
+	public bool hasBeatenGame;
+
 	// Use this for initialization
 	void Awake () {
 		if (instance == null)
@@ -45,6 +47,7 @@ public class GameManagerScript : MonoBehaviour {
 		print (musicBool);
 		GameObject.Find ("Sound Box").SetActive (soundBool);
 
+		print ("game mode is " + gameMode + " with a levelType (animal number) of " + levelType);
 		GameObject.Find ("LoadingManager").GetComponent<WorldAnalyzerScript> ().gm = this;
 	}
 	

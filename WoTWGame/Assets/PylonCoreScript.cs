@@ -113,7 +113,7 @@ public class PylonCoreScript : MonoBehaviour
     {
         if (touching && Input.GetButtonDown("Select"))
         {
-            if (target != -2 && effect != -2 && strength != -2 && castable && target != 3)
+            if (target != -2 && effect != -2 && strength != -2)
             {
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
@@ -176,7 +176,7 @@ public class PylonCoreScript : MonoBehaviour
 				pop.sizeMod = 0;
 				pop.UpdateSize ();
 			} else {
-				if (dm.firstGrowShrubsCast) {
+				if (dm.firstGrowShrubsCast && GameManagerScript.instance.gameMode == 0) {
 					dm.firstGrowShrubsCast = false;
 					print ("shrubs growing");
 					gsbc.TriggerDialogue ();
@@ -330,12 +330,8 @@ public class PylonCoreScript : MonoBehaviour
 
 
 
-        //this cleanse corruption bit can be removed, it isn't actually possible in this corrupted pylon build
-        if (target == 3 || effect == 3 || strength == 3)
-        {
-            spellPreviewText = "Cleanse Corruption";
-        }
-        if (target != -2 && effect != -2 && strength != -2 && spellPreviewText != "Cleanse Corruption")
+
+        if (target != -2 && effect != -2 && strength != -2)
         {
 			CenterStoneGlow.SetColor (Color.white, .2f);
             castable = true;
@@ -353,14 +349,7 @@ public class PylonCoreScript : MonoBehaviour
             pylon2.castSpellShouldBeActive = false;
             pylon3.castSpellShouldBeActive = false;
         }
-        if (target == 3 && effect == 3 && strength == 3)
-        {
-			CenterStoneGlow.SetColor (Color.white, .2f);
-            castable = true;
-            pylon1.castSpellShouldBeActive = true;
-            pylon2.castSpellShouldBeActive = true;
-            pylon3.castSpellShouldBeActive = true;
-        }
+
 
 
 		spellPreviewTextbox.GetComponent<Text>().text = spellPreviewText;

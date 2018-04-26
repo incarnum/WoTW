@@ -8,7 +8,7 @@ public class DeerPopulation : basePopulation {
 	void Start ()
     {
         DoStart();
-		pop = GetComponent<ShrubPopulation>().biomass - 7;
+		pop = GetComponent<ShrubPopulation>().pop - 7;
         size = 1;
         startSize = 1;
         speed = 2;

@@ -21,6 +21,8 @@ public class MainMenuOptionScript : MonoBehaviour {
     public GameObject backButton;
     public GameObject applyButton;
 	public GameObject creditsBack;
+	public GameObject standardObject;
+	public GameObject endlessObject;
 
     public bool paused;
     public bool optionsOpened;
@@ -69,6 +71,25 @@ public class MainMenuOptionScript : MonoBehaviour {
         }
 		DefaultTextColor = applyButton.GetComponentsInChildren<Text> () [0].color;
 		scroller.scrollSensitivity = 20;
+
+		if (SceneManager.GetActiveScene ().name == "MainMenu") {
+			print ("this is the main menu");
+			UniversalData unloader = UniversalSaverScript.LoadUniverse ();
+			gameManager.musicBool = unloader.musicBool;
+			gameManager.soundBool = unloader.soundBool;
+			gameManager.language = unloader.language;
+			gameManager.hasBeatenGame = unloader.hasBeatenGame;
+
+			musicSource.SetActive(unloader.musicBool);
+			soundSource.SetActive(unloader.soundBool);
+			musicGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn = unloader.musicBool;
+			soundGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn = unloader.soundBool;
+			if (unloader.hasBeatenGame) {
+				standardObject.SetActive (true);
+				endlessObject.SetActive (true);
+			}
+
+		}
 	}
 	
 	// Update is called once per frame
@@ -125,7 +146,9 @@ public class MainMenuOptionScript : MonoBehaviour {
 
 		gameManager.musicBool = musicGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn;
 		gameManager.soundBool = soundGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn;
+		UniversalSaverScript.SaveUniverse (gameManager);
     }
+		
 
     public void ReturnToPause()
     {

@@ -49,9 +49,14 @@ public class WorldAnalyzerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		gm = GameObject.Find ("GameManager(Clone)").GetComponent<GameManagerScript>();
 		gameMode = gm.gameMode;
 		if (gm.loadFromSave) {
 			Load ();
+		} else if (gm.gameMode == 1 || gm.gameMode == 2 || gm.gameMode == 3) {
+			SetUpStandard ();
+		} else if (gm.gameMode == 4 || gm.gameMode == 4 || gm.gameMode == 6) {
+			SetUpEndless ();
 		}
 	}
 
@@ -171,13 +176,13 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		if (rabbits.pop > 0) {
 			rabbits.enabled = true;
 			rabbits.DoStart ();
-			eco.GetComponent<UIManager> ().ActivateWolves ();
+			eco.GetComponent<UIManager> ().ActivateRabbits ();
 		}
 
 		if (owls.pop > 0) {
 			owls.enabled = true;
 			owls.DoStart ();
-			eco.GetComponent<UIManager> ().ActivateWolves ();
+			eco.GetComponent<UIManager> ().ActivateOwls ();
 		}
 
 		for (int i = 0; i <= cores.Count - 1; i++) {
@@ -211,5 +216,77 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		for (int i = 0; i < unloader.tutorialPhase; i++) {
 			tm.NextPhase ();
 		}
+	}
+
+	public void SetUpStandard() {
+		inv.transform.position = spawnPositions [3].position;
+		print ("STARTING NEW STANDARD GAME");
+
+
+
+		shrubs.pop = 55;
+		deer.pop = 50;
+		wolves.pop = 45;
+
+		deer.enabled = true;
+		eco.GetComponent<UIManager> ().ActivateDeer ();
+		eco.tempShrubCapBool = false;
+
+		wolves.enabled = true;
+		eco.GetComponent<UIManager> ().ActivateWolves ();
+
+		if (gameMode >= 2) {
+			rabbits.pop = 55;
+			rabbits.enabled = true;
+			eco.GetComponent<UIManager> ().ActivateRabbits ();
+
+		}
+
+		if (gameMode == 3) {
+			owls.pop = 45;
+			owls.enabled = true;
+			eco.GetComponent<UIManager> ().ActivateOwls ();
+
+		}
+
+		for (int i = 0; i < 10; i++) {
+			tm.NextPhase ();
+		}
+		dm.convoCount = 100;
+	}
+
+	public void SetUpEndless() {
+		inv.transform.position = spawnPositions [3].position;
+		print ("STARTING NEW ENDLESS GAME");
+
+		shrubs.pop = 55;
+		deer.pop = 50;
+		wolves.pop = 45;
+
+		deer.enabled = true;
+		eco.GetComponent<UIManager> ().ActivateDeer ();
+		eco.tempShrubCapBool = false;
+
+		wolves.enabled = true;
+		eco.GetComponent<UIManager> ().ActivateWolves ();
+
+		if (gameMode >= 5) {
+			rabbits.pop = 55;
+			rabbits.enabled = true;
+			eco.GetComponent<UIManager> ().ActivateRabbits ();
+
+		}
+
+		if (gameMode == 6) {
+			owls.pop = 45;
+			owls.enabled = true;
+			eco.GetComponent<UIManager> ().ActivateOwls ();
+
+		}
+
+		for (int i = 0; i < 10; i++) {
+			tm.NextPhase ();
+		}
+		dm.convoCount = 100;
 	}
 }

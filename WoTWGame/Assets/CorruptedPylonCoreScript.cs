@@ -172,95 +172,63 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
 		CenterStoneGlow.SetColor (Color.clear, .5f);
 		cooldownFill.GetComponent<centerStoneGlowScript> ().SetColor (Color.white, .1f);
-		if (dm.secondCorrCast)
+		if (dm.secondCorrCast && GameManagerScript.instance.gameMode == 0)
 		{
 			dm.secondCorrCast = false;
 			cbc.TriggerDialogue();
 
 		}
 
-		if (dm.firstCorrCast)
+		if (dm.firstCorrCast && GameManagerScript.instance.gameMode == 0)
 		{
 			dm.firstCorrCast = false;
 			dm.secondCorrCast = true;
 		}
         if (health <= 0)
         {
-            //Checking the number of nodes cleansed, and playing the corresponding dialogue
-            if (dm.cleansedNodes == 0)
-            {
-                clFN.TriggerDialogue();
-                deer.enabled = true;
-				deer.DoStart ();
-				eco.GetComponent<UIManager> ().ActivateDeer ();
-				eco.tempShrubCapBool = false;
-				shrub.corruptedPop -= cms.shrubPopStart;
-                //Deer get activated
-                //Polish: Deer moves across screen
-            }
-            else if (dm.cleansedNodes == 1)
-            {
-                clSN.TriggerDialogue();
-                wolf.enabled = true;
-				wolf.DoStart ();
-				eco.GetComponent<UIManager> ().ActivateWolves ();
+			if (GameManagerScript.instance.gameMode == 0) {
+				//Checking the number of nodes cleansed, and playing the corresponding dialogue
+				if (dm.cleansedNodes == 0) {
+					clFN.TriggerDialogue ();
+					deer.enabled = true;
+					deer.DoStart ();
+					eco.GetComponent<UIManager> ().ActivateDeer ();
+					eco.tempShrubCapBool = false;
+					shrub.corruptedPop -= cms.shrubPopStart;
+				} else if (dm.cleansedNodes == 1) {
+					clSN.TriggerDialogue ();
+					wolf.enabled = true;
+					wolf.DoStart ();
+					eco.GetComponent<UIManager> ().ActivateWolves ();
 
-				if (GameManagerScript.instance.levelType >= 4) {
+
+					cms.phase += 1;
+					cms.nextCorruptionTime = Time.time + cms.infectTime;
+					cms.currentCorruptionRate = cms.phase1CorruptionRate;
+					//Wolves Rabbits and Owls get activated
+					//Polish: Wolf moves across the screen
+				} else if (dm.cleansedNodes == 2) {
+					
+				} else if (dm.cleansedNodes == 3) {
 					rabbit.enabled = true;
 					rabbit.DoStart ();
 					eco.GetComponent<UIManager> ().ActivateRabbits ();
-				}
+					
+				} else if (dm.cleansedNodes == 4) {
 
-				if (GameManagerScript.instance.levelType >= 5) {
+				} else if (dm.cleansedNodes == 5) {
 					owl.enabled = true;
 					owl.DoStart ();
 					eco.GetComponent<UIManager> ().ActivateOwls ();
-				}
 
-				cms.phase += 1;
-				cms.nextCorruptionTime = Time.time + cms.infectTime;
-				cms.currentCorruptionRate = cms.phase1CorruptionRate;
-                //Wolves Rabbits and Owls get activated
-                //Polish: Wolf moves across the screen
-            }
-            else if (dm.cleansedNodes == 2)
-            {
-
-                //clTN.TriggerDialogue();
-				//GameObject.Find ("CorruptionWall").SetActive (false);
-                //rabbit.enabled = true;
-            }
-			else if (dm.cleansedNodes == 3)
-            {
-				if (!eco.demo) {
-//				rabbit.enabled = true;
-//				rabbit.DoStart ();
-//				eco.GetComponent<UIManager> ().ActivateRabbits ();
-                //clFoN.TriggerDialogue();
-                //owl.enabled = true;
+				} else if (dm.cleansedNodes == 7) {
+					clTN.TriggerDialogue ();
+					GameObject.Find ("CorruptionWall").SetActive (false);
+					GameManagerScript.instance.hasBeatenGame = true;
+					UniversalSaverScript.SaveUniverse (GameManagerScript.instance);
 				}
-            }
-            else if (dm.cleansedNodes == 4)
-            {
-				if (!eco.demo) {
-//					owl.enabled = true;
-//					owl.DoStart ();
-//					eco.GetComponent<UIManager> ().ActivateOwls ();
-					//clFiN.TriggerDialogue();
-					//no longer present in level
-				} else {
-					GameObject.Find ("DemoEndCanvas").transform.GetChild (0).gameObject.SetActive (true);
-					GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
-					GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
-				}
-            }
-			else if (dm.cleansedNodes == 5)
-			{
-				if (!eco.demo) {
-				clTN.TriggerDialogue();
-				GameObject.Find ("CorruptionWall").SetActive (false);
-				//rabbit.enabled = true;
-				}
+			} else if (GameManagerScript.instance.gameMode >= 1 && GameManagerScript.instance.gameMode <= 2) {
+				print (dm.cleansedNodes + "nodes cleansed");
 			}
             dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);

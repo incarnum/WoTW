@@ -44,9 +44,9 @@ public class PlayButtonScript : MonoBehaviour {
 			//this shouldn't happen since you don't select a species number for story
 			Debug.Log ("This shouldn't be called, you can't choose a creature num for story mode");
 		} else if (overallMode == 1) {
-			gameMode = i;
+			gameMode = i - 2;
 		} else if (overallMode == 2) {
-			gameMode = i + 3;
+			gameMode = i;
 		}
 	}
 

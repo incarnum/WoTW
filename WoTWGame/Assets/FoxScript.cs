@@ -23,6 +23,7 @@ public class FoxScript : MonoBehaviour {
 			} else if (player.GetComponent<PlayerControllerScript>().canMove) {
 				print ("open it");
 				saveWindow.SetActive (true);
+				print (saveWindow.activeSelf);
 				player.GetComponent<PlayerControllerScript> ().dialoguePaused = true;
 				player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
 			}
@@ -43,6 +44,7 @@ public class FoxScript : MonoBehaviour {
 	}
 
 	public void CloseWindow() {
+		
 		saveWindow.SetActive (false);
 		player.GetComponent<PlayerControllerScript> ().dialoguePaused = false;
 		player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
