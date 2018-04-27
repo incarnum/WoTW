@@ -258,7 +258,7 @@ public class UIManager : MonoBehaviour {
 
 	public void ShrinkBars() {
 		manager.GetComponent<RectTransform> ().localScale = new Vector2 (.4f, .4f);
-		manager.GetComponent<RectTransform> ().localPosition = new Vector2 (45f, 45f);
+		manager.GetComponent<RectTransform> ().anchoredPosition = new Vector2 (45f, 45f);
 		manager.GetComponent<RectTransform> ().anchorMin = new Vector2 (0, 0);
 		manager.GetComponent<RectTransform> ().anchorMax = new Vector2 (0, 0);
 		manager.GetComponent<RectTransform> ().pivot = new Vector2 (.5f, .5f);

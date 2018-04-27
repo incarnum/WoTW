@@ -10,7 +10,7 @@ public class centerStoneGlowScript : MonoBehaviour {
 	private Color targetColor;
 	private Color startColor;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		sr = GetComponent<SpriteRenderer> ();
 	}
 	

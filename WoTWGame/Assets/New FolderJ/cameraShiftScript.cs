@@ -20,6 +20,7 @@ public class cameraShiftScript : MonoBehaviour {
 	public Animator branch8;
 	public Animator credits;
 	public Animator overlay;
+	public TimeStopCanvas tsc;
 	// Use this for initialization
 	void Start () {
 //		target1 = GetComponentsInChildren<Transform>()[1];
@@ -42,9 +43,14 @@ public class cameraShiftScript : MonoBehaviour {
 			branch3.SetTrigger ("move7");
 			landscape.SetTrigger ("spin");
 			overlay.SetTrigger ("fade");
+			tsc.pauseStop = false;
+			tsc.areaStop = false;
+			tsc.dialogueStop = false;
+			tsc.CheckVisibility ();
 			StartCoroutine (CreditsDelay ());
 			StartCoroutine (MainMenuDelay ());
-
+			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
+			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().CheckIfICanMove();
 
 		}
 	}
@@ -54,7 +60,7 @@ public class cameraShiftScript : MonoBehaviour {
 	}
 		
 	IEnumerator MainMenuDelay() {
-		yield return new WaitForSeconds (53);
+		yield return new WaitForSeconds (71);
 		SceneManager.LoadScene ("MainMenu");
 	}
 }
