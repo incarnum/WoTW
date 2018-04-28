@@ -60,7 +60,7 @@ public class cameraShiftScript : MonoBehaviour {
 	}
 		
 	IEnumerator MainMenuDelay() {
-		yield return new WaitForSeconds (71);
+		yield return new WaitForSeconds (77);
 		SceneManager.LoadScene ("MainMenu");
 	}
 }

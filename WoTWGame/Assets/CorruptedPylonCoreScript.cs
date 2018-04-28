@@ -169,6 +169,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
     public void Cast()
     {
         health -= 1;
+		GameObject.Find ("Minimap").GetComponent<MapIconManager> ().UpdateMinimapIcons ();
 		corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
 		CenterStoneGlow.SetColor (Color.clear, .5f);
 		cooldownFill.GetComponent<centerStoneGlowScript> ().SetColor (Color.white, .1f);

@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MapIconManager : MonoBehaviour {
+	public GameObject fullMap;
+	public GameObject playerIcon;
+	public List<CorruptedPylonCoreScript> pylonCircles;
+	public List<Animator> minimapIcons;
+	public List<Animator> fullMapIcons;
+
+	// Use this for initialization
+	void Start () {
+		UpdateMinimapIcons ();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if (Input.GetKeyDown (KeyCode.M)) {
+			fullMap.SetActive(!fullMap.activeSelf);
+			UpdateMinimapIcons ();
+		}
+	}
+
+	public void UpdateMinimapIcons() {
+		for (int i = 0; i < pylonCircles.Count; i++) {
+			if (pylonCircles [i].health == 0) {
+				minimapIcons [i].Play ("Cleansed");
+				fullMapIcons [i].Play ("Cleansed");
+			} else if (pylonCircles [i].health == 1) {
+				minimapIcons [i].Play ("Corr1");
+				fullMapIcons [i].Play ("Corr1");
+			} else if (pylonCircles [i].health == 2) {
+				minimapIcons [i].Play ("Corr2");
+				fullMapIcons [i].Play ("Corr2");
+			} else if (pylonCircles [i].health == 3) {
+				minimapIcons [i].Play ("Corr3");
+				fullMapIcons [i].Play ("Corr3");
+			}
+		}
+	}
+}

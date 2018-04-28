@@ -9,6 +9,7 @@ public class FoxScript : MonoBehaviour {
 	public GameObject saveWindow;
 	public GameObject player;
 	public GameObject saveText;
+	public GameObject pressEText;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
@@ -34,12 +35,14 @@ public class FoxScript : MonoBehaviour {
 		if (col.gameObject.tag == "energy") {
 			print ("Pet Fox");
 			touching = true;
+			pressEText.SetActive (true);
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D col) {
 		if (col.gameObject.tag == "energy") {
 			touching = false;
+			pressEText.SetActive (false);
 		}
 	}
 

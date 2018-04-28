@@ -305,7 +305,7 @@ public class PylonScipt : MonoBehaviour {
 	}
 
 	public void SelectCurrent(int selection) {
-	if ((core.isActiveAndEnabled || pylonNum == 0) && selection != -2) {
+	if ((core.isActiveAndEnabled || pylonNum == 0)) {
 			//to keep the save loader from trying to put ingredients in inactive pillars
 
 			//turn the current selection into the active selection
@@ -340,7 +340,9 @@ public class PylonScipt : MonoBehaviour {
             
 			activeSelection = selection;
         
-		
+			if (Time.timeSinceLevelLoad < 4) {
+				return;
+			}
 		
 			if (corrupted) {
 				newUI.GetComponent<PylonUI> ().OnExit ();

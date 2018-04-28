@@ -19,6 +19,9 @@ public class MainMenuSaveReader : MonoBehaviour {
 	public GameObject standardContinueMenu;
 	public GameObject endlessContinueMenu;
 
+	public GameObject standardButton;
+	public GameObject endlessButton;
+
 
 	// Use this for initialization
 	void Start () {
@@ -77,6 +80,25 @@ public class MainMenuSaveReader : MonoBehaviour {
 			endlessContinueInfo.text = dateInfo;
 		} else {
 			Debug.Log ("No endless save");
+		}
+
+		if (File.Exists (Application.persistentDataPath + "/main.woods")) {
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream stream = new FileStream (Application.persistentDataPath + "/main.woods", FileMode.Open);
+
+			UniversalData data = bf.Deserialize (stream) as UniversalData;
+
+			stream.Close ();
+
+			if (data.hasBeatenGame == true) {
+				standardButton.SetActive (true);
+				endlessButton.SetActive (true);
+			}
+
+			//this is where you would get highscore information from data and set some string in the scene to show it.
+
+		} else {
+			Debug.Log ("No universal save");
 		}
 	}
 }

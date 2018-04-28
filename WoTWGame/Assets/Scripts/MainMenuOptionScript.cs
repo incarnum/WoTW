@@ -84,11 +84,6 @@ public class MainMenuOptionScript : MonoBehaviour {
 			soundSource.SetActive(unloader.soundBool);
 			musicGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn = unloader.musicBool;
 			soundGUI.GetComponent<UnityEngine.UI.Toggle> ().isOn = unloader.soundBool;
-			if (unloader.hasBeatenGame) {
-				standardObject.SetActive (true);
-				endlessObject.SetActive (true);
-			}
-
 		}
 	}
 	

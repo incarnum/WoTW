@@ -119,7 +119,6 @@ public class AnimalMovementScript : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col){
 		if (col.gameObject.GetComponent<AnimalMovementScript> () != null) {
 			if (creatureType == 2 && col.gameObject.GetComponent<AnimalMovementScript> ().creatureType == 1) {
-				Debug.Log ("wolf hit deer");
 				if (fadeOut == false) {
 					GameObject munch = Instantiate (munchIcon) as GameObject;
 					munch.transform.position = col.gameObject.transform.position;
