@@ -5,20 +5,29 @@ using UnityEngine;
 public class MapIconManager : MonoBehaviour {
 	public GameObject fullMap;
 	public GameObject playerIcon;
+	public GameObject player;
 	public List<CorruptedPylonCoreScript> pylonCircles;
 	public List<Animator> minimapIcons;
 	public List<Animator> fullMapIcons;
+	public AudioSource mapOpen;
+	public AudioSource mapClose;
 
 	// Use this for initialization
 	void Start () {
 		UpdateMinimapIcons ();
+		player = GameObject.Find ("Player");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.M)) {
-			fullMap.SetActive(!fullMap.activeSelf);
-			UpdateMinimapIcons ();
+			if (player.GetComponent<PlayerControllerScript> ().paused == false) {
+				if (fullMap.activeSelf == false) {
+					OpenMap ();
+				} else {
+					CloseMap ();
+				}
+			}
 		}
 	}
 
@@ -38,5 +47,18 @@ public class MapIconManager : MonoBehaviour {
 				fullMapIcons [i].Play ("Corr3");
 			}
 		}
+	}
+
+	public void OpenMap() {
+		fullMap.SetActive (true);
+		player.GetComponent<PlayerControllerScript> ().mapPaused = true;
+		player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
+		UpdateMinimapIcons ();
+	}
+
+	public void CloseMap() {
+		fullMap.SetActive (false);
+		player.GetComponent<PlayerControllerScript> ().mapPaused = false;
+		player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
 	}
 }

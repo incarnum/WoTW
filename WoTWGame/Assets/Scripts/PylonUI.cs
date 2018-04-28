@@ -53,6 +53,11 @@ public class PylonUI : MonoBehaviour {
 				OnExit();
 			}
 
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				OnExit();
+			}
+
 			if (Input.GetKeyDown (KeyCode.R)) {
 				transform.parent.GetComponent<PylonScipt> ().SelectCurrent (-2);
 				OnExit ();

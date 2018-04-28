@@ -20,6 +20,7 @@ public class corruptionManagerScript : MonoBehaviour
 	public float phase0CorruptionRate;
 	public float phase1CorruptionRate;
 	public float storedNextCorruptTime;
+	public DialogueManager tutMan;
     // Use this for initialization
     void Start()
     {
@@ -39,7 +40,7 @@ public class corruptionManagerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (phase > 0) {
+		if (tutMan.convoCount >= 7) {
 			if (nextCorruptionTime <= Time.time) {
 				nextCorruptionTime = Mathf.Infinity;
 				Corrupt ();

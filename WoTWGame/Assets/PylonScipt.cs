@@ -121,8 +121,8 @@ public class PylonScipt : MonoBehaviour {
                 {
                     newUI.SetActive(true);
                 }
-                player.GetComponent<PlayerControllerScript>().canMove = false;
-                player.GetComponent<PlayerControllerB>().canMove = false;
+				player.GetComponent<PlayerControllerScript> ().pylonPaused = true;
+				player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
                 windowActive = true;
                 //updates the tooltip saying what the current selection does
                 UpdateText();

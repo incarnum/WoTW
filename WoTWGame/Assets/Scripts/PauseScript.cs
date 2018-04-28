@@ -29,6 +29,7 @@ public class PauseScript : MonoBehaviour {
 
     public bool paused;
     public bool optionsOpened;
+	public bool areYouSureOpened;
     public Resolution[] resOptions;
     
     //Saved settings
@@ -58,6 +59,8 @@ public class PauseScript : MonoBehaviour {
 	public GameManagerScript gameManager;
 
 	private TimeStopCanvas timeStopCanvas;
+
+	public GameObject areYouSure;
 
 
 	// Use this for initialization
@@ -233,5 +236,9 @@ public class PauseScript : MonoBehaviour {
 			applyButton.GetComponent<Button> ().interactable = true;
 			applyButton.GetComponentsInChildren<Text> () [0].color = DefaultTextColor;
 		}
+	}
+
+	public void ToggleAreYouSure(bool boo) {
+		areYouSureOpened = boo;
 	}
 }

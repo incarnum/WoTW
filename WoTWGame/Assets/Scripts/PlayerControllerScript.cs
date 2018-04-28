@@ -26,6 +26,8 @@ public class PlayerControllerScript : MonoBehaviour {
     public GameObject uiManager;
     public Vector3? targetPosition;
 	public SimpleEcologyMasterScript eco;
+	public GameObject map;
+	public MapIconManager minimap;
 
 	public delegate void PauseAction();
 	public static event PauseAction OnPaused;
@@ -46,12 +48,16 @@ public class PlayerControllerScript : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Pause"))
         {
-            if (pauseCanvas.GetComponent<PauseScript>().optionsOpened)
-            {
-                pauseCanvas.GetComponent<PauseScript>().ReturnToPause();
-            }
-            else
-            {
+			if (pauseCanvas.GetComponent<PauseScript> ().optionsOpened) {
+				pauseCanvas.GetComponent<PauseScript> ().ReturnToPause ();
+			} else if (pauseCanvas.GetComponent<PauseScript> ().areYouSureOpened) {
+				pauseCanvas.GetComponent<PauseScript> ().areYouSure.SetActive (false);
+				pauseCanvas.GetComponent<PauseScript> ().areYouSureOpened = false;
+			} else if (mapPaused == true) {
+				minimap.CloseMap ();
+			} else if (pylonPaused == true) {
+
+			} else {
 				ToggleMenuPause ();
             }
 
