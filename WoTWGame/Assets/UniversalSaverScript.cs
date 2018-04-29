@@ -43,11 +43,13 @@ public class UniversalData {
 	public bool soundBool;
 	public int language;
 	public bool hasBeatenGame;
+    public int highScore;
 
 	public UniversalData(GameManagerScript gms) {
 		musicBool = gms.musicBool;
 		soundBool = gms.soundBool;
 		language = gms.language;
 		hasBeatenGame = gms.hasBeatenGame;
+        highScore = gms.highScore;
 	}
 }

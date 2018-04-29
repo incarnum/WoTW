@@ -47,6 +47,8 @@ public class WorldAnalyzerScript : MonoBehaviour {
 	public List<Transform> spawnPositions;
 	public GameManagerScript gm;
 
+    public GameObject ems;
+
 	// Use this for initialization
 	void Start () {
 		gm = GameObject.Find ("GameManager(Clone)").GetComponent<GameManagerScript>();
@@ -288,5 +290,7 @@ public class WorldAnalyzerScript : MonoBehaviour {
 			tm.NextPhase ();
 		}
 		dm.convoCount = 100;
+
+        ems.SetActive(true);
 	}
 }

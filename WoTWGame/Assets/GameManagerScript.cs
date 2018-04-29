@@ -15,6 +15,7 @@ public class GameManagerScript : MonoBehaviour {
 
 	public bool loadFromSave;
 	public int gameMode;
+    public int highScore;
 
 	public bool hasBeatenGame;
 
