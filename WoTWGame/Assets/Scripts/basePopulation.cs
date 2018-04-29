@@ -119,20 +119,26 @@ public class basePopulation : MonoBehaviour {
     {
         if(pop <= 0)
         {
-			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
-			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
-			gameOverScreen.SetActive (true);
-            gameOver.SetActive(true);
-			darkenScreen.SetActive (true);
+			if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused == false) {
+				GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+				GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
+				GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
+				gameOverScreen.SetActive (true);
+				gameOver.SetActive (true);
+				darkenScreen.SetActive (true);
+			}
 //			GameObject.Find ("MultiMenu").SetActive (false);
         } else if (pop <= corruptedPop)
         {
-			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
-			GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
-			gameOverScreen.SetActive (true);
-            corrGameOver.SetActive(true);
-			enpurpleScreen.SetActive (true);
-//			GameObject.Find ("MultiMenu").SetActive (false);
+			if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused == false) {
+				GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().Pause ();
+				GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().dialoguePaused = true;
+				GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
+				gameOverScreen.SetActive (true);
+	            corrGameOver.SetActive(true);
+				enpurpleScreen.SetActive (true);
+	//			GameObject.Find ("MultiMenu").SetActive (false)
+			};
         }
 ;    }
 }

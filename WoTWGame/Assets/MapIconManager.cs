@@ -15,6 +15,7 @@ public class MapIconManager : MonoBehaviour {
 	public AudioSource buttonSounds;
 	public AudioClip openMap;
 	public AudioClip closeMap;
+	public NotesScript notes;
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +59,7 @@ public class MapIconManager : MonoBehaviour {
 
 	public void OpenMap() {
 		fullMap.SetActive (true);
+		notes.CloseNotes ();
 		player.GetComponent<PlayerControllerScript> ().mapPaused = true;
 		player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
 		UpdateMinimapIcons ();

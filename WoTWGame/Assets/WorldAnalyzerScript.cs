@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using UnityEngine.UI;
 
 public class WorldAnalyzerScript : MonoBehaviour {
 	public int gameMode;
@@ -39,6 +43,8 @@ public class WorldAnalyzerScript : MonoBehaviour {
 	public List<PylonScipt> targetPylons;
 	public List<PylonScipt> effectPylons;
 	public List<PylonScipt> modifierPylons;
+
+	public int currentScore;
 
 	public InventoryScript inv;
 	public SimpleEcologyMasterScript eco;
@@ -122,10 +128,16 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		year = System.DateTime.Now.Year;
 		timeElapsed = Time.time;
 		//doesn't take into account time from previous saves. I'm not adding that until I think of an actual use for this number
+		if (GameManagerScript.instance.gameMode >= 4) {
+			currentScore = GameObject.Find ("EndlessManager").GetComponent<EndlessModeScript> ().currentScore;
+		}
 
 		LoadingManagerScript.SaveWorld (this, gameMode);
 
 		//feeds this class with these variables into the function that writes data to a file
+		if (GameManagerScript.instance.gameMode >= 4) {
+			SaveHighScore ();
+		}
 	}
 
 	public void Load() {
@@ -218,6 +230,12 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		for (int i = 0; i < unloader.tutorialPhase; i++) {
 			tm.NextPhase ();
 		}
+
+		currentScore = unloader.currentScore;
+		if (GameManagerScript.instance.gameMode >= 4) {
+			ems.SetActive (true);
+			GameObject.Find ("EndlessManager").GetComponent<EndlessModeScript> ().currentScore = currentScore;
+		}
 	}
 
 	public void SetUpStandard() {
@@ -292,5 +310,27 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		dm.convoCount = 100;
 
         ems.SetActive(true);
+	}
+
+	public void SaveHighScore() {
+		if (File.Exists (Application.persistentDataPath + "/main.woods")) {
+			BinaryFormatter bf = new BinaryFormatter ();
+			FileStream stream = new FileStream (Application.persistentDataPath + "/main.woods", FileMode.Open);
+
+			UniversalData data = bf.Deserialize (stream) as UniversalData;
+
+			if (data.highScore < GameObject.Find ("EndlessManager").GetComponent<EndlessModeScript> ().currentScore) {
+				GameManagerScript.instance.highScore = GameObject.Find ("EndlessManager").GetComponent<EndlessModeScript> ().currentScore;
+			} else {
+				GameManagerScript.instance.highScore = data.highScore;
+			}
+
+			stream.Close ();
+		} else {
+			Debug.Log ("No universal save");
+			GameManagerScript.instance.highScore = GameObject.Find ("EndlessManager").GetComponent<EndlessModeScript> ().currentScore;
+		}
+
+		UniversalSaverScript.SaveUniverse (GameManagerScript.instance);
 	}
 }

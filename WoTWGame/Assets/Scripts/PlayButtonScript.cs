@@ -46,7 +46,7 @@ public class PlayButtonScript : MonoBehaviour {
 		} else if (overallMode == 1) {
 			gameMode = i - 2;
 		} else if (overallMode == 2) {
-			gameMode = i;
+			gameMode = i + 1;
 		}
 	}
 

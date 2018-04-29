@@ -61,6 +61,7 @@ public class PauseScript : MonoBehaviour {
 	private TimeStopCanvas timeStopCanvas;
 
 	public GameObject areYouSure;
+	public GameObject areYouSure2;
 
 
 	// Use this for initialization

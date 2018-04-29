@@ -79,6 +79,7 @@ public class MainMenuOptionScript : MonoBehaviour {
 			gameManager.soundBool = unloader.soundBool;
 			gameManager.language = unloader.language;
 			gameManager.hasBeatenGame = unloader.hasBeatenGame;
+			gameManager.highScore = unloader.highScore;
 
 			musicSource.SetActive(unloader.musicBool);
 			soundSource.SetActive(unloader.soundBool);

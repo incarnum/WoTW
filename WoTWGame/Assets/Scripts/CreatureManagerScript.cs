@@ -366,7 +366,7 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateWolf() {
 		GameObject newWolf = Instantiate (wolfPrefab) as GameObject;
 		wolfCreatureList.Add (newWolf);
-		Place(newWolf, 2, false);
+		Place(newWolf, 3, false);
 		newWolf.transform.localScale = new Vector3 (wolf.size, wolf.size);
 		newWolf.GetComponent<AnimalMovementScript> ().speed2 = wolf.speed;
 	}
@@ -374,7 +374,7 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateCorruptedWolf() {
 		GameObject newWolf = Instantiate (corruptedWolfPrefab) as GameObject;
 		corruptedWolfCreatureList.Add (newWolf);
-		Place(newWolf, 2, false);
+		Place(newWolf, 3, false);
 		newWolf.transform.localScale = new Vector3 (wolf.size, wolf.size);
 		newWolf.GetComponent<AnimalMovementScript> ().speed2 = wolf.speed;
 	}
@@ -382,14 +382,14 @@ public class CreatureManagerScript : MonoBehaviour {
 	public void CreateFang() {
 		GameObject newFang = Instantiate (fangPrefab) as GameObject;
 		fangList.Add (newFang);
-		Place(newFang, 2, true);
+		Place(newFang, 3, true);
 	}
 
     public void CreateRabbit()
     {
         GameObject newRabbit = Instantiate(rabbitPrefab) as GameObject;
         rabbitCreatureList.Add(newRabbit);
-        Place(newRabbit, 2, false);
+        Place(newRabbit, 4, false);
         newRabbit.transform.localScale = new Vector3(rabbit.size, rabbit.size);
         newRabbit.GetComponent<AnimalMovementScript>().speed2 = rabbit.speed;
     }
@@ -398,7 +398,7 @@ public class CreatureManagerScript : MonoBehaviour {
     {
         GameObject newRabbit = Instantiate(corruptedRabbitPrefab) as GameObject;
         corruptedRabbitCreatureList.Add(newRabbit);
-        Place(newRabbit, 2, false);
+        Place(newRabbit, 4, false);
         newRabbit.transform.localScale = new Vector3(rabbit.size, rabbit.size);
         newRabbit.GetComponent<AnimalMovementScript>().speed2 = rabbit.speed;
     }
@@ -407,14 +407,14 @@ public class CreatureManagerScript : MonoBehaviour {
     {
         GameObject newRI = Instantiate(rabbitItemPrefab) as GameObject;
         rabbitItemList.Add(newRI);
-        Place(newRI, 2, true);
+        Place(newRI, 4, true);
     }
 
     public void CreateOwl()
     {
         GameObject newOwl = Instantiate(owlPrefab) as GameObject;
         owlCreatureList.Add(newOwl);
-        Place(newOwl, 2, false);
+        Place(newOwl, 5, false);
         newOwl.transform.localScale = new Vector3(owl.size, owl.size);
         newOwl.GetComponent<AnimalMovementScript>().speed2 = owl.speed;
     }
@@ -423,7 +423,7 @@ public class CreatureManagerScript : MonoBehaviour {
     {
         GameObject newOwl = Instantiate(corruptedOwlPrefab) as GameObject;
         corruptedOwlCreatureList.Add(newOwl);
-        Place(newOwl, 2, false);
+        Place(newOwl, 5, false);
         newOwl.transform.localScale = new Vector3(owl.size, owl.size);
         newOwl.GetComponent<AnimalMovementScript>().speed2 = owl.speed;
     }
@@ -432,7 +432,7 @@ public class CreatureManagerScript : MonoBehaviour {
     {
         GameObject newFeather = Instantiate(featherPrefab) as GameObject;
         featherList.Add(newFeather);
-        Place(newFeather, 2, true);
+        Place(newFeather, 5, true);
     }
 
     public void Place(GameObject obj, float type, bool isStatic) {

@@ -16,6 +16,8 @@ public class TutorialUIManagerScript : MonoBehaviour {
 	public GameObject tabTextObject;
 	public GameObject UIManager;
 	public UIManager uiManagerScript;
+	public GameObject Notes;
+	public GameObject Map;
 
 	public GameObject tutorialBuffStopper;
 	public GameObject shrubInfluence;
@@ -61,6 +63,7 @@ public class TutorialUIManagerScript : MonoBehaviour {
 			cycleBarsInfo.SetActive (true);
 			influenceInfo.SetActive (true);
 			shrubInfluence.SetActive (true);
+			Notes.SetActive (true);
 		} else if (phase == 5) {
 			cycleBarsInfo.SetActive (false);
 			influenceInfo.SetActive (false);
@@ -68,6 +71,7 @@ public class TutorialUIManagerScript : MonoBehaviour {
 			corruptionInfo.SetActive (true);
 		} else if (phase == 6) {
 			corruptionInfo.SetActive (false);
+			Map.SetActive (true);
 		}
 
 		phase += 1;

@@ -13,6 +13,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	public bool dialoguePaused;
     public bool pylonPaused;
     public bool mapPaused;
+	public bool notesPaused;
 	public bool noChargeMode;
 	private Vector3 worldUpperLeft;
 	private Vector3 worldLowerRight;
@@ -28,10 +29,12 @@ public class PlayerControllerScript : MonoBehaviour {
 	public SimpleEcologyMasterScript eco;
 	public GameObject map;
 	public MapIconManager minimap;
+	public NotesScript notes;
 	public AudioSource buttonSounds;
 	public AudioClip buttonMid;
 	public AudioClip buttonLow;
 	public AudioClip closeMap;
+	public AudioClip closeBook;
 
 	public delegate void PauseAction();
 	public static event PauseAction OnPaused;
@@ -57,11 +60,15 @@ public class PlayerControllerScript : MonoBehaviour {
 				buttonSounds.PlayOneShot (buttonLow);
 			} else if (pauseCanvas.GetComponent<PauseScript> ().areYouSureOpened) {
 				pauseCanvas.GetComponent<PauseScript> ().areYouSure.SetActive (false);
+				pauseCanvas.GetComponent<PauseScript> ().areYouSure2.SetActive (false);
 				pauseCanvas.GetComponent<PauseScript> ().areYouSureOpened = false;
 				buttonSounds.PlayOneShot (buttonLow);
 			} else if (mapPaused == true) {
 				minimap.CloseMap ();
 				buttonSounds.PlayOneShot (closeMap);
+			} else if (notesPaused == true) {
+				notes.CloseNotes ();
+				buttonSounds.PlayOneShot (closeBook);
 			} else if (pylonPaused == true) {
 
 			} else {
@@ -178,7 +185,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	}
 
 	public void CheckIfICanMove() {
-		if (!paused && !popBarPaused && !dialoguePaused && !pylonPaused && !mapPaused) {
+		if (!paused && !popBarPaused && !dialoguePaused && !pylonPaused && !mapPaused && !notesPaused) {
 			canMove = true;
 			GetComponent<PlayerControllerB> ().canMove = true;
 

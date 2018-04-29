@@ -233,7 +233,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			}
             dm.cleansedNodes++;
             cm.corruptionNodeList.Remove(corruptionNode);
-            Destroy(corruptionNode, 1f);
+			StartCoroutine (DeactivateNode ());
             shrub.rate = shrub.startRate;
             deer.rate = deer.startRate;
             wolf.rate = wolf.startRate;
@@ -255,6 +255,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 			x3a.SetActive (false);
 			x3b.SetActive (false);
 			x3c.SetActive (false);
+			if (GameManagerScript.instance.gameMode >= 4) {
+				GameObject.Find ("EndlessManager").GetComponent<EndlessModeScript> ().currentScore += 1;
+			}
 
         }
         //this is where you put all the code for what corrupted spells do
@@ -311,6 +314,8 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		if (cm.GetComponent<WolfPopulation> ().enabled == true) {
 			cm.GetComponent<WolfPopulation> ().DoUpdate ();
 		}*/
+
+
     }
 
     public void PredictSpell()
@@ -410,6 +415,11 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 				corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
 			}
 		}
+	}
+
+	IEnumerator DeactivateNode() {
+		yield return new WaitForSeconds (1);
+		corruptionNode.SetActive (false);
 	}
 
 }

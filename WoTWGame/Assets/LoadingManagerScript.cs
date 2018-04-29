@@ -121,6 +121,8 @@ public class WorldData {
 	public int convoCount;
 	public int tutorialPhase;
 
+	public int currentScore;
+
 	public WorldData(WorldAnalyzerScript world) {
 		shrubStates = world.shrubStates;
 		deerStates = world.deerStates;
@@ -146,5 +148,6 @@ public class WorldData {
 		convoCount = world.convoCount;
 		tutorialPhase = world.tutorialPhase;
 
+		currentScore = world.currentScore;
 	}
 }
