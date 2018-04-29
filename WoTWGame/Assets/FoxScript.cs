@@ -10,6 +10,11 @@ public class FoxScript : MonoBehaviour {
 	public GameObject player;
 	public GameObject saveText;
 	public GameObject pressEText;
+
+	public AudioClip buttonMid;
+	public AudioClip buttonLow;
+	public AudioClip buttonHigh;
+	public AudioSource buttonSounds;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
@@ -24,6 +29,7 @@ public class FoxScript : MonoBehaviour {
 			} else if (player.GetComponent<PlayerControllerScript>().canMove) {
 				print ("open it");
 				saveWindow.SetActive (true);
+				buttonSounds.PlayOneShot (buttonMid);
 				print (saveWindow.activeSelf);
 				player.GetComponent<PlayerControllerScript> ().dialoguePaused = true;
 				player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
@@ -52,12 +58,14 @@ public class FoxScript : MonoBehaviour {
 		player.GetComponent<PlayerControllerScript> ().dialoguePaused = false;
 		player.GetComponent<PlayerControllerScript> ().CheckIfICanMove ();
 		saveText.SetActive (false);
+		buttonSounds.PlayOneShot (buttonLow);
 	}
 
 	public void Save() {
 		analyzer.location = position;
 		analyzer.Save ();
 		saveText.SetActive (true);
+		buttonSounds.PlayOneShot (buttonMid);
 	}
 
 

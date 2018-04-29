@@ -39,6 +39,23 @@ public class PylonScipt : MonoBehaviour {
 	public GameObject ingredientPopUpText;
 	public GameObject corruptedPopUpText;
 
+	public AudioClip buttonMid;
+	public AudioClip buttonLow;
+	public AudioClip buttonHigh;
+	public AudioSource buttonSounds;
+
+	public void PlaySound(int i){
+		if (i == 0) {
+			buttonSounds.PlayOneShot (buttonMid);
+		}
+		if (i == 1) {
+			buttonSounds.PlayOneShot (buttonLow);
+		}
+		if (i == 2) {
+			buttonSounds.PlayOneShot (buttonHigh);
+		}
+	}
+
 	void Awake() {
 		player = GameObject.Find("Player");
 		core = cpcs.GetComponent<PylonCoreScript>();

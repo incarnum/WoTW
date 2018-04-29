@@ -28,6 +28,10 @@ public class PlayerControllerScript : MonoBehaviour {
 	public SimpleEcologyMasterScript eco;
 	public GameObject map;
 	public MapIconManager minimap;
+	public AudioSource buttonSounds;
+	public AudioClip buttonMid;
+	public AudioClip buttonLow;
+	public AudioClip closeMap;
 
 	public delegate void PauseAction();
 	public static event PauseAction OnPaused;
@@ -50,11 +54,14 @@ public class PlayerControllerScript : MonoBehaviour {
         {
 			if (pauseCanvas.GetComponent<PauseScript> ().optionsOpened) {
 				pauseCanvas.GetComponent<PauseScript> ().ReturnToPause ();
+				buttonSounds.PlayOneShot (buttonLow);
 			} else if (pauseCanvas.GetComponent<PauseScript> ().areYouSureOpened) {
 				pauseCanvas.GetComponent<PauseScript> ().areYouSure.SetActive (false);
 				pauseCanvas.GetComponent<PauseScript> ().areYouSureOpened = false;
+				buttonSounds.PlayOneShot (buttonLow);
 			} else if (mapPaused == true) {
 				minimap.CloseMap ();
+				buttonSounds.PlayOneShot (closeMap);
 			} else if (pylonPaused == true) {
 
 			} else {
@@ -134,6 +141,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			if (OnPaused != null)
 				OnPaused ();
 			CheckIfICanMove ();
+		buttonSounds.PlayOneShot (buttonMid);
 			GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().TimeStopped ();
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = true;
 	}
@@ -142,6 +150,7 @@ public class PlayerControllerScript : MonoBehaviour {
 			if (OnUnpaused != null)
 				OnUnpaused ();
 			CheckIfICanMove ();
+		buttonSounds.PlayOneShot (buttonLow);
 			GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ().TimeResumed ();
 			GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ().paused = false;
 	}

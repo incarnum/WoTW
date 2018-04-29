@@ -11,6 +11,10 @@ public class MapIconManager : MonoBehaviour {
 	public List<Animator> fullMapIcons;
 	public AudioSource mapOpen;
 	public AudioSource mapClose;
+	public MapMovementScript mapMove;
+	public AudioSource buttonSounds;
+	public AudioClip openMap;
+	public AudioClip closeMap;
 
 	// Use this for initialization
 	void Start () {
@@ -24,8 +28,11 @@ public class MapIconManager : MonoBehaviour {
 			if (player.GetComponent<PlayerControllerScript> ().paused == false) {
 				if (fullMap.activeSelf == false) {
 					OpenMap ();
+					buttonSounds.PlayOneShot (openMap);
+					mapMove.PlacePlayer ();
 				} else {
 					CloseMap ();
+					buttonSounds.PlayOneShot (closeMap);
 				}
 			}
 		}

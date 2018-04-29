@@ -25,6 +25,11 @@ public class UIManager : MonoBehaviour {
 	public GameObject fangUI;
 	public GameObject rabbitFootUI;
 	public GameObject owlFeatherUI;
+
+	public AudioClip buttonMid;
+	public AudioClip buttonLow;
+	public AudioClip buttonHigh;
+	public AudioSource buttonSounds;
 	// Use this for initialization
 	void Start () {
         UIRotator = new List<GameObject>();
@@ -37,13 +42,17 @@ public class UIManager : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Left"))
         {
-			if (maximized)
-            RotateLeft();
+			if (maximized) {
+				RotateLeft ();
+				buttonSounds.PlayOneShot (buttonHigh);
+			}
         }
         if (Input.GetButtonDown("Right"))
         {
-			if (maximized)
-            RotateRight();
+			if (maximized) {
+				RotateRight ();
+				buttonSounds.PlayOneShot (buttonHigh);
+			}
         }
 		if (Input.GetButtonDown("PopMenu"))
 		{
@@ -52,10 +61,12 @@ public class UIManager : MonoBehaviour {
 				if (GameObject.Find ("Player").GetComponent<PlayerControllerScript> ().canMove) {
 					MaximizeBars ();
 					maximized = true;
+					buttonSounds.PlayOneShot (buttonMid);
 				}
 			} else {
 				ShrinkBars ();
 				maximized = false;
+				buttonSounds.PlayOneShot (buttonLow);
 			}
 
 

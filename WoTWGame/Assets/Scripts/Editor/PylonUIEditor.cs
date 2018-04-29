@@ -12,6 +12,10 @@ public class PylonUIEditor : Editor {
 	SerializedProperty itemHolder;
 	SerializedProperty corrupted;
 	SerializedProperty numberOfActiveIngredients;
+	SerializedProperty buttonMid;
+	SerializedProperty buttonLow;
+	SerializedProperty buttonHigh;
+	SerializedProperty buttonSounds;
 
     private void OnEnable()
     {
@@ -20,6 +24,10 @@ public class PylonUIEditor : Editor {
         keyboard = serializedObject.FindProperty("keyboardControls");
 		itemHolder = serializedObject.FindProperty("itemHolder");
 		corrupted = serializedObject.FindProperty("corrupted");
+		buttonMid = serializedObject.FindProperty("buttonMid");
+		buttonLow = serializedObject.FindProperty("buttonLow");
+		buttonHigh = serializedObject.FindProperty("buttonHigh");
+		buttonSounds = serializedObject.FindProperty("buttonSounds");
 		numberOfActiveIngredients = serializedObject.FindProperty("numberOfActiveIngredients");
         list = new ReorderableList(serializedObject,
                 serializedObject.FindProperty("Ingredients"),
@@ -61,5 +69,10 @@ public class PylonUIEditor : Editor {
 		EditorGUILayout.PropertyField(corrupted);
 		EditorGUILayout.PropertyField(numberOfActiveIngredients);
         serializedObject.ApplyModifiedProperties();
+
+		EditorGUILayout.PropertyField(buttonMid);
+		EditorGUILayout.PropertyField(buttonLow);
+		EditorGUILayout.PropertyField(buttonHigh);
+		EditorGUILayout.PropertyField(buttonSounds);
     }
 }

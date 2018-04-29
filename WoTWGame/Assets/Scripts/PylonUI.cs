@@ -26,6 +26,10 @@ public class PylonUI : MonoBehaviour {
     private GameObject player;
     //List of Cirlces
     private List<GameObject> Elements = new List<GameObject>();
+	public AudioClip buttonMid;
+	public AudioClip buttonLow;
+	public AudioClip buttonHigh;
+	public AudioSource buttonSounds;
 
 	// Use this for initialization
 	void Start () {
@@ -46,21 +50,26 @@ public class PylonUI : MonoBehaviour {
             if (Input.GetButtonDown("Select"))
             {
                 Elements[buttonSelected].GetComponent<PylonCircle>().Use();
+				transform.parent.GetComponent<PylonScipt> ().PlaySound (0);
+
             }
 
 			if (Input.GetButtonDown("Cancel"))
 			{
 				OnExit();
+				transform.parent.GetComponent<PylonScipt> ().PlaySound (1);
 			}
 
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				OnExit();
+				transform.parent.GetComponent<PylonScipt> ().PlaySound (1);
 			}
 
 			if (Input.GetKeyDown (KeyCode.R)) {
 				transform.parent.GetComponent<PylonScipt> ().SelectCurrent (-2);
 				OnExit ();
+				transform.parent.GetComponent<PylonScipt> ().PlaySound (1);
 			}
 
 			if (Input.GetButtonDown("Left"))
@@ -74,6 +83,7 @@ public class PylonUI : MonoBehaviour {
                     buttonSelected = 0;
                 }
 				RotateRight ();
+				transform.parent.GetComponent<PylonScipt> ().PlaySound (2);
             }
 			if (Input.GetButtonDown("Right"))
             {
@@ -86,6 +96,7 @@ public class PylonUI : MonoBehaviour {
                     buttonSelected = Elements.Count - 1;
                 }
 				RotateLeft ();
+				transform.parent.GetComponent<PylonScipt> ().PlaySound (2);
             }
         }
 		if (rotating) {
@@ -104,6 +115,7 @@ public class PylonUI : MonoBehaviour {
     {
         //Elements[buttonSelected].transform.Find("Ring").GetComponent<Image>().enabled = true;
         //Elements[buttonSelected].transform.Find("Amount").GetComponent<Text>().enabled = true;
+		transform.parent.GetComponent<PylonScipt> ().PlaySound (0);
 		numberOfActiveIngredients = 1;
 		if (GameObject.Find ("Deer UI") != null)
 			numberOfActiveIngredients += 1;

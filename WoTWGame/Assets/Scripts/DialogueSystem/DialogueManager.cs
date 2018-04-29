@@ -36,6 +36,10 @@ public class DialogueManager : MonoBehaviour
 	public float advanceDelay;
 	private float advanceDelayEndTime;
 
+	public AudioSource source;
+	public AudioClip buttonHigh;
+	public AudioClip buttonLow;
+
     // Use this for initialization
     void Start()
     {
@@ -79,6 +83,7 @@ public class DialogueManager : MonoBehaviour
             animator.SetBool("IsOpen", true);
             sentences.Clear();
 			windowUp = true;
+			source.PlayOneShot (buttonHigh);
 //            print("cleared sentences");
 
             nameText.text = dialogue[gm.language].name;
@@ -98,11 +103,12 @@ public class DialogueManager : MonoBehaviour
         if (sentences.Count == 0)
         {
             EndDialogue();
+			source.PlayOneShot (buttonLow);
 //            print("J1");
 //            print(sentences.Count);
             return;
         }
-
+		source.PlayOneShot (buttonHigh);
         sentence = sentences.Dequeue();
 //        print(sentences.Count);
         StopAllCoroutines();
