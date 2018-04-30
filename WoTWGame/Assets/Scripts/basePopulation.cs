@@ -68,6 +68,7 @@ public class basePopulation : MonoBehaviour {
         }
         foreach (GameObject garfield in corruptedCreatureList)
         {
+			if (garfield != null)
 			garfield.transform.localScale = new Vector3(tempSizeNum, tempSizeNum);
         }
     }
@@ -80,6 +81,7 @@ public class basePopulation : MonoBehaviour {
         {
             if (notShrubs)
             {
+				if (garfield != null)
 				garfield.GetComponent<AnimalMovementScript>().speed2 = tempSpeedNum;
             }
         }

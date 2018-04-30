@@ -1,6 +1,6 @@
-WindowsStandalone
+OSXStandalone
 PlayerPath?
-C:/Users/reese/OneDrive/Documents/GitHub/WoTW/WoTWGame/wotw4-17.exe
+D:/WotWApr30a.app
 SceneListBegin?
 Assets/Scene/MainMenu.unity
 Assets/Scene/Forest 3.unity
@@ -34,12 +34,14 @@ c6c90dbe7fc61fd286b1d02f9d7cc194 Assembly-CSharp.dll:.shoot_energy
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.tabOverlayScript
 2d08cbc39bbce923113650557d8f98b5 Assembly-CSharp.dll:.BuffMasterScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.ANodeScript
+9192994b9036caf29ab0dcd88a7bef1f Assembly-CSharp.dll:.FoxScript
 23b50ef73e2c1a8a76860d35bcbbf8fc Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.GlobalFog
 daabd8d8800a87cff11f866c4d06a232 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ContrastStretch
 a4a0f14e6375258632d79f9f78bb1ab4 Assembly-CSharp.dll:.smoothCamScript
 31ac2865258ddbc8f82525645ca875c2 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration
 1e7365e8db0115ad63f5739a3658e937 Assembly-CSharp.dll:.NoOverlapScript
-d2433a36e4c06e1d6434ae6607b2424b Assembly-CSharp.dll:.PylonScipt
+232427494705afae23847b9063d76b65 Assembly-CSharp.dll:.PylonScipt
+4aaa092dbd9f983190e923ffe3d45b1f Assembly-CSharp.dll:.FollowMap
 723fde2b826afab7d826b7205c80e8d4 Assembly-CSharp.dll:.PylonCircle
 75cec508022727375c8b5f14f43b9a1a Assembly-CSharp.dll:.PlayerControllerB
 1ad999c1c59cc66b1257b3f9407287bc Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ColorCorrectionCurves
@@ -122,11 +124,13 @@ b2f8e754b4fd573090bf5b2c3d251321 Assembly-CSharp.dll:.UIbuffScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.AltarGlowScript
 71778c9b45c50a65b865c5bc42204043 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.NoiseAndScratches
 cc897e31f90a455da1ad6fffc97043f1 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Antialiasing
-feacb85f2bee0b135e28405e0db5bf5a Assembly-CSharp.dll:.WorldAnalyzerScript
+546c632c233ec72102200ff3678ac6a0 Assembly-CSharp.dll:.WorldAnalyzerScript
 6fc969c6d0b22697f94d5befe52e2e25 Assembly-CSharp.dll:.MouseCamera
 9334b4ba4c92c0d9d32ddc93fa157ef9 Assembly-CSharp.dll:.AssignedAnimalMovementScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.GoBehindScript
+951ee88145093450f7299e12f5ffcc95 Assembly-CSharp.dll:.NotesScript
 a32f33d00a7a1fe2bf4c764c4b02d30d Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.BloomAndFlares
+ad640a72b297564621da6e7556ecc5a9 Assembly-CSharp.dll:.MapMovementScript
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 dbc29a6f2739d277c10da432d73adb6d UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 8144169769d51429c4aedc8b0f92d47b UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -180,16 +184,16 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
 dfa8bed6cebdcf2639dbc001d733fd6d Assembly-CSharp.dll:.push
-e252489c35b7217f7946ec569b25cbe5 Assembly-CSharp.dll:.TutorialUIManagerScript
+2463e1725c47ccdbc9da51a7a45aa8cf Assembly-CSharp.dll:.TutorialUIManagerScript
 4d13814515479d22abd8c39c4e9e8182 Assembly-CSharp.dll:.IngredientSourceScript
-28c9ac65fa33291e329b47b4d5e6aec6 Assembly-CSharp.dll:.PauseScript
+85bdbc3abb45a0a72027da38a1d96e37 Assembly-CSharp.dll:.PauseScript
 1e0e0c684f39714e6fa20bc76b92e367 Assembly-CSharp.dll:.SpellFXController
 c7a28aaf02165d84f88cd128b8d2ee79 Assembly-CSharp.dll:.SpellMenuScript
 62053e6929f9a4de200817efd130f953 Assembly-CSharp.dll:.ProjectileScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SWolf1Script
 36a9439575ac18370ffea50cd3963cac Assembly-CSharp.dll:.SpawnerScript
 88e745da281bc889e248b64cf4d72a54 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.SunShafts
-4217a20969d73e4b878c0f4ba84e408c Assembly-CSharp.dll:.cameraShiftScript
+5b13e87e75c4b33c6219cafaee6b5229 Assembly-CSharp.dll:.cameraShiftScript
 0908a5d04c74194b3ac248f68bc70502 Assembly-CSharp.dll:.CorruptedPylonScript
 a9bc5db2afa9f73c56c4bb0aa2a3273c Assembly-CSharp.dll:.PlaceMasterScript
 a82788f80ccab214f16a4e0038bdd8bd Assembly-CSharp.dll:.PlaceSpotScript
@@ -209,9 +213,10 @@ bc3bd18ead7dac8172356b0e206e96b1 Assembly-CSharp.dll:.rotation
 9e52b117c36522973923496d74493097 Assembly-CSharp.dll:.MakeTomeButtonScript
 d758e3929902aa9307a549285648e71e Assembly-CSharp.dll:.InventoryIconScript
 3083e7450d89be3c15d3aa5b1fddc5e2 Assembly-CSharp.dll:.MultiMenuScript
-e5c3550116b1fcfa1338cd999cfa5299 Assembly-CSharp.dll:.corruptionManagerScript
+76c99d7e723f074a0d089b60caab6c29 Assembly-CSharp.dll:.corruptionManagerScript
 dde939922634746c3daaeef4b5ebec95 Assembly-CSharp.dll:.CoreScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.PostEffectsHelper
+bd960751b783c390734becd29f922a24 Assembly-CSharp.dll:.MapIconManager
 b26b3a55de2a8cbeee573d45c8848f09 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ScreenSpaceAmbientOcclusion
 dd5481137759597d614818793c90a7fe Assembly-CSharp.dll:.OuterRingScript
 0d264fa08b92cb81642e92051d03ca18 Assembly-CSharp.dll:.PostProcessVolume
@@ -233,11 +238,11 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 6cf9906891a2913561cb146625f7d3d5 Assembly-CSharp.dll:.UIBarScript
 4aadab9e3e4d34f6e069833451e815bb Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.CreaseShading
 e2b50e4e1e5006d87e7ebe8a724e8f6d Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ContrastEnhance
-6fe9eeb1e9761e310a27cec282f19147 Assembly-CSharp.dll:.menuButtonScript
+d4dbf299aea6d44f1fce119f89ccb719 Assembly-CSharp.dll:.menuButtonScript
 0dd6068610fcb8ecb307732bb63e482e Assembly-CSharp.dll:.RingSpinUI
 f5e35da0598256c802249709a133fd94 Assembly-CSharp.dll:.TreeHolderScript
 537fa3afe8190b66581db8fd42f406cf Assembly-CSharp.dll:.CorruptionNodeScript
-ca85baa647772d40e44841a501c07fdc Assembly-CSharp.dll:.DialogueTrigger
+189460f47363805453eee7af9857c4eb Assembly-CSharp.dll:.DialogueTrigger
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
 96d0fbde9fd209878a0a291f82c9bcdd UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.PlaymodeTestsController
 64eb32cc721b1cc68a91ed57461e188c UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.RemoteTestResultSender
@@ -245,7 +250,7 @@ ca85baa647772d40e44841a501c07fdc Assembly-CSharp.dll:.DialogueTrigger
 e0f7ffd5d5c2abe4b2e16569a21163da UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 67a5f2c97205d2e41a8ed7c7ce898f6e UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
-6c4eed997904f0283531af7e9d757f3c Assembly-CSharp.dll:.UIManager
+f84ceddb058b44895480d2361e2654ce Assembly-CSharp.dll:.UIManager
 b0aa147d9811221b7517d7644f018873 Assembly-CSharp.dll:.BerryScript
 0790b3f531723fb0f0945aff9f3a0e09 Assembly-CSharp.dll:.UIGlowScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.CooldownDisplayScript
@@ -264,7 +269,7 @@ bc68edb0af574bf79f9550ead8ebae5c UnityEngine.HoloLens.dll:UnityEngine.Audio.Audi
 463516d5b5fe8e67a0a24c48f2095b04 UnityEngine.HoloLens.dll:UnityEngine.EventSystems.HoloLensInputModule
 c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingCollider
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.XR.WSA.SpatialMappingRenderer
-ab54b66c0de9ac4b751d2900c9f6e014 Assembly-CSharp.dll:.PlayerControllerScript
+0097ee6e7e7bf06fbef35fac5f838b1e Assembly-CSharp.dll:.PlayerControllerScript
 e0e8f2bc7f7ce767e7368f1e57c5c131 Assembly-CSharp.dll:.barScript
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.DialogueBoxFX
 67af8340ec9c081c037c8aa5c753ce0a Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ColorCorrectionRamp
@@ -280,8 +285,8 @@ f671a42aea5f34fec6a4450a3668c615 Assembly-CSharp.dll:UnityEngine.PostProcessing.
 9de3a22eca9aefadba2d10d5987cefe3 UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 a857f78099e412c50f5decc84fc25c38 Assembly-CSharp.dll:.spawnedObject
 3a80caec730a767b903db9e9ec8bd383 Assembly-CSharp.dll:.CardScript
-35d595bb6c7bcbf1473eb3b75f186573 Assembly-CSharp.dll:.MainMenuSaveReader
-96a95991164b2996f178718666b7b99a Assembly-CSharp.dll:.GameManagerScript
+50cded1d6d8889a092bbcf33af4d2d5b Assembly-CSharp.dll:.MainMenuSaveReader
+2ee051f13a4829806a7ff5d5dcd34587 Assembly-CSharp.dll:.GameManagerScript
 ca6e2f44254d4ea9a2f8bce87bd42075 Assembly-CSharp.dll:UnityEngine.PostProcessing.Utilities.FocusPuller
 3408f29147e238496004f9677da3180f Assembly-CSharp.dll:.topologyTestScript
 0b24325b2b73510b967dbf26210db914 Assembly-CSharp.dll:.posit_core
@@ -294,12 +299,12 @@ b0367f294051665d70b170987478644a Assembly-CSharp.dll:.ColliderDialogue
 1028dab8df148f8b6d7f9c379c6340a9 Assembly-CSharp.dll:.ShrubPopulation
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.PostEffectsBase
 d9cde9d470d9ae5d2d3630e920855c74 Assembly-CSharp.dll:.WildSpellbookManagerScript
-266f5c4bb580bbe226f179200f594fc8 Assembly-CSharp.dll:.PylonUI
+0f512af28f04f68c0698dc49244fd4b8 Assembly-CSharp.dll:.PylonUI
 2ab68849de5c4c1e6a3e70a34e7d83b7 Assembly-CSharp.dll:.PlayButtonScript
 e2a8fd4524fc2a3a236b7e7720b544a6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.EdgeDetection
 0790b3f531723fb0f0945aff9f3a0e09 Assembly-CSharp.dll:.centerStoneGlowScript
 b3432dfe180f02232d7612fb366593d3 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.ColorCorrectionLookup
-78bb83446404ea19874fd258f5e38b4f Assembly-CSharp.dll:.DialogueManager
+9ce721119fc78aeb2482078fc1cc1cbb Assembly-CSharp.dll:.DialogueManager
 1028dab8df148f8b6d7f9c379c6340a9 Assembly-CSharp.dll:.RabbitPopulation
 5520d4a73294b495ba1db13f04515179 Assembly-CSharp.dll:.DropdownHandler
 fcefec7be1142f4711771067f1632cb4 Assembly-CSharp.dll:.SpellScript
@@ -307,9 +312,9 @@ fcefec7be1142f4711771067f1632cb4 Assembly-CSharp.dll:.SpellScript
 ec97a90ef48f73d1abe056c9bf7b9d40 Assembly-CSharp.dll:.SaveLoadTest
 3ae0dad0b55a80319e1d57c2dce28da7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.ImageEffects.Tonemapping
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.SpellLightScript
-369fb4610e246f6a7be9d8dabff190ea Assembly-CSharp.dll:.MainMenuOptionScript
+765eb5a13cf5c59a0a70ddff7846c6d5 Assembly-CSharp.dll:.MainMenuOptionScript
+b0499e5f7abb2313de2624096586d89f Assembly-CSharp.dll:.EndlessModeScript
 c93c946dc36dd00680529c70b7d08af9 Assembly-CSharp.dll:.BushScript
 c478172158304aef9cbf97228d4a1592 Assembly-CSharp.dll:.fadeInScreenScript
 186b6edb854ed6613d42ee2d411e90ba Assembly-CSharp.dll:.SpellSlotScript
 251b5a06f1fffa9d932b3f20836a7687 Assembly-CSharp.dll:.SimpleSlideScript
-4aaa092dbd9f983190e923ffe3d45b1f Assembly-CSharp.dll:.FollowMap
