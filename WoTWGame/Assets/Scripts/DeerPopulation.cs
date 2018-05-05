@@ -8,19 +8,21 @@ public class DeerPopulation : basePopulation {
 	void Start ()
     {
         DoStart();
-		pop = GetComponent<ShrubPopulation>().pop - 7;
-        size = 1;
-        startSize = 1;
-        speed = 2;
-        startSpeed = 2;
-        timesSpeedChanged = 0;
-        sizeMod = 0;
-        speedMod = 0;
-        toughMod = 0;
-        up1 = 0;
-        up2 = 0;
-        down1 = 0;
-        down2 = 0;
+		if (popNumberOverride == false) {
+			pop = GetComponent<ShrubPopulation> ().pop - 7;
+			size = 1;
+			startSize = 1;
+			speed = 2;
+			startSpeed = 2;
+			timesSpeedChanged = 0;
+			sizeMod = 0;
+			speedMod = 0;
+			toughMod = 0;
+			up1 = 0;
+			up2 = 0;
+			down1 = 0;
+			down2 = 0;
+		}
         food1 = GameObject.Find("CreatureManager").GetComponent<ShrubPopulation>();
         pred2 = GameObject.Find("CreatureManager").GetComponent<WolfPopulation>();
         creatureList = GameObject.Find("CreatureManager").GetComponent<CreatureManagerScript>().deerCreatureList;

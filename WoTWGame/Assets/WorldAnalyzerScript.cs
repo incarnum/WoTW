@@ -144,6 +144,8 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		WorldData unloader = LoadingManagerScript.LoadWorld (gameMode);
 		//calls a function that returns a class defined in LoadingManagerScript, which contains matching variables for everything in this script
 
+
+
 		shrubs.pop = unloader.shrubStates [0];
 		shrubs.corruptedPop = unloader.shrubStates[1];
 		shrubs.sizeMod = unloader.shrubStates[2];
@@ -175,27 +177,31 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		owls.toughMod = unloader.owlStates[4];
 
 		if (deer.pop > 0) {
+			deer.popNumberOverride = true;
 			deer.enabled = true;
-			deer.DoStart ();
+			//deer.DoStart ();
 			eco.GetComponent<UIManager> ().ActivateDeer ();
 			eco.tempShrubCapBool = false;
 		}
 
 		if (wolves.pop > 0) {
+			wolves.popNumberOverride = true;
 			wolves.enabled = true;
-			wolves.DoStart ();
+			//wolves.DoStart ();
 			eco.GetComponent<UIManager> ().ActivateWolves ();
 		}
 
 		if (rabbits.pop > 0) {
+			rabbits.popNumberOverride = true;
 			rabbits.enabled = true;
-			rabbits.DoStart ();
+			//rabbits.DoStart ();
 			eco.GetComponent<UIManager> ().ActivateRabbits ();
 		}
 
 		if (owls.pop > 0) {
+			owls.popNumberOverride = true;
 			owls.enabled = true;
-			owls.DoStart ();
+			//owls.DoStart ();
 			eco.GetComponent<UIManager> ().ActivateOwls ();
 		}
 
@@ -226,10 +232,23 @@ public class WorldAnalyzerScript : MonoBehaviour {
 		dm.cleansedNodes = unloader.cleansedNodes;
 		dm.convoCount = unloader.convoCount;
 		tm.NextPhase ();
+		dm.firstGrowShrubsCast = false;
+		GameObject.Find ("TutorialWall").SetActive (false);
 
 		for (int i = 0; i < unloader.tutorialPhase; i++) {
 			tm.NextPhase ();
 		}
+
+		shrubs.pop = unloader.shrubStates [0];
+		deer.pop = unloader.deerStates [0];
+		wolves.pop = unloader.wolfStates [0];
+		rabbits.pop = unloader.rabbitStates [0];
+		owls.pop = unloader.owlStates [0];
+		shrubs.biomass = shrubs.pop;
+		deer.biomass = deer.pop;
+		wolves.biomass = wolves.pop;
+		rabbits.biomass = rabbits.pop;
+		owls.biomass = owls.pop;
 
 		currentScore = unloader.currentScore;
 		if (GameManagerScript.instance.gameMode >= 4) {
@@ -273,6 +292,7 @@ public class WorldAnalyzerScript : MonoBehaviour {
 			tm.NextPhase ();
 		}
 		dm.convoCount = 100;
+		dm.cleansedNodes = 100;
 	}
 
 	public void SetUpEndless() {
@@ -308,6 +328,7 @@ public class WorldAnalyzerScript : MonoBehaviour {
 			tm.NextPhase ();
 		}
 		dm.convoCount = 100;
+		dm.cleansedNodes = 100;
 
         ems.SetActive(true);
 	}

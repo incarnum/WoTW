@@ -144,7 +144,9 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.P) && !eco.demo) {
 			cooldown = 0f;
 		}
-		cooldown -= Time.deltaTime;
+		if (eco.paused == false && eco.areaTimeStop == false) {
+			cooldown -= Time.deltaTime;
+		}
 		if (cooldown > 0) {
 			Cooldown ();
 		}
@@ -411,6 +413,7 @@ public class CorruptedPylonCoreScript : MonoBehaviour
 				x3a.SetActive (false);
 				x3b.SetActive (false);
 				x3c.SetActive (false);
+				timeStopTrigger.SetActive (true);
 			} else if (i == 1 || i == 2) {
 				corruptionNode.GetComponent<Animator> ().SetTrigger ("cleanse");
 			}

@@ -242,7 +242,7 @@ public class SimpleEcologyMasterScript : MonoBehaviour
 
     }
 
-    void SimpleEcologize()
+    public void SimpleEcologize()
     {
         //sets the rising triggers. If a rising trigger is true, it makes the pop rise, if it's false, it makes it fall.
         //some triggers are set as soon as they go over or under another value, while others wait to go a little bit beyond 

@@ -118,7 +118,7 @@ public class PylonCoreScript : MonoBehaviour
                 //if there isn't nothing in each slot, the spell is castable, and the target isn't a corrupted berry, cast the spell
                 //in retrospect this is redundant, as the castable bool will only be true if there's something in every slot
                 Cast();
-                castSound.Play();
+                
             }
             else
             {
@@ -175,6 +175,7 @@ public class PylonCoreScript : MonoBehaviour
 				pop.corruptedPop = corrPercent * pop.pop;
 				pop.sizeMod = 0;
 				pop.UpdateSize ();
+				castSound.Play();
 			} else {
 				if (dm.firstGrowShrubsCast && GameManagerScript.instance.gameMode == 0) {
 					dm.firstGrowShrubsCast = false;
@@ -182,10 +183,9 @@ public class PylonCoreScript : MonoBehaviour
 					gsbc.TriggerDialogue ();
 					GameObject.Find ("TutorialWall").SetActive (false);
 				}
-				float sizeCheck = (pop.size) + strength * 0.25f;
-				if (sizeCheck >= minSize && sizeCheck <= maxSize) {
-					pop.size = sizeCheck;
-					pop.UpdateSize ();
+				if ((pop.sizeMod < 3 && strength > 0) || (pop.sizeMod > -3 && strength < 0)) {
+				pop.size = (pop.size) + strength * 0.25f;
+
 					if (strength > 0) {
 						pop.sizeMod += 1;
 						float corrPercent = pop.corruptedPop / pop.pop;
@@ -197,16 +197,20 @@ public class PylonCoreScript : MonoBehaviour
 						pop.pop -= 15f;
 						pop.corruptedPop = corrPercent * pop.pop;
 					}
+					pop.UpdateSize ();
 				} else {
 					GiveError ();
 					return;
 				}
+				castSound.Play();
 			}
 		} else if (effect == 1) {
 			if (pop.speedMod + strength <= 3 && pop.speedMod + strength >= -3) {
 				pop.speedMod += Mathf.RoundToInt (strength);
-				if (strength == 0)
+				if (strength == 0) {
 					pop.speedMod = 0;
+					castSound.Play ();
+				}
 				pop.UpdateUpDown ();
 				if (pop.food1 != null)
 					pop.food1.UpdateUpDown ();
@@ -217,19 +221,23 @@ public class PylonCoreScript : MonoBehaviour
 				GiveError ();
 				return;
 			}
+			castSound.Play();
 		}
 
         else if (effect == 2)
         {
 			if (pop.toughMod + strength <= 3 && pop.toughMod + strength >= -3) {
 				pop.toughMod += Mathf.RoundToInt (strength);
-				if (strength == 0)
+				if (strength == 0) {
 					pop.toughMod = 0;
+					castSound.Play();
+				}
 				pop.UpdateUpDown ();
 			} else {
 				GiveError ();
 				return;
 			}
+			castSound.Play();
         }
 
 		spellFX.playSpellCastEffect ();
@@ -246,6 +254,7 @@ public class PylonCoreScript : MonoBehaviour
         strength = -2;
         //set the spell preview text to be empty since there are no ingredients
         PredictSpell();
+		eco.SimpleEcologize ();
         //visual effect for casting
         
     }

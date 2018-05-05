@@ -281,48 +281,55 @@ public class CreatureManagerScript : MonoBehaviour {
 //			}
 //		}
 
-		while (antlerList.Count > deerNum + 1f) {
+		while (antlerList.Count > deer.pop / ecoToWorldDivision + 1f + 5f) {
 			Destroy (antlerList [0]);
 			antlerList.RemoveAt (0);
 		}
 
-		while (antlerList.Count < deerNum) {
-			CreateAntler ();
+		if (deer.isActiveAndEnabled) {
+			while (antlerList.Count < deer.pop / ecoToWorldDivision + 5f) {
+				CreateAntler ();
+			}
 		}
 
-		while (fangList.Count > wolfNum + 1f) {
+		while (fangList.Count > wolf.pop / ecoToWorldDivision + 1f + 5f) {
 			Destroy (fangList [0]);
 			fangList.RemoveAt (0);
 		}
-		if (fangList.Count < wolfNum) {
-			while (fangList.Count < wolfNum) {
-				CreateFang ();
+
+		if (wolf.isActiveAndEnabled) {
+			if (fangList.Count < wolf.pop / ecoToWorldDivision + 5f) {
+				while (fangList.Count < wolf.pop / ecoToWorldDivision + 5f) {
+					CreateFang ();
+				}
 			}
 		}
-        while (rabbitItemList.Count > rabbitNum + 1f)
+
+		while (rabbitItemList.Count > rabbit.pop / ecoToWorldDivision + 1f + 5f)
         {
             Destroy(rabbitItemList[0]);
             rabbitItemList.RemoveAt(0);
         }
-        if (rabbitItemList.Count < rabbitNum)
-        {
-            while (rabbitItemList.Count < rabbitNum)
-            {
-                CreateRabbitItem();
-            }
-        }
-        while (featherList.Count > owlNum + 1f)
+
+		if (rabbit.isActiveAndEnabled) {
+			if (rabbitItemList.Count < rabbit.pop / ecoToWorldDivision + 5f) {
+				while (rabbitItemList.Count < rabbit.pop / ecoToWorldDivision + 5f) {
+					CreateRabbitItem ();
+				}
+			}
+		}
+		while (featherList.Count > owl.pop / ecoToWorldDivision + 1f + 5f)
         {
             Destroy(featherList[0]);
             featherList.RemoveAt(0);
         }
-        if (featherList.Count < owlNum)
-        {
-            while (featherList.Count < owlNum)
-            {
-                CreateFeather();
-            }
-        }
+		if (owl.isActiveAndEnabled) {
+			if (featherList.Count < owl.pop / ecoToWorldDivision + 5f) {
+				while (featherList.Count < owl.pop / ecoToWorldDivision + 5f) {
+					CreateFeather ();
+				}
+			}
+		}
     }
 
 	public void CreateShrub() {
@@ -331,30 +338,30 @@ public class CreatureManagerScript : MonoBehaviour {
 //		newShrub.transform.position = new Vector2 (Random.Range (upperLeftBound.position.x, lowerRightBound.position.x), Random.Range (upperLeftBound.position.y, lowerRightBound.position.y));
 //		newShrub.transform.position -= (newShrub.transform.position - GameObject.Find ("ShrubNucleus").transform.position) / 2;
 		Place(newShrub, 1, true);
-		newShrub.transform.localScale = new Vector3 (shrub.size, shrub.size);
+		newShrub.transform.localScale = new Vector3 (shrub.GetSizeNum(shrub.sizeMod), shrub.GetSizeNum(shrub.sizeMod));
 	}
 
 	public void CreateCorruptedShrub() {
 		GameObject newCorruptedShrub = Instantiate (corruptedShrubPrefab) as GameObject;
 		corruptedShrubCreatureList.Add (newCorruptedShrub);
 		Place(newCorruptedShrub, 1, true);
-		newCorruptedShrub.transform.localScale = new Vector3 (shrub.size, shrub.size);
+		newCorruptedShrub.transform.localScale = new Vector3 (shrub.GetSizeNum(shrub.sizeMod), shrub.GetSizeNum(shrub.sizeMod));
 	}
 
 	public void CreateDeer() {
 		GameObject newDeer = Instantiate (deerPrefab) as GameObject;
 		deerCreatureList.Add (newDeer);
 		Place(newDeer, 2, false);
-		newDeer.transform.localScale = new Vector3 (deer.size, deer.size);
-		newDeer.GetComponent<AnimalMovementScript> ().speed2 = deer.speed;
+		newDeer.transform.localScale = new Vector3 (deer.GetSizeNum(deer.sizeMod), deer.GetSizeNum(deer.sizeMod));
+		newDeer.GetComponent<AnimalMovementScript> ().speed2 = (deer.speedMod + 4) /3 * deer.speed;
 	}
 
 	public void CreateCorruptedDeer() {
 		GameObject newCorruptedDeer = Instantiate (corruptedDeerPrefab) as GameObject;
 		corruptedDeerCreatureList.Add (newCorruptedDeer);
 		Place(newCorruptedDeer, 2, false);
-		newCorruptedDeer.transform.localScale = new Vector3 (deer.size, deer.size);
-		newCorruptedDeer.GetComponent<AnimalMovementScript> ().speed2 = deer.speed;
+		newCorruptedDeer.transform.localScale = new Vector3 (deer.GetSizeNum(deer.sizeMod), deer.GetSizeNum(deer.sizeMod));
+		newCorruptedDeer.GetComponent<AnimalMovementScript> ().speed2 = (deer.speedMod + 4) / 3 * deer.speed;
 	}
 
 	public void CreateAntler() {
@@ -367,16 +374,16 @@ public class CreatureManagerScript : MonoBehaviour {
 		GameObject newWolf = Instantiate (wolfPrefab) as GameObject;
 		wolfCreatureList.Add (newWolf);
 		Place(newWolf, 3, false);
-		newWolf.transform.localScale = new Vector3 (wolf.size, wolf.size);
-		newWolf.GetComponent<AnimalMovementScript> ().speed2 = wolf.speed;
+		newWolf.transform.localScale = new Vector3 (wolf.GetSizeNum(wolf.sizeMod), wolf.GetSizeNum(wolf.sizeMod));
+		newWolf.GetComponent<AnimalMovementScript> ().speed2 = (wolf.speedMod + 4) / 3 * wolf.speed;
 	}
 
 	public void CreateCorruptedWolf() {
 		GameObject newWolf = Instantiate (corruptedWolfPrefab) as GameObject;
 		corruptedWolfCreatureList.Add (newWolf);
 		Place(newWolf, 3, false);
-		newWolf.transform.localScale = new Vector3 (wolf.size, wolf.size);
-		newWolf.GetComponent<AnimalMovementScript> ().speed2 = wolf.speed;
+		newWolf.transform.localScale = new Vector3 (wolf.GetSizeNum(wolf.sizeMod), wolf.GetSizeNum(wolf.sizeMod));
+		newWolf.GetComponent<AnimalMovementScript> ().speed2 = (wolf.speedMod + 4) / 3 * wolf.speed;
 	}
 
 	public void CreateFang() {
@@ -390,8 +397,8 @@ public class CreatureManagerScript : MonoBehaviour {
         GameObject newRabbit = Instantiate(rabbitPrefab) as GameObject;
         rabbitCreatureList.Add(newRabbit);
         Place(newRabbit, 4, false);
-        newRabbit.transform.localScale = new Vector3(rabbit.size, rabbit.size);
-        newRabbit.GetComponent<AnimalMovementScript>().speed2 = rabbit.speed;
+		newRabbit.transform.localScale = new Vector3(rabbit.GetSizeNum(rabbit.sizeMod), rabbit.GetSizeNum(rabbit.sizeMod));
+		newRabbit.GetComponent<AnimalMovementScript>().speed2 = (rabbit.speedMod + 4) / 3 * rabbit.speed;
     }
 
     public void CreateCorruptedRabbit()
@@ -399,8 +406,8 @@ public class CreatureManagerScript : MonoBehaviour {
         GameObject newRabbit = Instantiate(corruptedRabbitPrefab) as GameObject;
         corruptedRabbitCreatureList.Add(newRabbit);
         Place(newRabbit, 4, false);
-        newRabbit.transform.localScale = new Vector3(rabbit.size, rabbit.size);
-        newRabbit.GetComponent<AnimalMovementScript>().speed2 = rabbit.speed;
+		newRabbit.transform.localScale = new Vector3(rabbit.GetSizeNum(rabbit.sizeMod), rabbit.GetSizeNum(rabbit.sizeMod));
+		newRabbit.GetComponent<AnimalMovementScript>().speed2 = (rabbit.speedMod + 4) / 3 * rabbit.speed;
     }
 
     public void CreateRabbitItem()
@@ -415,8 +422,8 @@ public class CreatureManagerScript : MonoBehaviour {
         GameObject newOwl = Instantiate(owlPrefab) as GameObject;
         owlCreatureList.Add(newOwl);
         Place(newOwl, 5, false);
-        newOwl.transform.localScale = new Vector3(owl.size, owl.size);
-        newOwl.GetComponent<AnimalMovementScript>().speed2 = owl.speed;
+		newOwl.transform.localScale = new Vector3(owl.GetSizeNum(owl.sizeMod), owl.GetSizeNum(owl.sizeMod));
+		newOwl.GetComponent<AnimalMovementScript>().speed2 = (owl.speedMod + 4) / 3 * owl.speed;
     }
 
     public void CreateCorruptedOwl()
@@ -424,8 +431,8 @@ public class CreatureManagerScript : MonoBehaviour {
         GameObject newOwl = Instantiate(corruptedOwlPrefab) as GameObject;
         corruptedOwlCreatureList.Add(newOwl);
         Place(newOwl, 5, false);
-        newOwl.transform.localScale = new Vector3(owl.size, owl.size);
-        newOwl.GetComponent<AnimalMovementScript>().speed2 = owl.speed;
+		newOwl.transform.localScale = new Vector3(owl.GetSizeNum(owl.sizeMod), owl.GetSizeNum(owl.sizeMod));
+		newOwl.GetComponent<AnimalMovementScript>().speed2 = (owl.speed + 4) / 3 * owl.speed;
     }
 
     public void CreateFeather()

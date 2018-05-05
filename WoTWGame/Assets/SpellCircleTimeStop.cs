@@ -7,7 +7,7 @@ public class SpellCircleTimeStop : MonoBehaviour {
 	private corruptionManagerScript cm;
 	private TimeStopCanvas tsc;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		eco = GameObject.Find ("SimpleEcologyMaster").GetComponent<SimpleEcologyMasterScript> ();
 		cm = GameObject.Find ("CorruptionManager").GetComponent<corruptionManagerScript> ();
 		tsc = GameObject.Find ("TimeStopCanvas").GetComponent<TimeStopCanvas> ();

@@ -41,10 +41,10 @@ public class MainMenuSaveReader : MonoBehaviour {
 			WorldData data = bf.Deserialize (stream) as WorldData;
 
 			stream.Close ();
-			Debug.Log (data.day + ", " + data.month + ", " + data.year);
+			Debug.Log (data.day + " - " + data.month + " - " + data.year);
 			storyContinueMenu.SetActive (true);
 			storyNewMenu.SetActive (false);
-			string dateInfo = ("Saved " + data.month + ", " + data.day + ", " + data.year);
+			string dateInfo = ("Saved " + data.month + " - " + data.day + " - " + data.year);
 			storyContinueInfo.text = dateInfo;
 		} else {
 			Debug.Log ("No story save");
@@ -57,10 +57,10 @@ public class MainMenuSaveReader : MonoBehaviour {
 			WorldData data = bf.Deserialize (stream) as WorldData;
 
 			stream.Close ();
-			Debug.Log (data.day + ", " + data.month + ", " + data.year);
+			Debug.Log (data.day + " - " + data.month + " - " + data.year);
 			standardContinueMenu.SetActive (true);
 			standardNewMenu.SetActive (false);
-			string dateInfo = ("Saved " + data.month + ", " + data.day + ", " + data.year);
+			string dateInfo = ("Saved " + data.month + " - " + data.day + " - " + data.year);
 			standardContinueInfo.text = dateInfo;
 		} else {
 			Debug.Log ("No standard save");
@@ -73,10 +73,10 @@ public class MainMenuSaveReader : MonoBehaviour {
 			WorldData data = bf.Deserialize (stream) as WorldData;
 
 			stream.Close ();
-			Debug.Log (data.day + ", " + data.month + ", " + data.year);
+			Debug.Log (data.day + " - " + data.month + " - " + data.year);
 			endlessContinueMenu.SetActive (true);
 			endlessNewMenu.SetActive (false);
-			string dateInfo = ("Saved" + data.month + ", " + data.day + ", " + data.year);
+			string dateInfo = ("Saved " + data.month + " - " + data.day + " - " + data.year);
 			endlessContinueInfo.text = dateInfo;
 		} else {
 			Debug.Log ("No endless save");

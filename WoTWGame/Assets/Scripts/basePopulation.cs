@@ -23,6 +23,7 @@ public class basePopulation : MonoBehaviour {
 	public float simpleRateOfChange;
 	public float leftChange;
 	public float rightChange;
+	public bool popNumberOverride;
     // Use this for initialization
     void Start () {
 		
@@ -40,7 +41,6 @@ public class basePopulation : MonoBehaviour {
 	// Update is called once per frame
 	public void DoUpdate () {
         CheckForFailure();
-        UpdateBars();
         Corrupt();
 	}
 
@@ -64,12 +64,13 @@ public class basePopulation : MonoBehaviour {
 
         foreach (GameObject garfield in creatureList)
         {
-			garfield.transform.localScale = new Vector3(tempSizeNum, tempSizeNum);
+			if (garfield != null)
+				garfield.transform.localScale = new Vector3(GetSizeNum(sizeMod), GetSizeNum(sizeMod));
         }
         foreach (GameObject garfield in corruptedCreatureList)
         {
 			if (garfield != null)
-			garfield.transform.localScale = new Vector3(tempSizeNum, tempSizeNum);
+				garfield.transform.localScale = new Vector3(GetSizeNum(sizeMod), GetSizeNum(sizeMod));
         }
     }
 
@@ -143,4 +144,26 @@ public class basePopulation : MonoBehaviour {
 			};
         }
 ;    }
+	public float GetSizeNum(int num) {
+//		print ("sizemod is " + sizeMod);
+		switch (num) {
+		case 0:
+			return 1;
+		case -1:
+			return .7f;
+		case -2:
+			return .5f;
+		case -3:
+			return .2f;
+		case 1:
+			return 1.3f;
+		case 2:
+			return 1.6f;
+		case 3:
+			return 2f;
+		
+		default:
+			return 1f;
+		}
+	}
 }
